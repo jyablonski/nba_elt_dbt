@@ -1,0 +1,75 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: A copy of a postgres application database.
+    database: jacob_db
+    tables:
+      - name: aws_stats_table
+        description: Raw player aggregate stats
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_boxscores_table
+        description: Raw box scores from yesterday's games
+        loaded_at_field: _etl_loaded_at
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+        columns:
+          - name: id
+            description: Primary Key for orders
+            tests:
+              - unique
+              - not_null
+      - name: aws_injury_data_table
+        description: Raw player injury data
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_transactions_table
+        description: Raw player & team trades + transactions
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_adv_stats_table
+        description: Raw team advanced stats
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_odds_table
+        description: Raw odds table for upcoming games
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_reddit_data_table
+        description: Raw reddit data 
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: aws_pbp_data_table
+        description: Raw pbp data for recent games
+        columns:
+          - name: id
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
