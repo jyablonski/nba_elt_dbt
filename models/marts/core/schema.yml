@@ -1,0 +1,11 @@
+version: 2
+
+models:
+    - name: prod_aws_adv_stats_table
+      description: Prod Team Advanced Stats Table
+      columns:
+          - name: Team
+            description: Team Acronym
+            tests:
+                - unique
+                - not_null

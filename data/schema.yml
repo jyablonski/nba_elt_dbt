@@ -1,0 +1,41 @@
+version: 2
+
+seeds:
+  - name: seed_team_attributes
+    description: Data Enrichment attributes for NBA Teams
+    columns:
+      - name: Team
+        description: NBA Team Full Name (ex. Golden State Warriors)
+        tests:
+           - unique
+           - not_null
+    columns:
+      - name: team_acronym
+        description: NBA Team Acronym (ex. GSW)
+        tests:
+           - unique
+           - not_null
+    columns:
+      - name: primary_color
+        description: NBA Team Primary Color (ex. Lakers - purple)
+        tests:
+           - unique
+           - not_null
+    columns:
+      - name: secondary_color
+        description: NBA Team Secondary Color (ex. Lakers - Gold)
+        tests:
+           - unique
+           - not_null
+    columns:
+      - name: third_color
+        description: NBA Team Third Color (if necessary)
+        tests:
+           - unique
+           - not_null
+    columns:
+      - name: urlThumbnailTeam
+        description: NBA Team Logo (in SVG Format)
+        tests:
+           - unique
+           - not_null

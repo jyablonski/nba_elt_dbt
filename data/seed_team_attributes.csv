@@ -1,4 +1,4 @@
-FullName,Team,Conference,primary_color,secondary_color,third_color,urlThumbnailTeam
+Team,team_acronym,Conference,primary_color,secondary_color,third_color,urlThumbnailTeam
 Milwaukee Bucks,MIL,Eastern,#002b5c, #e31837,NA,https://stats.nba.com/media/img/teams/logos/WAS_logo.svg
 Toronto Raptors,TOR,Eastern,#002b5c, #f9a01b,NA,https://stats.nba.com/media/img/teams/logos/UTA_logo.svg
 Boston Celtics,BOS,Eastern,#ce1141, #061922,NA,https://stats.nba.com/media/img/teams/logos/TOR_logo.svg
