@@ -3,21 +3,21 @@
 with aws_adv_stats_table as (
 
     SELECT *
-    FROM {{ ref('src_aws_adv_stats_table') }}
+    FROM {{ ref('stg_aws_adv_stats_table') }}
 
 ),
 
 team_attributes as (
 
     SELECT *
-    FROM {{ ref('seed_team_attributes')}}
+    FROM {{ ref('stg_seed_team_attributes')}}
 ),
 
 prod_adv_stats_table as (
 
-    SELECT s.team, a.urlthumbnailteam
-    FROM aws_adv_stats_table s
-    LEFT JOIN team_attributes a using (team)
+    SELECT *
+    FROM aws_adv_stats_table
+    LEFT JOIN team_attributes using (team)
 )
 
 select *

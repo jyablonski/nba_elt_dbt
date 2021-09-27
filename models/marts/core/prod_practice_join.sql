@@ -3,21 +3,27 @@
 with injury_data as (
 
     SELECT *
-    FROM {{ ref('src_aws_injury_data_table') }}
+    FROM {{ ref('stg_aws_injury_data_table') }}
 
 ),
 
 team_attributes as (
 
     SELECT *
-    FROM {{ ref('src_seed_team_attributes')}}
+    FROM {{ ref('stg_seed_team_attributes')}}
 ),
 
 prod_adv_stats_table as (
 
-    SELECT i.Player, i.Team, i.Date, i.Description, a.team_acronym, a.primary_color
-    FROM injury_data i
-    LEFT JOIN team_attributes a ON a.team = i.Team
+    SELECT 
+        injury_data.player,
+        injury_data.team, 
+        injury_data.description, 
+        injury_data.date,
+        team_attributes.team_acronym,
+        team_attributes.primary_color
+    FROM injury_data
+    LEFT JOIN team_attributes using (team)
 )
 
 select *
