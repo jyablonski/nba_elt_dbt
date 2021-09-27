@@ -36,6 +36,14 @@ models:
       # Applies to all files under models/example/
       marts:
         core:
-          materialized: table
-        stagong:
-          materialized: view
+          +materialized: table
+      staging:
+        +materialized: view
+        +schema: nba_staging
+        +tags:
+          - "NBA PRODUCTION - STAGING"
+seeds:
+  nba_prod:
+    +schema: nba_staging
+    +tags:
+      - "NBA PRODUCTION - STAGING"

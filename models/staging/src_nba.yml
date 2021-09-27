@@ -1,10 +1,9 @@
 version: 2
 
 sources:
-  - name: nba_prod
+  - name: nba_source
     database: jacob_db
-    schema: nba_source
-    description: A copy of a postgres application database.
+    description: Landing Zone for NBA Source Data
     tables:
       - name: aws_stats_table
         description: Raw player aggregate stats

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_aws_adv_stats_table
+    description: xxx
+    tags: [NBA PRODUCTION - STAGINGzz]
+    columns:
+      - name: team
+        tests:
+          - unique
+          - not_null

@@ -9,3 +9,5 @@ models:
             tests:
                 - unique
                 - not_null
+    - name: prod_aws_schedule_table
+      description: Prod Season Schedule Table
