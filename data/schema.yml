@@ -41,7 +41,7 @@ seeds:
         tests:
            - not_null
     columns:
-      - name: urlthumbnailteam
+      - name: team_logo
         description: NBA Team Logo (in SVG Format)
         tests:
            - unique

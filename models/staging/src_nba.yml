@@ -8,6 +8,9 @@ sources:
       - name: aws_stats_table
         description: Raw player aggregate stats
         tags: [NBA PRODUCTION - SOURCE]
+      - name: aws_boxscores_table
+        description: Raw player boxscores
+        tags: [NBA PRODUCTION - SOURCE]
       - name: aws_injury_data_table
         description: Raw player injury data
         tags: [NBA PRODUCTION - SOURCE]
