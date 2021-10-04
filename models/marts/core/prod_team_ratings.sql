@@ -1,14 +1,14 @@
 with team_ratings as (
 
     SELECT *
-    FROM {{ ref('stg_aws_adv_stats_table') }}
+    FROM {{ ref('staging_aws_adv_stats_table') }}
 
 ),
 
 team_attributes as (
 
     SELECT *
-    FROM {{ ref('stg_seed_team_attributes')}}
+    FROM {{ ref('staging_seed_team_attributes')}}
 ),
 
 final_team_ratings as (

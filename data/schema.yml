@@ -1,7 +1,7 @@
 version: 2
 
 seeds:
-  - name: stg_seed_team_attributes
+  - name: staging_seed_team_attributes
     description: Data Enrichment attributes for NBA Teams
     columns:
       - name: team
@@ -46,7 +46,7 @@ seeds:
         tests:
            - unique
            - not_null
-  - name: stg_seed_player_attributes
+  - name: staging_seed_player_attributes
     description: Data Enrichment attributes for NBA Players
     columns:
       - name: player

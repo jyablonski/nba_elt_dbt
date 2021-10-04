@@ -9,7 +9,7 @@ team_attributes as (
 
     SELECT team,
            team_acronym
-    FROM {{ ref('stg_seed_team_attributes')}}
+    FROM {{ ref('staging_seed_team_attributes')}}
 ),
 
 injury_counts as (
