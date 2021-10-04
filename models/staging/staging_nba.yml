@@ -3,7 +3,7 @@ version: 2
 models:
   - name: stg_aws_adv_stats_table
     description: Staging table for advanced stats
-    tags: [NBA PRODUCTION - STAGINGzz]
+    tags: [NBA PRODUCTION - STAGING]
     columns:
       - name: team
         tests:
@@ -11,7 +11,7 @@ models:
           - not_null
   - name: stg_aws_boxscores_table
     description: Staging table for box scores
-    tags: [NBA PRODUCTION - STAGINGzz]
+    tags: [NBA PRODUCTION - STAGING]
     columns:
       - name: player
         tests:

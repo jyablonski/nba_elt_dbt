@@ -3,14 +3,14 @@
 with injury_data as (
 
     SELECT *
-    FROM {{ ref('stg_aws_injury_data_table') }}
+    FROM {{ ref('staging_aws_injury_data_table') }}
 
 ),
 
 team_attributes as (
 
     SELECT *
-    FROM {{ ref('stg_seed_team_attributes')}}
+    FROM {{ ref('staging_seed_team_attributes')}}
 ),
 
 prod_adv_stats_table as (

@@ -3,5 +3,6 @@ SELECT team,
         spread,
         total,
         moneyline, 
-        time
+        time, 
+        date
 FROM {{ source('nba_source', 'aws_odds_table')}}

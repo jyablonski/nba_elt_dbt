@@ -4,7 +4,7 @@
 with aws_schedule_table as (
 
     SELECT *
-    FROM {{ ref('stg_aws_schedule_table') }}
+    FROM {{ ref('staging_aws_schedule_table') }}
 
 )
 
