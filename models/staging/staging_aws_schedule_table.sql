@@ -5,4 +5,4 @@ SELECT SUBSTR(start_time, 0, LENGTH(start_time) - 0) as start_time,
     home_team,
     date,
     proper_date
-FROM {{ source('nba_source', 'aws_schedule_table')}}
+FROM {{ source('nba_source', 'aws_schedule_source')}}

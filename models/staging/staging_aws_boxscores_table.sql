@@ -5,14 +5,14 @@ with season_avg_stats as (
      fta::numeric,
      pts::numeric,
      {{ generate_ts_percent('pts', 'fga', 'fta::numeric') }} as ts_percent
-    FROM {{ source('nba_source', 'aws_boxscores_table')}}
+    FROM {{ source('nba_source', 'aws_boxscores_source')}}
     WHERE player IS NOT NULL
 ),
 
 /*      pts / (2 * (fga + (fta::numeric * 0.44))) as hm */
 game_stats as (
     SELECT *
-    FROM {{ source('nba_source', 'aws_boxscores_table')}}
+    FROM {{ source('nba_source', 'aws_boxscores_source')}}
     WHERE player IS NOT NULL
 
 ),

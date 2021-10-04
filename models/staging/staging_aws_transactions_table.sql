@@ -1,2 +1,2 @@
 SELECT *
-FROM {{ source('nba_source', 'aws_transactions_table')}}
+FROM {{ source('nba_source', 'aws_transactions_source')}}

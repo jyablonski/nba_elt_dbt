@@ -5,4 +5,4 @@ SELECT team,
         moneyline, 
         time, 
         date
-FROM {{ source('nba_source', 'aws_odds_table')}}
+FROM {{ source('nba_source', 'aws_odds_source')}}

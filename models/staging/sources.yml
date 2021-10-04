@@ -5,31 +5,31 @@ sources:
     database: jacob_db
     description: Landing Zone for NBA Source Data
     tables:
-      - name: aws_stats_table
+      - name: aws_stats_source
         description: Raw player aggregate stats
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_boxscores_table
+      - name: aws_boxscores_source
         description: Raw player boxscores
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_injury_data_table
+      - name: aws_injury_data_source
         description: Raw player injury data
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_transactions_table
+      - name: aws_transactions_source
         description: Raw player & team trades + transactions
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_adv_stats_table
+      - name: aws_adv_stats_source
         description: Raw team advanced stats
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_reddit_data_table
+      - name: aws_reddit_data_source
         description: Raw reddit data 
         tags: [NBA PRODUCTION - SOURCE]
         loaded_at_field: scrape_time
         freshness:
           warn_after: {count: 48, period: hour}
           error_after: {count: 720, period: hour}
-      - name: aws_schedule_table
+      - name: aws_schedule_source
         description: Raw Schedule table
         tags: [NBA PRODUCTION - SOURCE]
-      - name: aws_odds_table
+      - name: aws_odds_source
         description: Raw Odds table
         tags: [NBA PRODUCTION - SOURCE]
