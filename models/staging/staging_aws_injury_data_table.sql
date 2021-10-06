@@ -2,7 +2,7 @@ with injury_data as (
     SELECT player, team, date,
         {{dbt_utils.split_part('description', " ' - ' ", 1)}} as injury,
         {{dbt_utils.split_part('description', " ' - ' ", 2)}} as description
-    FROM {{ source('nba_source', 'aws_injury_data_table')}}
+    FROM {{ source('nba_source', 'aws_injury_data_source')}}
 ),
 
 team_attributes as (

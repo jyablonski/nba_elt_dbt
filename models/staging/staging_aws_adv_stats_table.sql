@@ -1,2 +1,2 @@
 SELECT *
-FROM {{ source('nba_source', 'aws_adv_stats_table')}}
+FROM {{ source('nba_source', 'aws_adv_stats_source')}}

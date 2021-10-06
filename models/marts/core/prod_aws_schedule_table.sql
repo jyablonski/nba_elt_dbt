@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 /* add in team ranks wins, avg rank of both teams for that game etc */
 with aws_schedule_table as (
 
