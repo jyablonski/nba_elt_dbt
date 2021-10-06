@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 with aws_adv_stats_table as (
 
     SELECT *

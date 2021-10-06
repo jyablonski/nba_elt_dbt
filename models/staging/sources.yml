@@ -33,3 +33,6 @@ sources:
       - name: aws_odds_source
         description: Raw Odds table
         tags: [NBA PRODUCTION - SOURCE]
+      - name: aws_contracts_source
+        description: Raw contracts table
+        tags: [NBA PRODUCTION - SOURCE]
