@@ -47,9 +47,29 @@ game_stats as (
 
 ),
 
+game_ids as (
+    SELECT distinct
+     DENSE_RANK() OVER (
+         ORDER BY 
+              date,(
+                CASE
+                    WHEN team < opponent THEN CONCAT(team,opponent)
+                    ELSE CONCAT(opponent,team)
+                END
+              )
+     ) as game_id,     
+     team,
+     date,
+     opponent
+     FROM {{ source('nba_source', 'aws_boxscores_source')}}
+    
+),
+
 final_aws_boxscores as (
     SELECT g.player,
            g.team,
+           i.game_id,
+           g.date,
            g.location,
            g.opponent,
            g.outcome,
@@ -74,7 +94,6 @@ final_aws_boxscores as (
            g.pts,
            g.plusminus,
            g.gmsc,
-           g.date,
            g.type,
            g.season,
            {{ generate_ts_percent('g.pts', 'g.fga', 'g.fta::numeric') }} as game_ts_percent,
@@ -83,6 +102,7 @@ final_aws_boxscores as (
            s.games_played as games_played
     from game_stats g
     LEFT JOIN season_stats s using (player)
+    LEFT JOIN game_ids i using (team, date, opponent)
 
 )
 
