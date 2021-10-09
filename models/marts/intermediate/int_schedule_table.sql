@@ -18,7 +18,7 @@ home_team_attributes as (
 home_team_odds as (
     SELECT  team_acronym as home_team_acronym,
             (array_agg(moneyline ORDER BY date DESC))[1] as home_moneyline,
-            max(date) as date
+            max(date) as proper_date
     FROM {{ ref('staging_aws_odds_table')}}
     GROUP BY home_team_acronym
 ),
@@ -26,7 +26,7 @@ home_team_odds as (
 away_team_odds as (
     SELECT  team_acronym as away_team_acronym,
             (array_agg(moneyline ORDER BY date DESC))[1] as away_moneyline,
-            max(date) as date
+            max(date) as proper_date
     FROM {{ ref('staging_aws_odds_table')}}
     GROUP BY away_team_acronym
 ),
@@ -54,5 +54,6 @@ SELECT  s.start_time,
 FROM schedule_data s
 LEFT JOIN home_team_attributes h using (home_team)
 LEFT JOIN away_team_attributes a using (away_team)
-LEFT JOIN home_team_odds ho using (home_team_acronym)
-LEFT JOIN away_team_odds ao using (away_team_acronym)
+LEFT JOIN home_team_odds ho on h.home_team_acronym = ho.home_team_acronym and s.proper_date = ho.proper_date
+LEFT JOIN away_team_odds ao on a.away_team_acronym = ao.away_team_acronym and s.proper_date = ao.proper_date
+order by proper_date asc

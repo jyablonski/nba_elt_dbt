@@ -3,6 +3,6 @@ SELECT  team::text as team,
         spread::numeric as spread,
         total::numeric as total,
         moneyline::numeric as moneyline, 
-        time::timestamp as time, 
+        datetime1::timestamp as time, 
         date::date as date
 FROM {{ source('nba_source', 'aws_odds_source')}}
