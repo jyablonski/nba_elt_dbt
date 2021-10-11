@@ -37,6 +37,8 @@ models:
       marts:
         core:
           +materialized: table
+        intermediate:
+          +materialized: view
       staging:
         +materialized: view
         +schema: nba_staging
