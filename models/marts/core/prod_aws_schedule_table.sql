@@ -9,7 +9,7 @@ with aws_schedule_table as (
     CASE WHEN away_moneyline IS NULL THEN away_team
         ELSE CONCAT(away_team, ' (', away_moneyline, ')') END as away_team,
             avg_team_rank
-    FROM {{ ref('int_schedule_table') }}
+    FROM {{ ref('prep_schedule_table') }}
 
 )
 

@@ -17,7 +17,7 @@ home_team_attributes as (
 
 home_team_odds as (
     SELECT  team_acronym as home_team_acronym,
-            (array_agg(moneyline ORDER BY date DESC))[1] as home_moneyline,
+            (array_agg(moneyline ORDER BY date DESC))[1] as home_moneyline, /* grabs the most recent moneyline odds */
             max(date) as proper_date
     FROM {{ ref('staging_aws_odds_table')}}
     GROUP BY home_team_acronym
@@ -25,7 +25,7 @@ home_team_odds as (
 
 away_team_odds as (
     SELECT  team_acronym as away_team_acronym,
-            (array_agg(moneyline ORDER BY date DESC))[1] as away_moneyline,
+            (array_agg(moneyline ORDER BY date DESC))[1] as away_moneyline, /* grabs the most recent moneyline odds */
             max(date) as proper_date
     FROM {{ ref('staging_aws_odds_table')}}
     GROUP BY away_team_acronym
