@@ -82,3 +82,6 @@ sources:
       - name: aws_contracts_source
         description: Raw contracts table
         tags: [NBA PRODUCTION - SOURCE]
+      - name: aws_pbp_data_source
+        description: Raw pbp table
+        tags: [NBA PRODUCTION - SOURCE]
