@@ -35,23 +35,22 @@ models:
   nba_elt_project:
       # Applies to all files under models/example/
       marts:
-        core:
-          +materialized: table
-          +schema: nba_prod
-          +tags:
-            - "NBA PRODUCTION - MARTS"
+        +materialized: table
+        +schema: nba_prod
+        +tags:
+          - "NBA_PRODUCTION_MARTS"
       prep:
         +materialized: view
         +schema: nba_prod
         +tags:
-          - "NBA PRODUCTION - PREP"
+          - "NBA_PRODUCTION_PREP"
       staging:
         +materialized: view
         +schema: nba_staging
         +tags:
-          - "NBA PRODUCTION - STAGING"
+          - "NBA_PRODUCTION_STAGING"
 seeds:
   nba_elt_project:
     +schema: nba_staging
     +tags:
-      - "NBA PRODUCTION - STAGING"
+      - "NBA_PRODUCTION_STAGING"

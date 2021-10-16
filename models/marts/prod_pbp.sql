@@ -39,7 +39,8 @@ final as (
             a.away_team_full,
             a.away_primary_color,
             CONCAT(home_team_full, ' Vs. ', away_team_full) as game_description,
-            CONCAT('<span style=''color:', away_primary_color,''';>', away_team_full, '</span>') as away_fill
+            CONCAT('<span style=''color:', away_primary_color,''';>', away_team_full, '</span>') as away_fill,
+            CONCAT('<span style=''color:', home_primary_color,''';>', home_team_full, '</span>') as home_fill
     FROM pbp_table p
     LEFT JOIN home_vars h on h.home_team = p.home_team
     LEFT JOIN away_vars a on a.away_team = p.away_team
