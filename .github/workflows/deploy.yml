@@ -1,10 +1,10 @@
-name: DBT CI CD
-on: 
+name: Bumpversion CI CD
+on:
   push:
-    branches: [ master ]
+    branches:
+      - master
 jobs:
-    bumpversion:
-    name: Bumpversion
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
