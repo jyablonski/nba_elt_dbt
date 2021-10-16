@@ -37,6 +37,9 @@ sources:
       - name: aws_adv_stats_source
         description: Raw team advanced stats
         tags: [NBA PRODUCTION - SOURCE]
+        tests:
+          - dbt_expectations.expect_table_row_count_to_equal:
+              value: 30
         columns:
           - name: team
             tests:
