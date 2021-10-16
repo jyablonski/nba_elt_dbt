@@ -1,3 +1,4 @@
+/* need to add in game variable from somewhere */
 WITH pbp_data as (
 SELECT  time_quarter,
         {{dbt_utils.split_part('time_quarter', " ':' ", 1)}}::numeric as minutes,
