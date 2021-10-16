@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_aws_adv_stats_table
+    - name: prod_adv_stats
       description: Prod Team Advanced Stats Table
       columns:
           - name: Team
@@ -9,5 +9,5 @@ models:
             tests:
                 - unique
                 - not_null
-    - name: prod_aws_schedule_table
+    - name: prod_schedule
       description: Prod Season Schedule Table
