@@ -4,6 +4,7 @@ with aws_schedule_table as (
     SELECT  proper_date as date,
             day_name as day,
             CONCAT(start_time, ' PM') as start_time,
+            proper_time,
     CASE WHEN home_moneyline IS NULL THEN home_team
         ELSE CONCAT(home_team, ' (', home_moneyline, ')') END as home_team,
     CASE WHEN away_moneyline IS NULL THEN away_team
