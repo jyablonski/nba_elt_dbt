@@ -1,17 +1,8 @@
 Version: 0.0.4-dev0
 
-Welcome to your new dbt project!
+### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
-### Using the starter project
-
-Try running the following commands:
-- dbt run
-- dbt test
-
-
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+1. Links to other Repos providing infrastructure for this Project
+    * [NBA Dashboard](https://github.com/jyablonski/NBA-Dashboard)
+    * [Python Dockerfile](https://github.com/jyablonski/python_docker)
+    * [Terraform](https://github.com/jyablonski/aws_terraform)
