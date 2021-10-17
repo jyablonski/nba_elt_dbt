@@ -1,19 +1,19 @@
 with team_ratings as (
 
-    SELECT *
-    FROM {{ ref('staging_aws_adv_stats_table') }}
+    select *
+    from {{ ref('staging_aws_adv_stats_table') }}
 
 ),
 
 team_attributes as (
 
-    SELECT *
-    FROM {{ ref('staging_seed_team_attributes')}}
+    select *
+    from {{ ref('staging_seed_team_attributes')}}
 ),
 
 final_team_ratings as (
 
-    SELECT 
+    select
         team_ratings.team,
         team_attributes.team_acronym,
         team_ratings.w,
@@ -22,8 +22,8 @@ final_team_ratings as (
         team_ratings.drtg,
         team_ratings.nrtg,
         CONCAT('logos/', LOWER(team_acronym), '.png')
-    FROM team_ratings
-    LEFT JOIN team_attributes using (team)
+    from team_ratings
+    left join team_attributes using (team)
 )
 
 select *
