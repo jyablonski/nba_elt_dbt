@@ -5,6 +5,13 @@ with injury_data as (
     FROM {{ source('nba_source', 'aws_injury_data_source')}}
 ),
 
+injury_data2 as (
+    SELECT *,
+            {{dbt_utils.split_part('injury', " ' ' ", 1)}} as status,
+            {{dbt_utils.split_part('injury', " ' ' ", 2)}} as injury2
+    FROM injury_data
+),
+
 team_attributes as (
 
     SELECT team,
@@ -20,14 +27,15 @@ injury_counts as (
 ),
 
 final_stg_injury as (
-    SELECT injury_data.player,
+    SELECT injury_data2.player,
            team_attributes.team_acronym,
-           injury_data.team,
-           injury_data.date,
-           injury_data.injury,
-           injury_data.description,
+           injury_data2.team,
+           injury_data2.date,
+           injury_data2.status,
+           replace(replace(injury_data2.injury2, '(', ''), ')', '') as injury,
+           injury_data2.description,
            injury_counts.team_active_injuries
-    FROM injury_data
+    FROM injury_data2
     LEFT JOIN team_attributes using (team)
     LEFT JOIN injury_counts using (team)
 

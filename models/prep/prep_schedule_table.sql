@@ -4,7 +4,10 @@ need to filter odds data to the correct date given */
 
 
 with schedule_data as (
-    SELECT *
+    SELECT *,
+            CASE WHEN start_time = '' THEN '8:00' /* this was for empty values - im setting a default here bc fk it */
+            ELSE start_time
+            END AS start_time2
     FROM {{ ref('staging_aws_schedule_table')}}
 ),
 
@@ -36,9 +39,10 @@ away_team_attributes as (
             team_acronym as away_team_acronym,
             previous_season_rank as away_team_prev_rank
     FROM {{ ref('staging_seed_team_attributes')}}
-)
+),
 
-SELECT  s.start_time,
+final_table as (
+    SELECT  s.start_time2 as start_time,
         s.day_name,
         s.away_team,
         s.home_team,
@@ -57,3 +61,9 @@ LEFT JOIN away_team_attributes a using (away_team)
 LEFT JOIN home_team_odds ho on h.home_team_acronym = ho.home_team_acronym and s.proper_date = ho.proper_date
 LEFT JOIN away_team_odds ao on a.away_team_acronym = ao.away_team_acronym and s.proper_date = ao.proper_date
 order by proper_date asc
+)
+
+SELECT *,
+        CONCAT(proper_date::text, ' ', start_time::text, ':00')::timestamp as proper_time
+FROM final_table
+ORDER BY proper_time

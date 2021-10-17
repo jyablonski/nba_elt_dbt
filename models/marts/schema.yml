@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_adv_stats
+    - name: prod_team_adv_stats
       description: Prod Team Advanced Stats Table
       columns:
           - name: Team
