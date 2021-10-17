@@ -1,4 +1,4 @@
-Version: 0.0.3-dev0
+Version: 0.0.4-dev0
 
 Welcome to your new dbt project!
 
