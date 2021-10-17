@@ -14,22 +14,22 @@ TO DO
 
 with total_player_stats as (
     select
-         player,
-         type,
-         sum(fgm) as tot_fgm,
-         sum(fga) as tot_fga,
-         sum(threepfgmade) as tot_threepfgmade,
-         sum(threepattempted) as tot_threepattempted,
-         sum(ft::numeric) as tot_ft,
-         sum(fta::numeric) as tot_fta,
-         sum(trb) as tot_trb,
-         sum(ast) as tot_ast,
-         sum(stl) as tot_stl,
-         sum(blk) as tot_blk,
-         sum(tov) as tot_tov,
-         sum(pts) as tot_pts,
-         sum(plusminus) as tot_plusminus,
-         count(distinct(game_id))::integer as tot_games_played
+        player,
+        type,
+        sum(fgm) as tot_fgm,
+        sum(fga) as tot_fga,
+        sum(threepfgmade) as tot_threepfgmade,
+        sum(threepattempted) as tot_threepattempted,
+        sum(ft::numeric) as tot_ft,
+        sum(fta::numeric) as tot_fta,
+        sum(trb) as tot_trb,
+        sum(ast) as tot_ast,
+        sum(stl) as tot_stl,
+        sum(blk) as tot_blk,
+        sum(tov) as tot_tov,
+        sum(pts) as tot_pts,
+        sum(plusminus) as tot_plusminus,
+        count(distinct(game_id))::integer as tot_games_played
 
     from {{ ref('staging_aws_boxscores_table')}}
     group by player, type
@@ -40,15 +40,15 @@ if you get traded while injured then fkn rip */
 
 player_most_recent_date as (
     select
-         player,
-         max(date) as most_recent_gp
+        player,
+        max(date) as most_recent_gp
     from {{ ref('staging_aws_boxscores_table')}}
     group by player
 ),
 
 player_teams as (
     select
-         staging_aws_boxscores_table.player,
+        staging_aws_boxscores_table.player,
         staging_aws_boxscores_table.team,
         player_most_recent_date.most_recent_gp
     from {{ ref('staging_aws_boxscores_table')}}
@@ -58,28 +58,28 @@ player_teams as (
 
 team_games as (
     select
-         team,
-         count(distinct(game_id))::integer as tot_team_games_played
+        team,
+        count(distinct(game_id))::integer as tot_team_games_played
     from {{ ref('staging_aws_boxscores_table')}}
     group by team
 ),
 
 mvp_calc as (
     select
-         player,
-         type,
-         round(
-             avg(
-        pts::numeric
-             ) + (
-        0.5 * avg(plusminus::numeric)
-        ) + (
-            2 * avg(stl::numeric + blk::numeric)
-        ) + (
-            0.5 * avg(trb::numeric)
-        ) + (1.5 * avg(ast::numeric)) - (1.5 * avg(tov::numeric)),
-         1
-    ) as player_mvp_calc
+        player,
+        type,
+        round(
+            avg(
+                     pts::numeric
+            ) + (
+                     0.5 * avg(plusminus::numeric)
+            ) + (
+                2 * avg(stl::numeric + blk::numeric)
+            ) + (
+                0.5 * avg(trb::numeric)
+            ) + (1.5 * avg(ast::numeric)) - (1.5 * avg(tov::numeric)),
+            1
+        ) as player_mvp_calc
     from {{ ref('staging_aws_boxscores_table')}}
     group by player, type
 
@@ -87,21 +87,21 @@ mvp_calc as (
 
 contract_df as (
     select
-         player,
-         salary
+        player,
+        salary
     from {{ ref('staging_aws_contracts_table')}}
 ),
 
 combined_table as (
     select
-         total_player_stats.player,
-         player_teams.team,
-         total_player_stats.type,
-         total_player_stats.tot_games_played,
-         team_games.tot_team_games_played,
-         mvp_calc.player_mvp_calc,
-         contract_df.salary::numeric,
-         tot_team_games_played - tot_games_played as games_missed
+        total_player_stats.player,
+        player_teams.team,
+        total_player_stats.type,
+        total_player_stats.tot_games_played,
+        team_games.tot_team_games_played,
+        mvp_calc.player_mvp_calc,
+        contract_df.salary::numeric,
+        tot_team_games_played - tot_games_played as games_missed
 
     from total_player_stats
     left join

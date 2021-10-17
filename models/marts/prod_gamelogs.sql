@@ -1,6 +1,6 @@
 with player_salary as (
     select
-         player,
+        player,
         salary
     from {{ ref('staging_aws_contracts_table')}}
 ),
