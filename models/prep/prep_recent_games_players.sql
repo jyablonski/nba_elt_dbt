@@ -36,7 +36,7 @@ final_table as (
             else 0
         end as ts_color,
         concat(
-            '<span style=' 'font-size:16px; color:royalblue;''>', player, '</span> <span style=''font-size:12px; color:grey;''>', team, '</span>'
+            '<span style=''font-size:16px; color:royalblue;''>', player, '</span> <span style=''font-size:12px; color:grey;''>', team, '</span>'
         ) as player_new
     from {{ ref('staging_aws_boxscores_table')}}
     inner join boxscores_yesterday using (date)
