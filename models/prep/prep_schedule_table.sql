@@ -67,3 +67,11 @@ SELECT *,
         CONCAT(proper_date::text, ' ', start_time::text, ':00')::timestamp as proper_time
 FROM final_table
 ORDER BY proper_time
+
+/* WIP 
+,
+        CASE WHEN ho.home_moneyline > 0 THEN CONCAT('+', ho.home_moneyline::text)
+                ELSE ho.home_moneyline END as home_moneyline2,
+        CASE WHEN ao.away_moneyline > 0 THEN CONCAT('+', ao.away_moneyline::text)
+                ELSE ao.away_moneyline END as away_moneyline2
+                */ 
