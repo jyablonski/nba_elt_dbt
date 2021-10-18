@@ -29,22 +29,16 @@ final_table as (
     from teams_scores
 ),
 
-recent_date as (
-    select
-        max(date) as most_recent_date
-    from {{ ref('staging_aws_boxscores_table')}}
-),
-
 team_pts_scored as (
     select 
         b.team,
         b.date,
+        b.game_id,
         b.opponent,
         b.outcome,
         sum(b.pts) as pts_scored
     from {{ ref('staging_aws_boxscores_table')}} b
-    inner join recent_date r on r.most_recent_date = b.date
-    group by 1, 2, 3, 4
+    group by 1, 2, 3, 4, 5
 ),
 
 opponent_scores as (
@@ -56,20 +50,12 @@ opponent_scores as (
 
 ),
 
-recent_games as (
-    select
-        *
-    from {{ ref('staging_aws_boxscores_table')}} b
-    INNER JOIN recent_date r on r.most_recent_date = b.date
-    LEFT JOIN team_logo l on l.team_acronym = b.team
-    LEFT JOIN teams_max_score m on b.team = m.team
-),
-
 select_final_games as (
     select
         b.team,
         l.team as full_team,
         b.date,
+        b.game_id,
         b.outcome,
         b.opponent,
         b.pts_scored,
@@ -84,7 +70,7 @@ select_final_games as (
     from team_pts_scored b
     left join teams_max_score m on b.team = m.team
     LEFT JOIN team_logo l on l.team_acronym = b.team
-    left join opponent_scores o on b.opponent = o.opponent
+    left join opponent_scores o on b.opponent = o.opponent and b.date = o.date
 )
 
 
