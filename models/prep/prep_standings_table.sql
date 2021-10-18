@@ -39,7 +39,7 @@ team_attributes as (
     from {{ ref('staging_seed_team_attributes')}}
 ),
 
-final as (
+pre_final as (
     select 
         distinct(t.team),
         a.team_full,
@@ -47,12 +47,21 @@ final as (
         c.games_played,
         c.wins,
         c.losses,
-        COALESCE(i.team_active_injuries, 0) as active_injuries
+        COALESCE(i.team_active_injuries, 0) as active_injuries,
+        round((c.wins / (c.wins + c.losses)), 3)::numeric as win_percentage
     from team_wins t
     left join team_counts c using (team)
     left join active_injuries i using (team)
     left join team_attributes a using (team)
 
+),
+
+final as (
+    select
+        *,
+        case when win_percentage >= 0.5 then 'Above .500'
+        else 'Below .500' end as team_status
+    from pre_final
 )
 
 

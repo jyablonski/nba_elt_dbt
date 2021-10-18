@@ -21,7 +21,7 @@ final_team_ratings as (
         team_ratings.ortg,
         team_ratings.drtg,
         team_ratings.nrtg,
-        CONCAT('logos/', LOWER(team_acronym), '.png')
+        CONCAT('logos/', LOWER(team_acronym), '.png') as team_logo
     from team_ratings
     left join team_attributes using (team)
 )

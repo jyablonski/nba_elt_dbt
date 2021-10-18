@@ -11,3 +11,41 @@ models:
                 - not_null
     - name: prod_schedule
       description: Prod Season Schedule Table
+    - name: prod_pbp
+      description: Prod Play by Play Table
+    - name: prod_recent_games_players
+      description: Prod Recent Games for Players Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 12
+            max_value: 20
+    - name: prod_recent_games_teams
+      description: Prod Recent Games for Teams Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 2
+            max_value: 30
+    - name: prod_standings
+      description: Prod Standings Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 24
+    - name: prod_team_injuries
+      description: Prod Team Injuries Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 0
+            max_value: 200
+    - name: prod_team_ratings
+      description: Prod Team Ratings Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+    - name: prod_mov
+      description: Prod Team Margin of Victory Table
+    - name: prod_transactions
+      description: Prod League Transactions Table
+      columns:
+      - name: transaction
+        tests:
+          - not_null

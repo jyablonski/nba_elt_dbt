@@ -13,7 +13,20 @@ with recent_games as (
         team_logo
     from {{ ref('prep_recent_games_teams')}}
 
+),
+
+recent_date as (
+    select
+        max(date) as date
+    from {{ ref('staging_aws_boxscores_table')}}
+),
+
+team_pts_scored as (
+    select 
+        *
+    from recent_games
+    inner join recent_date using (date)
 )
 
 select *
-from recent_games
+from team_pts_scored
