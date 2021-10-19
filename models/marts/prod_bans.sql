@@ -7,6 +7,7 @@ with bans_data as (
         games_played::integer as games_played,
         avg_pts::numeric as avg_pts,
         last_yr_ppg::numeric as last_yr_ppg,
+        scrape_time::timestamp as scrape_time,
         win_pct::numeric as win_pct
     from {{ ref('prep_bans')}}
 )
