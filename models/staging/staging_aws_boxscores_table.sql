@@ -1,109 +1,127 @@
 with season_stats as (
-    SELECT 
-            player::text as player,
-            sum(fga::numeric) as fga_total,
-            sum(fta::numeric) as fta_total,
-            sum(pts::numeric) as pts_total,
-            COUNT(*) as games_played,
-    type::text as type
-    FROM {{ source('nba_source', 'aws_boxscores_source')}}
-    WHERE player IS NOT NULL
+    select
+         player::text as player,
+         type::text as type,
+         sum(fga::numeric) as fga_total,
+         sum(fta::numeric) as fta_total,
+         sum(pts::numeric) as pts_total,
+        count(*) as games_played
+    from {{ source('nba_source', 'aws_boxscores_source')}}
+    where player is not null
     group by player, type
 ),
 
 /*      pts / (2 * (fga + (fta::numeric * 0.44))) as hm */
 game_stats as (
-    SELECT player,
-           team,
-           location,
-           opponent,
-           outcome,
-           mp,
-           fgm,
-           fga::numeric,
-           fgpercent,
-           threepfgmade,
-           threepattempted,
-           threepointpercent,
-           ft,
-           fta,
-           ftpercent,
-           oreb,
-           dreb,
-           trb,
-           ast,
-           stl,
-           blk,
-           tov,
-           pf,
-           pts::numeric,
-           plusminus,
-           gmsc,
-           date,
-           type,
-           season
-    FROM {{ source('nba_source', 'aws_boxscores_source')}}
-    WHERE player IS NOT NULL
+    select
+         player,
+        team,
+        location,
+        opponent,
+        outcome,
+        mp,
+        fgm,
+        fga::numeric,
+        fgpercent,
+        threepfgmade,
+        threepattempted,
+        threepointpercent,
+        ft,
+        fta,
+        ftpercent,
+        oreb,
+        dreb,
+        trb,
+        ast,
+        stl,
+        blk,
+        tov,
+        pf,
+        pts::numeric,
+        plusminus,
+        gmsc,
+        date,
+        type,
+        season
+    from {{ source('nba_source', 'aws_boxscores_source')}}
+    where player is not null
 
 ),
 
 game_ids as (
-    SELECT distinct
-     DENSE_RANK() OVER (
-         ORDER BY 
-              date,(
-                CASE
-                    WHEN team < opponent THEN CONCAT(team,opponent)
-                    ELSE CONCAT(opponent,team)
-                END
-              )
-     ) as game_id,     
-     team,
-     date,
-     opponent
-     FROM {{ source('nba_source', 'aws_boxscores_source')}}
-    
+    select distinct
+        team,
+        date,
+        opponent,
+        dense_rank() over (
+            order by
+                date, (
+                    case
+                         when team < opponent then concat(team, opponent)
+                         else concat(opponent, team)
+                     end
+                )
+        ) as game_id
+    from {{ source('nba_source', 'aws_boxscores_source')}}
+
 ),
 
 final_aws_boxscores as (
-    SELECT g.player,
-           g.team,
-           i.game_id,
-           g.date,
-           g.location,
-           g.opponent,
-           g.outcome,
-           g.mp,
-           g.fgm,
-           g.fga,
-           g.fgpercent,
-           g.threepfgmade,
-           g.threepattempted,
-           g.threepointpercent,
-           g.ft,
-           g.fta,
-           g.ftpercent,
-           g.oreb,
-           g.dreb,
-           g.trb,
-           g.ast,
-           g.stl,
-           g.blk,
-           g.tov,
-           g.pf,
-           g.pts,
-           g.plusminus,
-           g.gmsc,
-           g.type,
-           g.season,
+    select
+         game_stats.player,
+        game_stats.team,
+        game_ids.game_id,
+        game_stats.date,
+        game_stats.location,
+        game_stats.opponent,
+        game_stats.outcome,
+        game_stats.mp,
+        game_stats.fgm,
+        game_stats.fga,
+        game_stats.fgpercent,
+        game_stats.threepfgmade,
+        game_stats.threepattempted,
+        game_stats.threepointpercent,
+        game_stats.ft,
+        game_stats.fta,
+        game_stats.ftpercent,
+        game_stats.oreb,
+        game_stats.dreb,
+        game_stats.trb,
+        game_stats.ast,
+        game_stats.stl,
+        game_stats.blk,
+        game_stats.tov,
+        game_stats.pf,
+        game_stats.pts,
+        game_stats.plusminus,
+        game_stats.gmsc,
+        game_stats.type,
+        game_stats.season,
            {{ generate_ts_percent('g.pts', 'g.fga', 'g.fta::numeric') }} as game_ts_percent,
            {{ generate_ts_percent('s.pts_total', 's.fga_total', 's.fta_total::numeric') }} as season_ts_percent,
-           round(s.pts_total / s.games_played, 1)::numeric as season_avg_ppg,
-           s.games_played as games_played
-    from game_stats g
-    LEFT JOIN season_stats s using (player)
-    LEFT JOIN game_ids i using (team, date, opponent)
+        case
+            when
+                season_stats.pts_total = 0 and season_stats.fga_total = 0 and season_stats.fta_total::numeric = 0 then null
+            else
+                round(
+                    season_stats.pts_total / (
+                        2 * (
+                            season_stats.fga_total + (
+                                season_stats.fta_total::numeric * 0.44
+                            )
+                        )
+                    ),
+                    3
+                )
+ end as season_ts_percent,
+        round(
+            season_stats.pts_total / season_stats.games_played, 1
+        )::numeric as season_avg_ppg
+    from game_stats
+    left join season_stats using (player)
+    left join game_ids using (team, date, opponent)
 
 )
 
-SELECT * FROM final_aws_boxscores
+select * from final_aws_boxscores

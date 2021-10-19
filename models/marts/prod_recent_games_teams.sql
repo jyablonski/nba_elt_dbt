@@ -1,5 +1,5 @@
 with recent_games as (
-    select 
+    select
         team,
         opponent,
         date,
@@ -16,13 +16,12 @@ with recent_games as (
 ),
 
 recent_date as (
-    select
-        max(date) as date
-    from {{ ref('staging_aws_boxscores_table')}}
+    select max(date) as date
+ from {{ ref('staging_aws_boxscores_table')}}
 ),
 
 team_pts_scored as (
-    select 
+    select
         *
     from recent_games
     inner join recent_date using (date)
