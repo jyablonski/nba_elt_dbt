@@ -68,6 +68,13 @@ league_average_ppg as (
     from league_average_ppg_teams
 ),
 
+latest_update as (
+    select 
+        max(scrape_time) as scrape_time,
+        'join' as join_col
+    from {{ ref('staging_aws_reddit_data_table')}}
+),
+
 final as (
     select 
         g.upcoming_games,
@@ -78,11 +85,13 @@ final as (
         tg.games_played,
         p.avg_pts,
         b.tot_wins / tg.games_played as win_pct,
+        u.scrape_time as scrape_time,
         '112.1'::numeric as last_yr_ppg
     from upcoming_games_count g
     left join league_bans_2 b using (join_col)
     left join league_average_ppg p using (join_col)
     left join tot_games_played tg using (join_col)
+    left join latest_update u using (join_col)
     left join upcoming_games_count using (join_col)
 
 )
