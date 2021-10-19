@@ -1,5 +1,5 @@
 with bans_data as (
-    select 
+    select
         upcoming_games::integer as upcoming_games,
         upcoming_game_date::date as upcoming_game_date,
         location::text as location,

@@ -70,9 +70,9 @@ mvp_calc as (
         type,
         round(
             avg(
-                     pts::numeric
+                pts::numeric
             ) + (
-                     0.5 * avg(plusminus::numeric)
+                0.5 * avg(plusminus::numeric)
             ) + (
                 2 * avg(stl::numeric + blk::numeric)
             ) + (
