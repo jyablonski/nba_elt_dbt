@@ -1,8 +1,17 @@
-SELECT  team::text as team,
+SELECT
+    team::text AS team,
         {{convert_team_names('team')}} as team_acronym,
-        spread::numeric as spread,
-        total::numeric as total,
-        moneyline::numeric as moneyline, 
-        datetime1::timestamp as time, 
-        date::date as date
+    total::numeric AS total,
+    moneyline::numeric AS moneyline,
+    datetime1::TIMESTAMP AS time,
+    date::date AS date,
+    CASE WHEN team = 'GS' THEN 'GSW'
+        WHEN team = 'LA' THEN 'LAL'
+        WHEN team = 'PHO' THEN 'PHX'
+        WHEN team = 'CHO' THEN 'CHA'
+        WHEN team = 'BRK' THEN 'BKN'
+        WHEN team = 'NY' THEN 'NYK'
+        ELSE team
+ END
+    AS team_acronym
 FROM {{ source('nba_source', 'aws_odds_source')}}
