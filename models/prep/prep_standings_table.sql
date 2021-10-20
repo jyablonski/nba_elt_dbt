@@ -56,14 +56,42 @@ pre_final as (
 
 ),
 
+recent_10_wins as (
+    select team, sum(outcome_int) as wins_last_10
+    from team_wins
+    group by team
+    limit 10
+),
+
+recent_10_losses as (
+    select team, date, outcome,
+    case when outcome = 'L' then 1 else 0 end as loss_count
+    from team_wins
+    where outcome = 'L'
+    order by date desc
+),
+
+recent_10_losses_group as (
+    select team, sum(loss_count) as losses_last_10
+    from recent_10_losses
+    group by team
+    limit 10
+),
+
 final as (
     select
         *,
         case when win_percentage >= 0.5 then 'Above .500'
         else 'Below .500' end as team_status
     from pre_final
+    left join recent_10_wins using (team)
+    left join recent_10_losses_group using (team)
 )
-
 
 select *
 from final
+
+/*
+select *
+from final
+*/

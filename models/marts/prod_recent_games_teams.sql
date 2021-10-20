@@ -10,7 +10,8 @@ with recent_games as (
         team_max_score,
         team_avg_score,
         pts_color,
-        team_logo
+        team_logo,
+        opp_logo
     from {{ ref('prep_recent_games_teams')}}
 
 ),

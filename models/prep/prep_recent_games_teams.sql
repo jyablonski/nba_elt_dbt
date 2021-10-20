@@ -23,6 +23,13 @@ team_logo as (
     from {{ ref('staging_seed_team_attributes')}}
 ),
 
+opponent_logo as (
+    select
+        team_acronym as opponent,
+        team_logo as opp_logo
+    from {{ ref('staging_seed_team_attributes')}}
+),
+
 final_table as (
     select
         *
@@ -63,6 +70,7 @@ select_final_games as (
         m.team_avg_score,
         m.team_max_score,
         l.team_logo,
+        opponent_logo.opp_logo as opp_logo,
         CASE WHEN pts_scored = team_max_score THEN 1
              WHEN pts_scored != team_max_score AND (pts_scored - team_avg_score) > 10 THEN 2
              ELSE 0 END AS pts_color,
@@ -71,6 +79,7 @@ select_final_games as (
     left join teams_max_score m on b.team = m.team
     LEFT JOIN team_logo l on l.team_acronym = b.team
     left join opponent_scores o on b.opponent = o.opponent and b.date = o.date
+    left join opponent_logo on b.opponent = opponent_logo.opponent
 )
 
 
