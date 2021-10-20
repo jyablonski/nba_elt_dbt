@@ -80,6 +80,13 @@ pbp_data7 as (
     FROM pbp_data6
 ),
 
+game_ids as (
+    select 
+        distinct team as home_team,
+        game_id
+    from {{ ref('staging_aws_boxscores_table')}}
+),
+
 pbp_data8 as (
     SELECT *,
             COALESCE((before_time - time_remaining_final), 0)::numeric as time_difference,
@@ -89,6 +96,7 @@ pbp_data8 as (
                 ELSE home_score
                 END AS play
     FROM pbp_data7
+    left join game_ids using (home_team)
 )
 
 SELECT *

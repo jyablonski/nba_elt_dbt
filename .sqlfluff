@@ -1,2 +1,4 @@
 [sqlfluff]
 templater = dbt
+dialect = postgres
+exclude_rules = L015, L031, L032, L043

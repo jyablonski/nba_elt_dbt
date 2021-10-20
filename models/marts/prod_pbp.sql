@@ -21,6 +21,11 @@ away_vars as (
 
 ),
 
+recent_date as (
+    select max(date) as date
+    from {{ ref('prep_pbp_table')}}
+),
+
 final as (
     select
         pbp_table.time_quarter,
@@ -47,6 +52,7 @@ final as (
     from pbp_table
     left join home_vars on home_vars.home_team = pbp_table.home_team
     left join away_vars on away_vars.away_team = pbp_table.away_team
+    inner join recent_date using (date)
 )
 
 
