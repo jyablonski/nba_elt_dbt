@@ -1,7 +1,7 @@
 with schedule_data as (
     select
         away_team::text as away_team,
-        /* extract(isodow from proper_date) as day_of_week, this gives the day of week in numeric form lmfao */
+        /* extract(isodow from proper_date) as day_of_week, this gives the day of week in numeric form lmfaoo */
         home_team::text as home_team,
         date::text as date,
         proper_date::date as proper_date,
