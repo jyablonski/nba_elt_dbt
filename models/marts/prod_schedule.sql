@@ -12,8 +12,9 @@ with aws_schedule_table as (
         case when away_moneyline is null then away_team
                   else CONCAT(away_team, ' (', away_moneyline, ')') end as away_team
     from {{ ref('prep_schedule_table') }}
-
+    where proper_date >= ((current_date)::date)
 )
+
 
 select *
 from aws_schedule_table
