@@ -29,7 +29,7 @@ models:
       description: Prod Standings Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
-            value: 24
+            value: 30
     - name: prod_team_injuries
       description: Prod Team Injuries Table
       tests:
