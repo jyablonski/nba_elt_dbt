@@ -164,9 +164,15 @@ final as (
            b.games_played,
            m.player_mvp_calc_avg,
     round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
-     (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
+     (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game,
+     row_number() over (order by m.player_mvp_calc_avg desc) as mvp_rank,
+     row_number() over (order by b.season_avg_ppg desc) as ppg_rank
     from final_aws_boxscores b
     left join mvp_calc m on m.player = b.player and m.type = b.type
 )
 
-SELECT * FROM final
+SELECT 
+    *,
+    case when mvp_rank <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates,
+    case when ppg_rank <= 20 then 'Top 20 Scorers' else 'Other' end as top20_scorers
+FROM final

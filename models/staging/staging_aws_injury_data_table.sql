@@ -7,8 +7,8 @@ with injury_data as (
 
 injury_data2 as (
     SELECT *,
-            {{dbt_utils.split_part('injury', " ' ' ", 1)}} as status,
-            {{dbt_utils.split_part('injury', " ' ' ", 2)}} as injury2
+            {{dbt_utils.split_part('injury', " ' ('", 1)}} as status,
+            {{dbt_utils.split_part('injury', " ' ('", 2)}} as injury2
     FROM injury_data
 ),
 

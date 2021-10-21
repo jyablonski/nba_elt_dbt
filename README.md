@@ -1,4 +1,4 @@
-Version: 1.0.2-dev0
+Version: 1.0.3-dev0
 
 ### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
