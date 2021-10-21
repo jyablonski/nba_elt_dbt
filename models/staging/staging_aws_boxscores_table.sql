@@ -92,7 +92,7 @@ final_aws_boxscores as (
            g.tov,
            g.pf,
            g.pts,
-           g.plusminus,
+           coalesce(g.plusminus, 0) as plusminus,
            g.gmsc,
            g.type,
            g.season,
@@ -104,6 +104,69 @@ final_aws_boxscores as (
     LEFT JOIN season_stats s using (player)
     LEFT JOIN game_ids i using (team, date, opponent)
 
+),
+
+mvp_calc as (
+    select
+        player,
+        type,
+        round(
+            avg(
+                     pts::numeric
+            ) + (
+                     0.5 * avg(plusminus::numeric)
+            ) + (
+                2 * avg(stl::numeric + blk::numeric)
+            ) + (
+                0.5 * avg(trb::numeric)
+            ) + (1.5 * avg(ast::numeric)) - (1.5 * avg(tov::numeric)),
+            1
+        ) as player_mvp_calc_avg
+    from final_aws_boxscores
+    group by player, type
+
+),
+
+final as (
+    select b.player,
+           b.team,
+           b.game_id,
+           b.date,
+           b.location,
+           b.opponent,
+           b.outcome,
+           b.mp,
+           b.fgm,
+           b.fga,
+           b.fgpercent,
+           b.threepfgmade,
+           b.threepattempted,
+           b.threepointpercent,
+           b.ft,
+           b.fta,
+           b.ftpercent,
+           b.oreb,
+           b.dreb,
+           b.trb,
+           b.ast,
+           b.stl,
+           b.blk,
+           b.tov,
+           b.pf,
+           b.pts,
+           b.plusminus,
+           b.gmsc,
+           b.type,
+           b.season,
+           b.game_ts_percent,
+           b.season_ts_percent,
+           b.season_avg_ppg,
+           b.games_played,
+           m.player_mvp_calc_avg,
+    round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
+     (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
+    from final_aws_boxscores b
+    left join mvp_calc m on m.player = b.player and m.type = b.type
 )
 
-SELECT * FROM final_aws_boxscores
+SELECT * FROM final
