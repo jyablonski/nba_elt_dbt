@@ -42,7 +42,8 @@ models:
         - name: player
           tests:
             - not_null
-        - name: team
+            - unique
+        - name: salary
           tests:
             - not_null
     - name: staging_aws_injury_data_table
