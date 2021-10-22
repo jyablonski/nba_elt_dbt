@@ -9,6 +9,10 @@ sources:
         description: Raw player aggregate stats
       - name: aws_boxscores_source
         description: Raw player boxscores
+        columns:
+          - name: plusminus
+            tests:
+              - not_null
       - name: aws_injury_data_source
         description: Raw player injury data
         columns:
@@ -32,13 +36,9 @@ sources:
               - not_null
       - name: aws_adv_stats_source
         description: Raw team advanced stats
-        tests:
-          - dbt_expectations.expect_table_row_count_to_equal:
-              value: 30
         columns:
           - name: team
             tests:
-              - unique
               - not_null
       - name: aws_reddit_data_source
         description: Raw reddit data 
