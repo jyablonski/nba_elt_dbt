@@ -78,14 +78,26 @@ recent_10_losses_group as (
     limit 10
 ),
 
+preseason as (
+    select 
+        team_acronym as team,
+        championship_odds, 
+        predicted_wins, 
+        predicted_losses
+    from {{ ref('staging_aws_preseason_odds_table')}}
+),
+
 final as (
     select
         *,
         case when win_percentage >= 0.5 then 'Above .500'
-        else 'Below .500' end as team_status
+        else 'Below .500' end as team_status,
+        round((wins / games_played), 0)::numeric * 82 as projected_wins,
+        round((losses / games_played), 0)::numeric * 82 as projected_losses
     from pre_final
     left join recent_10_wins using (team)
     left join recent_10_losses_group using (team)
+    left join preseason using (team)
 )
 
 select *
