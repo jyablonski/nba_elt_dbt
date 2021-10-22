@@ -48,7 +48,13 @@ final as (
         away_vars.away_primary_color,
         CONCAT(home_team_full, ' Vs. ', away_team_full) as game_description,
         CONCAT('<span style=''color:', away_primary_color, ''';>', away_team_full, '</span>') as away_fill,
-        CONCAT('<span style=''color:', home_primary_color, ''';>', home_team_full, '</span>') as home_fill
+        CONCAT('<span style=''color:', home_primary_color, ''';>', home_team_full, '</span>') as home_fill,
+        case when pbp_table.away_score IS NULL then home_primary_color
+         when pbp_table.home_score IS NULL then away_primary_color
+         else '#808080' end as scoring_team_color,
+        case when pbp_table.away_score IS NULL then pbp_table.home_team
+         when pbp_table.home_score IS NULL then pbp_table.away_team
+         else 'TIE' end as scoring_team
     from pbp_table
     left join home_vars on home_vars.home_team = pbp_table.home_team
     left join away_vars on away_vars.away_team = pbp_table.away_team

@@ -78,3 +78,7 @@ sources:
         description: Raw contracts table
       - name: aws_pbp_data_source
         description: Raw pbp table
+      - name: aws_preseason_odds_source
+        description: Raw preseason odds table
+      - name: aws_opp_stats_source
+        description: Raw preseason odds table
