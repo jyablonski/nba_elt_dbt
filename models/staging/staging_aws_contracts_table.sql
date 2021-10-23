@@ -52,7 +52,7 @@ combo as (
 final as (
     select 
         distinct player,
-        coalesce(new_team, team) as team,
+        coalesce(new_team, team) as team, /* use team from boxscores with most recent date, if null then use the team from contracts web scrape */
         salary
     from combo
     order by player
