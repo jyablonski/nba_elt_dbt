@@ -15,6 +15,7 @@ select
     fg_percent_rank,
     three_percent_rank,
     three_pm_rank,
+    ppg_opp_rank,
     case when conference = 'Eastern' then 'East'
     else 'West' end as conference
 from my_cte

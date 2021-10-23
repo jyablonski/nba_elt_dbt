@@ -19,16 +19,17 @@ team_attributes as (
     FROM {{ ref('staging_seed_team_attributes')}}
 ),
 
+most_recent_date as (
+    select max(scrape_date) as scrape_date
+    from {{ source('nba_source', 'aws_injury_data_source')}}
+),
+
 injury_counts as (
     SELECT team,
            count(*) as team_active_injuries
     FROM injury_data
+    inner join most_recent_date using (scrape_date)
     GROUP BY 1
-),
-
-most_recent_date as (
-    select max(scrape_date) as scrape_date
-    from {{ source('nba_source', 'aws_injury_data_source')}}
 ),
 
 final_stg_injury as (
