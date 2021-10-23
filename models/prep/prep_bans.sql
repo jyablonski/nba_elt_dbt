@@ -84,7 +84,7 @@ final as (
         b.tot_wins,
         tg.games_played,
         p.avg_pts,
-        b.tot_wins / tg.games_played as win_pct,
+        round((b.tot_wins::numeric / tg.games_played::numeric), 3)::numeric as win_pct,
         u.scrape_time as scrape_time,
         '112.1'::numeric as last_yr_ppg
     from upcoming_games_count g
