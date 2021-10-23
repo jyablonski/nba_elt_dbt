@@ -6,9 +6,9 @@ with standings as (
         wins,
         losses,
         games_played,
-        round((wins / games_played), 3)::numeric as win_pct,
+        round((wins::numeric / games_played::numeric), 3)::numeric as win_pct,
         active_injuries,
-        wins_last_10,
+        coalesce(wins_last_10, 0) as wins_last_10,
         coalesce(losses_last_10, 0) as losses_last_10
     from {{ ref('prep_standings_table')}}
 
