@@ -19,8 +19,44 @@ players_fixed as (
     team,
     salary
     from my_cte
+),
+
+players_date as (
+    select 
+        player,
+        max(date) as date
+    from {{ ref('staging_aws_boxscores_table')}}
+    group by 1
+),
+
+players_team as(
+    select
+        b.player,
+        date,
+        b.team as new_team
+    from {{ ref('staging_aws_boxscores_table')}} b
+    inner join players_date using (date)
+),
+
+combo as (
+    select 
+        distinct f.player,
+        f.team,
+        n.new_team,
+        f.salary
+    from players_fixed f
+    left join players_team n using (player)
+    order by player
+),
+
+final as (
+    select 
+        distinct player,
+        coalesce(new_team, team) as team,
+        salary
+    from combo
+    order by player
 )
 
-select distinct player,
-    salary
-from players_fixed
+select *
+from final
