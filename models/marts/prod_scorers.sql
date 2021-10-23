@@ -22,6 +22,7 @@ player_recent_team as (
     select 
         s.player,
         s.team,
+        s.full_team,
         s.date,
         d.max_date
     from {{ ref('staging_aws_boxscores_table')}} s
@@ -32,6 +33,7 @@ player_recent_team as (
 final as (
         select distinct player,
         team,
+        full_team,
         type,
         season_avg_ppg,
         season_ts_percent,
