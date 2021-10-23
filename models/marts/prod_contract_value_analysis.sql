@@ -1,6 +1,6 @@
 with my_cte as (
     select
-        b.player,
+        distinct b.player,
         b.team,
         b.games_played,
         b.player_mvp_calc_avg,
