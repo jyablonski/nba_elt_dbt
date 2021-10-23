@@ -163,10 +163,12 @@ final as (
            b.season_avg_ppg,
            b.games_played,
            m.player_mvp_calc_avg,
-    round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
-     (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
+           a.team as full_team,
+        round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
+        (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
     from final_aws_boxscores b
     left join mvp_calc m on m.player = b.player and m.type = b.type
+    left join {{ ref('staging_seed_team_attributes')}} a on a.team_acronym = b.team
 )
 
 SELECT 

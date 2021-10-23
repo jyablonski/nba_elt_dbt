@@ -42,7 +42,6 @@ models:
         - name: player
           tests:
             - not_null
-            - unique
         - name: salary
           tests:
             - not_null
