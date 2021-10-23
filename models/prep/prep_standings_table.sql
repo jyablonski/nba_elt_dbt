@@ -48,7 +48,7 @@ pre_final as (
         c.wins,
         c.losses,
         COALESCE(i.team_active_injuries, 0) as active_injuries,
-        round((c.wins / (c.wins + c.losses)), 3)::numeric as win_percentage
+        (c.wins::numeric / games_played::numeric) as win_percentage
     from team_wins t
     left join team_counts c using (team)
     left join active_injuries i using (team)
