@@ -54,4 +54,34 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 2
-
+    - name: prod_game_types
+      description: Prod Game Types Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 3
+    - name: prod_opp_stats
+      description: Prod Opponent Shooting Stats Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+    - name: prod_preseason_odds
+      description: Prod Preseason Odds Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+    - name: prod_scorers
+      description: Prod Scoring Stats Table
+    - name: prod_team_contracts_analysis
+      description: Prod Team Contracts Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+    - name: prod_gamelogs
+      description: Prod Game Logs Table
+    - name: prod_contract_value_analysis
+      description: Player Contract Value Analysis Table (WIP)
+      columns:
+          - name: player
+            tests:
+                - unique
+                - not_null

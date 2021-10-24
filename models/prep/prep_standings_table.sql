@@ -98,7 +98,23 @@ final as (
     left join preseason using (team)
 )
 
-select *
+select 
+    team,
+    team_full,
+    conference,
+    games_played,
+    wins,
+    losses,
+    active_injuries,
+    win_percentage,
+    coalesce(wins_last_10, 0) as wins_last_10,
+    coalesce(losses_last_10, 0) as losses_last_10,
+    championship_odds,
+    predicted_wins,
+    predicted_losses,
+    team_status,
+    projected_wins,
+    projected_losses
 from final
 /*
 select *
