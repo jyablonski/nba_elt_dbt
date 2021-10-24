@@ -26,7 +26,7 @@ combo as (
         salary,
         coalesce(games_played, 0) as games_played,
         team_games_played,
-        win_percentage,
+        round(win_percentage, 3) as win_percentage,
         salary * games_played as salary_earned,
         salary * team_games_played as salary_earned_max
     from my_cte

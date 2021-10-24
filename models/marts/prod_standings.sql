@@ -8,8 +8,8 @@ with standings as (
         games_played,
         round((wins::numeric / games_played::numeric), 3)::numeric as win_pct,
         active_injuries,
-        coalesce(wins_last_10, 0) as wins_last_10,
-        coalesce(losses_last_10, 0) as losses_last_10
+        wins_last_10,
+        losses_last_10
     from {{ ref('prep_standings_table')}}
 
 ),
