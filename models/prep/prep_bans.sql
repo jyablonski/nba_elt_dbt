@@ -34,6 +34,7 @@ upcoming_game_date as (
     select min(proper_date) as min_date,
     'join' as join_col
     from {{ ref('staging_aws_schedule_table')}}
+    where proper_date >= current_date
 ),
 
 upcoming_games as (

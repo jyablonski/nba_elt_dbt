@@ -92,8 +92,8 @@ final as (
         *,
         case when win_percentage >= 0.5 then 'Above .500'
         else 'Below .500' end as team_status,
-        round((wins / games_played), 0)::numeric * 82 as projected_wins,
-        round((losses / games_played), 0)::numeric * 82 as projected_losses
+        round(win_percentage * 82, 0)::numeric as projected_wins,
+        82 - round(win_percentage * 82, 0)::numeric as projected_losses
     from pre_final
     left join recent_10_wins using (team)
     left join recent_10_losses_group using (team)
