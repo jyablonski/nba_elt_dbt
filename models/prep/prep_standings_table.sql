@@ -60,7 +60,6 @@ recent_10_wins as (
     select team, sum(outcome_int) as wins_last_10
     from team_wins
     group by team
-    limit 10
 ),
 
 recent_10_losses as (
@@ -75,7 +74,6 @@ recent_10_losses_group as (
     select team, sum(loss_count) as losses_last_10
     from recent_10_losses
     group by team
-    limit 10
 ),
 
 preseason as (
@@ -92,8 +90,8 @@ final as (
         *,
         case when win_percentage >= 0.5 then 'Above .500'
         else 'Below .500' end as team_status,
-        round((wins / games_played), 0)::numeric * 82 as projected_wins,
-        round((losses / games_played), 0)::numeric * 82 as projected_losses
+        round(win_percentage * 82, 0)::numeric as projected_wins,
+        82 - round(win_percentage * 82, 0)::numeric as projected_losses
     from pre_final
     left join recent_10_wins using (team)
     left join recent_10_losses_group using (team)
@@ -102,7 +100,6 @@ final as (
 
 select *
 from final
-
 /*
 select *
 from final
