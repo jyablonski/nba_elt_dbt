@@ -60,7 +60,6 @@ recent_10_wins as (
     select team, sum(outcome_int) as wins_last_10
     from team_wins
     group by team
-    limit 10
 ),
 
 recent_10_losses as (
@@ -75,7 +74,6 @@ recent_10_losses_group as (
     select team, sum(loss_count) as losses_last_10
     from recent_10_losses
     group by team
-    limit 10
 ),
 
 preseason as (
@@ -102,7 +100,6 @@ final as (
 
 select *
 from final
-
 /*
 select *
 from final
