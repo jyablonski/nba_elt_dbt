@@ -85,8 +85,8 @@ models:
         - name: moneyline
           tests:
             - dbt_expectations.expect_column_values_to_be_between:
-                min_value: -1500  
-                max_value: 800
+                min_value: -2000
+                max_value: 1500
     - name: staging_aws_reddit_data_table
       description: Staging table for box scores
       columns:
