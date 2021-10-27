@@ -76,6 +76,21 @@ latest_update as (
     from {{ ref('staging_aws_reddit_data_table')}}
 ),
 
+league_ts as (
+    select 
+        sum(pts) as sum_pts,
+        sum(fga) as sum_fga,
+        sum(fta::numeric) as sum_fta
+    from {{ ref('staging_aws_boxscores_table')}}
+
+),
+
+league_ts_2 as (
+    select {{ generate_ts_percent('sum_pts', 'sum_fga', 'sum_fta') }} as league_ts_percent,
+    'join' as join_col
+    from league_ts
+),
+
 final as (
     select 
         g.upcoming_games,
@@ -87,13 +102,15 @@ final as (
         p.avg_pts,
         round((b.tot_wins::numeric / tg.games_played::numeric), 3)::numeric as win_pct,
         u.scrape_time as scrape_time,
-        '112.1'::numeric as last_yr_ppg
+        '112.1'::numeric as last_yr_ppg,
+        league_ts_2.league_ts_percent as league_ts_percent
     from upcoming_games_count g
     left join league_bans_2 b using (join_col)
     left join league_average_ppg p using (join_col)
     left join tot_games_played tg using (join_col)
     left join latest_update u using (join_col)
     left join upcoming_games_count using (join_col)
+    left join league_ts_2 using (join_col)
 
 )
 
