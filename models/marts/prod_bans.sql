@@ -8,7 +8,8 @@ with bans_data as (
         avg_pts::numeric as avg_pts,
         last_yr_ppg::numeric as last_yr_ppg,
         scrape_time::timestamp as scrape_time,
-        win_pct::numeric as win_pct
+        win_pct::numeric as win_pct,
+        league_ts_percent::numeric as league_ts_percent
     from {{ ref('prep_bans')}}
 )
 
