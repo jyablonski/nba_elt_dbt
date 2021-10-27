@@ -72,7 +72,8 @@ select_final_games as (
         l.team_logo,
         opponent_logo.opp_logo as opp_logo,
         CASE WHEN pts_scored = team_max_score THEN 1
-             WHEN pts_scored != team_max_score AND (pts_scored - team_avg_score) > 10 THEN 2
+             when (pts_scored >= team_avg_score + 10) AND (pts_scored != team_max_score) then 2
+             when team_avg_score - pts_scored > 10 then 3
              ELSE 0 END AS pts_color,
         (pts_scored - pts_scored_opp)::numeric as mov
     from team_pts_scored b
