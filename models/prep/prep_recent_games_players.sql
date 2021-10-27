@@ -30,6 +30,8 @@ final_table as (
     select
         *,
         case when pts = max_pts then 1
+             when (pts >= season_avg_ppg + 10) AND (pts != max_pts) then 2
+             when season_avg_ppg - pts > 10 then 3
             else 0
         end as pts_color,
         case when game_ts_percent = max_ts then 1
