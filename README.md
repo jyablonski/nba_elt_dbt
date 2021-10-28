@@ -1,4 +1,4 @@
-Version: 1.0.17
+Version: 1.0.18
 
 ### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
