@@ -44,8 +44,8 @@ sources:
         description: Raw reddit data 
         loaded_at_field: scrape_time
         freshness:
-          warn_after: {count: 480, period: hour}
-          error_after: {count: 720, period: hour}
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 72, period: hour}
       - name: aws_schedule_source
         description: Raw Schedule table
         columns:
@@ -72,8 +72,8 @@ sources:
               - not_null
         loaded_at_field: datetime1
         freshness:
-          warn_after: {count: 700, period: hour}
-          error_after: {count: 1400, period: hour}
+          warn_after: {count: 124, period: hour}
+          error_after: {count: 256, period: hour}
       - name: aws_contracts_source
         description: Raw contracts table
       - name: aws_pbp_data_source

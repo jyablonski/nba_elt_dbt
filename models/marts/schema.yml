@@ -11,6 +11,12 @@ models:
                 - not_null
     - name: prod_schedule
       description: Prod Season Schedule Table
+      columns:
+      - name: avg_team_rank
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 30
     - name: prod_pbp
       description: Prod Play by Play Table
     - name: prod_recent_games_players
@@ -19,6 +25,17 @@ models:
         - dbt_expectations.expect_table_row_count_to_be_between:
             min_value: 12
             max_value: 20
+      columns:
+      - name: pts_color
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 3
+      - name: ts_color
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 3
     - name: prod_recent_games_teams
       description: Prod Recent Games for Teams Table
       tests:
