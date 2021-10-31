@@ -39,3 +39,7 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 82
+  - name: prep_bans
+    description: '{{ doc("prep_bans")}}'
+  - name: prep_recent_games_teams
+    description: '{{ doc("prep_recent_games_teams")}}'
