@@ -37,7 +37,7 @@ game_stats as (
            tov,
            pf,
            pts::numeric,
-           plusminus,
+           coalesce(plusminus, 0) as plusminus,
            gmsc,
            date,
            type,
