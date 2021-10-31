@@ -9,10 +9,6 @@ sources:
         description: Raw player aggregate stats
       - name: aws_boxscores_source
         description: Raw player boxscores
-        columns:
-          - name: plusminus
-            tests:
-              - not_null
       - name: aws_injury_data_source
         description: Raw player injury data
         columns:
