@@ -167,13 +167,13 @@ above_wins as (
 prefinal as (
     select 
         *,
-        round((wins / games_played), 3)::numeric as win_pct,
-        round((wins_opp / games_played_opp), 3)::numeric as win_pct_opp,
+        round((wins::numeric / games_played::numeric), 3)::numeric as win_pct,
+        round((wins_opp::numeric / games_played_opp::numeric), 3)::numeric as win_pct_opp,
         home_gp - coalesce(home_wins, 0) as home_losses,
         road_gp - coalesce(road_wins, 0) as road_losses,
         below_gp - below_500_wins as below_500_losses,
         above_gp - above_500_wins as above_500_losses,
-        round((above_gp / games_played), 3)::numeric as pct_vs_above_500
+        round((above_gp::numeric / games_played::numeric), 3)::numeric as pct_vs_above_500
     from combo
     left join home_games_played using (team)
     left join home_wins using (team)
@@ -226,7 +226,7 @@ prefinal2 as (
 opp_avg_win_pct as (
     select 
         team,
-        round(avg(win_pct_opp), 3)::numeric as avg_win_pct_opp
+        round(avg(win_pct_opp::numeric), 3)::numeric as avg_win_pct_opp
     from prefinal2
     where game_status = 'past'
     group by team
