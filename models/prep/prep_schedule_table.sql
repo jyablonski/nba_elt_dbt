@@ -15,12 +15,13 @@ with schedule_data as (
     from {{ ref('staging_aws_schedule_table')}}
 ),
 
-home_team_attributes as (
+home_team_attributes_new as (
     select
-        staging_seed_team_attributes.team as home_team,
-        staging_seed_team_attributes.team_acronym as home_team_acronym,
-        staging_seed_team_attributes.previous_season_rank as home_team_prev_rank
-    from {{ ref('staging_seed_team_attributes')}}
+        team_full as home_team,
+        team as home_team_acronym,
+        row_number() over () as home_team_rank
+    from {{ ref('prep_standings_table') }}
+
 ),
 
 home_team_odds as (
@@ -43,12 +44,13 @@ away_team_odds as (
     group by away_team_acronym
 ),
 
-away_team_attributes as (
+away_team_attributes_new as (
     select
-        team as away_team,
-        team_acronym as away_team_acronym,
-        previous_season_rank as away_team_prev_rank
-    from {{ ref('staging_seed_team_attributes')}}
+        team_full as away_team,
+        team as away_team_acronym,
+        row_number() over () as away_team_rank
+    from {{ ref('prep_standings_table') }}
+
 ),
 
 final_table as (
@@ -59,28 +61,28 @@ final_table as (
         schedule_data.home_team,
         schedule_data.date,
         schedule_data.proper_date,
-        home_team_attributes.home_team_acronym,
-        home_team_attributes.home_team_prev_rank,
-        away_team_attributes.away_team_acronym,
-        away_team_attributes.away_team_prev_rank,
+        home_team_attributes_new.home_team_acronym,
+        home_team_attributes_new.home_team_rank,
+        away_team_attributes_new.away_team_acronym,
+        away_team_attributes_new.away_team_rank,
 
         home_team_odds.home_moneyline,
 
         away_team_odds.away_moneyline,
         (
-            away_team_attributes.away_team_prev_rank + home_team_attributes.home_team_prev_rank
+            away_team_attributes_new.away_team_rank + home_team_attributes_new.home_team_rank
         ) / 2 as avg_team_rank
     from schedule_data
-    left join home_team_attributes using (home_team)
-    left join away_team_attributes using (away_team)
+    left join home_team_attributes_new using (home_team)
+    left join away_team_attributes_new using (away_team)
     left join
         home_team_odds on
-            home_team_attributes.home_team_acronym =
+            home_team_attributes_new.home_team_acronym =
             home_team_odds.home_team_acronym and schedule_data.proper_date =
             home_team_odds.proper_date
     left join
         away_team_odds on
-            away_team_attributes.away_team_acronym =
+            away_team_attributes_new.away_team_acronym =
             away_team_odds.away_team_acronym and schedule_data.proper_date =
             away_team_odds.proper_date
     order by proper_date asc
