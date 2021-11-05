@@ -106,7 +106,7 @@ select
     wins,
     losses,
     active_injuries,
-    win_percentage,
+    round(win_percentage, 3)::numeric as win_percentage,
     coalesce(wins_last_10, 0) as wins_last_10,
     coalesce(losses_last_10, 0) as losses_last_10,
     championship_odds,
@@ -116,6 +116,7 @@ select
     projected_wins,
     projected_losses
 from final
+order by win_percentage desc
 /*
 select *
 from final
