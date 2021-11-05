@@ -102,3 +102,13 @@ models:
             tests:
                 - unique
                 - not_null
+    - name: prod_future_schedule_analysis
+      description: Teams Future Schedule Analysis
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+      columns:
+          - name: team
+            tests:
+                - unique
+                - not_null

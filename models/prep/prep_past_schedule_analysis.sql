@@ -10,7 +10,8 @@ away as (
     select away_team as team,
     home_team as opp,
     date,
-    'join' as join_col
+    'join' as join_col,
+    'road' as location_new
     from my_cte
 ),
 
@@ -18,7 +19,8 @@ home as (
         select home_team as team,
     away_team as opp,
     date,
-    'join' as join_col
+    'join' as join_col,
+    'home' as location_new
     from my_cte
 ),
 
@@ -56,6 +58,7 @@ final2 as (
         f.opp,
         o.wins_opp,
         f.date,
+        f.location_new,
         t.team_status,
         t.games_played,
         o.games_played_opp,
@@ -189,6 +192,7 @@ prefinal2 as (
     select
         team,
         date,
+        location_new,
         wins,
         opp,
         wins_opp,
