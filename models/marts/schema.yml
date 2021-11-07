@@ -112,3 +112,23 @@ models:
             tests:
                 - unique
                 - not_null
+          - name: pct_games_left_home
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 1
+          - name: pct_games_left_road
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 1
+          - name: pct_games_left_above_500
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 1
+          - name: pct_games_left_below_500
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 1
