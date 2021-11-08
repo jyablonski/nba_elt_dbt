@@ -56,18 +56,31 @@ pre_final as (
 
 ),
 
+recent_10 as (
+    select 
+        team,
+        date,
+        outcome,
+        outcome_int,
+        row_number() over (partition by team order by date desc) as game_num
+    from team_wins 
+    order by row_number() over (partition by team order by date desc)
+),
+
 recent_10_wins as (
     select team, sum(outcome_int) as wins_last_10
-    from team_wins
+    from recent_10
+    where game_num <= 10
     group by team
 ),
 
 recent_10_losses as (
     select team, date, outcome,
     case when outcome = 'L' then 1 else 0 end as loss_count
-    from team_wins
-    where outcome = 'L'
+    from recent_10
+    where outcome = 'L' AND game_num <= 10
     order by date desc
+
 ),
 
 recent_10_losses_group as (
