@@ -47,6 +47,9 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+      # - dbt_expectations.expect_multicolumn_sum_to_equal:
+          # column_list: ["wins_last_10", "losses_last_10"]
+          # sum_total: 10
     - name: prod_team_injuries
       description: Prod Team Injuries Table
       tests:
