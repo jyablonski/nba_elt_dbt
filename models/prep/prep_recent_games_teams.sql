@@ -81,8 +81,16 @@ select_final_games as (
     LEFT JOIN team_logo l on l.team_acronym = b.team
     left join opponent_scores o on b.opponent = o.opponent and b.date = o.date
     left join opponent_logo on b.opponent = opponent_logo.opponent
+),
+
+final as (
+    select *,
+            case when abs(mov) BETWEEN 0 and 5 then 'Clutch Game'
+             when abs(mov) BETWEEN 6 and 10 then '10 pt Game'
+             else 'Blowout Game' end as game_type
+    from select_final_games
 )
 
 
 select *
-from select_final_games
+from final
