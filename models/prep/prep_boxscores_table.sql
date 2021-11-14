@@ -94,7 +94,7 @@ contract_df as (
 
 combined_table as (
     select
-        total_player_stats.player,
+        distinct total_player_stats.player,
         player_teams.team,
         total_player_stats.type,
         total_player_stats.tot_games_played,
