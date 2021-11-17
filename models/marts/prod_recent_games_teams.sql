@@ -10,12 +10,15 @@ with recent_games as (
         team_max_score,
         team_avg_score,
         pts_color,
+        opp_pts_color,
         team_logo,
-        opp_logo
+        opp_logo,
+        'Vs.' as new_loc
     from {{ ref('prep_recent_games_teams')}}
 
 ),
 
+/* only grabbing latest games, the prep table has everything for qa purposes */
 recent_date as (
     select
         max(date) as date
@@ -31,3 +34,4 @@ team_pts_scored as (
 
 select *
 from team_pts_scored
+where outcome = 'W'

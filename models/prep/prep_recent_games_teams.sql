@@ -15,6 +15,15 @@ teams_max_score as (
     group by team
 ),
 
+opp_max_score as (
+    select  team as opp,
+            max(pts_game) as opp_max_score,
+            avg(pts_game) as opp_avg_score
+    from teams_scores
+    group by team
+),
+
+
 team_logo as (
     select
         team,
@@ -67,20 +76,27 @@ select_final_games as (
         b.opponent,
         b.pts_scored,
         o.pts_scored_opp,
-        m.team_avg_score,
+        round(m.team_avg_score, 1) as team_avg_score,
         m.team_max_score,
+        s.opp_max_score,
+        round(s.opp_avg_score, 1) as opp_avg_score,
         l.team_logo,
         opponent_logo.opp_logo as opp_logo,
         CASE WHEN pts_scored = team_max_score THEN 1
              when (pts_scored >= team_avg_score + 10) AND (pts_scored != team_max_score) then 2
              when team_avg_score - pts_scored > 10 then 3
              ELSE 0 END AS pts_color,
+        CASE WHEN opp_max_score = pts_scored_opp then 1
+             when (pts_scored_opp >= opp_avg_score + 10) AND (pts_scored_opp != opp_max_score) then 2
+             when (opp_avg_score - pts_scored_opp > 10) then 3
+             else 0 end as opp_pts_color,
         (pts_scored - pts_scored_opp)::numeric as mov
     from team_pts_scored b
     left join teams_max_score m on b.team = m.team
     LEFT JOIN team_logo l on l.team_acronym = b.team
     left join opponent_scores o on b.opponent = o.opponent and b.date = o.date
     left join opponent_logo on b.opponent = opponent_logo.opponent
+    left join opp_max_score s on s.opp = b.opponent
 ),
 
 final as (
