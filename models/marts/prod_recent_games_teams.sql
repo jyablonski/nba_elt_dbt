@@ -10,6 +10,7 @@ with recent_games as (
         team_max_score,
         team_avg_score,
         pts_color,
+        opp_pts_color,
         team_logo,
         opp_logo,
         'Vs.' as new_loc
