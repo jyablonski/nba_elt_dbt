@@ -27,7 +27,7 @@ recent_date as (
 ),
 
 final as (
-    select
+    select distinct
         pbp_table.time_quarter,
         pbp_table.play,
         pbp_table.time_remaining_final,
@@ -59,9 +59,31 @@ final as (
     left join home_vars on home_vars.home_team = pbp_table.home_team
     left join away_vars on away_vars.away_team = pbp_table.away_team
     inner join recent_date using (date)
+    order by game_description, time_remaining_final desc
+),
+
+winning_team as (
+    select game_description, date, MIN(time_remaining_final) as time_remaining_final,
+    max(margin_score) as max_home_lead,
+    min(margin_score) as max_away_lead
+    from final
+    group by 1, 2
+),
+
+winning_team2 as (
+    select leading_team as winning_team,
+    case when home_team = leading_team then away_team
+    else home_team end as losing_team,
+    max_home_lead,
+    max_away_lead,
+     game_description,
+     date
+    from final
+    inner join winning_team using (game_description, date, time_remaining_final)
 )
 
 
 select 
     *
 from final
+left join winning_team2 using (game_description, date)
