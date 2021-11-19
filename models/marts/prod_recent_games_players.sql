@@ -7,7 +7,9 @@ with recent_games as (
         team,
         salary,
         pts,
-        plusminus,
+        case when plusminus > 0 then concat('+', plusminus::text)::text
+            else plusminus::text
+            end as plusminus,
         game_ts_percent,
         pts_color,
         ts_color
