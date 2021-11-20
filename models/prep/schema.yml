@@ -43,3 +43,12 @@ models:
     description: '{{ doc("prep_bans")}}'
   - name: prep_recent_games_teams
     description: '{{ doc("prep_recent_games_teams")}}'
+  - name: prep_team_blown_leads
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("prep_schedule_analysis")
+  - name: prep_schedule_analysis
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("prep_team_blown_leads")
+
