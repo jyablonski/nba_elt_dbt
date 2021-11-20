@@ -83,21 +83,109 @@ pbp_data7 as (
 game_ids as (
     select 
         distinct team as home_team,
+        date,
         game_id
     from {{ ref('staging_aws_boxscores_table')}}
 ),
 
+home_vars as (
+    select
+        team as home_team_full,
+        team_acronym as home_team,
+        primary_color as home_primary_color
+    from {{ ref('staging_seed_team_attributes')}}
+
+),
+
+away_vars as (
+    select
+        team as away_team_full,
+        team_acronym as away_team,
+        primary_color as away_primary_color
+    from {{ ref('staging_seed_team_attributes')}}
+
+),
+
 pbp_data8 as (
-    SELECT *,
-            COALESCE((before_time - time_remaining_final), 0)::numeric as time_difference,
-            CASE WHEN description_play_home LIKE description_play_visitor THEN description_play_home
+    SELECT 
+        pbp_data7.home_team,
+        date,
+        time_quarter,
+        minutes,
+        seconds,
+        description_play_visitor,
+        away_score,
+        score,
+        home_score,
+        description_play_home,
+        quarter,
+        pbp_data7.away_team,
+        score_away,
+        score_home,
+        margin_score,
+        quarter_time,
+        seconds_remaining_quarter,
+        seconds_used_quarter,
+        total_time_left_before,
+        total_time_left_game,
+        time_remaining,
+        time_remaining_adj,
+        time_remaining_final,
+        leading_team,
+        before_time,
+        game_id,
+        home_team_full,
+        home_primary_color,
+        away_team_full,
+        away_primary_color,
+        COALESCE((before_time - time_remaining_final), 0)::numeric as time_difference,
+        CASE WHEN description_play_home LIKE description_play_visitor THEN description_play_home
                 WHEN description_play_home IS NULL THEN description_play_visitor
                 WHEN description_play_visitor IS NULL THEN description_play_home 
                 ELSE home_score
-                END AS play
+                END AS play,
+    CONCAT(home_team_full, ' Vs. ', away_team_full) as game_description
     FROM pbp_data7
-    left join game_ids using (home_team)
+    left join game_ids using (home_team, date)
+    left join home_vars on home_vars.home_team = pbp_data7.home_team
+    left join away_vars on away_vars.away_team = pbp_data7.away_team
+
+),
+
+final as (
+    select *,
+        CONCAT('<span style=''color:', away_primary_color, ''';>', away_team_full, '</span>') as away_fill,
+        CONCAT('<span style=''color:', home_primary_color, ''';>', home_team_full, '</span>') as home_fill,
+        case when away_score IS NULL then home_primary_color
+         when home_score IS NULL then away_primary_color
+         else '#808080' end as scoring_team_color,
+        case when away_score IS NULL then home_team
+         when home_score IS NULL then away_team
+         else 'TIE' end as scoring_team
+    from pbp_data8
+),
+
+winning_team as (
+    select game_description, date, MIN(time_remaining_final) as time_remaining_final,
+    max(margin_score) as max_home_lead,
+    min(margin_score) as max_away_lead
+    from final
+    group by 1, 2
+),
+
+winning_team2 as (
+    select leading_team as winning_team,
+    case when home_team = leading_team then away_team
+    else home_team end as losing_team,
+    max_home_lead,
+    max_away_lead,
+     game_description,
+     date
+    from final
+    inner join winning_team using (game_description, date, time_remaining_final)
 )
 
-SELECT *
-FROM pbp_data8
+select 
+    *
+from final
+left join winning_team2 using (game_description, date)
