@@ -61,6 +61,11 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+    - name: prod_team_blown_leads
+      description: Prod Team Blown Leads + Team Comebacks Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
     - name: prod_mov
       description: Prod Team Margin of Victory Table
     - name: prod_transactions

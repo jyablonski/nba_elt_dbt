@@ -3,6 +3,9 @@
 with my_cte as (
     SELECT 
         player,
+        MD5(player) as md5_player,
+        SHA256(player::bytea) as sha256_player,
+        SHA512(player::bytea) as sha512_player, /* bytea needed; ::text wont work */
         team,
         location,
         opponent,
