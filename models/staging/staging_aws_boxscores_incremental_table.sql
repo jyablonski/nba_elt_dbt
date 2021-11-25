@@ -45,6 +45,7 @@ from my_cte
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
+  -- only grab records where date is greater than the max date of the existing records in the tablegm
   where date > (select max(date) from {{ this }})
 
 {% endif %}
