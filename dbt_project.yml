@@ -43,8 +43,8 @@ models:
         +tags:
           - "NBA_PRODUCTION_MARTS"
       prep:
-        +materialized: view
-        +schema: nba_prod
+        +materialized: table
+        +schema: nba_prep
         +tags:
           - "NBA_PRODUCTION_PREP"
       staging:
