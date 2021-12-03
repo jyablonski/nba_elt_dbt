@@ -16,10 +16,16 @@ team_gp as (
     from {{ ref('prep_team_games_played') }}
 ),
 
+/* postgres sucks ass you cant reference vars created in the current cte so i have to copy paste the transform code over and over */
 prep1 as (
     select 
         *,
         team_games_played - games_played as games_missed,
+        round(team_games_played * 0.2, 0)::numeric as games_missed_allowance,
+        case when (round(team_games_played * 0.2, 0)::numeric < (team_games_played - games_played)) then
+                 abs((round(team_games_played * 0.2, 0)::numeric - (team_games_played - games_played)))
+            else 0 end as penalized_games_missed,
+        round(games_played::numeric /team_games_played::numeric, 3)::numeric as pct_games_played,
         case when salary >= 30000000 then '$30+ M'
         when salary >= 25000000 and salary < 30000000 then '$25-30 M'
         when salary >= 20000000 and salary < 25000000 then '$20-25 M'
