@@ -38,11 +38,30 @@ prep1 as (
     left join team_gp using (team)
 ),
 
+prep1_part1 as (
+    select 
+        *,
+        (1 - (2 * (penalized_games_missed / 100))) as adj_penalty,
+        case when (1 - (2 * (penalized_games_missed / 100))) < 0.75 then 0.75
+            else (1 - (2 * (penalized_games_missed / 100))) end as adj_penalty_final
+    from prep1
+),
+
+prep1_part2 as (
+    select
+        player,
+        salary_rank,
+        player_mvp_calc_avg,
+        adj_penalty_final,
+        round(player_mvp_calc_avg * adj_penalty_final, 2)::numeric as player_mvp_calc_adj
+    from prep1_part1
+),
+
 prep2 as (
     select 
-        round(avg(player_mvp_calc_avg), 2)::numeric as pvm_rank,
+        round(avg(player_mvp_calc_adj), 2)::numeric as pvm_rank,
         salary_rank
-    from prep1
+    from prep1_part2
     group by 2
 
 ),
@@ -50,11 +69,12 @@ prep2 as (
 prep3 as (
     select
         player,
-        player_mvp_calc_avg,
-        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_avg)::numeric, 3)::numeric as rankingish,
-        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_avg)::numeric, 3)::numeric * 100 as percentile_rank,
+        player_mvp_calc_adj,
+        adj_penalty_final,
+        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
+        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank,
         salary_rank
-    from prep1
+    from prep1_part2
     order by rankingish desc
 ),
 
@@ -68,10 +88,13 @@ final as (
         p1.salary,
         p1.team_games_played,
         p1.games_missed,
+        p1.penalized_games_missed,
         p2.pvm_rank,
         p3.rankingish,
         p3.percentile_rank,
-        case when percentile_rank >= 60 and salary >= 30000000 then 'Superstars'
+        p3.player_mvp_calc_adj,
+        p3.adj_penalty_final,
+        case when percentile_rank >= 50 and salary >= 30000000 then 'Superstars'
         when percentile_rank >= 90 then 'Great Value'
         when percentile_rank < 90 and percentile_rank >= 20 then 'Normal'
         else 'Bad Value'
@@ -79,8 +102,9 @@ final as (
     from prep1 p1
     left join prep2 p2 using (salary_rank)
     left join prep3 p3 using (player)
-    order by rankingish desc
+    order by player_mvp_calc_adj desc
 )
 
-select *
+select 
+    *
 from final
