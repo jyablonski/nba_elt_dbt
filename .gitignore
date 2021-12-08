@@ -5,3 +5,4 @@ logs/
 dbt_packages/
 dbt_packages/**
 dbt_packages/*
+dbt_packages
