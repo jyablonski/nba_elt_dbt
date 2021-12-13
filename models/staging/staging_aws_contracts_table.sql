@@ -58,5 +58,6 @@ final as (
     order by player
 )
 
-select *
+select 
+    *
 from final

@@ -108,13 +108,13 @@ models:
         - name: proper_date
           tests:
             - not_null
-    - name: stg_aws_stats_table
+    - name: staging_aws_stats_table
       description: Staging table for box scores
       columns:
         - name: player
           tests:
             - not_null
-    - name: stg_aws_transactions_table
+    - name: staging_aws_transactions_table
       description: Staging table for box scores
       columns:
         - name: date

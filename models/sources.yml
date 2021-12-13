@@ -9,6 +9,13 @@ sources:
         description: Raw player aggregate stats
       - name: aws_boxscores_source
         description: Raw player boxscores
+        columns:
+          - name: player
+            tests:
+              - not_null
+          - name: team
+            tests:
+              - not_null
       - name: aws_injury_data_source
         description: Raw player injury data
         columns:
@@ -72,9 +79,35 @@ sources:
           error_after: {count: 256, period: hour}
       - name: aws_contracts_source
         description: Raw contracts table
+        columns:
+          - name: player
+            tests:
+              - not_null
       - name: aws_pbp_data_source
         description: Raw pbp table
+        columns:
+          - name: hometeam
+            tests:
+              - not_null
+          - name: awayteam
+            tests:
+              - not_null
+          - name: timequarter
+            tests:
+              - not_null
       - name: aws_preseason_odds_source
         description: Raw preseason odds table
+        tests:
+          - dbt_expectations.expect_table_row_count_to_equal:
+              value: 30
+        columns:
+          - name: team
+            tests:
+              - unique
+              - not_null
       - name: aws_opp_stats_source
-        description: Raw preseason odds table
+        description: Raw Team Opponent Stats Table
+        columns:
+          - name: team
+            tests:
+              - not_null
