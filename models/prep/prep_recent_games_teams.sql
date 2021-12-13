@@ -105,6 +105,7 @@ final as (
              when abs(mov) BETWEEN 6 and 10 then '10 pt Game'
              else 'Blowout Game' end as game_type
     from select_final_games
+    order by date
 )
 
 

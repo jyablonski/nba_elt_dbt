@@ -22,12 +22,30 @@ models:
               max_value: 30
     - name: prod_pbp
       description: Prod Play by Play Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["game_description", "time_remaining_final", "quarter", "play"]
     - name: prod_recent_games_players
       description: Prod Recent Games for Players Table
       tests:
         - dbt_expectations.expect_table_row_count_to_be_between:
             min_value: 12
-            max_value: 20
+            max_value: 25
+      columns:
+          - name: plusminus
+            tests:
+                - not_null
+          - name: pts
+            tests:
+                - not_null
+          - name: pts_color
+            tests:
+            - dbt_expectations.expect_column_values_to_be_in_set:
+                value_set: [0, 1, 2, 3]
+          - name: ts_color
+            tests:
+            - dbt_expectations.expect_column_values_to_be_in_set:
+                value_set: [0, 1, 2, 3]
       columns:
       - name: pts_color
         tests:
@@ -50,6 +68,10 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+      columns:
+      - name: last_10
+        tests:
+          - not_null
       # - dbt_expectations.expect_multicolumn_sum_to_equal:
           # column_list: ["wins_last_10", "losses_last_10"]
           # sum_total: 10
@@ -71,6 +93,15 @@ models:
             value: 30
     - name: prod_mov
       description: Prod Team Margin of Victory Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["team", "game_id"]
+      columns:
+      - name: mov
+        tests:
+        - dbt_expectations.expect_column_values_to_be_between:
+            min_value: -80
+            max_value: 80
     - name: prod_transactions
       description: Prod League Transactions Table
       columns:
@@ -99,6 +130,21 @@ models:
             value: 30
     - name: prod_scorers
       description: Prod Scoring Stats Table
+      columns:
+          - name: player
+            tests:
+                - unique
+                - not_null
+          - name: season_avg_ppg
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 35
+          - name: player_mvp_calc_avg
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: -20
+                  max_value: 65
     - name: prod_team_contracts_analysis
       description: Prod Team Contracts Table
       tests:
@@ -106,6 +152,9 @@ models:
             value: 30
     - name: prod_gamelogs
       description: Prod Game Logs Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["player", "date"]
     - name: prod_contract_value_analysis
       description: Player Contract Value Analysis Table (WIP)
       columns:
