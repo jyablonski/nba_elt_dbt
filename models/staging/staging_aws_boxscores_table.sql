@@ -1,4 +1,10 @@
-with season_stats as (
+with my_cte as (
+    select 
+        distinct *
+    from {{ source('nba_source', 'aws_boxscores_source')}} /* gamelogs got like 12x counted on 12-13-21 for some reason */
+),
+
+season_stats as (
     SELECT 
             player::text as player,
             sum(fga::numeric) as fga_total,
@@ -6,7 +12,7 @@ with season_stats as (
             sum(pts::numeric) as pts_total,
             COUNT(*) as games_played,
     type::text as type
-    FROM {{ source('nba_source', 'aws_boxscores_source')}}
+    FROM my_cte
     WHERE player IS NOT NULL
     group by player, type
 ),
@@ -42,7 +48,7 @@ game_stats as (
            date,
            type,
            season
-    FROM {{ source('nba_source', 'aws_boxscores_source')}}
+    FROM my_cte
     WHERE player IS NOT NULL
 
 ),
@@ -61,7 +67,7 @@ game_ids as (
      team,
      date,
      opponent
-     FROM {{ source('nba_source', 'aws_boxscores_source')}}
+     FROM my_cte
     
 ),
 

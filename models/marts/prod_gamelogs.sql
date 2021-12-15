@@ -6,7 +6,7 @@ with player_salary as (
 ),
 
 final_aws_gamelogs as (
-    select
+    select distinct
         staging_aws_boxscores_table.player,
         staging_aws_boxscores_table.team,
         staging_aws_boxscores_table.location,
