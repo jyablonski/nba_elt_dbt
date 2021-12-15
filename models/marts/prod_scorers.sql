@@ -19,7 +19,7 @@ player_recent_date as (
 ),
 
 player_recent_team as (
-    select 
+    select distinct
         s.player,
         s.team,
         s.full_team,
