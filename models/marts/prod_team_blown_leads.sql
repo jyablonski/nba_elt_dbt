@@ -16,16 +16,25 @@ team_comebacks as (
     from {{ ref('prep_team_blown_leads') }}
     where max_opp_lead >= 10 and outcome = 'W'
     group by 1
+),
+
+final as (
+    select 
+        distinct 
+        p.team,
+        coalesce(team_blown_leads.blown_leads_10pt, 0) as blown_leads_10pt,
+        {{ generate_ord_numbers('coalesce(team_blown_leads.blown_lead_rank, 30)') }} as blown_lead_rank,
+        coalesce(team_comebacks.team_comebacks_10pt, 0) as team_comebacks_10pt,
+        {{ generate_ord_numbers('coalesce(team_comebacks.comeback_rank, 30)') }} as comeback_rank
+    from {{ ref('prep_team_blown_leads') }} p
+    left join team_comebacks using (team)
+    left join team_blown_leads using (team)
+    order by team_comebacks_10pt desc
+
 )
 
 select 
-    distinct 
-    p.team,
-    coalesce(team_blown_leads.blown_leads_10pt, 0) as blown_leads_10pt,
-    {{ generate_ord_numbers('coalesce(team_blown_leads.blown_lead_rank, 30)') }} as blown_lead_rank,
-    coalesce(team_comebacks.team_comebacks_10pt, 0) as team_comebacks_10pt,
-    {{ generate_ord_numbers('coalesce(team_comebacks.comeback_rank, 30)') }} as comeback_rank
-from {{ ref('prep_team_blown_leads') }} p
-left join team_comebacks using (team)
-left join team_blown_leads using (team)
-order by team_comebacks_10pt desc
+    *,
+    team_comebacks_10pt - blown_leads_10pt as net_comebacks,
+    {{ generate_ord_numbers('row_number() over (order by team_comebacks_10pt - blown_leads_10pt desc)') }} as net_rank
+from final
