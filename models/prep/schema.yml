@@ -49,10 +49,16 @@ models:
     tests:
     - dbt_expectations.expect_compound_columns_to_be_unique:
         column_list: ["team", "game_id"]
+  - name: prep_player_most_recent_team
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("prep_contract_value_analysis")
+        factor: 1
     columns:
-      - name: game_id
+      - name: player
         tests:
           - not_null
+          - unique
   - name: prep_team_blown_leads
     tests:
     - dbt_expectations.expect_table_row_count_to_equal_other_table:
@@ -65,6 +71,9 @@ models:
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["player", "team"]
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref("prep_player_most_recent_team")
+          factor: 1
   - name: prep_pbp_table
     columns:
       - name: game_description
