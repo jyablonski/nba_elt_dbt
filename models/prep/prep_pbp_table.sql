@@ -185,7 +185,8 @@ winning_team2 as (
     inner join winning_team using (game_description, date, time_remaining_final)
 )
 
+/* have to throw in distinct here otherwise rows will get doubled */
 select 
-    *
+    distinct *
 from final
 left join winning_team2 using (game_description, date)
