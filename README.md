@@ -5,8 +5,8 @@ Version: 1.0.47
 ### dbt docs available [here](https://jyablonski-dbt-docs.netlify.app/)
 
 1. Links to other Repos providing infrastructure for this Project
-    * [NBA Dashboard](https://github.com/jyablonski/NBA-Dashboard)
-    * [Python Dockerfile](https://github.com/jyablonski/python_docker)
+    * [Shiny Server](https://github.com/jyablonski/NBA-Dashboard)
+    * [Python Web Scrape](https://github.com/jyablonski/python_docker)
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [Airflow Proof of Concept](https://github.com/jyablonski/nba_elt_airflow)
 

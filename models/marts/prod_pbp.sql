@@ -1,3 +1,5 @@
+-- edge case where a player shot 2 tech free throws in a row, time quarter play and game description were all the same so test failed.
+
 with recent_date as (
     select max(date) as date
     from {{ ref('prep_pbp_table') }}
