@@ -9,7 +9,9 @@ with bans_data as (
         last_yr_ppg::numeric as last_yr_ppg,
         scrape_time::timestamp as scrape_time,
         win_pct::numeric as win_pct,
-        league_ts_percent::numeric as league_ts_percent
+        league_ts_percent::numeric as league_ts_percent,
+        {{ dbt_utils.current_timestamp() }} as last_updated_at
+
     from {{ ref('prep_bans')}}
 )
 
