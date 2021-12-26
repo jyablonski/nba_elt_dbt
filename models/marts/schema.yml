@@ -91,6 +91,12 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+      columns:
+          - name: team
+            description: Team Acronym
+            tests:
+                - unique
+                - not_null
     - name: prod_mov
       description: Prod Team Margin of Victory Table
       tests:
@@ -104,6 +110,9 @@ models:
             max_value: 80
     - name: prod_transactions
       description: Prod League Transactions Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["date", "transaction"]
       columns:
       - name: transaction
         tests:

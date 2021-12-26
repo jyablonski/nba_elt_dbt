@@ -17,7 +17,9 @@ with team_wins as (
 active_injuries as (
     select 
         team_acronym as team,
-        team_active_injuries
+        team_active_injuries,
+        team_active_protocols,
+        total_injuries
     from {{ ref('staging_aws_injury_data_table')}}
 
 ),
@@ -47,7 +49,9 @@ pre_final as (
         c.games_played,
         c.wins,
         c.losses,
+        COALESCE(i.total_injuries, 0) as total_injuries,
         COALESCE(i.team_active_injuries, 0) as active_injuries,
+        COALESCE(i.team_active_protocols, 0) as active_protocols,
         (c.wins::numeric / games_played::numeric) as win_percentage
     from team_wins t
     left join team_counts c using (team)
@@ -118,7 +122,9 @@ select
     games_played,
     wins,
     losses,
+    total_injuries,
     active_injuries,
+    active_protocols,
     round(win_percentage, 3)::numeric as win_percentage,
     coalesce(wins_last_10, 0) as wins_last_10,
     coalesce(losses_last_10, 0) as losses_last_10,
