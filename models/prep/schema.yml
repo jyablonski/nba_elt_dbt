@@ -18,6 +18,15 @@ models:
           - not_null
   - name: prep_standings_table
     description: Prep table for standings table
+    tests:
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: total_injuries
+          column_B: active_injuries
+          or_equal: True
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: total_injuries
+          column_B: active_protocols
+          or_equal: True
     columns:
       - name: wins_last_10
         tests:

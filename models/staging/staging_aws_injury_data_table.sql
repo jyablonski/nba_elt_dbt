@@ -3,7 +3,13 @@
 with injury_data as (
     SELECT player, team, date, scrape_date,
         {{dbt_utils.split_part('description', " ' - ' ", 1)}} as injury, /* grabbing injury + status with the parantheses included still */
-        {{dbt_utils.split_part('description', " ' - ' ", 2)}} as description /* grabbing description */
+        {{dbt_utils.split_part('description', " ' - ' ", 2)}} as description, /* grabbing description */
+        case when {{dbt_utils.split_part('description', " ' - ' ", 1)}} LIKE '%health and safety protocols%' THEN 1
+        when {{dbt_utils.split_part('description', " ' - ' ", 1)}} LIKE '%Health and Safety Protocols%' THEN 1
+        when {{dbt_utils.split_part('description', " ' - ' ", 1)}} LIKE '%health protocols%' THEN 1
+        when {{dbt_utils.split_part('description', " ' - ' ", 1)}} LIKE '%Health Protocols%' THEN 1
+        when {{dbt_utils.split_part('description', " ' - ' ", 1)}} LIKE '%protocols%' THEN 1
+        else 0 end as protocols
     FROM {{ source('nba_source', 'aws_injury_data_source')}}
 ),
 
@@ -34,6 +40,16 @@ injury_counts as (
     GROUP BY 1
 ),
 
+protocol_counts as (
+    SELECT team,
+           count(*) as team_active_protocols
+    FROM injury_data
+    inner join most_recent_date using (scrape_date)
+    where protocols = 1
+    GROUP BY 1
+),
+
+
 final_stg_injury as (
     SELECT injury_data2.player,
            team_attributes.team_acronym,
@@ -42,11 +58,14 @@ final_stg_injury as (
            injury_data2.status,
            replace(replace(injury_data2.injury2, '(', ''), ')', '') as injury, /* removing left AND right parantheses */
            injury_data2.description,
-           injury_counts.team_active_injuries,
+           injury_counts.team_active_injuries as total_injuries,
+           injury_counts.team_active_injuries - coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_injuries,
+           coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_protocols,
            injury_data2.scrape_date
     FROM injury_data2
     LEFT JOIN team_attributes using (team)
     LEFT JOIN injury_counts using (team)
+    left join protocol_counts using (team)
     inner join most_recent_date using (scrape_date)
 
 )
