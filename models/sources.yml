@@ -49,6 +49,12 @@ sources:
         freshness:
           warn_after: {count: 24, period: hour}
           error_after: {count: 72, period: hour}
+      - name: aws_reddit_comment_data_source
+        description: Raw reddit comment data
+        columns:
+          - name: url
+            tests:
+              - not_null
       - name: aws_schedule_source
         description: Raw Schedule table
         columns:
