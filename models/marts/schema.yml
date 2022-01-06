@@ -216,3 +216,11 @@ models:
               - dbt_expectations.expect_column_values_to_be_between:
                   min_value: 0
                   max_value: 1
+    - name: prod_reddit_comments
+      description: Prod Reddit Comments (Social Media)
+      columns:
+          - name: scrape_date
+            description: Only grab the latest available date of data
+            tests:
+              - dbt_expectations.expect_column_distinct_count_to_equal:
+                  value: 1
