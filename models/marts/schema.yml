@@ -132,11 +132,28 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+    - name: prod_injuries
+      description: Prod Injuries Table
+      columns:
+          - name: player
+            tests:
+                - unique
+                - not_null
     - name: prod_preseason_odds
       description: Prod Preseason Odds Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+    - name: prod_past_schedule_analysis
+      description: Prod Past Games Schedule Analysis Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+      columns:
+          - name: team
+            tests:
+                - unique
+                - not_null
     - name: prod_scorers
       description: Prod Scoring Stats Table
       columns:
