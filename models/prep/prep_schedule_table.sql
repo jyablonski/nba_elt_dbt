@@ -90,6 +90,7 @@ final_table as (
 
 select
     *,
+    {{ dbt_utils.surrogate_key(['home_team', 'proper_date']) }} as game_pk,
     concat(
         proper_date::text, ' ', start_time::text, ':00'
     )::timestamp as proper_time

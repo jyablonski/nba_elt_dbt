@@ -10,7 +10,8 @@ with bans_data as (
         scrape_time::timestamp as scrape_time,
         win_pct::numeric as win_pct,
         league_ts_percent::numeric as league_ts_percent,
-        {{ dbt_utils.current_timestamp() }} as last_updated_at
+        {{ dbt_utils.current_timestamp() }} as last_updated_at,
+        '{{ env_var('DBT_PRAC_KEY') }}' as run_type
 
     from {{ ref('prep_bans')}}
 )
