@@ -16,6 +16,10 @@ models:
       - name: home_team
         tests:
           - not_null
+      - name: game_pk
+        tests:
+          - unique
+          - not_null
   - name: prep_standings_table
     description: Prep table for standings table
     tests:

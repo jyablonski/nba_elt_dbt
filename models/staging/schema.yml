@@ -12,6 +12,13 @@ models:
             - unique
             - not_null
             - dbt_expectations.expect_column_to_exist
+    - name: staging_aws_boxscores_incremental_table
+      description: PRACTICE boxscores incremental table
+      columns:
+        - name: player_pk
+          tests:
+            - unique
+            - not_null      
     - name: staging_aws_boxscores_table
       description: Staging table for box scores
       tests:
@@ -49,7 +56,7 @@ models:
           tests:
             - not_null
     - name: staging_aws_injury_data_table
-      description: Staging table for box scores
+      description: Staging table for injury table
       columns:
         - name: player
           tests:
