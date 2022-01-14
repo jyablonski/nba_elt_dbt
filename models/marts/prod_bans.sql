@@ -24,6 +24,13 @@ protocols_data as (
     from {{ ref('prep_standings_table')}}
 ),
 
+protocols_data_lastwk as (
+    select
+        sum_active_protocols_lastwk,
+        'join' as join_col
+    from {{ ref('staging_aws_injury_data_table_lastwk')}}
+),
+
 final as (
     select
         upcoming_games,
@@ -38,10 +45,20 @@ final as (
         league_ts_percent,
         last_updated_at,
         run_type,
-        sum_active_protocols
+        sum_active_protocols,
+        sum_active_protocols_lastwk
     from bans_data
     left join protocols_data using (join_col)
+    left join protocols_data_lastwk using (join_col)
+),
+
+final2 as (
+    select 
+        *,
+        sum_active_protocols_lastwk - sum_active_protocols as protocols_differential,
+        round(sum_active_protocols_lastwk - sum_active_protocols / sum_active_protocols_lastwk, 1)::numeric as protocols_pct_diff
+    from final
 )
 
 select *
-from final
+from final2
