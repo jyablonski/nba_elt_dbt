@@ -7,7 +7,9 @@ with my_cte as (
     order by salary desc
 ),
 
-/* sql baby */
+/* sql baby 
+ have to wrap a million of these mfers to do str replacements.
+ i fixed this in the python script so it's not needed anymore */
 players_fixed as (
     select 
         REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
