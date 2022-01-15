@@ -9,10 +9,10 @@ with my_cte as (
         edited,
         scrape_date,
         scrape_ts,
-        compound,
-        neg,
-        neu,
-        pos,
+        compound::numeric as compound,
+        neg::numeric as neg,
+        neu::numeric as neu,
+        pos::numeric as pos,
         sentiment
     from {{ source('nba_source', 'aws_reddit_comment_data_source')}}
 )
