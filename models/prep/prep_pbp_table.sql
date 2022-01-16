@@ -26,6 +26,7 @@ SELECT  time_quarter,
                  ELSE -20
                  END as quarter_time
 FROM {{ ref('staging_aws_pbp_data_table')}}
+where time_quarter like '%:%' -- needed in case bbref fucks up again and includes faulty time values
 
 ),
 
@@ -190,3 +191,5 @@ select
     distinct *
 from final
 left join winning_team2 using (game_description, date)
+
+
