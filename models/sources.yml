@@ -7,6 +7,12 @@ sources:
     tables:
       - name: aws_stats_source
         description: Raw player aggregate stats
+      - name: aws_twitter_data_source
+        description: Raw twitter data
+        loaded_at_field: scrape_ts
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 72, period: hour}
       - name: aws_boxscores_source
         description: Raw player boxscores
         columns:
@@ -51,6 +57,10 @@ sources:
           error_after: {count: 72, period: hour}
       - name: aws_reddit_comment_data_source
         description: Raw reddit comment data
+        loaded_at_field: scrape_ts
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 72, period: hour}
         columns:
           - name: url
             tests:

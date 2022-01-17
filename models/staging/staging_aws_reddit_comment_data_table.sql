@@ -1,3 +1,5 @@
+{{ config(materialized='incremental') }}
+
 with my_cte as (
     select
         author,
@@ -20,3 +22,11 @@ with my_cte as (
 select
     *
 from my_cte
+
+{% if is_incremental() %}
+
+  -- this filter will only be applied on an incremental run
+  -- only grab records where date is greater than the max date of the existing records in the tablegm
+  where scrape_date > (select max(scrape_date) from {{ this }})
+
+{% endif %}

@@ -63,8 +63,8 @@ final2 as (
 final3 as (
     select
         *,
-        case when sum_active_protocols > sum_active_protocols_lastwk then concat(protocols_differential, ' More Cases (', protocols_pct_diff, '% Increase) from Last Week')
-             when sum_active_protocols < sum_active_protocols_lastwk then concat(protocols_differential, ' Fewer Cases (', protocols_pct_diff, '% Decrease) from Last Week')
+        case when sum_active_protocols > sum_active_protocols_lastwk then concat(protocols_differential, ' More Cases (', protocols_pct_diff, '% Increase) from 7 days ago')
+             when sum_active_protocols < sum_active_protocols_lastwk then concat(protocols_differential, ' Fewer Cases (', protocols_pct_diff, '% Decrease) from 7 days ago')
              else 'No difference from Last Week'
              end as protocols_text
     from final2
