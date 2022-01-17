@@ -117,6 +117,17 @@ models:
       - name: transaction
         tests:
           - not_null
+    - name: prod_twitter_comments
+      description: Prod Twitter Comment Data
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["scrape_date", "username", "tweet"]
+      columns:
+          - name: scrape_date
+            description: Only grab the latest available date of data
+            tests:
+              - dbt_expectations.expect_column_distinct_count_to_equal:
+                  value: 1
     - name: prod_bans
       description: Prod Big ASS numbers table
       tests:
@@ -166,7 +177,7 @@ models:
               - dbt_expectations.expect_column_values_to_be_between:
                   min_value: 0
                   max_value: 35
-          - name: player_mvp_calc_avg
+          - name: player_mvp_calc_adj
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   min_value: -20

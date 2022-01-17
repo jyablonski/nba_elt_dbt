@@ -4,7 +4,6 @@ with scorers as (
         type,
         season_avg_ppg,
         season_ts_percent,
-        player_mvp_calc_avg,
         games_played
 
     from {{ ref('staging_aws_boxscores_table')}}
@@ -16,6 +15,17 @@ player_recent_date as (
     max(date) as max_date
     from {{ ref('staging_aws_boxscores_table')}}
     group by 1
+),
+
+player_value as (
+    select
+        player,
+        player_mvp_calc_adj,
+        top5_candidates,
+        mvp_rank,
+        games_missed,
+        penalized_games_missed
+    from {{ ref('prep_contract_value_analysis') }}
 ),
 
 player_recent_team as (
@@ -37,20 +47,21 @@ final as (
         type,
         season_avg_ppg,
         season_ts_percent,
-        player_mvp_calc_avg,
         games_played,
-        row_number() over (order by player_mvp_calc_avg desc) as mvp_rank,
         row_number() over (order by season_avg_ppg desc) as ppg_rank,
-        case when row_number() over (order by player_mvp_calc_avg desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates,
-        case when row_number() over (order by season_avg_ppg desc) <= 20 then 'Top 20 Scorers' else 'Other' end as top20_scorers
-
+        case when row_number() over (order by season_avg_ppg desc) <= 20 then 'Top 20 Scorers' else 'Other' end as top20_scorers,
+        v.player_mvp_calc_adj,
+        v.games_missed,
+        v.penalized_games_missed,
+        v.top5_candidates,
+        v.mvp_rank
     from scorers
     inner join player_recent_team using (player)
+    inner join player_value v using (player)
     order by mvp_rank
 )
 
+-- where player = 'Justin Robinson'
 select *
 from final
-order by player_mvp_calc_avg desc
-
-
+order by player_mvp_calc_adj desc

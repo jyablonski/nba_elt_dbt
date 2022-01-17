@@ -99,7 +99,9 @@ final as (
         when percentile_rank >= 90 then 'Great Value'
         when percentile_rank < 90 and percentile_rank >= 20 then 'Normal'
         else 'Bad Value'
-        end as color_var
+        end as color_var,
+        row_number() over (order by player_mvp_calc_adj desc) as mvp_rank,
+        case when row_number() over (order by player_mvp_calc_adj desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates
     from prep1 p1
     left join prep2 p2 using (salary_rank)
     left join prep3 p3 using (player)
