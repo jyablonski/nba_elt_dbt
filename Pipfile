@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-dbt = "*"
+dbt = "==1.01"
 
 [requires]
 python_version = "3.8"
