@@ -95,6 +95,18 @@ models:
       - name: game_id
         tests:
           - not_null
+  - name: prep_twitter_aggs
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+  - name: prep_reddit_aggs
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
   - name: prep_odds_analysis
     columns:
       - name: g_type
