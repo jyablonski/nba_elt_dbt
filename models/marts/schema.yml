@@ -252,3 +252,8 @@ models:
             tests:
               - dbt_expectations.expect_column_distinct_count_to_equal:
                   value: 1
+    - name: prod_social_media_aggs
+      description: Prod Social Media BANS Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 1
