@@ -148,8 +148,10 @@ models:
       columns:
           - name: player
             tests:
-                - unique
                 - not_null
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["player", "injury"]
     - name: prod_preseason_odds
       description: Prod Preseason Odds Table
       tests:
