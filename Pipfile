@@ -7,6 +7,7 @@ verify_ssl = true
 
 [packages]
 dbt = "==1.01"
+dbt-postgres = "==1.01"
 
 [requires]
 python_version = "3.8"
