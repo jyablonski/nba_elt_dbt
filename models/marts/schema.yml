@@ -75,12 +75,6 @@ models:
       # - dbt_expectations.expect_multicolumn_sum_to_equal:
           # column_list: ["wins_last_10", "losses_last_10"]
           # sum_total: 10
-    - name: prod_team_injuries
-      description: Prod Team Injuries Table
-      tests:
-        - dbt_expectations.expect_table_row_count_to_be_between:
-            min_value: 0
-            max_value: 200
     - name: prod_team_ratings
       description: Prod Team Ratings Table
       tests:
@@ -149,9 +143,16 @@ models:
           - name: player
             tests:
                 - not_null
+          - name: team_acronym
+            tests:
+              - dbt_expectations.expect_column_values_to_match_regex:
+                  regex: "[A-Z]{3}"
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["player", "injury"]
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 0
+            max_value: 200
     - name: prod_preseason_odds
       description: Prod Preseason Odds Table
       tests:
