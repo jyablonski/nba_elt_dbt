@@ -10,6 +10,7 @@ season_stats as (
             sum(fga::numeric) as fga_total,
             sum(fta::numeric) as fta_total,
             sum(pts::numeric) as pts_total,
+            sum(plusminus::numeric) as plusminus_total,
             COUNT(*) as games_played,
     type::text as type
     FROM my_cte
@@ -105,6 +106,7 @@ final_aws_boxscores as (
            {{ generate_ts_percent('g.pts', 'g.fga', 'g.fta::numeric') }} as game_ts_percent,
            {{ generate_ts_percent('s.pts_total', 's.fga_total', 's.fta_total::numeric') }} as season_ts_percent,
            round(s.pts_total / s.games_played, 1)::numeric as season_avg_ppg,
+           round(s.plusminus_total / s.games_played, 1)::numeric as season_avg_plusminus,
            s.games_played as games_played
     from game_stats g
     LEFT JOIN season_stats s using (player)
@@ -167,6 +169,7 @@ final as (
            b.game_ts_percent,
            b.season_ts_percent,
            b.season_avg_ppg,
+           b.season_avg_plusminus,
            b.games_played,
            m.player_mvp_calc_avg,
            a.team as full_team,

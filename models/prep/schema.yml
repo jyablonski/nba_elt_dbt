@@ -7,6 +7,20 @@ models:
       - name: team
         tests:
           - not_null
+  - name: prep_player_stats_rolling_avg
+    description: Prep table for player rolling avg stats
+    columns:
+      - name: player
+        tests:
+          - not_null
+          - unique
+  - name: prep_scorers
+    description: Prep Scoring Stats Table
+    columns:
+        - name: player
+          tests:
+              - unique
+              - not_null
   - name: prep_schedule_table
     description: Prep table for schedule + odds data
     columns:
