@@ -6,3 +6,4 @@ dbt_packages/
 dbt_packages/**
 dbt_packages/*
 dbt_packages
+.env

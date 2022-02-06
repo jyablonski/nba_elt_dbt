@@ -11,8 +11,8 @@ with recent_games as (
             else plusminus::text
             end as plusminus,
         game_ts_percent,
-        pts_color,
-        ts_color
+        pts_color::text as pts_color,
+        ts_color::text as ts_color
 
     from {{ ref('prep_recent_games_players')}}
     limit 15
