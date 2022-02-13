@@ -26,8 +26,22 @@ player_logo as (
     from {{ ref('staging_seed_player_attributes')}}
 ),
 
-final_table as (
+player_teams as (
     select
+        player,
+        team
+    from {{ ref('prep_player_most_recent_team') }}
+),
+
+-- grab (most recent) team from above cte
+boxscores_cte as (
+    select
+        {{ dbt_utils.star(from = ref('staging_aws_boxscores_table'), except = ["team"]) }}
+    from {{ ref('staging_aws_boxscores_table')}}
+),
+
+final_table as (
+    select distinct
         *,
         case when pts = max_pts then 1
              when (pts >= season_avg_ppg + 10) AND (pts != max_pts) then 2
@@ -40,7 +54,8 @@ final_table as (
         concat(
             '<span style=''font-size:16px; color:royalblue;''>', player, '</span> <span style=''font-size:12px; color:grey;''>', team, '</span>'
         ) as player_new
-    from {{ ref('staging_aws_boxscores_table')}}
+    from boxscores_cte
+    inner join player_teams using (player)
     inner join boxscores_yesterday using (date)
     left join player_season_high using (player)
     left join player_contracts using (player)

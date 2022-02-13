@@ -10,12 +10,21 @@ with latest_date as (
     where proper_date >= date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
 ),
 
+inactive_dates as (
+    select
+        date as proper_date,
+        is_inactive
+    from {{ ref('inactive_dates') }}
+),
+
+-- filter out all inactive dates, and only grab records where moneyline odds are null on gamedays so the test fails
 final as (
     select 
         *
     from {{ ref('prep_schedule_table') }}
     inner join latest_date using (proper_date)
-    where home_moneyline IS NULL OR away_moneyline IS NULL
+    left join inactive_dates using (proper_date)
+    where (home_moneyline IS NULL OR away_moneyline IS NULL) OR (is_inactive != 1)
 )
 
 select *
