@@ -32,6 +32,10 @@ models:
             min_value: 12
             max_value: 25
       columns:
+          - name: player
+            tests:
+                - unique
+                - not_null
           - name: plusminus
             tests:
                 - not_null
