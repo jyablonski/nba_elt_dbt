@@ -2,12 +2,15 @@
     everything is default utc, so if i run tests after 7pm local time every fails.
     set where filter to query based on local time (utc - 6 hrs) rather than utc.
     daylight savings will fuckthis up again yeet.
+
+    originally did proper_date >= date, but on 2022-02-18 it grabbed records for 2022-02-24.  
+    it should only grab games from the current day we're on
 */
 with latest_date as (
     select
         min(proper_date) as proper_date
     from {{ ref('prep_schedule_table') }}
-    where proper_date >= date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    where proper_date = date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
 ),
 
 inactive_dates as (
