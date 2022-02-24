@@ -133,7 +133,7 @@ sources:
           - name: player
             tests:
               - not_null
-        loaded_at_field: scrape_date
+        loaded_at_field: scrape_ts
         freshness:
           warn_after: {count: 1, period: day}
           error_after: {count: 2, period: day}

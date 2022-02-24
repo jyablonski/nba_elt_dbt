@@ -22,7 +22,8 @@ with shooting_stats as (
         corner_3pm_pct::numeric as corner_3pm_pct,
         heaves_att::numeric as heaves_att,
         heaves_makes::numeric as heaves_makes,
-        scrape_date::date as scrape_date
+        scrape_date::date as scrape_date,
+        scrape_ts::timestamp as scrape_ts
 
     from {{ source('nba_source', 'aws_shooting_stats_source')}}
 )
