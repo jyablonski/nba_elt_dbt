@@ -127,3 +127,13 @@ sources:
           - name: team
             tests:
               - not_null
+      - name: aws_shooting_stats_source
+        description: Raw Player Shooting Stats table
+        columns:
+          - name: player
+            tests:
+              - not_null
+        loaded_at_field: scrape_date
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}

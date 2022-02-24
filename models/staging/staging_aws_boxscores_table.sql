@@ -1,6 +1,35 @@
 with my_cte as (
     select 
-        distinct *
+        distinct
+        {{ clean_player_names_bbref('player') }}::text as player,
+        team::text as team,
+        location::text as location,
+        opponent::text as opponent,
+        outcome::text as outcome,
+        mp::text as mp,
+        fgm::integer as fgm,
+        fga::integer as fga,
+        fgpercent as fgpercent,
+        threepfgmade::integer as threepfgmade,
+        threepattempted::integer as threepattempted,
+        threepointpercent as threepointpercent,
+        ft::integer as ft,
+        fta::integer as fta,
+        ftpercent as ftpercent,
+        oreb::integer as oreb,
+        dreb::integer as dreb,
+        trb::integer as trb,
+        ast::integer as ast,
+        stl::integer as stl,
+        blk::integer as blk,
+        tov::integer as tov,
+        pf::integer as pf,
+        pts::integer as pts,
+        plusminus::numeric as plusminus,
+        gmsc::numeric as gmsc,
+        date::date as date,
+        type::text as type,
+        season::text as season
     from {{ source('nba_source', 'aws_boxscores_source')}} /* gamelogs got like 12x counted on 12-13-21 for some reason */
 ),
 
