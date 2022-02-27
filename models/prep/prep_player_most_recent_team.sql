@@ -19,7 +19,7 @@ player_teams as (
 final as (
     select *
     from player_teams
-    where date IS NOT NULL
+    where date is not null
 )
 
 select 

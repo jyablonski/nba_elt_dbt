@@ -27,7 +27,7 @@ home as (
 final1 as (
     select *
     from away
-    UNION 
+    union 
     select *
     from home
 ),
@@ -63,9 +63,9 @@ final2 as (
         t.games_played,
         o.games_played_opp,
         o.team_status_opp
-    from final1 f
-    left join team_status t using (team)
-    left join opp_status o using (opp)
+    from final1 as f
+    left join team_status as t using (team)
+    left join opp_status as o using (opp)
 ),
 
 win_loss as (

@@ -1,5 +1,5 @@
 with my_cte as (
-    SELECT
+    select
         team::text,
         age::numeric,
         w::integer,
@@ -14,27 +14,27 @@ with my_cte as (
         nrtg::numeric,
         pace::numeric,
         ftr::numeric,
-        "3par"::numeric AS three_p_rate,
-        "ts%"::numeric AS ts_percent,
-        "efg%"::numeric AS efg_percent,
-        "tov%"::numeric AS tov_percent,
-        "orb%"::numeric AS orb_percent,
-        "ft/fga"::numeric AS ft_fga,
-        "efg%_opp"::numeric AS efg_percent_opp,
-        "tov%_opp"::numeric AS tov_percent_opp,
-        "drb%_opp"::numeric AS drb_percent_opp,
-        "ft/fga_opp"::numeric AS ft_fga_opp,
+        "3par"::numeric as three_p_rate,
+        "ts%"::numeric as ts_percent,
+        "efg%"::numeric as efg_percent,
+        "tov%"::numeric as tov_percent,
+        "orb%"::numeric as orb_percent,
+        "ft/fga"::numeric as ft_fga,
+        "efg%_opp"::numeric as efg_percent_opp,
+        "tov%_opp"::numeric as tov_percent_opp,
+        "drb%_opp"::numeric as drb_percent_opp,
+        "ft/fga_opp"::numeric as ft_fga_opp,
         arena::text,
         attendance::numeric,
-        "att/game"::numeric AS att_game,
+        "att/game"::numeric as att_game,
         scrape_date::date as scrape_date
-    FROM {{ source('nba_source', 'aws_adv_stats_source')}}
+    from {{ source('nba_source', 'aws_adv_stats_source')}}
 ),
 
 most_recent_date as (
     select
         max(scrape_date) as scrape_date
-    FROM {{ source('nba_source', 'aws_adv_stats_source')}}
+    from {{ source('nba_source', 'aws_adv_stats_source')}}
 ),
 
 final as (

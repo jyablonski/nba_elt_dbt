@@ -2,7 +2,7 @@
 
 -- dbt run --full-refresh --select staging_aws_boxscores_incremental_table
 with my_cte as (
-    SELECT distinct
+    select distinct
         player,
         MD5(player::text) as md5_player,              /* ::text works here */
         SHA256(player::bytea)::text as sha256_player,
@@ -37,8 +37,8 @@ with my_cte as (
         date,
         type,
         season
-    FROM {{ source('nba_source', 'aws_boxscores_source')}}
-    WHERE player IS NOT NULL
+    from {{ source('nba_source', 'aws_boxscores_source')}}
+    where player is not null
     order by date desc
 )
 

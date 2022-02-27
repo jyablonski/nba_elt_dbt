@@ -26,7 +26,7 @@ final as (
         {{ generate_ord_numbers('coalesce(team_blown_leads.blown_lead_rank, 30)') }} as blown_lead_rank,
         coalesce(team_comebacks.team_comebacks_10pt, 0) as team_comebacks_10pt,
         {{ generate_ord_numbers('coalesce(team_comebacks.comeback_rank, 30)') }} as comeback_rank
-    from {{ ref('prep_team_blown_leads') }} p
+    from {{ ref('prep_team_blown_leads') }} as p
     left join team_comebacks using (team)
     left join team_blown_leads using (team)
     order by team_comebacks_10pt desc

@@ -1,8 +1,8 @@
 with transactions_data as (
     select
-        distinct date::date as date,
+        date,
         transaction
-    from {{ ref('staging_aws_transactions_table')}}
+    from {{ ref('prep_transactions') }}
     order by 1
 )
 

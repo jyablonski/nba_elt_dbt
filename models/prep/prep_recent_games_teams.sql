@@ -53,7 +53,7 @@ team_pts_scored as (
         b.opponent,
         b.outcome,
         sum(b.pts) as pts_scored
-    from {{ ref('staging_aws_boxscores_table')}} b
+    from {{ ref('staging_aws_boxscores_table')}} as b
     group by 1, 2, 3, 4, 5
 ),
 
@@ -82,27 +82,27 @@ select_final_games as (
         round(s.opp_avg_score, 1) as opp_avg_score,
         l.team_logo,
         opponent_logo.opp_logo as opp_logo,
-        CASE WHEN pts_scored = team_max_score THEN 1
-             when (pts_scored >= team_avg_score + 10) AND (pts_scored != team_max_score) then 2
+        case when pts_scored = team_max_score then 1
+             when (pts_scored >= team_avg_score + 10) and (pts_scored != team_max_score) then 2
              when team_avg_score - pts_scored > 10 then 3
-             ELSE 0 END AS pts_color,
-        CASE WHEN opp_max_score = pts_scored_opp then 1
-             when (pts_scored_opp >= opp_avg_score + 10) AND (pts_scored_opp != opp_max_score) then 2
+             else 0 end as pts_color,
+        case when opp_max_score = pts_scored_opp then 1
+             when (pts_scored_opp >= opp_avg_score + 10) and (pts_scored_opp != opp_max_score) then 2
              when (opp_avg_score - pts_scored_opp > 10) then 3
              else 0 end as opp_pts_color,
         (pts_scored - pts_scored_opp)::numeric as mov
-    from team_pts_scored b
-    left join teams_max_score m on b.team = m.team
-    LEFT JOIN team_logo l on l.team_acronym = b.team
-    left join opponent_scores o on b.opponent = o.opponent and b.date = o.date
+    from team_pts_scored as b
+    left join teams_max_score as m on b.team = m.team
+    left join team_logo as l on l.team_acronym = b.team
+    left join opponent_scores as o on b.opponent = o.opponent and b.date = o.date
     left join opponent_logo on b.opponent = opponent_logo.opponent
-    left join opp_max_score s on s.opp = b.opponent
+    left join opp_max_score as s on s.opp = b.opponent
 ),
 
 final as (
     select *,
-            case when abs(mov) BETWEEN 0 and 5 then 'Clutch Game'
-             when abs(mov) BETWEEN 6 and 10 then '10 pt Game'
+            case when abs(mov) between 0 and 5 then 'Clutch Game'
+             when abs(mov) between 6 and 10 then '10 pt Game'
              else 'Blowout Game' end as game_type
     from select_final_games
     order by date

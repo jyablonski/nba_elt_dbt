@@ -9,8 +9,8 @@ with team_wins as (
         a.conference,
         case when outcome = 'W' then 1
         else 0 end as outcome_int
-    from {{ ref('staging_aws_boxscores_table')}} b
-    left join {{ ref('staging_seed_team_attributes')}} a on a.team_acronym = b.team
+    from {{ ref('staging_aws_boxscores_table')}} as b
+    left join {{ ref('staging_seed_team_attributes')}} as a on a.team_acronym = b.team
 
 ),
 
@@ -53,10 +53,10 @@ pre_final as (
         COALESCE(i.team_active_injuries, 0) as active_injuries,
         COALESCE(i.team_active_protocols, 0) as active_protocols,
         (c.wins::numeric / games_played::numeric) as win_percentage
-    from team_wins t
-    left join team_counts c using (team)
-    left join active_injuries i using (team)
-    left join team_attributes a using (team)
+    from team_wins as t
+    left join team_counts as c using (team)
+    left join active_injuries as i using (team)
+    left join team_attributes as a using (team)
 
 ),
 
@@ -82,7 +82,7 @@ recent_10_losses as (
     select team, date, outcome,
     case when outcome = 'L' then 1 else 0 end as loss_count
     from recent_10
-    where outcome = 'L' AND game_num <= 10
+    where outcome = 'L' and game_num <= 10
     order by date desc
 
 ),

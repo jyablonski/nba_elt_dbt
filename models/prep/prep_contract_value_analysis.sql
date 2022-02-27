@@ -5,9 +5,9 @@ with my_cte as (
         b.games_played,
         b.player_mvp_calc_avg,
         coalesce(c.salary, 1000000) as salary
-    from {{ ref('staging_aws_boxscores_table') }} b
-    left join {{ ref('staging_aws_contracts_table') }} c using (player)
-    left join {{ ref('prep_player_most_recent_team') }} t on t.player = b.player and t.team = b.team
+    from {{ ref('staging_aws_boxscores_table') }} as b
+    left join {{ ref('staging_aws_contracts_table') }} as c using (player)
+    left join {{ ref('prep_player_most_recent_team') }} as t on t.player = b.player and t.team = b.team
     where type = 'Regular Season' and t.team is not null --this is to get rid of the previous player's team before he got traded
 ),
 
@@ -72,8 +72,8 @@ prep3 as (
         player,
         player_mvp_calc_adj,
         adj_penalty_final,
-        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
-        round(percent_rank() OVER(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank,
+        round(percent_rank() over(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
+        round(percent_rank() over(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank,
         salary_rank
     from prep1_part2
     order by rankingish desc
@@ -102,9 +102,9 @@ final as (
         end as color_var,
         row_number() over (order by player_mvp_calc_adj desc) as mvp_rank,
         case when row_number() over (order by player_mvp_calc_adj desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates
-    from prep1 p1
-    left join prep2 p2 using (salary_rank)
-    left join prep3 p3 using (player)
+    from prep1 as p1
+    left join prep2 as p2 using (salary_rank)
+    left join prep3 as p3 using (player)
     order by player_mvp_calc_adj desc
 )
 

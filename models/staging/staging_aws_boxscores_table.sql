@@ -34,7 +34,7 @@ with my_cte as (
 ),
 
 season_stats as (
-    SELECT 
+    select 
             player::text as player,
             sum(fga::numeric) as fga_total,
             sum(fta::numeric) as fta_total,
@@ -42,14 +42,14 @@ season_stats as (
             sum(plusminus::numeric) as plusminus_total,
             COUNT(*) as games_played,
     type::text as type
-    FROM my_cte
-    WHERE player IS NOT NULL
+    from my_cte
+    where player is not null
     group by player, type
 ),
 
 /*      pts / (2 * (fga + (fta::numeric * 0.44))) as hm */
 game_stats as (
-    SELECT player,
+    select player,
            team,
            location,
            opponent,
@@ -78,31 +78,31 @@ game_stats as (
            date,
            type,
            season
-    FROM my_cte
-    WHERE player IS NOT NULL
+    from my_cte
+    where player is not null
 
 ),
 
 game_ids as (
-    SELECT distinct
-     DENSE_RANK() OVER (
-         ORDER BY 
+    select distinct
+     DENSE_RANK() over (
+         order by 
               date,(
-                CASE
-                    WHEN team < opponent THEN CONCAT(team,opponent)
-                    ELSE CONCAT(opponent,team)
-                END
+                case
+                    when team < opponent then CONCAT(team,opponent)
+                    else CONCAT(opponent,team)
+                end
               )
      ) as game_id,     
      team,
      date,
      opponent
-     FROM my_cte
+     from my_cte
     
 ),
 
 final_aws_boxscores as (
-    SELECT g.player,
+    select g.player,
            g.team,
            i.game_id,
            g.date,
@@ -137,9 +137,9 @@ final_aws_boxscores as (
            round(s.pts_total / s.games_played, 1)::numeric as season_avg_ppg,
            round(s.plusminus_total / s.games_played, 1)::numeric as season_avg_plusminus,
            s.games_played as games_played
-    from game_stats g
-    LEFT JOIN season_stats s using (player)
-    LEFT JOIN game_ids i using (team, date, opponent)
+    from game_stats as g
+    left join season_stats as s using (player)
+    left join game_ids as i using (team, date, opponent)
 
 ),
 
@@ -204,11 +204,11 @@ final as (
            a.team as full_team,
         round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
         (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
-    from final_aws_boxscores b
-    left join mvp_calc m on m.player = b.player and m.type = b.type
-    left join {{ ref('staging_seed_team_attributes')}} a on a.team_acronym = b.team
+    from final_aws_boxscores as b
+    left join mvp_calc as m on m.player = b.player and m.type = b.type
+    left join {{ ref('staging_seed_team_attributes')}} as a on a.team_acronym = b.team
 )
 
-SELECT 
+select 
     *
-FROM final
+from final

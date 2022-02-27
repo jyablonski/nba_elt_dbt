@@ -39,8 +39,8 @@ final2 as (
         b.location,
         b.opponent,
         coalesce(a.is_top_players, 0)::numeric as is_top_players
-    from my_cte b
-    left join team_aggs a using (team, date, game_id)
+    from my_cte as b
+    left join team_aggs as a using (team, date, game_id)
     order by team desc, date
 )
 

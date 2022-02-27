@@ -8,6 +8,9 @@ verify_ssl = true
 [packages]
 dbt-core = "==1.0.1"
 dbt-postgres = "==1.0.1"
+sqlfluff = "==0.10.1"
+markupsafe = "==2.0.1"
+sqlfluff-templater-dbt = "==0.10.1"
 
 [requires]
 python_version = "3.8"

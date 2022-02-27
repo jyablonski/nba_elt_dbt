@@ -3,7 +3,7 @@
 with my_cte as (
     select 
         *,
-        case when moneyline < 0 THEN 'Favored'
+        case when moneyline < 0 then 'Favored'
         when moneyline > 0 then 'Underdog'
         else 'fuqqq' end as g_type
     from {{ ref('staging_aws_odds_table') }}

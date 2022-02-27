@@ -1,20 +1,30 @@
-# name: Bumpversion CI CD
-# on:
-#   push:
-#     branches:
-#       - master
+# https://github.com/sqlfluff/sqlfluff-github-actions/tree/main/menu_of_workflows
+# should work if i remove the whitelist on the sql db.
+# name: Lint Models
+
+# on: [pull_request]
+
 # jobs:
-#   build:
-#     name: Bumpversion
+#   lint-models:
 #     runs-on: ubuntu-latest
+#     env:
+#       DBT_PROFILES_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/.ci_cd
+#       DBT_HOST: ${{ secrets.DBT_HOST }}
+#       DBT_USER: ${{ secrets.DBT_USER }}
+#       DBT_PASS: ${{ secrets.DBT_PASS }}
+#       DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+#       DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+#       DBT_PRAC_KEY: ${{ secrets.DBT_PRAC_KEY }}
 #     steps:
-#       - uses: actions/checkout@v2
-#       - name: Bump version and push tag
-#         uses: jaumann/github-bumpversion-action@v0.0.7
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#       - name: Push changes
-#         uses: ad-m/github-push-action@master
+#       - uses: "actions/checkout@v2"
+#       - uses: "actions/setup-python@v2"
 #         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           tags: true
+#             python-version: "3.8"
+#       - name: Install SQLFluff
+#         run: "pip install sqlfluff==0.10.1 markupsafe==2.0.1 sqlfluff-templater-dbt==0.10.1 dbt-core==1.0.1 dbt-postgres==1.0.1"
+
+#       - name: dbt Deps
+#         run: "dbt deps"
+
+#       - name: Lint models
+#         run: "sqlfluff lint models"
