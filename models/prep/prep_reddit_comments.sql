@@ -7,9 +7,9 @@ with my_cte as (
 duplicate_comments as (
     select 
         *,
-        ROW_NUMBER() OVER (
-            PARTITION BY author, comment, scrape_date
-            ORDER BY score desc
+        ROW_NUMBER() over (
+            partition by author, comment, scrape_date
+            order by score desc
         ) as comment_rank
     from my_cte
 ),

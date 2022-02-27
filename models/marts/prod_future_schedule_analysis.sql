@@ -69,12 +69,12 @@ final as (
         round((r.road_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_road,
         round((a.above_500_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_above_500,
         round((b.below_500_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_below_500
-    from my_cte m
-    left join team_home_counts h using (team)
-    left join team_road_counts r using (team)
-    left join team_above_500_counts a using (team)
-    left join team_below_500_counts b using (team)
-    left join team_opp_remaining_win_pct o using (team)
+    from my_cte as m
+    left join team_home_counts as h using (team)
+    left join team_road_counts as r using (team)
+    left join team_above_500_counts as a using (team)
+    left join team_below_500_counts as b using (team)
+    left join team_opp_remaining_win_pct as o using (team)
 
 )
 

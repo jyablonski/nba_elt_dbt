@@ -1,0 +1,11 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('dbt_host') }}"
+      port: 5432
+      dbname: "{{ env_var('dbt_dbname') }}"
+      schema: "{{ env_var('dbt_schema') }}"
+      user: "{{ env_var('dbt_user') }}"
+      password: "{{ env_var('dbt_pass') }}"

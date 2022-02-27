@@ -16,8 +16,8 @@ away_teams as (
     s.away_team as away_team,
     a.team_acronym as away_team_acronym,
     'join' as join_col
-  from {{ source('nba_source', 'aws_schedule_source')}} s
-  left join {{ ref('staging_seed_team_attributes')}} a on s.away_team = a.team
+  from {{ source('nba_source', 'aws_schedule_source')}} as s
+  left join {{ ref('staging_seed_team_attributes')}} as a on s.away_team = a.team
 ),
 
 home_teams as (
@@ -25,8 +25,8 @@ home_teams as (
     s.home_team as home_team,
     a.team_acronym as home_team_acronym,
     'join' as join_col
-  from {{ source('nba_source', 'aws_schedule_source')}} s
-  left join {{ ref('staging_seed_team_attributes')}} a on s.home_team = a.team
+  from {{ source('nba_source', 'aws_schedule_source')}} as s
+  left join {{ ref('staging_seed_team_attributes')}} as a on s.home_team = a.team
 )
 
 

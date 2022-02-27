@@ -36,8 +36,8 @@ player_recent_team as (
         s.full_team,
         s.date,
         d.max_date
-    from {{ ref('staging_aws_boxscores_table')}} s
-    inner join player_recent_date d using (player)
+    from {{ ref('staging_aws_boxscores_table')}} as s
+    inner join player_recent_date as d using (player)
     where s.date = d.max_date
 ),
 
@@ -59,7 +59,7 @@ final as (
         v.mvp_rank
     from scorers
     inner join player_recent_team using (player)
-    inner join player_value v using (player)
+    inner join player_value as v using (player)
     order by mvp_rank
 )
 

@@ -1,15 +1,15 @@
 with my_cte as (
-    SELECT
-        title::text AS title,
-        score::integer AS score,
-        id::text AS id,
-        url::text AS url,
+    select
+        title::text as title,
+        score::integer as score,
+        id::text as id,
+        url::text as url,
         reddit_url::text as reddit_url,
-        num_comments::integer AS num_comments,
-        body::text AS body,
-        scrape_date::date AS scrape_date,
-        scrape_time::TIMESTAMP AS scrape_time
-    FROM {{ source('nba_source', 'aws_reddit_data_source')}}
+        num_comments::integer as num_comments,
+        body::text as body,
+        scrape_date::date as scrape_date,
+        scrape_time::timestamp as scrape_time
+    from {{ source('nba_source', 'aws_reddit_data_source')}}
 )
 
 select *

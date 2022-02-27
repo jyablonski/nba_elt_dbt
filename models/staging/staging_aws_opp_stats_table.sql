@@ -5,9 +5,9 @@ with my_cte as (
 ),
 
 most_recent_date as (
-    SELECT
+    select
         max(scrape_date) as scrape_date
-    FROM {{ source('nba_source', 'aws_opp_stats_source')}}
+    from {{ source('nba_source', 'aws_opp_stats_source')}}
 ),
 
 final as (

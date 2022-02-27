@@ -9,9 +9,9 @@ with twitter_cte as (
 duplicate_tweets as (
     select 
         *,
-        ROW_NUMBER() OVER (
-            PARTITION BY username, tweet, scrape_date
-            ORDER BY likes_count desc
+        ROW_NUMBER() over (
+            partition by username, tweet, scrape_date
+            order by likes_count desc
         ) as tweet_rank
     from twitter_cte
 ),

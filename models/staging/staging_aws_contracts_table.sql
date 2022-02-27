@@ -1,9 +1,9 @@
 with my_cte as (
-    SELECT
-        player::text AS player,
-        team::text AS team,
-        coalesce(season_salary, 1000000)::numeric AS salary
-    FROM {{ source('nba_source', 'aws_contracts_source')}}
+    select
+        player::text as player,
+        team::text as team,
+        coalesce(season_salary, 1000000)::numeric as salary
+    from {{ source('nba_source', 'aws_contracts_source')}}
     order by salary desc
 ),
 
@@ -31,12 +31,12 @@ players_date as (
     group by 1
 ),
 
-players_team as(
+players_team as (
     select
         b.player,
         date,
         b.team as new_team
-    from {{ ref('staging_aws_boxscores_table')}} b
+    from {{ ref('staging_aws_boxscores_table')}} as b
     inner join players_date using (date)
 ),
 
@@ -46,8 +46,8 @@ combo as (
         f.team,
         n.new_team,
         f.salary
-    from players_fixed f
-    left join players_team n using (player)
+    from players_fixed as f
+    left join players_team as n using (player)
     order by player
 ),
 
