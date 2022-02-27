@@ -4,7 +4,7 @@ default:
     sqlfluff:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
-      port: "{{ env_var('DBT_PORT') }} "
+      port: 5432
       dbname: "{{ env_var('DBT_DBNAME') }}"
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
