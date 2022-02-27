@@ -1,23 +1,20 @@
-with my_cte as (
-    select 
-        *
-    FROM {{ source('nba_source', 'aws_transactions_source')}}
-),
+{{ config(materialized='incremental') }}
 
-most_recent_date as (
+with transactions as (
     select 
-        max(scrape_date) as scrape_date
-    FROM {{ source('nba_source', 'aws_transactions_source')}}
-),
-
-final as (
-    select 
-        c.date,
-        c.transaction,
-        c.scrape_date
-    from my_cte c
-    inner join most_recent_date using (scrape_date)
+        date::date as date,
+        transaction::text as transaction,
+        scrape_date::date as scrape_date
+    from {{ source('nba_source', 'aws_transactions_source')}}
 )
 
 select *
-from final
+from transactions
+
+{% if is_incremental() %}
+
+  -- this filter will only be applied on an incremental run
+  -- only grab records where date is greater than the max date of the existing records in the tablegm
+  where scrape_date > (select max(scrape_date) from {{ this }})
+
+{% endif %}
