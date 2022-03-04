@@ -42,16 +42,25 @@ models:
         +schema: nba_prod
         +tags:
           - "NBA_PRODUCTION_MARTS"
+          - "DAILY"
       prep:
         +materialized: table
         +schema: nba_prep
         +tags:
           - "NBA_PRODUCTION_PREP"
+          - "DAILY"
       staging:
         +materialized: view
         +schema: nba_staging
         +tags:
           - "NBA_PRODUCTION_STAGING"
+          - "DAILY"
+      ml:
+        +materialized: table
+        +schema: ml_models
+        +tags:
+          - "NBA_PRODUCTION_ML_MODELS"
+          - "DAILY"
 seeds:
   nba_elt_project:
     +schema: nba_staging
