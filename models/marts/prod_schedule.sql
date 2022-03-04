@@ -24,10 +24,12 @@ aws_schedule_table as (
         proper_time,
         avg_team_rank,
         start_time,
+        home_team,
+        away_team,
         case when home_moneyline is null then home_team
-                  else CONCAT(home_team, ' (', home_moneyline, ')') end as home_team,
+                  else CONCAT(home_team, ' (', home_moneyline, ')') end as home_team_odds,
         case when away_moneyline is null then away_team
-                  else CONCAT(away_team, ' (', away_moneyline, ')') end as away_team
+                  else CONCAT(away_team, ' (', away_moneyline, ')') end as away_team_odds
     from new_odds
     where date >= ((current_date)::date)
 )
