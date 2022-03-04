@@ -75,10 +75,16 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
+    - name: prod_team_record_top_players
+      description: Prod Table for Team Records w/ top 2 players
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
       columns:
-      - name: last_10
+      - name: team
         tests:
           - not_null
+          - unique
       # - dbt_expectations.expect_multicolumn_sum_to_equal:
           # column_list: ["wins_last_10", "losses_last_10"]
           # sum_total: 10

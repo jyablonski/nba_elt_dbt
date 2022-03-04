@@ -76,6 +76,7 @@ final as (
 
 ),
 
+-- this is where all of the individual counts are
 final2 as (
     select 
         team,
@@ -88,16 +89,25 @@ final2 as (
     from final
 ),
 
+-- this is the aggregated info
 final3 as (
     select
-        *,
+        team,
+        concat(aggs_wins_2, '-', aggs_losses_2)::text as record_2,
+        concat(aggs_wins_1, '-', aggs_losses_1)::text as record_1,
+        concat(aggs_wins_0, '-', aggs_losses_0)::text as record_0,
         case when aggs_wins_2 > 0 then round(aggs_wins_2::numeric / (aggs_wins_2::numeric + aggs_losses_2::numeric), 3)::numeric
-        else 0 end as aggs_win_2_wic_pct,
+        else 0 end as aggs_win_2_pct,
         case when aggs_wins_1 > 0 then round(aggs_wins_1::numeric / (aggs_wins_1::numeric + aggs_losses_1::numeric), 3)::numeric
-        else 0 end as aggs_win_1_wic_pct,
+        else 0 end as aggs_win_1_pct,
         case when aggs_wins_0 > 0 then round(aggs_wins_0::numeric / (aggs_wins_0::numeric + aggs_losses_0::numeric), 3)::numeric
-        else 0 end as aggs_win_0_wic_pct
+        else 0 end as aggs_win_0_pct,
+        aggs_wins_2 + aggs_losses_2 as tot_games_2_players,
+        aggs_wins_1 + aggs_losses_1 as tot_games_1_players,
+        aggs_wins_0 + aggs_losses_0 as tot_games_0_players
+
     from final2
+    order by aggs_win_2_pct desc
 )
 
 select *
