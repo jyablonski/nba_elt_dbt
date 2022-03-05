@@ -56,7 +56,7 @@ final2 as (
     select 
         *,
         abs(sum_active_protocols_lastwk - sum_active_protocols)::numeric as protocols_differential,
-        100 * round((sum_active_protocols_lastwk - sum_active_protocols) / sum_active_protocols_lastwk, 3)::numeric as protocols_pct_diff
+        abs(100 * round((sum_active_protocols_lastwk - sum_active_protocols) / sum_active_protocols_lastwk, 3))::numeric as protocols_pct_diff
     from final
 ),
 
