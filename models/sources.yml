@@ -137,3 +137,9 @@ sources:
         freshness:
           warn_after: {count: 1, period: day}
           error_after: {count: 2, period: day}
+  - name: ml_models
+    database: jacob_db
+    schema: ml_models
+    description: Landing Zone for NBA ML Data
+    tables:
+      - name: tonights_games_ml
