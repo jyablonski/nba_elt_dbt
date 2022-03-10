@@ -53,6 +53,22 @@ away_team_attributes_new as (
 
 ),
 
+home_days_rest as (
+    select 
+        team as home_team,
+        date as proper_date,
+        days_rest as home_days_rest
+    from {{ ref('prep_team_days_rest') }}
+),
+
+away_days_rest as (
+    select
+        team as away_team,
+        date as proper_date,
+        days_rest as away_days_rest
+    from {{ ref('prep_team_days_rest') }}
+),
+
 final_table as (
     select
         schedule_data.start_time2 as start_time,
@@ -65,7 +81,8 @@ final_table as (
         home_team_attributes_new.home_team_rank,
         away_team_attributes_new.away_team_acronym,
         away_team_attributes_new.away_team_rank,
-
+        home_days_rest.home_days_rest,
+        away_days_rest.away_days_rest,
         home_team_odds.home_moneyline,
 
         away_team_odds.away_moneyline,
@@ -85,6 +102,8 @@ final_table as (
             away_team_attributes_new.away_team_acronym =
             away_team_odds.away_team_acronym and schedule_data.proper_date =
             away_team_odds.proper_date
+    left join home_days_rest on home_days_rest.home_team = schedule_data.home_team and home_days_rest.proper_date = schedule_data.proper_date
+    left join away_days_rest on away_days_rest.away_team = schedule_data.away_team and away_days_rest.proper_date = schedule_data.proper_date
     order by proper_date asc
 )
 

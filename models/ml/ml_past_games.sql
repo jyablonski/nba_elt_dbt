@@ -6,7 +6,9 @@ with games as (
         away_team_acronym,
         proper_date,
         home_team_rank,
-        away_team_rank
+        away_team_rank,
+        home_days_rest,
+        away_days_rest
     from {{ ref('prep_schedule_table') }}
     where proper_date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
 ),
@@ -84,12 +86,14 @@ final as (
         away_team,
         proper_date,
         home_team_rank,
+        home_days_rest,
         home_team_avg_pts_scored,
         home_team_avg_pts_scored_opp,
         home_team_win_pct,
         home_team_win_pct_last10,
         home_is_top_players,
         away_team_rank,
+        away_days_rest,
         away_team_avg_pts_scored,
         away_team_avg_pts_scored_opp,
         away_team_win_pct,

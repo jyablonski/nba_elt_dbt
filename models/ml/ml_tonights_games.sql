@@ -90,6 +90,23 @@ away_team_top_players_aggs as (
     group by 1
 ),
 
+-- home days rest away days rest has to come from different methodology than ml_past_games
+
+home_days_rest as (
+    select 
+        team as home_team,
+        date as home_last_played_date
+    from {{ ref('prep_team_days_rest') }}
+    where rank = 1
+),
+
+away_days_rest as (
+    select 
+        team as away_team,
+        date as away_last_played_date
+    from {{ ref('prep_team_days_rest') }}
+    where rank = 1
+),
 
 final as (
     select 
@@ -97,12 +114,14 @@ final as (
         away_team,
         proper_date,
         home_team_rank,
+        (proper_date - home_last_played_date) - 1 AS home_days_rest,
         home_team_avg_pts_scored,
         home_team_avg_pts_scored_opp,
         home_team_win_pct,
         home_team_win_pct_last10,
         coalesce(home_is_top_players, 2)::numeric as home_is_top_players,  -- if top players missing then they're HEALTHY
         away_team_rank,
+        (proper_date - away_last_played_date) - 1 as away_days_rest,
         away_team_avg_pts_scored,
         away_team_avg_pts_scored_opp,
         away_team_win_pct,
@@ -117,6 +136,8 @@ final as (
     left join away_team_win_pct using (away_team)
     left join away_team_top_players_aggs using (away_team)
     left join outcomes using (home_team, proper_date)
+    left join home_days_rest using (home_team)
+    left join away_days_rest using (away_team)
 )
 
 -- outcome == 1 means home team won,
