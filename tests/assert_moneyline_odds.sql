@@ -1,6 +1,6 @@
 /* this test grabs the latest upcoming day's games and checks to make sure moneyline odds arent null
     everything is default utc, so if i run tests after 7pm local time every fails.
-    set where filter to query based on local time (utc - 6 hrs) rather than utc.
+    set where filter to query based on local time (utc - 6 hrs or utc - 5 hrs) rather than utc.
     daylight savings will fuckthis up again yeet.
 
     originally did proper_date >= date, but on 2022-02-18 it grabbed records for 2022-02-24.  
@@ -10,9 +10,10 @@ with latest_date as (
     select
         min(proper_date) as proper_date
     from {{ ref('prep_schedule_table') }}
-    where proper_date = date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    where proper_date = date({{ dbt_utils.current_timestamp() }} - INTERVAL '5 hour')
 ),
 
+-- updates inactive_dates csv file in data folder for all star break / thanksgiving
 inactive_dates as (
     select
         date as proper_date,

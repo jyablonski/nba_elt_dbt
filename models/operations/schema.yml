@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: daily_ingestion
+      description: Ingestion Table tracking current day metrics
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 12
