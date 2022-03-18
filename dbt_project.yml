@@ -50,10 +50,16 @@ models:
           - "NBA_PRODUCTION_PREP"
           - "DAILY"
       staging:
-        +materialized: view
+        +materialized: table
         +schema: nba_staging
         +tags:
           - "NBA_PRODUCTION_STAGING"
+          - "DAILY"
+      operations:
+        +materialized: table
+        +schema: operations
+        +tags:
+          - "NBA_PRODUCTION_OPERATIONS"
           - "DAILY"
       ml:
         +materialized: table
