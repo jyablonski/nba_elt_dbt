@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prep_reddit_comments
+    columns:
+      - name: comment
+        tests:
+          - not_null

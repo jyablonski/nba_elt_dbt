@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: prep_team_games_played
+    columns:
+      - name: team
+        tests:
+          - not_null
+          - unique

@@ -1,0 +1,18 @@
+version: 2
+
+models:
+    - name: staging_aws_injury_data_table
+      description: Staging table for injury table
+      columns:
+        - name: player
+          tests:
+            - not_null
+        - name: team
+          tests:
+            - not_null
+        - name: injury
+          tests:
+            - not_null
+        - name: description
+          tests:
+            - not_null

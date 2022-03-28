@@ -1,0 +1,12 @@
+version: 2
+
+models:
+    - name: ml_past_games_analysis
+      description: Historical Table showing past ML Game Predictions
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 1
+        - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+            column_A: tot_games
+            column_B: tot_correct_predictions
+            or_equal: False

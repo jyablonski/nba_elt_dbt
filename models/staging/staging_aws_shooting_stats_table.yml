@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: staging_aws_shooting_stats_table
+      description: Staging table for player shooting statistics
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["player", "scrape_date"]

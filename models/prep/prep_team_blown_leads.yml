@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: prep_team_blown_leads
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("prep_schedule_analysis")

@@ -1,0 +1,30 @@
+version: 2
+
+models:
+    - name: staging_aws_boxscores_table
+      description: Staging table for box scores
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["player", "date"]
+      columns:
+        - name: player
+          tests:
+            - not_null
+        - name: location
+          tests:
+            - not_null
+        - name: pts
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: 0  
+                max_value: 100
+        - name: plusminus
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: -70 
+                max_value: 70
+        - name: games_played
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: 1
+                max_value: 82

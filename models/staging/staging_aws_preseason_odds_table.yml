@@ -1,0 +1,10 @@
+version: 2
+
+models:
+    - name: staging_aws_preseason_odds_table
+      description: Staging table for team preseason championship odds
+      columns:
+        - name: team
+          tests:
+            - not_null
+            - unique

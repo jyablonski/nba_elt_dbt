@@ -1,0 +1,18 @@
+version: 2
+
+models:
+    - name: prod_transactions
+      description: Prod League Transactions Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["date", "transaction"]
+      columns:
+        - name: date
+          description: Only grab the latest date, should only ever be 1
+          tests:
+            - dbt_expectations.expect_column_distinct_count_to_equal:
+                value: 1
+      columns:
+      - name: transaction
+        tests:
+          - not_null

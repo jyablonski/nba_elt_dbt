@@ -1,0 +1,23 @@
+version: 2
+
+models:
+    - name: prod_recent_games_teams
+      description: Prod Recent Games for Teams Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 1
+            max_value: 15
+      columns:
+          - name: pts_color
+            tests:
+            - dbt_expectations.expect_column_values_to_be_in_set:
+                value_set: [0, 1, 2, 3]
+          - name: opp_pts_color
+            tests:
+            - dbt_expectations.expect_column_values_to_be_in_set:
+                value_set: [0, 1, 2, 3]
+          - name: date
+            description: Should only be 1 day of data
+            tests:
+              - dbt_expectations.expect_column_distinct_count_to_equal:
+                  value: 1

@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prep_bans
+    description: '{{ doc("prep_bans")}}'
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal:
+        value: 2

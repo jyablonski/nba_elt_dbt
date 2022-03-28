@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: prep_boxscores_table
+    description: Prep table for boxscores data
+    columns:
+      - name: team
+        tests:
+          - not_null

@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prep_recent_games_teams
+    description: '{{ doc("prep_recent_games_teams")}}'
+    tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["team", "game_id"]

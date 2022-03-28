@@ -1,0 +1,12 @@
+version: 2
+
+models:
+    - name: staging_aws_contracts_table
+      description: Staging table for box scores
+      columns:
+        - name: player
+          tests:
+            - not_null
+        - name: salary
+          tests:
+            - not_null

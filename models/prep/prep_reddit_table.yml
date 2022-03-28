@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prep_reddit_table
+    columns:
+      - name: post_type
+        tests:
+          - not_null
