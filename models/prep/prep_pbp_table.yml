@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: prep_pbp_table
+    columns:
+      - name: game_description
+        tests:
+          - not_null
+      - name: game_id
+        tests:
+          - not_null

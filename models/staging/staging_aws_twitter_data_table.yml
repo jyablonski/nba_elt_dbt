@@ -1,0 +1,9 @@
+version: 2
+
+models:
+    - name: staging_aws_twitter_data_table
+      description: Staging table for twitter data
+      columns:
+        - name: tweet
+          tests:
+            - not_null

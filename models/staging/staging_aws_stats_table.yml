@@ -1,0 +1,9 @@
+version: 2
+
+models:
+    - name: staging_aws_stats_table
+      description: Staging table for box scores
+      columns:
+        - name: player
+          tests:
+            - not_null

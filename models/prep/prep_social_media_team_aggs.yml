@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: prep_social_media_team_aggs
+    description: Prep table for reddit social media aggregation stats
+    columns:
+        - name: flair
+          tests:
+              - unique

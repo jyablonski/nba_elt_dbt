@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: prep_team_top_player_stats
+    columns:
+      - name: team
+        tests:
+          - not_null
+          - unique

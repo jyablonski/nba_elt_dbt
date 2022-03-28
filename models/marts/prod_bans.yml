@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: prod_bans
+      description: Prod Big ASS numbers table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 2

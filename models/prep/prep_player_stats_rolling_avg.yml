@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: prep_player_stats_rolling_avg
+    description: Prep table for player rolling avg stats
+    columns:
+      - name: player
+        tests:
+          - not_null
+          - unique

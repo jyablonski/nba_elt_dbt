@@ -1,0 +1,10 @@
+version: 2
+
+models:
+    - name: staging_aws_boxscores_incremental_table
+      description: PRACTICE boxscores incremental table
+      columns:
+        - name: player_pk
+          tests:
+            - unique
+            - not_null  

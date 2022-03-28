@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: prep_scorers
+    description: Prep Scoring Stats Table
+    columns:
+        - name: player
+          tests:
+              - unique
+              - not_null

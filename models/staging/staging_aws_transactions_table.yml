@@ -1,0 +1,12 @@
+version: 2
+
+models:
+    - name: staging_aws_transactions_table
+      description: Staging table for box scores
+      columns:
+        - name: date
+          tests:
+            - not_null
+        - name: transaction
+          tests:
+            - not_null

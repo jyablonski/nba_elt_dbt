@@ -1,0 +1,9 @@
+version: 2
+
+models:
+    - name: staging_aws_injury_data_table_lastwk
+      description: Staging table for injury table for n - 7 days ago
+      columns:
+        - name: sum_active_protocols_lastwk
+          tests:
+            - not_null
