@@ -7,7 +7,7 @@ models:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["home_team", "away_team", "proper_date"]
         - dbt_expectations.expect_table_row_count_to_be_between:
-            min_value: 1
+            min_value: 0
             max_value: 15
       columns:
         - name: away_is_top_players
