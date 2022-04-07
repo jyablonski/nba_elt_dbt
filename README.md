@@ -10,7 +10,3 @@ Version: 1.5.0
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [Airflow Proof of Concept](https://github.com/jyablonski/nba_elt_airflow)
     * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
-
-
-#### dbt Lineage Graph for this Project
-![dbt](https://user-images.githubusercontent.com/16946556/138978498-395b5041-2207-4d41-b6f6-6114106537e6.png)

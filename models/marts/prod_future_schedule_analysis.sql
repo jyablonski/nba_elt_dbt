@@ -56,19 +56,21 @@ team_opp_remaining_win_pct as (
 
 ),
 
+-- this is fucked bc postgres cant use a coalesce column in a previous select command to create a new column. 
+-- so either split into 2 ctes, or spam coalesce statements
 final as (
     select distinct
         m.team,
-        h.home_games_left_count,
-        r.road_games_left_count,
-        a.above_500_games_left_count,
-        b.below_500_games_left_count,
+        coalesce(h.home_games_left_count, 0) as home_games_left_count,
+        coalesce(r.road_games_left_count, 0) as road_games_left_count,
+        coalesce(a.above_500_games_left_count, 0) as above_500_games_left_count,
+        coalesce(b.below_500_games_left_count, 0) as below_500_games_left_count,
         o.avg_win_pct_opp,
-        h.home_games_left_count::numeric + r.road_games_left_count::numeric as total_games_left,
-        round((h.home_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_home,
-        round((r.road_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_road,
-        round((a.above_500_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_above_500,
-        round((b.below_500_games_left_count::numeric / (h.home_games_left_count::numeric + r.road_games_left_count::numeric)), 3)::numeric as pct_games_left_below_500
+        coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric as total_games_left,
+        round((coalesce(h.home_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_home,
+        round((coalesce(r.road_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_road,
+        round((coalesce(a.above_500_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_above_500,
+        round((coalesce(b.below_500_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_below_500
     from my_cte as m
     left join team_home_counts as h using (team)
     left join team_road_counts as r using (team)
