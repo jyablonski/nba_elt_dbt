@@ -7,3 +7,7 @@ models:
         - name: tweet
           tests:
             - not_null
+        - name: pos
+          description: test that the sentiment analysis hasn't fkd up
+          tests:
+            - not_null

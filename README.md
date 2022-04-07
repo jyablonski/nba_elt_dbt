@@ -9,6 +9,7 @@ Version: 1.5.0
     * [Python Web Scrape](https://github.com/jyablonski/python_docker)
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [Airflow Proof of Concept](https://github.com/jyablonski/nba_elt_airflow)
+    * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
 
 
 #### dbt Lineage Graph for this Project
