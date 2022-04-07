@@ -23,6 +23,7 @@ players_fixed as (
     from my_cte
 ),
 
+-- this is to grab the team the player has MOST RECENTLY played for
 players_date as (
     select 
         player,
@@ -31,6 +32,7 @@ players_date as (
     group by 1
 ),
 
+-- joining that most recent team
 players_team as (
     select
         b.player,

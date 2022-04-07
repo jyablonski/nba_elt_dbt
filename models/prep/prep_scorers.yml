@@ -3,8 +3,10 @@ version: 2
 models:
   - name: prep_scorers
     description: Prep Scoring Stats Table
+    tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["player", "type"]
     columns:
         - name: player
           tests:
-              - unique
               - not_null

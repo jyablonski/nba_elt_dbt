@@ -1,5 +1,6 @@
 {{ config(materialized='incremental') }}
 
+-- 2022-04-06: watchout, date means event_date - should probably rename
 with transactions as (
     select 
         date::date as date,

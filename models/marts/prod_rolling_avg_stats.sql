@@ -7,6 +7,8 @@ with player_rolling_avg_aggs as (
 player_recent_games as (
     select
         player,
+        team,
+        full_team,
         season_avg_ppg,
         season_ts_percent,
         season_avg_plusminus,
