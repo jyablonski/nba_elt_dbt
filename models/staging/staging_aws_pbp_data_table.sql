@@ -14,7 +14,11 @@ with pbp_cte as (
         scorehome::numeric as score_home,
         marginscore::numeric as margin_score,
         date::date as date,
-        substr(timequarter, 1, length(timequarter) - 2)::text as time_quarter
+        substr(timequarter, 1, length(timequarter) - 2)::text as time_quarter,
+        case when date < '2022-04-11' then 'Regular Season'
+             when date >= '2022-04-11' and date < '2022-04-16' then 'Play-In'
+             else 'Playoffs' 
+            end as season_type
     from {{ source('nba_source', 'aws_pbp_data_source')}}
 )
 

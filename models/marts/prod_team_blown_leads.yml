@@ -2,7 +2,7 @@ version: 2
 
 models:
     - name: prod_team_blown_leads
-      description: Prod Team Blown Leads + Team Comebacks Table
+      description: Prod Team Blown Leads + Team Comebacks Table - UPDATE THIS WHEN play-in & playoffs START
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30

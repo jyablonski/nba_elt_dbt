@@ -1,6 +1,7 @@
 with home_teams as (
     select distinct
         date,
+        season_type,
         game_id,
         home_team as opp,
         home_team_full as opp_full,
@@ -20,6 +21,7 @@ with home_teams as (
 road_teams as (
         select distinct
         date,
+        season_type,
         game_id,
         away_team as opp,
         away_team_full as opp_full,
