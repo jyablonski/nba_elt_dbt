@@ -11,6 +11,7 @@ with team_wins as (
         else 0 end as outcome_int
     from {{ ref('staging_aws_boxscores_table')}} as b
     left join {{ ref('staging_seed_team_attributes')}} as a on a.team_acronym = b.team
+    where type = 'Regular Season'
 
 ),
 

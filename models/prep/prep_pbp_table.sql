@@ -15,6 +15,7 @@ select  time_quarter,
         score_home,
         margin_score,
         date,
+        season_type,
         case when quarter = '1st Quarter' then 48
                  when quarter = '2nd Quarter' then 36
                  when quarter = '3rd Quarter' then 24
@@ -111,6 +112,7 @@ pbp_data8 as (
     select 
         pbp_data7.home_team,
         date,
+        season_type,
         time_quarter,
         minutes,
         seconds,
