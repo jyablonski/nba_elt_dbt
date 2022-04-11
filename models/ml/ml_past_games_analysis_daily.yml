@@ -1,0 +1,16 @@
+version: 2
+
+models:
+    - name: ml_past_games_analysis_daily
+      description: Historical Table showing past ML Game Predictions
+      columns:
+        - name: proper_date
+          tests:
+            - unique
+            - not_null
+        - name: ml_prediction_pct_10d_ma
+          tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: 0.4
+                max_value: 1.0
