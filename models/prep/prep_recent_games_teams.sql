@@ -2,24 +2,30 @@ with teams_scores as (
     select
         team,
         date,
+        type,
         sum(pts) as pts_game
     from {{ ref('staging_aws_boxscores_table')}}
-    group by team, date
+    group by team, date, type
 ),
 
+-- use regular season max pts and avg pts for the comparisons
 teams_max_score as (
-    select  team,
-            max(pts_game) as team_max_score,
-            avg(pts_game) as team_avg_score
+    select  
+        team,
+        max(pts_game) as team_max_score,
+        avg(pts_game) as team_avg_score
     from teams_scores
+    where type = 'Regular Season'
     group by team
 ),
 
 opp_max_score as (
-    select  team as opp,
-            max(pts_game) as opp_max_score,
-            avg(pts_game) as opp_avg_score
+    select  
+        team as opp,
+        max(pts_game) as opp_max_score,
+        avg(pts_game) as opp_avg_score
     from teams_scores
+    where type = 'Regular Season'
     group by team
 ),
 
@@ -39,12 +45,7 @@ opponent_logo as (
     from {{ ref('staging_seed_team_attributes')}}
 ),
 
-final_table as (
-    select
-        *
-    from teams_scores
-),
-
+-- this is the table that grabs the most recent games and grabs the pts scored from them
 team_pts_scored as (
     select 
         b.team,
@@ -52,9 +53,10 @@ team_pts_scored as (
         b.game_id,
         b.opponent,
         b.outcome,
+        b.type,
         sum(b.pts) as pts_scored
     from {{ ref('staging_aws_boxscores_table')}} as b
-    group by 1, 2, 3, 4, 5
+    group by 1, 2, 3, 4, 5, 6
 ),
 
 opponent_scores as (
@@ -72,6 +74,7 @@ select_final_games as (
         l.team as full_team,
         b.date,
         b.game_id,
+        b.type,
         b.outcome,
         b.opponent,
         b.pts_scored,

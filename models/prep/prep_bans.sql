@@ -4,6 +4,7 @@ with boxscores as (
         game_id,
         location,
         outcome,
+        type,
         case when outcome = 'W' then 1
         else 0 end as outcome_int
     from {{ ref('staging_aws_boxscores_table')}}
@@ -13,6 +14,7 @@ tot_games_played as (
     select sum(outcome_int) as games_played,
     'join' as join_col
     from boxscores
+    where type = 'Regular Season'
 ),
 
 
@@ -31,7 +33,7 @@ league_bans_2 as (
 ), 
 
 upcoming_game_date as (
-    select min(proper_date) as min_date,
+    select coalesce(min(proper_date), current_date + 1) as min_date,
     'join' as join_col
     from {{ ref('staging_aws_schedule_table')}}
     where proper_date >= current_date
@@ -60,6 +62,7 @@ league_average_ppg_teams as (
         game_id,
         sum(pts) as sum_pts
     from {{ ref('staging_aws_boxscores_table')}}
+    where type = 'Regular Season'
     group by 1, 2
 ),
 
@@ -82,6 +85,7 @@ league_ts as (
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
     from {{ ref('staging_aws_boxscores_table')}}
+    where type = 'Regular Season'
 
 ),
 
@@ -93,9 +97,8 @@ league_ts_2 as (
 
 final as (
     select 
-        g.upcoming_games,
-        g.min_date as upcoming_game_date,
-        g.join_col,
+        d.min_date as upcoming_game_date,
+        coalesce(g.upcoming_games, 0) as upcoming_games,
         b.location,
         b.tot_wins,
         tg.games_played,
@@ -104,12 +107,12 @@ final as (
         u.scrape_time as scrape_time,
         '112.1'::numeric as last_yr_ppg,
         league_ts_2.league_ts_percent as league_ts_percent
-    from upcoming_games_count as g
-    left join league_bans_2 as b using (join_col)
+    from league_bans_2 as b 
     left join league_average_ppg as p using (join_col)
     left join tot_games_played as tg using (join_col)
     left join latest_update as u using (join_col)
-    left join upcoming_games_count using (join_col)
+    left join upcoming_games_count g using (join_col)
+    left join upcoming_game_date d using (join_col)
     left join league_ts_2 using (join_col)
 
 )

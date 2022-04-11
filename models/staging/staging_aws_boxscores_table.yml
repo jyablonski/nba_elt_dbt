@@ -5,7 +5,7 @@ models:
       description: Staging table for box scores
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["player", "date"]
+            column_list: ["player", "date", "type"]
       columns:
         - name: player
           tests:

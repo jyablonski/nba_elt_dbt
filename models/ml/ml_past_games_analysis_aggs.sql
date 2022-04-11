@@ -34,7 +34,7 @@ final as (
 -- the data points actually broken down
 -- ml is correct when ml_accuracy = 1
 game_predictions as (
-    select *,
+    select distinct *,
         case when ml_prediction = actual_outcome then 1 else 0 end as ml_accuracy
     from final
 ),

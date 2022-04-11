@@ -7,6 +7,7 @@ with mov_data as (
         mov::integer,
         game_type
     from {{ ref('prep_recent_games_teams')}}
+    where type = 'Regular Season'
 ),
 
 mov_counts_w as (
