@@ -28,7 +28,7 @@ with my_cte as (
         plusminus::numeric as plusminus,
         gmsc::numeric as gmsc,
         date::date as date,
-        type::text as type,
+        case when date < '2022-04-11' then 'Regular Season' when date > '2022-04-11' and date < '2022-04-16' then 'Play-In' else 'Playoffs' end as type,
         season::text as season
     from {{ source('nba_source', 'aws_boxscores_source')}} /* gamelogs got like 12x counted on 12-13-21 for some reason */
 ),

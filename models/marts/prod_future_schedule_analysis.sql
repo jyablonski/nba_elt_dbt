@@ -1,3 +1,5 @@
+-- remove as of 2022-04-11 because regular season is over and this isnt needed for postseason.
+{{ config(enabled = false) }}
 with my_cte as (
     select 
         *

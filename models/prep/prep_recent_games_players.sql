@@ -4,6 +4,7 @@ with player_season_high as (
         max(pts) as max_pts,
         max(game_ts_percent) as max_ts
     from {{ ref('staging_aws_boxscores_table')}}
+    where type = 'Regular Season'
     group by player
 ),
 

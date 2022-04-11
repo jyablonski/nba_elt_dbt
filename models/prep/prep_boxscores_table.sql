@@ -12,6 +12,8 @@ TO DO
 4) need to create case when for superstar / great / average / bad value.
 */
 
+{{ config(enabled = false) }}
+
 with total_player_stats as (
     select
         player,
