@@ -3,7 +3,9 @@ with my_cte as (
         distinct b.player,
         t.team,
         b.games_played,
+        b.playoffs_games_played,
         b.player_mvp_calc_avg,
+        b.player_mvp_calc_avg_playoffs,
         coalesce(c.salary, 1000000) as salary
     from {{ ref('staging_aws_boxscores_table') }} as b
     left join {{ ref('staging_aws_contracts_table') }} as c using (player)
