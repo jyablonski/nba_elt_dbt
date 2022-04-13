@@ -13,6 +13,9 @@ models:
         - name: location
           tests:
             - not_null
+        - name: player_mvp_calc_game
+          tests:
+            - not_null
         - name: pts
           tests:
             - dbt_expectations.expect_column_values_to_be_between:

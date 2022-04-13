@@ -40,11 +40,23 @@ season_stats as (
             sum(fta::numeric) as fta_total,
             sum(pts::numeric) as pts_total,
             sum(plusminus::numeric) as plusminus_total,
-            COUNT(*) as games_played,
-    type::text as type
+            COUNT(*) as games_played
     from my_cte
-    where player is not null
-    group by player, type
+    where player is not null and type = 'Regular Season'
+    group by player
+),
+
+season_stats_playoffs as (
+    select 
+            player::text as player,
+            sum(fga::numeric) as fga_total_playoffs,
+            sum(fta::numeric) as fta_total_playoffs,
+            sum(pts::numeric) as pts_total_playoffs,
+            sum(plusminus::numeric) as plusminus_total_playoffs,
+            COUNT(*) as games_played_playoffs
+    from my_cte
+    where player is not null and type = 'Playoffs'
+    group by player
 ),
 
 /*      pts / (2 * (fga + (fta::numeric * 0.44))) as hm */
@@ -134,11 +146,16 @@ final_aws_boxscores as (
            g.season,
            {{ generate_ts_percent('g.pts', 'g.fga', 'g.fta::numeric') }} as game_ts_percent,
            {{ generate_ts_percent('s.pts_total', 's.fga_total', 's.fta_total::numeric') }} as season_ts_percent,
+           {{ generate_ts_percent('p.pts_total_playoffs', 'p.fga_total_playoffs', 'p.fta_total_playoffs::numeric') }} as playoffs_ts_percent,
            round(s.pts_total / s.games_played, 1)::numeric as season_avg_ppg,
+           round(p.pts_total_playoffs / p.games_played_playoffs, 1)::numeric as playoffs_avg_ppg,
            round(s.plusminus_total / s.games_played, 1)::numeric as season_avg_plusminus,
-           s.games_played as games_played
+           round(p.plusminus_total_playoffs / p.games_played_playoffs, 1)::numeric as playoffs_avg_plusminus,
+           s.games_played as games_played,
+           p.games_played_playoffs as games_played_playoffs
     from game_stats as g
     left join season_stats as s using (player)
+    left join season_stats_playoffs as p using (player)
     left join game_ids as i using (team, date, opponent)
 
 ),
@@ -160,6 +177,29 @@ mvp_calc as (
             1
         ) as player_mvp_calc_avg
     from final_aws_boxscores
+    where type = 'Regular Season'
+    group by player, type
+
+),
+
+mvp_calc_playoffs as (
+    select
+        player,
+        type,
+        round(
+            avg(
+                     pts::numeric
+            ) + (
+                     0.5 * avg(plusminus::numeric)
+            ) + (
+                2 * avg(stl::numeric + blk::numeric)
+            ) + (
+                0.5 * avg(trb::numeric)
+            ) + (1.5 * avg(ast::numeric)) - (1.5 * avg(tov::numeric)),
+            1
+        ) as player_mvp_calc_avg_playoffs
+    from final_aws_boxscores
+    where type = 'Playoffs'
     group by player, type
 
 ),
@@ -197,15 +237,21 @@ final as (
            b.season,
            b.game_ts_percent,
            b.season_ts_percent,
+           b.playoffs_ts_percent,
            b.season_avg_ppg,
+           b.playoffs_avg_ppg,
            b.season_avg_plusminus,
+           b.playoffs_avg_plusminus,
            b.games_played,
+           b.games_played_playoffs as playoffs_games_played,
            m.player_mvp_calc_avg,
+           p.player_mvp_calc_avg_playoffs,
            a.team as full_team,
         round((pts::numeric + (0.5 * plusminus::numeric) + (2 * (stl::numeric + blk::numeric)) +
         (0.5 * trb::numeric) - (1.5 * tov::numeric) + (1.5 * ast::numeric)), 1)::numeric as player_mvp_calc_game
     from final_aws_boxscores as b
-    left join mvp_calc as m on m.player = b.player and m.type = b.type
+    left join mvp_calc as m on m.player = b.player
+    left join mvp_calc_playoffs p on p.player = b.player
     left join {{ ref('staging_seed_team_attributes')}} as a on a.team_acronym = b.team
 )
 

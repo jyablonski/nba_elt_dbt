@@ -1,11 +1,14 @@
 with scorers as (
     select 
         distinct player,
-        type,
         season_avg_ppg,
+        playoffs_avg_ppg,
         season_ts_percent,
+        playoffs_ts_percent,
         season_avg_plusminus,
-        games_played
+        playoffs_avg_plusminus,
+        games_played,
+        playoffs_games_played
 
     from {{ ref('staging_aws_boxscores_table')}}
 ),
@@ -45,11 +48,14 @@ final as (
         select distinct player,
         team,
         full_team,
-        type,
         season_avg_ppg,
+        playoffs_avg_ppg,
         season_avg_plusminus,
+        playoffs_avg_plusminus,
         season_ts_percent,
+        playoffs_ts_percent,
         games_played,
+        playoffs_games_played,
         row_number() over (order by season_avg_ppg desc) as ppg_rank,
         case when row_number() over (order by season_avg_ppg desc) <= 20 then 'Top 20 Scorers' else 'Other' end as top20_scorers,
         v.player_mvp_calc_adj,

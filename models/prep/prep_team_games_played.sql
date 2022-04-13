@@ -4,6 +4,7 @@ with my_cte as (
         date,
         game_id
     from {{ ref('staging_aws_boxscores_table')}}
+    where type = 'Regular Season'
 ),
 
 team_gp_counts as (
