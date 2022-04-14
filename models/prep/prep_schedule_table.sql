@@ -2,6 +2,9 @@
 https://stackoverflow.com/questions/19601948/must-appear-in-the-group-by-clause-or-be-used-in-an-aggregate-function
 need to filter odds data to the correct date given */
 
+-- 2022-04-13 update - there needs to be updates in the future to fix what i'm doing here
+-- i'm like only putting odds data on today's games and everything else is null and filtering on that - that's dumb as fuq.
+-- just leave all the odds data on the game records and then filter on current date or something.
 
 with schedule_data as (
     select
