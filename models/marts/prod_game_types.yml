@@ -4,5 +4,8 @@ models:
     - name: prod_game_types
       description: Prod Game Types Table
       tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
-            value: 3
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["game_type", "type"]
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 1
+            max_value: 6
