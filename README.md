@@ -2,7 +2,7 @@ Version: 1.6.1
 
 ### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
-### dbt docs available [here](https://jyablonski-dbt-docs.netlify.app/)
+### dbt docs available [here](https://jyablonski.netlify.app/)
 
 1. Links to other Repos providing infrastructure for this Project
     * [Shiny Server](https://github.com/jyablonski/NBA-Dashboard)
