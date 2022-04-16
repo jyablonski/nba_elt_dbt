@@ -8,3 +8,6 @@ models:
           tests:
             - not_null
             - unique
+        - name: fg_percent_opp
+          tests:
+            - not_null
