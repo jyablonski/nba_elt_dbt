@@ -1,5 +1,6 @@
 with standings as (
     select
+        row_number() over (partition by conference order by wins desc) as rank,
         team,
         team_full,
         conference,
@@ -16,6 +17,11 @@ with standings as (
 ),
 standings2 as (
     select 
+      case when (rank = 8) and (conference = 'Eastern') then 9  -- this is changing around the seeds for the play-in teams
+           when (rank = 9) and (conference = 'Eastern') then 8
+           when (rank = 8) and (conference = 'Western') then 9
+           when (rank = 9) and (conference = 'Western') then 8
+           else rank end as rank,
       team,
       team_full,
       conference,
@@ -27,10 +33,29 @@ standings2 as (
       active_protocols,
     concat(wins_last_10, '-', losses_last_10) as last_10
     from standings
+    order by conference, rank
+),
+
+final as (
+  select
+    {{ generate_ord_numbers('rank') }} as rank, 
+    team,
+    team_full,
+    conference,
+    wins,
+    losses,
+    games_played,
+    win_pct,
+    active_injuries,
+    active_protocols,
+    last_10
+  from standings2
 )
 
-select *
-from standings2
+
+select
+  *
+from final
 
 /* top 20 pt scorers contract avlue analysis team contract value analysis .  add standings (5-11) to mov 
   # wholeeee schedle analysis plots.
