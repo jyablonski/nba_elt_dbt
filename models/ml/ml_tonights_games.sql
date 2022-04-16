@@ -71,7 +71,8 @@ team_top_players as (
         t.rank as player_rank
     from {{ ref('staging_aws_injury_data_table') }} as p
     left join {{ ref('staging_seed_top_players') }} as t using (player)
-    where t.rank is not null  -- have to use t.rank here and not player_rank YEET BABY
+    where t.rank is not null and p.status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
+    -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),
 
 home_team_top_players_aggs as (

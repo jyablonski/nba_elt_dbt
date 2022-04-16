@@ -70,4 +70,5 @@ final_stg_injury as (
 
 )
 
-select * from final_stg_injury
+select *
+from final_stg_injury
