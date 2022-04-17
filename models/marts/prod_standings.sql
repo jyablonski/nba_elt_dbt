@@ -17,7 +17,8 @@ with standings as (
 ),
 standings2 as (
     select 
-      case when (rank = 8) and (conference = 'Eastern') then 9  -- this is changing around the seeds for the play-in teams
+      case when (rank = 7) and (conference = 'Eastern') then 9  -- this is changing around the seeds for the play-in teams
+           when (rank = 8) and (conference = 'Eastern') then 7 
            when (rank = 9) and (conference = 'Eastern') then 8
            when (rank = 8) and (conference = 'Western') then 9
            when (rank = 9) and (conference = 'Western') then 8

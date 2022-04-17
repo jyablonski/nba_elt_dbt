@@ -30,8 +30,8 @@ final as (
         coalesce(team_comebacks.team_comebacks_10pt, 0) as team_comebacks_10pt,
         {{ generate_ord_numbers('coalesce(team_comebacks.comeback_rank, 30)') }} as comeback_rank
     from {{ ref('prep_team_blown_leads') }} as p
-    left join team_comebacks using (team)
-    left join team_blown_leads using (team)
+    left join team_comebacks using (team, season_type)
+    left join team_blown_leads using (team, season_type)
     where p.season_type in ('Regular Season', 'Playoffs')
     order by team_comebacks_10pt desc
 
@@ -42,3 +42,4 @@ select
     team_comebacks_10pt - blown_leads_10pt as net_comebacks,
     {{ generate_ord_numbers('row_number() over (order by team_comebacks_10pt - blown_leads_10pt desc)') }} as net_rank
 from final
+where season_type = 'Regular Season'
