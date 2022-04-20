@@ -16,3 +16,8 @@ models:
         - name: ml_accuracy
           tests:
             - not_null
+        - name: ml_money_col
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: -10
+                max_value: 1000

@@ -5,6 +5,8 @@ end goal is to do some odds + ML analysis and see if i can find value in automat
 
 right now this is just the base table, the actual analysis is gnna have to do some joins with ml_accuracy, home+away moneyline, and actual outcome
 */
+{% set bet_parameter = 10 %}
+
 
 with my_cte as (
     select *
@@ -60,10 +62,18 @@ away_odds as (
 
 final_table as (
     select
-        *
+        *,                                  -- your original bet + (the original bet * money multiplier)
+        case when ml_accuracy = 1 and ml_prediction = 'Home Win'
+                then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (-100 / home_moneyline)), 2)
+             when ml_accuracy = 1 and ml_prediction = 'Road Win'
+                then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (-100 / away_moneyline)), 2)
+             when ml_accuracy = 0 then -10
+             else -10000  -- im testing to make sure it never hits -10000 - if it does then there's an error
+             end as ml_money_col
     from game_predictions
     left join home_odds using (home_team, proper_date)
     left join away_odds using (away_team, proper_date)
+    order by proper_date desc
 )
 
 -- predictions are 8 correct, 7 incorrect
