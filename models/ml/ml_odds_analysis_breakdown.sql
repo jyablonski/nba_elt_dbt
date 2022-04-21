@@ -17,7 +17,7 @@ aggs as (
         ml_accuracy,
         ml_prediction,
         count(*) as num_predictions,
-        sum(ml_money_col),
+        sum(ml_money_col) as sum_money,
         round((sum(ml_money_col) / count(*)), 2) as avg_money_per_bet
     from full_odds
     group by 1, 2
