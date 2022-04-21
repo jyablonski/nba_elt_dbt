@@ -1,3 +1,4 @@
+-- only tracking regular season metrics as of now
 with boxscores as (
     select 
         distinct(team),
@@ -8,6 +9,7 @@ with boxscores as (
         case when outcome = 'W' then 1
         else 0 end as outcome_int
     from {{ ref('staging_aws_boxscores_table')}}
+    where type = 'Regular Season'
 ),
 
 tot_games_played as (
