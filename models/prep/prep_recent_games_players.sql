@@ -1,13 +1,15 @@
+-- grab season high from ANY game that season
 with player_season_high as (
     select
         player,
         max(pts) as max_pts,
         max(game_ts_percent) as max_ts
     from {{ ref('staging_aws_boxscores_table')}}
-    where type = 'Regular Season'
+    -- where type = 'Regular Season'
     group by player
 ),
 
+-- yesterday could mean literally yesterday, but just grab the most recent games.
 boxscores_yesterday as (
     select max(date) as date
     from {{ ref('staging_aws_boxscores_table')}}
