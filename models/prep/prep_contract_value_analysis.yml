@@ -5,6 +5,3 @@ models:
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["player", "team"]
-      - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: ref("prep_player_most_recent_team")
-          factor: 1
