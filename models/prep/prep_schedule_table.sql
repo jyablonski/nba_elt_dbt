@@ -108,16 +108,21 @@ final_table as (
     left join home_days_rest on home_days_rest.home_team = schedule_data.home_team and home_days_rest.proper_date = schedule_data.proper_date
     left join away_days_rest on away_days_rest.away_team = schedule_data.away_team and away_days_rest.proper_date = schedule_data.proper_date
     order by proper_date asc
+),
+
+final_table2 as (
+    select
+        *,
+        {{ dbt_utils.surrogate_key(['home_team', 'away_team', 'proper_date']) }} as game_pk,
+        concat(
+            proper_date::text, ' ', start_time::text, ':00'
+        )::timestamp as proper_time
+    from final_table
+    order by proper_time
 )
 
-select
-    *,
-    {{ dbt_utils.surrogate_key(['home_team', 'proper_date']) }} as game_pk,
-    concat(
-        proper_date::text, ' ', start_time::text, ':00'
-    )::timestamp as proper_time
-from final_table
-order by proper_time
+select *
+from final_table2
 
 /* WIP
 ,
