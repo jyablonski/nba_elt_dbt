@@ -1,3 +1,6 @@
+{% set rolling_avg_parameter = 6 %}
+-- keep in mind for a 7-day rolling average you have to set the rolling_average_parameter to 6 (n -1)
+
 with my_cte as (
     select
         *
@@ -33,6 +36,7 @@ final as (
         avg_neg,
         avg_neu,
         reddit_avg_comments,
+        round(avg(reddit_tot_comments) over(ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_reddit_comments,
         round(reddit_tot_comments - reddit_avg_comments, 1)::numeric as count_differential,
         round((reddit_tot_comments - reddit_avg_comments) / reddit_avg_comments, 3)::numeric * 100 as reddit_pct_difference
     from aggs
