@@ -75,7 +75,7 @@ rolling_avg as (
         tot_correct_predictions,
         tot_games,
         ml_prediction_pct,
-        round(avg(ml_prediction_pct) over(order by proper_date ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_7d_ma
+        round(avg(ml_prediction_pct) over(order by proper_date ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_ma
     from final_aggs_tot
     order by proper_date desc
 
