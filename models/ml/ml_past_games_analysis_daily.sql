@@ -4,6 +4,8 @@ it excludes tonight's games because we don't know whether the ml model is correc
 
 tonights_games_ml has to be a source bc im making that table externally in an ecs python script
 */
+{% set rolling_avg_parameter = 6 %}
+-- keep in mind for a 7-day rolling average you have to set the rolling_average_parameter to 6 (n -1)
 
 with my_cte as (
     select *
@@ -73,16 +75,11 @@ rolling_avg as (
         tot_correct_predictions,
         tot_games,
         ml_prediction_pct,
-        round(avg(ml_prediction_pct) over(order by proper_date ROWS BETWEEN 9 PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_10d_ma
+        round(avg(ml_prediction_pct) over(order by proper_date ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_7d_ma
     from final_aggs_tot
     order by proper_date desc
 
 )
-
-
--- predictions are 8 correct, 7 incorrect
--- 5 predicted road wins, 10 predicted home wins
--- 4 actual road wins, 11 home wins
 
 select *
 from rolling_avg
