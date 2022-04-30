@@ -1,6 +1,6 @@
 with recent_date as (
     select max(scrape_date) as scrape_date
-    from {{ ref('staging_aws_adv_stats_table') }}
+    from {{ ref('staging_aws_reddit_comment_data_table') }}
 ),
 
 adv_stats_historical as (
