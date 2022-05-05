@@ -62,11 +62,15 @@ away_odds as (
 
 final_table as (
     select
-        *,                                  -- your original bet + (the original bet * money multiplier)
-        case when ml_accuracy = 1 and ml_prediction = 'Home Win'
+        *,                                  -- your round('{{ bet_parameter }}' + (the original bet * money multiplier)
+        case when ml_accuracy = 1 and ml_prediction = 'Home Win' and home_moneyline < 0
                 then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (-100 / home_moneyline)), 2)
-             when ml_accuracy = 1 and ml_prediction = 'Road Win'
+             when ml_accuracy = 1 and ml_prediction = 'Home Win' and home_moneyline > 0
+                then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (home_moneyline / 100)), 2)
+             when ml_accuracy = 1 and ml_prediction = 'Road Win' and away_moneyline < 0
                 then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (-100 / away_moneyline)), 2)
+             when ml_accuracy = 1 and ml_prediction = 'Road Win' and away_moneyline > 0
+                then round('{{ bet_parameter }}' + ('{{ bet_parameter }}' * (away_moneyline / 100)), 2)
              when ml_accuracy = 0 then -10
              else -10000  -- im testing to make sure it never hits -10000 - if it does then there's an error
              end as ml_money_col
