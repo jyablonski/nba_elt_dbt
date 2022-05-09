@@ -8,9 +8,18 @@ models:
           tests:
             - unique
             - not_null
+        - name: tot_correct_predictions
+          tests:
+            - not_null
+        - name: tot_incorrect_predictions
+          tests:
+            - not_null
+        - name: tot_games
+          tests:
+            - not_null
         - name: ml_prediction_pct_ma
           tests:
             - not_null
             - dbt_expectations.expect_column_values_to_be_between:
-                min_value: 0.2
+                min_value: 0
                 max_value: 1.0

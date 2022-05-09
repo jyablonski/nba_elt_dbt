@@ -41,12 +41,24 @@ game_predictions as (
     from final
 ),
 
-final_aggs as (
+-- reminder - pivot is fucked on postgres so i just split every group metric into a separate cte.
+final_aggs_correct as (
     select
         ml_accuracy,
         proper_date,
         count(*) as tot_correct_predictions
     from game_predictions
+    where ml_accuracy = 1
+    group by 1, 2
+),
+
+final_aggs_incorrect as (
+    select
+        ml_accuracy,
+        proper_date,
+        count(*) as tot_incorrect_predictions
+    from game_predictions
+    where ml_accuracy = 0
     group by 1, 2
 ),
 
@@ -60,25 +72,23 @@ final_aggs_sum as (
 
 final_aggs_tot as (
     select 
-        *,
-        round((tot_correct_predictions::numeric) / (tot_games::numeric), 3)::numeric as ml_prediction_pct
-    from final_aggs
-    left join final_aggs_sum using (proper_date)
-    where ml_accuracy = 1
+        s.proper_date,
+        coalesce(c.tot_correct_predictions, 0) as tot_correct_predictions,
+        coalesce(i.tot_incorrect_predictions, 0) as tot_incorrect_predictions,
+        s.tot_games,
+        round((coalesce(c.tot_correct_predictions, 0)::numeric) / (tot_games::numeric), 3)::numeric as ml_prediction_pct
+    from final_aggs_sum s
+    left join final_aggs_correct c using (proper_date)
+    left join final_aggs_incorrect i using (proper_date)
     order by proper_date desc
 ),
 
--- you like calculate the moving average starting from the oldest date, and then you just reorder the date to descending after.
 rolling_avg as (
     select
-        proper_date,
-        tot_correct_predictions,
-        tot_games,
-        ml_prediction_pct,
+        *,
         round(avg(ml_prediction_pct) over(order by proper_date ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_ma
     from final_aggs_tot
     order by proper_date desc
-
 )
 
 select *
