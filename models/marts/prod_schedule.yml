@@ -3,6 +3,9 @@ version: 2
 models:
     - name: prod_schedule
       description: Prod Season Schedule Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["date", "home_team"]
       columns:
       - name: avg_team_rank
         tests:
