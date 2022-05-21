@@ -2,13 +2,14 @@ version: 2
 
 models:
     - name: prod_team_blown_leads
-      description: Prod Team Blown Leads + Team Comebacks Table - UPDATE THIS WHEN play-in & playoffs START
+      description: Prod Team Blown Leads + Team Comebacks Table - 30 rows for reg season + 16 for playoffs
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
-            value: 30
+            value: 46
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["team", "season_type"]
       columns:
           - name: team
             description: Team Acronym
             tests:
-                - unique
                 - not_null
