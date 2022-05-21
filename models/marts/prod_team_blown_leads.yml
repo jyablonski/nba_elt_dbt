@@ -6,9 +6,10 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 46
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["team", "season_type"]
       columns:
           - name: team
             description: Team Acronym
             tests:
-                - unique
                 - not_null
