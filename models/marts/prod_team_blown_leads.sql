@@ -3,10 +3,10 @@ with team_blown_leads as (
         team,
         season_type,
         count(*) as blown_leads_10pt,
-        row_number() over (order by count(*) desc) as blown_lead_rank
+        row_number() over (partition by season_type order by season_type, count(*) desc) as blown_lead_rank
     from {{ ref('prep_team_blown_leads') }}
     where max_team_lead >= 10 and outcome = 'L' and season_type in ('Regular Season', 'Playoffs')
-    group by 1, 2
+    group by team, season_type
 ),
 
 team_comebacks as (
@@ -14,10 +14,10 @@ team_comebacks as (
         team,
         season_type,
         count(*) as team_comebacks_10pt,
-        row_number() over (order by count(*) desc) as comeback_rank
+        row_number() over (partition by season_type order by season_type, count(*) desc) as comeback_rank
     from {{ ref('prep_team_blown_leads') }}
     where max_opp_lead >= 10 and outcome = 'W' and season_type in ('Regular Season', 'Playoffs')
-    group by 1, 2
+    group by team, season_type
 ),
 
 final as (
@@ -35,11 +35,17 @@ final as (
     where p.season_type in ('Regular Season', 'Playoffs')
     order by team_comebacks_10pt desc
 
+),
+
+final2 as (
+    select 
+        *,
+        team_comebacks_10pt - blown_leads_10pt as net_comebacks,
+        {{ generate_ord_numbers('row_number() over (partition by season_type order by team_comebacks_10pt - blown_leads_10pt desc)') }} as net_rank
+    from final
+    order by season_type, net_comebacks desc
 )
 
 select 
-    *,
-    team_comebacks_10pt - blown_leads_10pt as net_comebacks,
-    {{ generate_ord_numbers('row_number() over (order by team_comebacks_10pt - blown_leads_10pt desc)') }} as net_rank
-from final
-where season_type = 'Regular Season'
+    *
+from final2
