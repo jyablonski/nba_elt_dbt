@@ -106,6 +106,7 @@ final as (
     select *,
             case when abs(mov) between 0 and 5 then 'Clutch Game'
              when abs(mov) between 6 and 10 then '10 pt Game'
+             when abs(mov) between 11 and 20 then '20 pt Game'
              else 'Blowout Game' end as game_type
     from select_final_games
     order by date
