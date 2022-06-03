@@ -87,7 +87,7 @@ game_ids as (
         distinct team as home_team,
         date,
         game_id
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_boxscores_mvp_calc')}}
 ),
 
 home_vars as (

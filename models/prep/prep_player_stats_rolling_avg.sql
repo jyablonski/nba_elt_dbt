@@ -11,7 +11,7 @@ with my_cte as (
         game_ts_percent::numeric,
         player_mvp_calc_game::numeric,
         plusminus::numeric
-    from {{ ref('staging_aws_boxscores_table') }}
+    from {{ ref('prep_boxscores_mvp_calc') }}
     order by player, date
 ),
 

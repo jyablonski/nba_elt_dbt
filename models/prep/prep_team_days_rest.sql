@@ -2,7 +2,7 @@ with my_cte as (
     select distinct
         team,
         date
-    from {{ ref('staging_aws_boxscores_table') }}
+    from {{ ref('staging_aws_boxscores_incremental_table') }}
     order by team, date
 ),
 

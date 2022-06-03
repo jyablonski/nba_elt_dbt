@@ -22,7 +22,7 @@ with recent_games as (
 recent_date as (
     select
         max(date) as date
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table')}}
 ),
 
 team_pts_scored as (

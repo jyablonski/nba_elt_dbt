@@ -4,7 +4,6 @@ models:
     - name: staging_aws_boxscores_incremental_table
       description: PRACTICE boxscores incremental table
       columns:
-        - name: player_pk
+        - name: player
           tests:
-            - unique
             - not_null  

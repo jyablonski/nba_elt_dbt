@@ -1,4 +1,5 @@
 /* 12-13-21 - some issue where 2 games have had quarter be null for 1st quarter ?? look into this */
+{{ config(materialized='incremental') }}
 
 with pbp_cte as (
     select
@@ -24,3 +25,11 @@ with pbp_cte as (
 
 select *
 from pbp_cte
+
+{% if is_incremental() %}
+
+  -- this filter will only be applied on an incremental run
+  -- only grab records where date is greater than the max date of the existing records in the tablegm
+  where date > (select max(date) from {{ this }})
+
+{% endif %}

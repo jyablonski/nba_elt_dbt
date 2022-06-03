@@ -8,7 +8,7 @@ with boxscores as (
         type,
         case when outcome = 'W' then 1
         else 0 end as outcome_int
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_boxscores_mvp_calc')}}
     where type = 'Regular Season'
 ),
 
@@ -63,9 +63,16 @@ league_average_ppg_teams as (
         team,
         game_id,
         sum(pts) as sum_pts
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_boxscores_mvp_calc')}}
     where type = 'Regular Season'
     group by 1, 2
+),
+
+recent_game_date as (
+    select
+         max(date) as most_recent_game,
+         'join' as join_col
+    from {{ ref('prep_boxscores_mvp_calc') }}
 ),
 
 league_average_ppg as (
@@ -86,7 +93,7 @@ league_ts as (
         sum(pts) as sum_pts,
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table')}}
     where type = 'Regular Season'
 
 ),
@@ -108,7 +115,8 @@ final as (
         round((b.tot_wins::numeric / tg.games_played::numeric), 3)::numeric as win_pct,
         u.scrape_time as scrape_time,
         '112.1'::numeric as last_yr_ppg,
-        league_ts_2.league_ts_percent as league_ts_percent
+        league_ts_2.league_ts_percent as league_ts_percent,
+        most_recent_game
     from league_bans_2 as b 
     left join league_average_ppg as p using (join_col)
     left join tot_games_played as tg using (join_col)
@@ -116,6 +124,7 @@ final as (
     left join upcoming_games_count g using (join_col)
     left join upcoming_game_date d using (join_col)
     left join league_ts_2 using (join_col)
+    left join recent_game_date using (join_col)
 
 )
 

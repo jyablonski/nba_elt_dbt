@@ -2,27 +2,27 @@ with player_most_recent_date as (
     select
         player,
         max(date)::date as date
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table') }}
     group by player
 ),
 
 player_teams as (
     select
-        staging_aws_boxscores_table.player,
-        staging_aws_boxscores_table.team,
-        player_most_recent_date.date
-    from {{ ref('staging_aws_boxscores_table')}}
-    left join player_most_recent_date using (player, date)
+        b.player,
+        b.team,
+        b.date
+    from {{ ref('staging_aws_boxscores_incremental_table') }} b
+    inner join player_most_recent_date using (player, date)
 
 ),
 
 final as (
-    select *
+    select distinct
+        player,
+        team
     from player_teams
     where date is not null
 )
 
-select 
-    player,
-    team
+select *
 from final

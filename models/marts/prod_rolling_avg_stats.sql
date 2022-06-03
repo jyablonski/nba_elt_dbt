@@ -6,14 +6,14 @@ with player_rolling_avg_aggs as (
 
 player_recent_games as (
     select
-        player,
-        team,
-        full_team,
-        season_avg_ppg,
-        season_ts_percent,
-        season_avg_plusminus,
-        player_mvp_calc_adj
-    from {{ ref('prep_scorers') }}
+        c.player,
+        c.team,
+        s.season_avg_ppg,
+        s.season_ts_percent,
+        s.season_avg_plusminus,
+        c.player_mvp_calc_adj
+    from {{ ref('prep_contract_value_analysis') }} c
+    left join {{ ref('prep_player_aggs') }} s using (player)
 ),
 
 final as (

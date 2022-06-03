@@ -1,7 +1,13 @@
 with my_cte as (
     select
-        *
-    from {{ ref('staging_aws_boxscores_table')}}
+        player,
+        team,
+        game_id,
+        date,
+        location,
+        outcome,
+        opponent
+    from {{ ref('prep_boxscores_mvp_calc') }}
 ),
 
 top_players as (

@@ -1,6 +1,6 @@
 with prod_scorers as (
     select *
-    from {{ ref('prep_scorers') }}
+    from {{ ref('prep_player_aggs') }}
 ),
 
 shooting_stats as (

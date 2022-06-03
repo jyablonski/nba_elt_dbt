@@ -1,14 +1,16 @@
 with my_cte as (
     select
-        *
+        player,
+        salary
     from {{ ref('staging_aws_contracts_table')}}
 ),
 
 player_gp as (
-    select 
-        distinct player,
+    select  
+        player,
+        team,
         games_played
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_player_aggs')}}
 ),
 
 team_gp as (
@@ -60,8 +62,14 @@ team_counts as (
     from combo
     group by team, win_percentage
     order by team_pct_salary_earned desc
+),
+
+final as (
+    select distinct *
+    from team_counts
+    left join team_record using (team)
+    where team is not null
 )
 
-select distinct *
-from team_counts
-left join team_record using (team)
+select *
+from final
