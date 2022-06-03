@@ -4,7 +4,7 @@ with teams_scores as (
         date,
         type,
         sum(pts) as pts_game
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table')}}
     group by team, date, type
 ),
 
@@ -55,7 +55,7 @@ team_pts_scored as (
         b.outcome,
         b.type,
         sum(b.pts) as pts_scored
-    from {{ ref('staging_aws_boxscores_table')}} as b
+    from {{ ref('prep_boxscores_mvp_calc')}} as b
     group by 1, 2, 3, 4, 5, 6
 ),
 

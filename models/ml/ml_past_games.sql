@@ -15,11 +15,12 @@ with games as (
 
 outcomes as (
     select distinct
-        full_team as home_team,
-        date as proper_date,
-        case when outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('staging_aws_boxscores_table') }}
-    where location = 'H'
+        a.team as home_team,
+        b.date as proper_date,
+        case when b.outcome = 'W' then 1 else 0 end as outcome
+    from {{ ref('staging_aws_boxscores_incremental_table') }} b
+    left join {{ ref('staging_seed_team_attributes') }} a on b.team = a.team_acronym
+    where b.location = 'H'
 ),
 
 home_team_avg as (

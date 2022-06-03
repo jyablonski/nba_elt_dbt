@@ -3,12 +3,7 @@
 -- dbt run --full-refresh --select staging_aws_boxscores_incremental_table
 with my_cte as (
     select distinct
-        player,
-        MD5(player::text) as md5_player,              /* ::text works here */
-        SHA256(player::bytea)::text as sha256_player,
-        SHA512(player::bytea)::text as sha512_player, /* bytea needed; ::text wont work */
-        {{ dbt_utils.hash('player') }}as player_hash, /* this is just MD5, so it's the same as md5_player */
-        {{ dbt_utils.surrogate_key(['player', 'date']) }} as player_pk,
+        {{ clean_player_names_bbref('player') }}::text as player,
         team,
         location,
         opponent,
@@ -34,8 +29,8 @@ with my_cte as (
         pts::numeric,
         coalesce(plusminus, 0) as plusminus,
         gmsc,
-        date,
-        type,
+        date::date,
+        case when date < '2022-04-11' then 'Regular Season' when date > '2022-04-11' and date < '2022-04-16' then 'Play-In' else 'Playoffs' end as type,
         season
     from {{ source('nba_source', 'aws_boxscores_source')}}
     where player is not null

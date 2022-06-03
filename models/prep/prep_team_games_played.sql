@@ -3,7 +3,7 @@ with my_cte as (
         team,
         date,
         game_id
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_boxscores_mvp_calc') }}
     where type = 'Regular Season'
 ),
 

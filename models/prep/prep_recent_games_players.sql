@@ -4,7 +4,7 @@ with player_season_high as (
         player,
         max(pts) as max_pts,
         max(game_ts_percent) as max_ts
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('prep_boxscores_mvp_calc')}}
     -- where type = 'Regular Season'
     group by player
 ),
@@ -12,7 +12,7 @@ with player_season_high as (
 -- yesterday could mean literally yesterday, but just grab the most recent games.
 boxscores_yesterday as (
     select max(date) as date
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table')}}
 ),
 
 player_contracts as (
@@ -29,18 +29,19 @@ player_logo as (
     from {{ ref('staging_seed_player_attributes')}}
 ),
 
-player_teams as (
-    select
-        player,
-        team
-    from {{ ref('prep_player_most_recent_team') }}
-),
 
 -- grab (most recent) team from above cte
 boxscores_cte as (
     select
-        {{ dbt_utils.star(from = ref('staging_aws_boxscores_table'), except = ["team"]) }}
-    from {{ ref('staging_aws_boxscores_table')}}
+        *
+    from {{ ref('prep_boxscores_mvp_calc')}}
+),
+
+player_aggs as (
+    select distinct
+        player,
+        season_avg_ppg
+    from {{ ref('prep_player_aggs') }}
 ),
 
 final_table as (
@@ -58,9 +59,9 @@ final_table as (
             '<span style=''font-size:16px; color:royalblue;''>', player, '</span> <span style=''font-size:12px; color:grey;''>', team, '</span>'
         ) as player_new
     from boxscores_cte
-    inner join player_teams using (player)
     inner join boxscores_yesterday using (date)
     left join player_season_high using (player)
+    left join player_aggs using (player)
     left join player_contracts using (player)
     left join player_logo using (player)
     order by pts desc

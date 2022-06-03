@@ -14,7 +14,7 @@ game_outcomes as (
         team,
         date,
         outcome
-    from {{ ref('staging_aws_boxscores_table') }}
+    from {{ ref('staging_aws_boxscores_incremental_table') }}
 ),
 
 final as (

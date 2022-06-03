@@ -25,7 +25,7 @@ boxscore_stats as (
     select 
         'boxscore_stats' as table_name,
         count(*) as num_records
-    from {{ ref('staging_aws_boxscores_table') }} b
+    from {{ ref('staging_aws_boxscores_incremental_table') }} b
     inner join recent_date on b.date = (recent_date.scrape_date - 1) -- -1 because boxscores and pbp are from yesterday
 ),
 

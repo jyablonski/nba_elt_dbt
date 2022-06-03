@@ -74,7 +74,7 @@ win_loss as (
         date,
         location, 
         outcome
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table')}}
 ),
 
 combo as (

@@ -9,7 +9,7 @@ with team_wins as (
         a.conference,
         case when outcome = 'W' then 1
         else 0 end as outcome_int
-    from {{ ref('staging_aws_boxscores_table')}} as b
+    from {{ ref('prep_boxscores_mvp_calc')}} as b
     left join {{ ref('staging_seed_team_attributes')}} as a on a.team_acronym = b.team
     where type = 'Regular Season'
 

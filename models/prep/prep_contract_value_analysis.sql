@@ -1,16 +1,23 @@
-with my_cte as (
+with player_teams as (
     select
-        distinct b.player,
+        player,
+        team
+    from {{ ref('prep_player_most_recent_team') }}
+),
+
+my_cte as (
+    select
+        distinct 
+        b.player,
         t.team,
         b.games_played,
-        b.playoffs_games_played,
+        b.games_played_playoffs,
         b.player_mvp_calc_avg,
         b.player_mvp_calc_avg_playoffs,
         coalesce(c.salary, 1000000) as salary
-    from {{ ref('staging_aws_boxscores_table') }} as b
+    from {{ ref('prep_player_aggs') }} as b
     left join {{ ref('staging_aws_contracts_table') }} as c using (player)
-    left join {{ ref('prep_player_most_recent_team') }} as t on t.player = b.player and t.team = b.team
-    where type = 'Regular Season' and t.team is not null --this is to get rid of the previous player's team before he got traded
+    inner join player_teams t using (player)
 ),
 
 team_gp as (
@@ -82,7 +89,7 @@ prep3 as (
 ),
 
 final as (
-    select 
+    select distinct
         p1.player,
         p1.salary_rank,
         p1.team,
