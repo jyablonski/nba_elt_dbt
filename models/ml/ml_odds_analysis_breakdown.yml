@@ -2,7 +2,7 @@ version: 2
 
 models:
     - name: ml_odds_analysis_breakdown
-      description: Aggregate table of odds analysis for home / road stuff
+      description: Table of aggregated odds analysis for home / road and $ per bet placed
       columns:
         - name: location_prediction_pct
           tests:
