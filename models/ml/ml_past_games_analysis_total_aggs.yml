@@ -2,7 +2,7 @@ version: 2
 
 models:
     - name: ml_past_games_analysis_total_aggs
-      description: Historical Table showing past ML Game Predictions
+      description: Table showing aggregated historical ML Prediction accuracy
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 1

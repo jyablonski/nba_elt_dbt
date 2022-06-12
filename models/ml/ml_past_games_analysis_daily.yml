@@ -2,7 +2,7 @@ version: 2
 
 models:
     - name: ml_past_games_analysis_daily
-      description: Historical Table showing past ML Game Predictions
+      description: Table showing a daily table of ML Prediction accuracy
       columns:
         - name: proper_date
           tests:
