@@ -123,7 +123,6 @@ final_table2 as (
 
 select *
 from final_table2
-
 /* WIP
 ,
         CASE WHEN ho.home_moneyline > 0 THEN CONCAT('+', ho.home_moneyline::text)

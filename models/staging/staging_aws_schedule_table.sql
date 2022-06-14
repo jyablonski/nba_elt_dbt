@@ -12,29 +12,11 @@ with schedule_data as (
         'join' as join_col
     from {{ source('nba_source', 'aws_schedule_source')}}
     where start_time like '%:%' -- hack to only get records that have a start time (7:00)
-),
-
-away_teams as (
-  select 
-    s.away_team as away_team,
-    a.team_acronym as away_team_acronym,
-    'join' as join_col
-  from {{ source('nba_source', 'aws_schedule_source')}} as s
-  left join {{ ref('staging_seed_team_attributes')}} as a on s.away_team = a.team
-),
-
-home_teams as (
-  select 
-    s.home_team as home_team,
-    a.team_acronym as home_team_acronym,
-    'join' as join_col
-  from {{ source('nba_source', 'aws_schedule_source')}} as s
-  left join {{ ref('staging_seed_team_attributes')}} as a on s.home_team = a.team
 )
-
 
 select *
 from schedule_data
+where start_time != '11:00' -- bug, thx bbref
 order by proper_date desc
 /*
 wip fixing LA - LAL and LA - LAC
