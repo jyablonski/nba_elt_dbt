@@ -1,0 +1,10 @@
+version: 2
+
+models:
+    - name: ml_moneyline_bins
+      description: Matrix Table of ML Moneyline Bins to identify where to bet
+      columns:
+        - name: moneyline_parameter_lower
+          tests:
+            - unique
+            - not_null
