@@ -1,8 +1,10 @@
 {% set bet_parameter = 15 %}
 {% set bet_amounts = range(10, 26) %}
 
--- TO DO: analyze adjusting the away and home team predicted win pct instead
--- create a case when var to group the predicted win pcts by bins of 5 or something and then calculate betting profit in those bins
+-- 2022-06-18 UPDATE
+-- this has been replaced by the ml_moneyline_bins table, but there's still good code in here
+-- used for loops to create columns of values in the case whens and then unnest array to take those columns into rows,
+--  and then aggregating profits together.
 
 with schedule_wins as (
     select 
