@@ -1,7 +1,7 @@
 default:
-  target: sqlfluff
+  target: dev
   outputs:
-    sqlfluff:
+    dev:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
       port: 5432
