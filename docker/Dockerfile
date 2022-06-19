@@ -26,7 +26,7 @@ WORKDIR /home/appuser
 
 COPY --from=python-deps . .
 WORKDIR /home/appuser/nba_elt_dbt
-COPY .dbt .
+COPY .ci_cd .
 
 # RUN ls .
 # RUN cat profiles.yml
