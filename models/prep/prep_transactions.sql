@@ -10,7 +10,7 @@ most_recent_date as (
 ),
 
 final as (
-    select 
+    select distinct
         c.date,
         c.transaction,
         c.scrape_date

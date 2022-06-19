@@ -41,6 +41,7 @@ final as (
         round((reddit_tot_comments - reddit_avg_comments) / reddit_avg_comments, 3)::numeric * 100 as reddit_pct_difference
     from aggs
     left join tot_aggs using (join_col)
+    order by date
 )
 
 select *

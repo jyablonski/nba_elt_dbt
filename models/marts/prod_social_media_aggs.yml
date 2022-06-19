@@ -21,11 +21,11 @@ models:
           description: this is a % value that has already been multiplied by 100
           tests:
             - dbt_expectations.expect_column_values_to_be_between:
-                min_value: -100
-                max_value: 100
+                min_value: -200
+                max_value: 200
         - name: twitter_pct_difference
           description: this is a % value that has already been multiplied by 100
           tests:
             - dbt_expectations.expect_column_values_to_be_between:
-                min_value: -100
-                max_value: 100
+                min_value: -200
+                max_value: 200
