@@ -51,7 +51,8 @@ protocol_counts as (
 
 
 final_stg_injury as (
-    select injury_data2.player,
+    select distinct
+           injury_data2.player,
            team_attributes.team_acronym,
            injury_data2.team,
            injury_data2.date,

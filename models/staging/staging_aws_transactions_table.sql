@@ -2,7 +2,7 @@
 
 -- 2022-04-06: watchout, date means event_date - should probably rename
 with transactions as (
-    select 
+    select
         date::date as date,
         transaction::text as transaction,
         scrape_date::date as scrape_date
