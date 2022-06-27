@@ -68,6 +68,13 @@ models:
         +tags:
           - "NBA_PRODUCTION_ML_MODELS"
           - "DAILY"
+      ad_hoc_analytics:
+        +materialized: view
+        +schema: ad_hoc_analytics
+        +tags:
+          - "ANALYTICS"
+          - "AD HOC"
+          - "VIEW"
 seeds:
   nba_elt_project:
     +schema: nba_staging

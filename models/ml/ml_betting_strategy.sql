@@ -2,7 +2,7 @@
 {% set bet_amounts = range(10, 26) %}
 
 -- 2022-06-18 UPDATE
--- this has been replaced by the ml_moneyline_bins table, but there's still good code in here
+-- this has been deprecated & replaced by the ml_moneyline_bins table, but there's still good code in here
 -- used for loops to create columns of values in the case whens and then unnest array to take those columns into rows,
 --  and then aggregating profits together.
 
