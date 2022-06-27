@@ -3,12 +3,6 @@ version: 2
 models:
     - name: ml_odds_analysis_breakdown
       description: Table of aggregated odds analysis for home / road and $ per bet placed
-      columns:
-        - name: location_prediction_pct
-          tests:
-            - dbt_expectations.expect_column_values_to_be_between:
-                min_value: 0
-                max_value: 1
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 4
