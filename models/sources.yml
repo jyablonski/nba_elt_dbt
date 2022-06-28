@@ -91,8 +91,8 @@ sources:
               - not_null
         loaded_at_field: datetime1
         freshness:
-          warn_after: {count: 124, period: hour}
-          error_after: {count: 256, period: hour}
+          warn_after: {count: 124, period: day}
+          error_after: {count: 256, period: day}
       - name: aws_contracts_source
         description: Raw contracts table
         columns:
@@ -133,10 +133,6 @@ sources:
           - name: player
             tests:
               - not_null
-        loaded_at_field: scrape_ts
-        freshness:
-          warn_after: {count: 1, period: day}
-          error_after: {count: 2, period: day}
   - name: ml_models
     database: jacob_db
     schema: ml_models

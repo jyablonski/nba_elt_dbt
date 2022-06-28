@@ -28,7 +28,7 @@ team_attributes as (
 ),
 
 most_recent_date as (
-    select max(scrape_date)::date - 7 as scrape_date
+    select max(scrape_date)::date as scrape_date
     from {{ source('nba_source', 'aws_injury_data_source')}}
 ),
 
