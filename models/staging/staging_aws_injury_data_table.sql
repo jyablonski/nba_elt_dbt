@@ -52,17 +52,18 @@ protocol_counts as (
 
 final_stg_injury as (
     select distinct
-           injury_data2.player,
-           team_attributes.team_acronym,
-           injury_data2.team,
-           injury_data2.date,
-           injury_data2.status,
-           replace(replace(injury_data2.injury2, '(', ''), ')', '') as injury, /* removing left AND right parantheses */
-           injury_data2.description,
-           injury_counts.team_active_injuries as total_injuries,
-           injury_counts.team_active_injuries - coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_injuries,
-           coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_protocols,
-           injury_data2.scrape_date
+        {{ dbt_utils.surrogate_key(['player', 'injury', 'description']) }} as injury_pk,
+        injury_data2.player,
+        team_attributes.team_acronym,
+        injury_data2.team,
+        injury_data2.date,
+        injury_data2.status,
+        replace(replace(injury_data2.injury2, '(', ''), ')', '') as injury, /* removing left AND right parantheses */
+        injury_data2.description,
+        injury_counts.team_active_injuries as total_injuries,
+        injury_counts.team_active_injuries - coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_injuries,
+        coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_protocols,
+        injury_data2.scrape_date
     from injury_data2
     left join team_attributes using (team)
     left join injury_counts using (team)

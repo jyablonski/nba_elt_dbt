@@ -73,7 +73,13 @@ final_table as (
                 then round('{{ bet_parameter }}' * (away_moneyline / 100), 2)
              when ml_accuracy = 0 then -10
              else -10000  -- im testing to make sure it never hits -10000 - if it does then there's an error
-             end as ml_money_col
+             end as ml_money_col,
+        case when home_moneyline > 0 then round(100 / (home_moneyline + 100), 3)
+             else round(abs(home_moneyline) / (abs(home_moneyline) + 100), 3)
+             end as home_implied_probability,
+        case when away_moneyline > 0 then round(100 / (away_moneyline + 100), 3)
+             else round(abs(away_moneyline) / (abs(away_moneyline) + 100), 3)
+             end as away_implied_probability
     from game_predictions
     left join home_odds using (home_team, proper_date)
     left join away_odds using (away_team, proper_date)
