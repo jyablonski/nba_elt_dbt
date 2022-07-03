@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: prod_reddit_sentiment_time_series
+    tests:
+    - dbt_expectations.expect_compound_columns_to_be_unique:
+        column_list: ["team", "scrape_date"]
+    columns:
+      - name: team
+        tests:
+          - not_null
+      - name: avg_compound
+        tests:
+          - not_null
+      - name: game_outcome
+        tests:
+          - not_null
