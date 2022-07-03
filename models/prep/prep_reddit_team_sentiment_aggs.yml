@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: prep_reddit_team_sentiment_aggs
+    tests:
+    - dbt_expectations.expect_compound_columns_to_be_unique:
+        column_list: ["team", "game_outcome"]
+    columns:
+      - name: avg_score_agg
+        tests:
+          - not_null
+      - name: avg_compound_agg
+        tests:
+          - not_null
+      - name: game_outcome
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_distinct_count_to_equal:
+              value: 3
