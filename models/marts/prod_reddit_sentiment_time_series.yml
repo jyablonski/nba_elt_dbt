@@ -9,3 +9,9 @@ models:
       - name: team
         tests:
           - not_null
+      - name: avg_compound
+        tests:
+          - not_null
+      - name: game_outcome
+        tests:
+          - not_null

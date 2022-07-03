@@ -6,5 +6,3 @@ models:
       - name: team
         tests:
           - not_null
-          - dbt_expectations.expect_column_distinct_count_to_equal:
-              value: 31
