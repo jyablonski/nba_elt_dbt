@@ -1,33 +1,58 @@
 {{ config(materialized='incremental') }}
 
-with twitter_cte as (
-    select
-        created_at::timestamp as created_at,
-        date::date as date,
-        username::text as username,
-        tweet::text as tweet,
-        language::text as language,
-        link::text as url,
-        likes_count::numeric as likes_count,
-        retweets_count::numeric as retweets_count,
-        replies_count::numeric as replies_count,
-        scrape_date::date as scrape_date,
-        scrape_ts::timestamp as scrape_ts,
-        compound::numeric as compound,
-        neg::numeric as neg,
-        neu::numeric as neu,
-        pos::numeric as pos,
-        sentiment
-    from {{ source('nba_source', 'aws_twitter_data_source') }}
+-- changed data sources on 2022-07-13, dont have tweet_id, user_id, or profile_img,
+with old_twitter as (
+	select
+		'NA' as tweet_id,
+		created_at::date,
+		username,
+		'0'::int as user_id,
+		tweet,
+		language,
+		likes_count::numeric as likes,
+		retweets_count::numeric as retweets,
+		scrape_ts,
+		'NA' as profile_img,
+		link as url,
+		compound::numeric,
+		neg::numeric,
+		neu::numeric,
+		pos::numeric,
+		sentiment
+	from {{ source('nba_source', 'aws_twitter_data_source') }}
+),
+
+new_twitter as (
+	select 
+		tweet_id,
+		created_at::date,
+		username,
+		user_id,
+		tweet,
+		language,
+		likes::numeric,
+		retweets::numeric,
+		scrape_ts,
+		profile_img,
+		url,
+		compound::numeric,
+		neg::numeric,
+		neu::numeric,
+		pos::numeric,
+		sentiment
+	from {{ source('nba_source', 'aws_twitter_tweepy_data_source') }}
 )
 
 select *
-from twitter_cte
+from old_twitter
+union
+select *
+from new_twitter
 
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
   -- only grab records where date is greater than the max date of the existing records in the tablegm
-  where scrape_date > (select max(scrape_date) from {{ this }})
+  where scrape_ts > (select max(scrape_ts) from {{ this }})
 
 {% endif %}

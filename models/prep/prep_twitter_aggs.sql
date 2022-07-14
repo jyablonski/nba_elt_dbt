@@ -6,7 +6,7 @@ with my_cte as (
 
 aggs as (
     select 
-        scrape_date as date,
+        date(scrape_ts) as date,
         count(*) as twitter_tot_comments,
         round(avg(compound), 3) as avg_compound,
         round(avg(pos), 3) as avg_pos,
@@ -14,6 +14,7 @@ aggs as (
         round(avg(neu), 3) as avg_neu,
         'join' as join_col
     from my_cte
+    -- where created_at != current_date
     group by 1
 ),
 

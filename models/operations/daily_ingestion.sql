@@ -106,7 +106,7 @@ twitter_stats as (
         'twitter_stats' as table_name,
         count(*) as num_records
     from {{ ref('staging_aws_twitter_data_table') }} b
-    inner join recent_date on b.date = recent_date.scrape_date
+    inner join recent_date on date(b.scrape_ts) = recent_date.scrape_date
 ),
 
 final as (

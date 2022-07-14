@@ -1,4 +1,4 @@
-Version: 1.8.2
+Version: 1.8.3
 
 ### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
@@ -10,3 +10,4 @@ Version: 1.8.2
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [Airflow Proof of Concept](https://github.com/jyablonski/nba_elt_airflow)
     * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
+    * [GraphQL API](https://github.com/jyablonski/graphql_praq)

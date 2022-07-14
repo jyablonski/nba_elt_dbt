@@ -5,13 +5,10 @@ models:
       description: Prod Twitter Comment Data
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["scrape_date", "username", "tweet"]
+            column_list: ["username", "tweet", "created_at"]
       columns:
-          - name: scrape_date
+          - name: created_at
             description: Only grab the latest available date of data
-            tests:
-              - dbt_expectations.expect_column_distinct_count_to_equal:
-                  value: 1
           - name: compound
             tests:
                 - not_null
