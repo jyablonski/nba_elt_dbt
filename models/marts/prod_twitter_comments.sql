@@ -1,12 +1,11 @@
 with twitter_cte as (
     select
-        scrape_date,
+        created_at,
         username,
         tweet,
         url,
-        likes_count,
-        retweets_count,
-        replies_count,
+        likes,
+        retweets,
         compound,
         neg,
         neu,
@@ -15,14 +14,16 @@ with twitter_cte as (
 ),
 
 recent_date as (
-    select max(scrape_date) as scrape_date
+    select distinct 
+        created_at
     from twitter_cte
+    where created_at >= current_date - 1
 ),
 
 final as (
     select *
     from twitter_cte
-    inner join recent_date using (scrape_date)
+    inner join recent_date using (created_at)
 )
 
 select *

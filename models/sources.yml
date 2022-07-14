@@ -9,6 +9,8 @@ sources:
         description: Raw player aggregate stats
       - name: aws_twitter_data_source
         description: Raw twitter data
+      - name: aws_twitter_tweepy_data_source
+        description: Raw twitter tweepy data (2022-07-13)
         loaded_at_field: scrape_ts
         freshness:
           warn_after: {count: 24, period: hour}
