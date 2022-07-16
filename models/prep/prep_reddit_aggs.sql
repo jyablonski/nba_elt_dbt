@@ -2,7 +2,7 @@
 -- keep in mind for a 7-day rolling average you have to set the rolling_average_parameter to 6 (n -1)
 
 with my_cte as (
-    select
+    select distinct
         *
     from {{ ref('staging_aws_reddit_comment_data_table') }}
 ),

@@ -1,5 +1,5 @@
 with my_cte as (
-    select
+    select distinct
         *
     from {{ ref('staging_aws_twitter_data_table') }}
 ),
