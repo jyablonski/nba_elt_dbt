@@ -32,4 +32,4 @@ COPY .ci_cd .
 # RUN cat profiles.yml
 RUN dbt deps --profiles-dir /
 
-CMD ["dbt", "build", "--profiles-dir", "."]
+CMD ["dbt", "build", "--profiles-dir", ".", "--target", "prod"]
