@@ -9,6 +9,9 @@ models:
       columns:
           - name: created_at
             description: Only grab the latest available date of data
+          - name: url
+            tests:
+                - not_null
           - name: compound
             tests:
                 - not_null

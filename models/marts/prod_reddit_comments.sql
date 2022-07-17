@@ -25,6 +25,9 @@ final as (
         *
     from my_cte
     inner join max_date using (scrape_date)
+    order by score desc
+    limit 2000
+
 )
 
 select *
