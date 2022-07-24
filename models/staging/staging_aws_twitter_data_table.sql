@@ -41,14 +41,18 @@ new_twitter as (
 		pos::numeric,
 		sentiment
 	from {{ source('nba_source', 'aws_twitter_tweepy_data_source') }}
+),
+
+final as (
+	select *
+	from old_twitter
+	union
+	select *
+	from new_twitter
 )
 
 select *
-from old_twitter
-union
-select *
-from new_twitter
-
+from final
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
