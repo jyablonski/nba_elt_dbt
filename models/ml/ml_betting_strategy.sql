@@ -19,14 +19,33 @@ with schedule_wins as (
 
 my_cte as (
     select 
-        *,
+        ml.home_team,
+        ml.away_team,
+        ml.proper_date::date as proper_date,
+        home_team_rank,
+        home_days_rest,
+        home_team_avg_pts_scored,
+        home_team_avg_pts_scored_opp,
+        home_team_win_pct,
+        home_team_win_pct_last10,
+        home_is_top_players,
+        away_team_rank,
+        away_days_rest,
+        away_team_avg_pts_scored,
+        away_team_avg_pts_scored_opp,
+        away_team_win_pct,
+        away_team_win_pct_last10,
+        away_is_top_players,
+        home_team_predicted_win_pct,
+        away_team_predicted_win_pct,
+        outcome,
         case when home_team_predicted_win_pct >= 0.5 then 'Home Win'
             else 'Road Win' end as ml_prediction,
         case when outcome = 'W' then 'Home Win' 
             else 'Road Win' end as actual_outcome
-    from {{ source('ml_models', 'tonights_games_ml') }}
-    left join schedule_wins using (home_team, proper_date)
-    where proper_date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    from {{ source('ml_models', 'tonights_games_ml') }} ml
+    left join schedule_wins w on ml.home_team = w.home_team and ml.proper_date::date = w.proper_date
+    where ml.proper_date::date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
 ),
 
 -- the data points actually broken down
