@@ -8,9 +8,28 @@ tonights_games_ml has to be a source bc im making that table externally in an ec
 -- keep in mind for a 7-day rolling average you have to set the rolling_average_parameter to 6 (n -1)
 
 with my_cte as (
-    select *
+    select 
+        home_team,
+        away_team,
+        proper_date::date as proper_date,
+        home_team_rank,
+        home_days_rest,
+        home_team_avg_pts_scored,
+        home_team_avg_pts_scored_opp,
+        home_team_win_pct,
+        home_team_win_pct_last10,
+        home_is_top_players,
+        away_team_rank,
+        away_days_rest,
+        away_team_avg_pts_scored,
+        away_team_avg_pts_scored_opp,
+        away_team_win_pct,
+        away_team_win_pct_last10,
+        away_is_top_players,
+        home_team_predicted_win_pct,
+        away_team_predicted_win_pct
     from {{ source('ml_models', 'tonights_games_ml') }}
-    where proper_date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    where proper_date::date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
 ),
 
 schedule_wins as (
