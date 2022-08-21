@@ -116,7 +116,10 @@ final_table2 as (
         {{ dbt_utils.surrogate_key(['home_team', 'away_team', 'proper_date']) }} as game_pk,
         concat(
             proper_date::text, ' ', start_time::text, ':00'
-        )::timestamp as proper_time
+        )::timestamp as proper_time,
+        case when
+            proper_date < '2022-04-11' then 'Regular Season' when date > '2022-04-11' and date < '2022-04-16' then 'Play-In' else 'Playoffs'
+        end as season_type
     from final_table
     order by proper_time
 )

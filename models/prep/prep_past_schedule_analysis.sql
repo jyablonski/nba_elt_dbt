@@ -3,7 +3,8 @@ with my_cte as (
         proper_date as date,
         away_team_acronym as away_team,
         home_team_acronym as home_team
-from {{ ref('prep_schedule_table')}}
+    from {{ ref('prep_schedule_table') }}
+    where season_type = 'Regular Season'
 ),
 
 away as (
