@@ -11,3 +11,4 @@ Version: 1.8.7
     * [Airflow Proof of Concept](https://github.com/jyablonski/nba_elt_airflow)
     * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
     * [GraphQL API](https://github.com/jyablonski/graphql_praq)
+    * [REST API](https://github.com/jyablonski/nba_elt_rest_api)
