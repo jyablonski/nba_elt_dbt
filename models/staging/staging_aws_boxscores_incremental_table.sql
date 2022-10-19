@@ -30,7 +30,7 @@ with my_cte as (
         coalesce(plusminus, 0) as plusminus,
         gmsc,
         date::date,
-        case when date < '2022-04-11' then 'Regular Season' when date > '2022-04-11' and date < '2022-04-16' then 'Play-In' else 'Playoffs' end as type,
+        case when date < '2023-04-11' then 'Regular Season' when date > '2023-04-11' and date < '2023-04-16' then 'Play-In' else 'Playoffs' end as type,
         season
     from {{ source('nba_source', 'aws_boxscores_source')}}
     where player is not null
