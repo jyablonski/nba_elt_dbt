@@ -118,7 +118,7 @@ final_table2 as (
             proper_date::text, ' ', start_time::text, ':00'
         )::timestamp as proper_time,
         case when
-            proper_date < '2022-04-11' then 'Regular Season' when date > '2022-04-11' and date < '2022-04-16' then 'Play-In' else 'Playoffs'
+            proper_date < '2023-04-11' then 'Regular Season' when date > '2023-04-11' and date < '2023-04-16' then 'Play-In' else 'Playoffs'
         end as season_type
     from final_table
     order by proper_time
