@@ -30,7 +30,7 @@ with my_cte as (
         coalesce(plusminus, 0) as plusminus,
         gmsc,
         date::date,
-        case when date < '2023-04-11' then 'Regular Season' when date > '2023-04-11' and date < '2023-04-16' then 'Play-In' else 'Playoffs' end as type,
+        {{ generate_season_type('date') }}::text as type,
         season
     from {{ source('nba_source', 'aws_boxscores_source')}}
     where player is not null

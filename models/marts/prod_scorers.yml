@@ -20,7 +20,7 @@ models:
             tests:
               - dbt_expectations.expect_column_values_to_be_between:
                   min_value: 0
-                  max_value: 35
+                  max_value: 55
           - name: player_mvp_calc_adj
             tests:
               - dbt_expectations.expect_column_values_to_be_between:

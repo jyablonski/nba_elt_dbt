@@ -6,7 +6,11 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 1
+            config:
+              severity: warn
         - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
             column_A: tot_games
             column_B: tot_correct_predictions
             or_equal: False
+            config:
+              severity: warn

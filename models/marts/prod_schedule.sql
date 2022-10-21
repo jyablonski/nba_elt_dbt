@@ -60,6 +60,7 @@ aws_schedule_table as (
     left join team_logo_away using (away_team)
     -- where date >= '2022-06-01'
     where date >= ((current_date)::date)
+    order by date
 
 )
 

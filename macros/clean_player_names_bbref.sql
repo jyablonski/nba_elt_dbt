@@ -8,6 +8,7 @@ CASE WHEN {{ column_name }} = 'Mo Bamba' THEN 'Mohamed Bamba'
      WHEN {{ column_name }} = 'Juan Hernangomez' THEN 'Juancho Hernangomez'
      WHEN {{ column_name }} = 'Didi Louzada' THEN 'Marcos Louzada Silva'
      WHEN {{ column_name }} = 'Wesley Iwundu' THEN 'Wes Iwundu'
+     WHEN {{ column_name }} = 'Scotty Pippen ' THEN 'Scotty Pippen'
      ELSE {{ column_name }}
 END
 {% endmacro %}
