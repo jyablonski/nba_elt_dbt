@@ -114,7 +114,7 @@ final as (
     select 
         home_team,
         away_team,
-        proper_date,
+        proper_date::date as proper_date,
         home_team_rank,
         (proper_date - home_last_played_date) - 1 AS home_days_rest,
         home_team_avg_pts_scored,

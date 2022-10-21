@@ -7,18 +7,18 @@ models:
             tests:
               - unique
               - not_null
-          - name: tenpt_win_pct
-            tests:
-              - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 1
-          - name: clutch_win_pct
-            tests:
-              - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 1
-          - name: blowout_win_pct
-            tests:
-              - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 1
+          # - name: tenpt_win_pct
+          #   tests:
+          #     - dbt_expectations.expect_column_values_to_be_between:
+          #         min_value: 0
+          #         max_value: 1
+          # - name: clutch_win_pct
+          #   tests:
+          #     - dbt_expectations.expect_column_values_to_be_between:
+          #         min_value: 0
+          #         max_value: 1
+          # - name: blowout_win_pct
+          #   tests:
+          #     - dbt_expectations.expect_column_values_to_be_between:
+          #         min_value: 0
+          #         max_value: 1

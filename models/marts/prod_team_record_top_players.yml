@@ -3,9 +3,11 @@ version: 2
 models:
     - name: prod_team_record_top_players
       description: Prod Table for Team Records w/ top 2 players
-      tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
-            value: 30
+      # tests:
+        # - dbt_expectations.expect_table_row_count_to_equal:
+        #     value: 30
+        #     config:
+        #       severity: warn
       columns:
       - name: team
         tests:
