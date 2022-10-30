@@ -1,6 +1,6 @@
 with standings as (
     select
-        row_number() over (partition by conference order by wins desc) as rank,
+        row_number() over (partition by conference order by round((wins::numeric / games_played::numeric), 3)::numeric desc) as rank,
         team,
         team_full,
         conference,
@@ -17,12 +17,15 @@ with standings as (
 ),
 standings2 as (
     select 
+/*
       case when (rank = 7) and (conference = 'Eastern') then 9  -- this is changing around the seeds for the play-in teams
            when (rank = 8) and (conference = 'Eastern') then 7 
            when (rank = 9) and (conference = 'Eastern') then 8
            when (rank = 8) and (conference = 'Western') then 9
            when (rank = 9) and (conference = 'Western') then 8
            else rank end as rank,
+*/
+      rank,
       team,
       team_full,
       conference,
