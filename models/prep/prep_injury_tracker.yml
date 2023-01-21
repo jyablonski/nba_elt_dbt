@@ -1,0 +1,10 @@
+version: 2
+
+models:
+    - name: prep_injury_tracker
+      description: Prep Injury Tracker Table
+      columns:
+      - name: player
+        tests:
+            - unique
+            - not_null
