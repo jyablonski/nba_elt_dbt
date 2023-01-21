@@ -54,12 +54,19 @@ team_gp_continuous as (
     group by team, date
 ),
 
+player_logo as (
+    select
+        player,
+        headshot as player_logo
+    from {{ ref('staging_seed_player_attributes')}}
+),
+
 final as (
     select
-        injury_data.player,
-        player_stats.team,
-        status,
-        injury,
+        concat(
+            '<span style=''font-size:16px; color:royalblue;''>', injury_data.player, '</span> <span style=''font-size:12px; color:grey;''>', player_stats.team, '</span>'
+        ) as player,
+        concat(status, ' - ', injury) as status,
         player_latest_game,
         team_latest_game,
         team_latest_game - player_latest_game as days_missed,
@@ -70,13 +77,15 @@ final as (
         season_avg_ppg,
         player_mvp_calc_avg,
         season_ts_percent,
-        season_avg_plusminus
+        season_avg_plusminus,
+        player_logo
     from injury_data
     inner join player_stats using (player)
     left join player_last_game_played using (player)
     left join team_last_game_played using (team)
     left join team_gp_continuous on (player_stats.team = team_gp_continuous.team and player_last_game_played.player_latest_game = team_gp_continuous.date)
     left join {{ ref('prep_team_games_played') }} team_gp on (player_stats.team = team_gp.team)
+    left join player_logo using (player)
 )
 
 select *

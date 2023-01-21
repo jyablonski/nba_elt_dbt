@@ -1,9 +1,8 @@
 with injury_data as (
     select
+        player_logo,
         player,
-        team,
         status,
-        injury,
         continuous_games_missed,
         games_played,
         season_avg_ppg,
@@ -12,6 +11,7 @@ with injury_data as (
         season_avg_plusminus
     from {{ ref('prep_injury_tracker') }}
     order by player_mvp_calc_avg desc
+    limit 15
 
 )
 
