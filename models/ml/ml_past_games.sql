@@ -109,6 +109,7 @@ final as (
     left join away_team_win_pct using (away_team)
     left join away_team_top_players using (away_team_acronym, proper_date)
     left join outcomes using (home_team, proper_date)
+    where outcome is not null
 )
 
 -- outcome == 1 means home team won,
