@@ -186,6 +186,7 @@ winning_team2 as (
      date
     from final
     inner join winning_team using (game_description, date, time_remaining_final)
+    where leading_team != 'TIE' -- this is incase the game ends w/ free throws at 0.0 like hou vs sac on 2023-02-08 where the lead flips from 1 team to tie to the other team
 )
 
 /* have to throw in distinct here otherwise rows will get doubled */
@@ -193,5 +194,3 @@ select
     distinct *
 from final
 left join winning_team2 using (game_description, date)
-
-
