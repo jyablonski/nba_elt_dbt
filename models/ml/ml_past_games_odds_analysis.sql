@@ -1,3 +1,4 @@
+{{ config(materialized='view') }}
 /*
 this model grabs all ml predictions from entire season and joins the odds data
 

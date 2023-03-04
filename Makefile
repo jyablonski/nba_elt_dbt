@@ -15,3 +15,11 @@ bump-major:
 	@bump2version major
 	@git push --tags
 	@git push
+
+.PHONY: docs-generate
+docs-generage:
+	@dbt docs generate
+
+.PHONY: docs-serve
+docs-serve:
+	@dbt docs serve

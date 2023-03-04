@@ -57,7 +57,7 @@ models:
           - "NBA_PRODUCTION_STAGING"
           - "DAILY"
       operations:
-        +materialized: table
+        +materialized: view
         +schema: operations
         +tags:
           - "NBA_PRODUCTION_OPERATIONS"
