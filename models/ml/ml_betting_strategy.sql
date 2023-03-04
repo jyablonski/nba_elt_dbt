@@ -1,3 +1,4 @@
+{{ config(materialized='view') }}
 {% set bet_parameter = 15 %}
 {% set bet_amounts = range(10, 26) %}
 

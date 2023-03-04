@@ -1,3 +1,4 @@
+{{ config(materialized='view') }}
 {% set moneyline_parameter_higher = 2000 %}
 {% set moneyline_amounts = range(-200, 200, 10) %}
 

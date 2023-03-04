@@ -1,3 +1,4 @@
+{{ config(materialized='view') }}
 /*
 this model grabs all ml predictions from entire season and runs aggregations to find correct prediction %.
 it excludes tonight's games because we don't know whether the ml model is correct or incorrect on those predictions yet.

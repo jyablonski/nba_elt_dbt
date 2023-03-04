@@ -1,3 +1,5 @@
+{{ config(materialized='view') }}
+
 with games as (
     select
         home_team,
