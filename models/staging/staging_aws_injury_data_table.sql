@@ -49,7 +49,6 @@ protocol_counts as (
     group by 1
 ),
 
-
 final_stg_injury as (
     select distinct
         {{ dbt_utils.surrogate_key(['player', 'injury', 'description']) }} as injury_pk,
@@ -63,14 +62,34 @@ final_stg_injury as (
         injury_counts.team_active_injuries as total_injuries,
         injury_counts.team_active_injuries - coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_injuries,
         coalesce(protocol_counts.team_active_protocols, 0)::numeric as team_active_protocols,
-        injury_data2.scrape_date
+        injury_data2.scrape_date,
+        row_number() over (partition by player order by date desc) as uniqueness_filter
     from injury_data2
     left join team_attributes using (team)
     left join injury_counts using (team)
     left join protocol_counts using (team)
     inner join most_recent_date using (scrape_date)
 
+),
+
+-- 2023-03-09 adding this in bc bbref duplicates their fkn injury records and it causes pk issues
+final as (
+    select
+        injury_pk,
+        player,
+        team_acronym,
+        team,
+        date,
+        status,
+        injury,
+        description,
+        total_injuries,
+        team_active_injuries,
+        team_active_protocols,
+        scrape_date
+    from final_stg_injury
+    where uniqueness_filter = 1
 )
 
 select *
-from final_stg_injury
+from final
