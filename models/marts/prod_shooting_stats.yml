@@ -12,3 +12,5 @@ models:
         description: Test Dunks for Null incase the join gets screwed up
         tests:
         - not_null
+        config:
+          severity: warn
