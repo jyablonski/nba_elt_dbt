@@ -8,3 +8,13 @@ models:
         tests:
             - unique
             - not_null
+      - name: continuous_games_missed
+        tests:
+        - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 82
+      - name: continuous_games_played
+        tests:
+        - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 110
