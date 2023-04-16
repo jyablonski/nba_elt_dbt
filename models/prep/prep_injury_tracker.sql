@@ -54,6 +54,14 @@ team_gp_continuous as (
     group by team, date
 ),
 
+team_gp_counts as (
+    select
+        team,
+        count(*) as team_games_played
+    from team_gp
+    group by 1
+),
+
 player_logo as (
     select
         player,
@@ -71,7 +79,7 @@ final as (
         team_latest_game,
         team_latest_game - player_latest_game as days_missed,
         team_gp_continuous.continuous_games_played,
-        team_gp.team_games_played,
+        team_gp_counts.team_games_played,
         team_games_played - continuous_games_played as continuous_games_missed,
         games_played,
         season_avg_ppg,
@@ -84,7 +92,7 @@ final as (
     left join player_last_game_played using (player)
     left join team_last_game_played using (team)
     left join team_gp_continuous on (player_stats.team = team_gp_continuous.team and player_last_game_played.player_latest_game = team_gp_continuous.date)
-    left join {{ ref('prep_team_games_played') }} team_gp on (player_stats.team = team_gp.team)
+    left join team_gp_counts on (player_stats.team = team_gp_counts.team)
     left join player_logo using (player)
 )
 
