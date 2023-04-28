@@ -21,10 +21,9 @@ COPY --from=python-deps /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 
 RUN useradd --create-home appuser
-WORKDIR /home/appuser
 
-COPY . .
 WORKDIR /home/appuser/nba_elt_dbt
+COPY . .
 
 # RUN ls .
 # RUN cat profiles.yml
