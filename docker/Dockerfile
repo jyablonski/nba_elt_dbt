@@ -1,4 +1,4 @@
-FROM python:3.8-slim as base
+FROM python:3.10-slim as base
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -14,7 +14,6 @@ RUN ./install_packages.sh
 COPY Pipfile .
 COPY Pipfile.lock .
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
-RUN git clone https://github.com/jyablonski/nba_elt_dbt.git
 
 FROM base AS runtime
 
@@ -24,9 +23,8 @@ ENV PATH="/.venv/bin:$PATH"
 RUN useradd --create-home appuser
 WORKDIR /home/appuser
 
-COPY --from=python-deps . .
+COPY . .
 WORKDIR /home/appuser/nba_elt_dbt
-COPY .ci_cd .
 
 # RUN ls .
 # RUN cat profiles.yml
