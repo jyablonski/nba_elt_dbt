@@ -23,3 +23,7 @@ docs-generage:
 .PHONY: docs-serve
 docs-serve:
 	@dbt docs serve
+
+.PHONY: docker-build
+docker-build:
+	@docker-compose -f docker/docker-compose.yml build
