@@ -7,3 +7,4 @@ dbt_packages/**
 dbt_packages/*
 dbt_packages
 .env
+profiles/.user.yml
