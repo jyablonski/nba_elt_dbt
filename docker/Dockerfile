@@ -27,6 +27,6 @@ COPY . .
 
 # RUN ls .
 # RUN cat profiles.yml
-RUN dbt deps --profiles-dir /
+RUN dbt deps --profiles-dir profiles/
 
-CMD ["dbt", "build", "--profiles-dir", ".", "--target", "prod"]
+CMD ["dbt", "build", "--profiles-dir", "profiles/", "--target", "prod"]
