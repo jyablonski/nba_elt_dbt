@@ -34,16 +34,15 @@ with my_cte as (
         season
     from {{ source('nba_source', 'aws_boxscores_source')}}
     where player is not null
+    {% if is_incremental() %}
+
+      -- this filter will only be applied on an incremental run
+      -- only grab records where date is greater than the max date of the existing records in the tablegm
+      and date > (select max(date) from {{ this }})
+
+    {% endif %}
     order by date desc
 )
 
 select *
 from my_cte
-
-{% if is_incremental() %}
-
-  -- this filter will only be applied on an incremental run
-  -- only grab records where date is greater than the max date of the existing records in the tablegm
-  where date > (select max(date) from {{ this }})
-
-{% endif %}
