@@ -41,6 +41,13 @@ new_twitter as (
 		pos::numeric,
 		sentiment
 	from {{ source('nba_source', 'aws_twitter_tweepy_data_source') }}
+	{% if is_incremental() %}
+
+	-- this filter will only be applied on an incremental run
+	-- only grab records where date is greater than the max date of the existing records in the tablegm
+	where scrape_ts > (select max(scrape_ts) from {{ this }})
+
+	{% endif %}
 ),
 
 final as (
@@ -53,10 +60,3 @@ final as (
 
 select *
 from final
-{% if is_incremental() %}
-
-  -- this filter will only be applied on an incremental run
-  -- only grab records where date is greater than the max date of the existing records in the tablegm
-  where scrape_ts > (select max(scrape_ts) from {{ this }})
-
-{% endif %}

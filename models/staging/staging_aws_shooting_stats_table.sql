@@ -26,15 +26,14 @@ with shooting_stats as (
         scrape_ts::timestamp as scrape_ts
 
     from {{ source('nba_source', 'aws_shooting_stats_source')}}
+    {% if is_incremental() %}
+
+      -- this filter will only be applied on an incremental run
+      -- only grab records where date is greater than the max date of the existing records in the tablegm
+      where scrape_date > (select max(scrape_date) from {{ this }})
+
+    {% endif %}
 )
 
 select *
 from shooting_stats
-
-{% if is_incremental() %}
-
-  -- this filter will only be applied on an incremental run
-  -- only grab records where date is greater than the max date of the existing records in the tablegm
-  where scrape_date > (select max(scrape_date) from {{ this }})
-
-{% endif %}
