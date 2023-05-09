@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_past_schedule_analysis
+    - name: past_schedule_analysis
       description: Prod Past Games Schedule Analysis Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

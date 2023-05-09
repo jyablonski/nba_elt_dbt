@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_contract_value_analysis
+    - name: contract_value_analysis
       description: Player Contract Value Analysis Table (WIP)
       columns:
           - name: player

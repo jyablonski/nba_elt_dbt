@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_team_adv_stats
+    - name: team_adv_stats
       description: Prod Team Advanced Stats Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_opp_stats
+    - name: opp_stats
       description: Prod Opponent Shooting Stats Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_rolling_avg_stats
+    - name: rolling_avg_stats
       columns:
           - name: player
             tests:

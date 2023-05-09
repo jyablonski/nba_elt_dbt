@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_injury_tracker
+    - name: injury_tracker
       description: Prod Injury Tracker Table
       columns:
       - name: continuous_games_missed

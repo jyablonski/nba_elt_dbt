@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_reddit_comments
+    - name: reddit_comments
       description: Prod Reddit Comments (Social Media)
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:

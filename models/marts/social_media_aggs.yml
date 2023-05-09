@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_social_media_aggs
+    - name: social_media_aggs
       description: Prod Social Media BANS Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

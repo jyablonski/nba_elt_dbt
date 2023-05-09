@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_standings
+    - name: standings
       description: Prod Standings Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

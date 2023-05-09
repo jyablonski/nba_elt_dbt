@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_team_game_types
+    - name: team_game_types
       columns:
           - name: team
             tests:

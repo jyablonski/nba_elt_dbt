@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_team_blown_leads
+    - name: team_blown_leads
       description: Prod Team Blown Leads + Team Comebacks Table - 30 rows for reg season + 16 for playoffs
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

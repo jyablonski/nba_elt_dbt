@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_shooting_stats
+    - name: shooting_stats
       description: Prod Shooting Stats Table
       columns:
       - name: player

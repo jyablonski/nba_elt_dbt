@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_transactions
+    - name: transactions
       description: Prod League Transactions Table
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:

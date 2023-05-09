@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_injuries
+    - name: injuries
       description: Prod Injuries Table
       columns:
           - name: player

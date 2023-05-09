@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: prod_team_contracts_analysis
+    - name: team_contracts_analysis
       description: Prod Team Contracts Table
       tests:
         - dbt_expectations.expect_table_row_count_to_equal:

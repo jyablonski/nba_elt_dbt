@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: prod_team_record_daily_rollup
+  - name: team_record_daily_rollup
     columns:
       - name: team
         tests:
