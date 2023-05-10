@@ -24,7 +24,7 @@ leads as (
              else '999'
              end as max_opponent_lead,
              home_team
-    from {{ ref('prod_pbp') }}
+    from {{ ref('pbp') }}
 ),
 
 team_pts_scored as (

@@ -14,7 +14,7 @@ team_outcomes as (
         date,
         outcome,
         mov
-    from {{ ref('prod_mov') }}
+    from {{ ref('mov') }}
 ),
 
 final as (
