@@ -1,0 +1,25 @@
+version: 2
+
+models:
+    - name: contract_value_analysis
+      description: Player Contract Value Analysis Table (WIP)
+      columns:
+          - name: player
+            tests:
+                - unique
+                - not_null
+          - name: adj_penalty_final
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0.75
+                  max_value: 1
+          - name: pct_penalized
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 0.25
+          - name: rankingish
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 1

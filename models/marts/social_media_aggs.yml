@@ -1,0 +1,31 @@
+version: 2
+
+models:
+    - name: social_media_aggs
+      description: Prod Social Media BANS Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 1
+      columns:
+        - name: date
+          tests:
+            - unique
+            - not_null
+        - name: reddit_tot_comments
+          tests:
+            - not_null
+        - name: twitter_tot_comments
+          tests:
+            - not_null
+        - name: reddit_pct_difference
+          description: this is a % value that has already been multiplied by 100
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: -400
+                max_value: 400
+        - name: twitter_pct_difference
+          description: this is a % value that has already been multiplied by 100
+          tests:
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: -400
+                max_value: 400

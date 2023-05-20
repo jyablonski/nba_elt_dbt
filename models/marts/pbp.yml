@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: pbp
+      description: Prod Play by Play Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["game_description", "time_remaining_final", "quarter", "play", "score"]

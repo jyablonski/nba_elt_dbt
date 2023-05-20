@@ -1,0 +1,32 @@
+version: 2
+
+models:
+    - name: standings
+      description: Prod Standings Table
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal:
+            value: 30
+      columns:
+      - name: team
+        tests:
+          - unique
+          - not_null
+      - name: last_10
+        tests:
+          - not_null
+      - name: active_injuries
+        tests:
+          - not_null
+      - name: active_protocols
+        tests:
+          - not_null
+      - name: wins
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 82
+      - name: losses
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 82

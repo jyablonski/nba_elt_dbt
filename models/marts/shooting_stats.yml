@@ -1,0 +1,16 @@
+version: 2
+
+models:
+    - name: shooting_stats
+      description: Prod Shooting Stats Table
+      columns:
+      - name: player
+        tests:
+        - unique
+        - not_null
+      - name: dunks
+        description: Test Dunks for Null incase the join gets screwed up
+        tests:
+        - not_null
+        config:
+          severity: warn
