@@ -1,7 +1,9 @@
 with games as (
     select
         home_team,
+        home_moneyline,
         away_team,
+        away_moneyline,
         home_team_acronym,
         away_team_acronym,
         proper_date,
@@ -114,6 +116,8 @@ final as (
     select 
         home_team,
         away_team,
+        home_moneyline,
+        away_moneyline,
         proper_date::date as proper_date,
         home_team_rank,
         (proper_date - home_last_played_date) - 1 AS home_days_rest,
