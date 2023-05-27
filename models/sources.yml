@@ -141,3 +141,8 @@ sources:
     description: Landing Zone for NBA ML Data
     tables:
       - name: tonights_games_ml
+  - name: nba_prod
+    database: jacob_db
+    schema: nba_prod
+    tables:
+      - name: user_predictions
