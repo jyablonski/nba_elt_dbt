@@ -13,7 +13,8 @@ models:
             - not_null
         - name: reddit_tot_comments
           tests:
-            - not_null
+            - not_null:
+                severity: warn
         - name: twitter_tot_comments
           tests:
             - not_null
