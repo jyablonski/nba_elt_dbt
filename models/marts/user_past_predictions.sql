@@ -20,6 +20,7 @@ combo as (
         away_team_odds,
         away_team_predicted_win_pct,
         selected_winner,
+        bet_amount,
         created_at,
         case when outcome = 'W' then home_team
             when outcome = 'L' then away_team
