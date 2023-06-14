@@ -28,10 +28,19 @@ combo as (
     from {{ source('nba_prod', 'user_predictions') }}
     left join home_wins using (home_team, game_date)
 
+),
+
+final as (
+    select 
+        *,
+        case when selected_winner = actual_winner then 1
+            else 0 end as is_correct_prediction
+    from combo
 )
 
-select 
+
+select
     *,
-    case when selected_winner = actual_winner then 1
-        else 0 end as is_correct_prediction
-from combo
+	case when is_correct_prediction = 1 then bet_amount
+	    else bet_amount * -1 end as bet_profit
+from final
