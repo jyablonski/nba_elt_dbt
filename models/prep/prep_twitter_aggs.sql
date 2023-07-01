@@ -1,7 +1,16 @@
+{{ config(materialized='incremental') }}
+
 with my_cte as (
     select distinct
         *
     from {{ ref('staging_aws_twitter_data_table') }}
+	{% if is_incremental() %}
+
+	-- this filter will only be applied on an incremental run
+	-- only grab records where date is greater than the max date of the existing records in the tablegm
+	where date(scrape_ts) > (select max(date) from {{ this }})
+
+	{% endif %}
 ),
 
 aggs as (
