@@ -1,7 +1,16 @@
+{{ config(materialized='incremental') }}
+
 with my_cte as (
     select
         *
     from {{ ref('staging_aws_reddit_comment_data_table') }}
+	{% if is_incremental() %}
+
+	-- this filter will only be applied on an incremental run
+	-- only grab records where date is greater than the max date of the existing records in the tablegm
+	where scrape_ts > (select max(scrape_ts) from {{ this }})
+
+	{% endif %}
 ),
 
 duplicate_comments as (
