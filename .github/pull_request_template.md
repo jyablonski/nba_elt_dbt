@@ -1,11 +1,11 @@
 ### Description
-Template Description for the PR
+Description for the PR
 
 ## Added
-- x
+- None
 
 ## Updated
-- y
+- None
 
 ## Deleted
-- z
+- None
