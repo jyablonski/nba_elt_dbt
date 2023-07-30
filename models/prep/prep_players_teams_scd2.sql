@@ -49,7 +49,7 @@ final as (
         player_team_effective_dates.team,
         games_played_for_team,
         valid_from,
-        case when max_game_date = max_date then null else max_game_date end as valid_to,
+        case when max_game_date = max_date then '9999-12-31' else max_game_date end as valid_to,
         case when max_game_date = max_date then 1 else 0 end as is_current_team
     from player_team_effective_dates
     inner join max_dates using (player)
