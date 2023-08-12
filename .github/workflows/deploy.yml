@@ -6,12 +6,19 @@ on:
       - master
 
 env:
-
+  IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
+  AWS_REGION : "us-east-1"
   DBT_HOST: ${{ secrets.DBT_HOST }}
   DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
   DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
   DBT_USER: ${{ secrets.DBT_USER }}
   DBT_PW: ${{ secrets.DBT_PW }}
+
+
+# permission can be added at job level or workflow level    
+permissions:
+      id-token: write
+      contents: read    # This is required for actions/checkout
 
 jobs:
   build_image:
@@ -21,19 +28,22 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+      if: github.ref == 'refs/heads/master'
 
-    - name: Configure AWS credentials
+    - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        role-to-assume: ${{ env.IAM_ROLE }}            # use full arn
+        role-session-name: nba-elt-dbt-cicd
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      if: github.ref == 'refs/heads/master'
 
     - name: Build, tag, and push image to Amazon ECR
+      if: github.ref == 'refs/heads/master'
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: jacobs_repo
