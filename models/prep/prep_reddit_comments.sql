@@ -1,22 +1,21 @@
 {{ config(materialized='incremental') }}
 
 with my_cte as (
-    select
-        *
+    select *
     from {{ ref('staging_aws_reddit_comment_data_table') }}
-	{% if is_incremental() %}
+    {% if is_incremental() %}
 
-	-- this filter will only be applied on an incremental run
-	-- only grab records where date is greater than the max date of the existing records in the tablegm
-	where scrape_ts > (select max(scrape_ts) from {{ this }})
+        -- this filter will only be applied on an incremental run
+        -- only grab records where date is greater than the max date of the existing records in the tablegm
+        where scrape_ts > (select max(scrape_ts) from {{ this }})
 
-	{% endif %}
+    {% endif %}
 ),
 
 duplicate_comments as (
-    select 
+    select
         *,
-        ROW_NUMBER() over (
+        row_number() over (
             partition by author, comment, scrape_date
             order by score desc
         ) as comment_rank
@@ -28,9 +27,8 @@ final as (
     select
         *,
         ltrim(flair2, ': ') as flair_new,
-        case when edited = 'false' then false
-            else true end as edited_final,
-        {{dbt_utils.split_part('flair2', " ': ' ", 2)}} as flair_new2,
+        not coalesce (edited = 'false', false) as edited_final,
+        {{ dbt_utils.split_part('flair2', " ': ' ", 2) }} as flair_new2,
         regexp_replace(flair1, '\d+$', '') as flair_final, --removes trailing digits (Warriors5, Suns2, Bulls1)
         row_number() over (order by score desc) as total_score_rank
     from duplicate_comments
@@ -39,7 +37,6 @@ final as (
 )
 
 -- 2021-01-05 *** need to create an id field or something and filter out duplicates to grab them by the latest available date
-select
-    *
+select *
 from final
 -- where author = 'Groundhog_fog'

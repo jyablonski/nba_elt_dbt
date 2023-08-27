@@ -1,7 +1,7 @@
 {{ config(materialized='incremental') }}
 
 with shooting_stats as (
-    select 
+    select
         {{ clean_player_names_bbref('player') }}::text as player,
         avg_shot_distance::numeric as avg_shot_distance,
         pct_fga_2p::numeric as pct_fga_2p,
@@ -25,12 +25,12 @@ with shooting_stats as (
         scrape_date::date as scrape_date,
         scrape_ts::timestamp as scrape_ts
 
-    from {{ source('nba_source', 'aws_shooting_stats_source')}}
+    from {{ source('nba_source', 'aws_shooting_stats_source') }}
     {% if is_incremental() %}
 
-      -- this filter will only be applied on an incremental run
-      -- only grab records where date is greater than the max date of the existing records in the tablegm
-      where scrape_date > (select max(scrape_date) from {{ this }})
+        -- this filter will only be applied on an incremental run
+        -- only grab records where date is greater than the max date of the existing records in the tablegm
+        where scrape_date > (select max(scrape_date) from {{ this }})
 
     {% endif %}
 )

@@ -8,7 +8,7 @@ with team_ratings as (
 team_attributes as (
 
     select *
-    from {{ ref('staging_seed_team_attributes')}}
+    from {{ ref('staging_seed_team_attributes') }}
 ),
 
 final_team_ratings as (
@@ -21,16 +21,16 @@ final_team_ratings as (
         team_ratings.ortg,
         team_ratings.drtg,
         team_ratings.nrtg,
-        CONCAT('logos/', LOWER(team_acronym), '.png') as team_logo,
         row_number() over (order by nrtg desc)::integer as nrtg_rank,
         row_number() over (order by drtg)::integer as drtg_rank,
-        row_number() over (order by ortg desc)::integer as ortg_rank
+        row_number() over (order by ortg desc)::integer as ortg_rank,
+        concat('logos/', lower(team_acronym), '.png') as team_logo
     from team_ratings
-    left join team_attributes using (team)
+        left join team_attributes using (team)
 ),
 
 final as (
-    select 
+    select
         *,
         {{ generate_ord_numbers('nrtg_rank') }} as nrtg_rank2,
         {{ generate_ord_numbers('drtg_rank') }} as drtg_rank2,
@@ -38,7 +38,7 @@ final as (
     from final_team_ratings
 )
 
-select 
+select
     team,
     team_acronym,
     w,

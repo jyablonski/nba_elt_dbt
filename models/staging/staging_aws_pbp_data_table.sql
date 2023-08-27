@@ -17,12 +17,12 @@ with pbp_cte as (
         date::date as date,
         substr(timequarter, 1, length(timequarter) - 2)::text as time_quarter,
         {{ generate_season_type('date') }}::text as season_type
-    from {{ source('nba_source', 'aws_pbp_data_source')}}
+    from {{ source('nba_source', 'aws_pbp_data_source') }}
     {% if is_incremental() %}
 
-      -- this filter will only be applied on an incremental run
-      -- only grab records where date is greater than the max date of the existing records in the tablegm
-      where date > (select max(date) from {{ this }})
+        -- this filter will only be applied on an incremental run
+        -- only grab records where date is greater than the max date of the existing records in the tablegm
+        where date > (select max(date) from {{ this }})
 
     {% endif %}
 )

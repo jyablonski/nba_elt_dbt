@@ -10,7 +10,7 @@ with my_cte as (
         mp::text,
         fg::numeric,
         fga::numeric,
-        "fg%"as fg_percent,
+        "fg%" as fg_percent,
         "3p" as three_p,
         "3pa" as three_p_attempted,
         "3p%" as three_p_percent,
@@ -30,20 +30,19 @@ with my_cte as (
         pts::numeric,
         scrape_date::date
 
-from {{ source('nba_source', 'aws_stats_source')}}
-where player is not null
+    from {{ source('nba_source', 'aws_stats_source') }}
+    where player is not null
 ),
 
 most_recent_date as (
-    select
-        max(scrape_date) as scrape_date
-    from {{ source('nba_source', 'aws_stats_source')}}
+    select max(scrape_date) as scrape_date
+    from {{ source('nba_source', 'aws_stats_source') }}
 ),
 
 final as (
     select *
     from my_cte
-    inner join most_recent_date using (scrape_date)
+        inner join most_recent_date using (scrape_date)
 )
 
 select *

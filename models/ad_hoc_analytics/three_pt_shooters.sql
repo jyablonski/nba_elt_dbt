@@ -2,8 +2,7 @@
 
 -- simpsons paradox - steph curry has less 3pt % in these games which makes him look "worse" but he has way more of these games than the other players. 
 with my_cte as (
-    select
-        *
+    select *
     from {{ ref('prep_boxscores_mvp_calc') }}
     where threepfgmade >= {{ three_pt_parameter }}
 ),
@@ -30,12 +29,12 @@ shooter_aggs as (
 ),
 
 final as (
-    select 
+    select
         *,
         round(num_games_{{ three_pt_parameter }}_three_pters::numeric / games_played::numeric, 3) as pct_games_{{ three_pt_parameter }}_threes
     from shooter_aggs
-    left join player_gp g using (player, type)
-    order by type, num_games_{{ three_pt_parameter }}_three_pters desc
+        left join player_gp using (player, type)
+    order by type asc, num_games_{{ three_pt_parameter }}_three_pters desc
 )
 
 select *

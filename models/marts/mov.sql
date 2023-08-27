@@ -12,16 +12,16 @@ with mov_table as (
         pts_scored_opp,
         mov
 
-    from {{ ref('prep_recent_games_teams')}}
+    from {{ ref('prep_recent_games_teams') }}
 ),
 
 record as (
-    select 
-        distinct team,
+    select distinct
+        team,
         record
-    from {{ ref('prep_past_schedule_analysis')}}
+    from {{ ref('prep_past_schedule_analysis') }}
 )
 
 select *
 from mov_table
-left join record using (team)
+    left join record using (team)

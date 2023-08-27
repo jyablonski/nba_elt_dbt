@@ -9,7 +9,7 @@ with my_cte as (
         body::text as body,
         scrape_date::date as scrape_date,
         scrape_time::timestamp as scrape_time
-    from {{ source('nba_source', 'aws_reddit_data_source')}}
+    from {{ source('nba_source', 'aws_reddit_data_source') }}
 )
 
 select *

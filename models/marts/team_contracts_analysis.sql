@@ -6,7 +6,7 @@ with my_cte as (
         sum_salary_earned_max,
         team_pct_salary_earned,
         record
-    from {{ ref('prep_team_contracts_analysis')}}
+    from {{ ref('prep_team_contracts_analysis') }}
 )
 
 select *

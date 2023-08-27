@@ -4,13 +4,13 @@ with teams_scores as (
         date,
         type,
         sum(pts) as pts_game
-    from {{ ref('staging_aws_boxscores_incremental_table')}}
+    from {{ ref('staging_aws_boxscores_incremental_table') }}
     group by team, date, type
 ),
 
 -- use regular season max pts and avg pts for the comparisons
 teams_max_score as (
-    select  
+    select
         team,
         max(pts_game) as team_max_score,
         avg(pts_game) as team_avg_score
@@ -20,7 +20,7 @@ teams_max_score as (
 ),
 
 opp_max_score as (
-    select  
+    select
         team as opp,
         max(pts_game) as opp_max_score,
         avg(pts_game) as opp_avg_score
@@ -35,19 +35,19 @@ team_logo as (
         team,
         team_acronym,
         team_logo
-    from {{ ref('staging_seed_team_attributes')}}
+    from {{ ref('staging_seed_team_attributes') }}
 ),
 
 opponent_logo as (
     select
         team_acronym as opponent,
         team_logo as opp_logo
-    from {{ ref('staging_seed_team_attributes')}}
+    from {{ ref('staging_seed_team_attributes') }}
 ),
 
 -- this is the table that grabs the most recent games and grabs the pts scored from them
 team_pts_scored as (
-    select 
+    select
         b.team,
         b.date,
         b.game_id,
@@ -55,12 +55,12 @@ team_pts_scored as (
         b.outcome,
         b.type,
         sum(b.pts) as pts_scored
-    from {{ ref('prep_boxscores_mvp_calc')}} as b
+    from {{ ref('prep_boxscores_mvp_calc') }} as b
     group by 1, 2, 3, 4, 5, 6
 ),
 
 opponent_scores as (
-    select 
+    select
         team as opponent,
         date,
         pts_scored as pts_scored_opp
@@ -79,35 +79,42 @@ select_final_games as (
         b.opponent,
         b.pts_scored,
         o.pts_scored_opp,
-        round(m.team_avg_score, 1) as team_avg_score,
         m.team_max_score,
         s.opp_max_score,
-        round(s.opp_avg_score, 1) as opp_avg_score,
         l.team_logo,
         opponent_logo.opp_logo as opp_logo,
-        case when pts_scored = team_max_score then 1
-             when (pts_scored >= team_avg_score + 10) and (pts_scored != team_max_score) then 2
-             when team_avg_score - pts_scored > 10 then 3
-             else 0 end as pts_color,
-        case when opp_max_score = pts_scored_opp then 1
-             when (pts_scored_opp >= opp_avg_score + 10) and (pts_scored_opp != opp_max_score) then 2
-             when (opp_avg_score - pts_scored_opp > 10) then 3
-             else 0 end as opp_pts_color,
-        (pts_scored - pts_scored_opp)::numeric as mov
+        (pts_scored - pts_scored_opp)::numeric as mov,
+        round(m.team_avg_score, 1) as team_avg_score,
+        round(s.opp_avg_score, 1) as opp_avg_score,
+        case
+            when pts_scored = team_max_score then 1
+            when (pts_scored >= team_avg_score + 10) and (pts_scored != team_max_score) then 2
+            when team_avg_score - pts_scored > 10 then 3
+            else 0
+        end as pts_color,
+        case
+            when opp_max_score = pts_scored_opp then 1
+            when (pts_scored_opp >= opp_avg_score + 10) and (pts_scored_opp != opp_max_score) then 2
+            when (opp_avg_score - pts_scored_opp > 10) then 3
+            else 0
+        end as opp_pts_color
     from team_pts_scored as b
-    left join teams_max_score as m on b.team = m.team
-    left join team_logo as l on l.team_acronym = b.team
-    left join opponent_scores as o on b.opponent = o.opponent and b.date = o.date
-    left join opponent_logo on b.opponent = opponent_logo.opponent
-    left join opp_max_score as s on s.opp = b.opponent
+        left join teams_max_score as m on b.team = m.team
+        left join team_logo as l on b.team = l.team_acronym
+        left join opponent_scores as o on b.opponent = o.opponent and b.date = o.date
+        left join opponent_logo on b.opponent = opponent_logo.opponent
+        left join opp_max_score as s on b.opponent = s.opp
 ),
 
 final as (
-    select *,
-            case when abs(mov) between 0 and 5 then 'Clutch Game'
-             when abs(mov) between 6 and 10 then '10 pt Game'
-             when abs(mov) between 11 and 20 then '20 pt Game'
-             else 'Blowout Game' end as game_type
+    select
+        *,
+        case
+            when abs(mov) between 0 and 5 then 'Clutch Game'
+            when abs(mov) between 6 and 10 then '10 pt Game'
+            when abs(mov) between 11 and 20 then '20 pt Game'
+            else 'Blowout Game'
+        end as game_type
     from select_final_games
     order by date
 )

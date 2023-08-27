@@ -1,5 +1,5 @@
 with twitter_aggs as (
-    select  
+    select
         date,
         twitter_tot_comments,
         twitter_pct_difference
@@ -22,16 +22,15 @@ final as (
         twitter_tot_comments,
         twitter_pct_difference
     from twitter_aggs
-    left join reddit_aggs using (date)
+        left join reddit_aggs using (date)
     order by date desc
 ),
 
 max_date as (
-    select
-        max(date) as date
+    select max(date) as date
     from final
 )
 
 select *
 from final
-inner join max_date using (date)
+    inner join max_date using (date)

@@ -1,6 +1,5 @@
 with player_rolling_avg_aggs as (
-    select
-        *
+    select *
     from {{ ref('prep_player_stats_rolling_avg') }}
 ),
 
@@ -12,8 +11,8 @@ player_recent_games as (
         s.season_ts_percent,
         s.season_avg_plusminus,
         c.player_mvp_calc_adj
-    from {{ ref('prep_contract_value_analysis') }} c
-    left join {{ ref('prep_player_aggs') }} s using (player)
+    from {{ ref('prep_contract_value_analysis') }} as c
+        left join {{ ref('prep_player_aggs') }} as s using (player)
 ),
 
 final as (
@@ -28,7 +27,7 @@ final as (
         rolling_avg_mvp_calc - player_mvp_calc_adj as mvp_calc_differential, -- notes on this - this is the game mvp calc - adj mvp calc.  slightly lower
         {{ generate_ord_numbers('row_number() over (order by (rolling_avg_mvp_calc - player_mvp_calc_adj) desc)') }} as mvp_calc_diff_rank
     from player_rolling_avg_aggs
-    left join player_recent_games using (player)
+        left join player_recent_games using (player)
     order by ppg_differential desc
 )
 

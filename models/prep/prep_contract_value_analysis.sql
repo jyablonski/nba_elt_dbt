@@ -6,8 +6,7 @@ with player_teams as (
 ),
 
 my_cte as (
-    select
-        distinct 
+    select distinct
         b.player,
         t.team,
         b.games_played,
@@ -16,44 +15,49 @@ my_cte as (
         b.player_mvp_calc_avg_playoffs,
         coalesce(c.salary, 1000000) as salary
     from {{ ref('prep_player_aggs') }} as b
-    left join {{ ref('staging_aws_contracts_table') }} as c using (player)
-    inner join player_teams t using (player)
+        left join {{ ref('staging_aws_contracts_table') }} as c using (player)
+        inner join player_teams as t using (player)
 ),
 
 team_gp as (
-    select 
-        *
+    select *
     from {{ ref('prep_team_games_played') }}
 ),
 
 /* postgres sucks ass you cant reference vars created in the current cte so i have to copy paste the transform code over and over */
 prep1 as (
-    select 
+    select
         *,
-        team_games_played - games_played as games_missed,
         round(team_games_played * 0.2, 0)::numeric as games_missed_allowance,
-        case when (round(team_games_played * 0.2, 0)::numeric < (team_games_played - games_played)) then
-                 abs((round(team_games_played * 0.2, 0)::numeric - (team_games_played - games_played)))
-            else 0 end as penalized_games_missed,
-        round(games_played::numeric /team_games_played::numeric, 3)::numeric as pct_games_played,
-        case when salary >= 30000000 then '$30+ M'
-        when salary >= 25000000 and salary < 30000000 then '$25-30 M'
-        when salary >= 20000000 and salary < 25000000 then '$20-25 M'
-        when salary >= 15000000 and salary < 20000000 then '$15-20 M'
-        when salary >= 10000000 and salary < 15000000 then '$10-15 M'
-        when salary >= 5000000 and salary < 10000000 then '$5-10 M'
-        else '< $5 M' 
+        round(games_played::numeric / team_games_played::numeric, 3)::numeric as pct_games_played,
+        team_games_played - games_played as games_missed,
+        case
+            when (round(team_games_played * 0.2, 0)::numeric < (team_games_played - games_played))
+                then
+                    abs((round(team_games_played * 0.2, 0)::numeric - (team_games_played - games_played)))
+            else 0
+        end as penalized_games_missed,
+        case
+            when salary >= 30000000 then '$30+ M'
+            when salary >= 25000000 and salary < 30000000 then '$25-30 M'
+            when salary >= 20000000 and salary < 25000000 then '$20-25 M'
+            when salary >= 15000000 and salary < 20000000 then '$15-20 M'
+            when salary >= 10000000 and salary < 15000000 then '$10-15 M'
+            when salary >= 5000000 and salary < 10000000 then '$5-10 M'
+            else '< $5 M'
         end as salary_rank
     from my_cte
-    left join team_gp using (team)
+        left join team_gp using (team)
 ),
 
 prep1_part1 as (
-    select 
+    select
         *,
         (1 - (2 * (penalized_games_missed / 100))) as adj_penalty,
-        case when (1 - (2 * (penalized_games_missed / 100))) < 0.75 then 0.75
-            else (1 - (2 * (penalized_games_missed / 100))) end as adj_penalty_final
+        case
+            when (1 - (2 * (penalized_games_missed / 100))) < 0.75 then 0.75
+            else (1 - (2 * (penalized_games_missed / 100)))
+        end as adj_penalty_final
     from prep1
 ),
 
@@ -68,7 +72,7 @@ prep1_part2 as (
 ),
 
 prep2 as (
-    select 
+    select
         round(avg(player_mvp_calc_adj), 2)::numeric as pvm_rank,
         salary_rank
     from prep1_part2
@@ -81,9 +85,9 @@ prep3 as (
         player,
         player_mvp_calc_adj,
         adj_penalty_final,
-        round(percent_rank() over(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
-        round(percent_rank() over(partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank,
-        salary_rank
+        round(percent_rank() over (partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
+        salary_rank,
+        round(percent_rank() over (partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank
     from prep1_part2
     order by rankingish desc
 ),
@@ -104,19 +108,19 @@ final as (
         p3.percentile_rank,
         p3.player_mvp_calc_adj,
         p3.adj_penalty_final,
-        case when percentile_rank >= 50 and salary >= 30000000 then 'Superstars'
-        when percentile_rank >= 90 then 'Great Value'
-        when percentile_rank < 90 and percentile_rank >= 20 then 'Normal'
-        else 'Bad Value'
+        case
+            when percentile_rank >= 50 and salary >= 30000000 then 'Superstars'
+            when percentile_rank >= 90 then 'Great Value'
+            when percentile_rank < 90 and percentile_rank >= 20 then 'Normal'
+            else 'Bad Value'
         end as color_var,
         row_number() over (order by player_mvp_calc_adj desc) as mvp_rank,
         case when row_number() over (order by player_mvp_calc_adj desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates
     from prep1 as p1
-    left join prep2 as p2 using (salary_rank)
-    left join prep3 as p3 using (player)
+        left join prep2 as p2 using (salary_rank)
+        left join prep3 as p3 using (player)
     order by player_mvp_calc_adj desc
 )
 
-select 
-    *
+select *
 from final

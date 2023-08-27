@@ -1,24 +1,23 @@
 {{ config(materialized='incremental') }}
 
 with twitter_cte as (
-    select
-        distinct *
+    select distinct *
     from {{ ref('staging_aws_twitter_data_table') }}
-	{% if is_incremental() %}
+    {% if is_incremental() %}
 
-	-- this filter will only be applied on an incremental run
-	-- only grab records where date is greater than the max date of the existing records in the tablegm
-	where scrape_ts > (select max(scrape_ts) from {{ this }})
+        -- this filter will only be applied on an incremental run
+        -- only grab records where date is greater than the max date of the existing records in the tablegm
+        where scrape_ts > (select max(scrape_ts) from {{ this }})
 
-	{% endif %}
+    {% endif %}
 ),
 
 -- HANDLING DUPLICATES
 -- grabbing the tweet with highest likes (assuming this is the most up to date - not most correct way of doing this but w.e)
 duplicate_tweets as (
-    select 
+    select
         *,
-        ROW_NUMBER() over (
+        row_number() over (
             partition by username, tweet, created_at
             order by likes desc
         ) as tweet_rank

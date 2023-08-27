@@ -13,13 +13,13 @@ with player_records as (
         date,
         {{ dbt_utils.surrogate_key(["player", "team"]) }} as scd_id
     from {{ ref('staging_aws_boxscores_incremental_table') }}
-	{% if is_incremental() %}
+    {% if is_incremental() %}
 
-	-- this filter will only be applied on an incremental run
-	-- only grab records where date is greater than the max date of the existing records in the tablegm
-	where date > (select max(valid_to) from {{ this }})
+        -- this filter will only be applied on an incremental run
+        -- only grab records where date is greater than the max date of the existing records in the tablegm
+        where date > (select max(valid_to) from {{ this }})
 
-	{% endif %}
+    {% endif %}
 ),
 
 max_dates as (
@@ -52,7 +52,7 @@ final as (
         case when max_game_date = max_date then '9999-12-31' else max_game_date end as valid_to,
         case when max_game_date = max_date then 1 else 0 end as is_current_team
     from player_team_effective_dates
-    inner join max_dates using (player)
+        inner join max_dates using (player)
 )
 
 select *

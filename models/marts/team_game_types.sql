@@ -6,7 +6,7 @@ with mov_data as (
         outcome,
         mov::integer,
         game_type
-    from {{ ref('prep_recent_games_teams')}}
+    from {{ ref('prep_recent_games_teams') }}
     where type = 'Regular Season'
 ),
 
@@ -93,8 +93,8 @@ mov_counts_10pt_losses as (
 -- reminder - you cant use a new column in a select statement to create ANOTHER column in postgres.
 --  so i have to copy paste the coalesce code, or do this in another cte
 final as (
-    select 
-        distinct team,
+    select distinct
+        team,
         coalesce(mov_counts_w.outcome_wins_count, 0) as outcome_wins_count,
         coalesce(mov_counts_l.outcome_losses_count, 0) as outcome_losses_count,
         coalesce(mov_counts_clutch_wins.clutch_wins_count, 0) as clutch_wins_count,
@@ -103,18 +103,18 @@ final as (
         coalesce(mov_counts_blowout_wins.blowout_wins_count, 0) as blowout_wins_count,
         coalesce(mov_counts_blowout_losses.blowout_losses_count, 0) as blowout_losses_count,
         -- round(coalesce(mov_counts_blowout_wins.blowout_wins_count::numeric, 0) / (coalesce(mov_counts_blowout_wins.blowout_wins_count::numeric, 0) + coalesce(mov_counts_blowout_losses.blowout_losses_count::numeric, 0)), 3)::numeric as blowout_win_pct,
-        coalesce(mov_counts_10pt_wins.tenpt_wins_count, 0) tenpt_wins_count, 
+        coalesce(mov_counts_10pt_wins.tenpt_wins_count, 0) as tenpt_wins_count,
         coalesce(mov_counts_10pt_losses.tenpt_losses_count, 0) as tenpt_losses_count
         -- round(coalesce(mov_counts_10pt_wins.tenpt_wins_count::numeric, 0) / (coalesce(mov_counts_10pt_wins.tenpt_wins_count::numeric, 0) + coalesce(mov_counts_10pt_losses.tenpt_losses_count::numeric, 0)), 3)::numeric as tenpt_win_pct
     from mov_data
-    left join mov_counts_w using (team)
-    left join mov_counts_l using (team)
-    left join mov_counts_clutch_wins using (team)
-    left join mov_counts_clutch_losses using (team)
-    left join mov_counts_blowout_wins using (team)
-    left join mov_counts_blowout_losses using (team)
-    left join mov_counts_10pt_wins using (team)
-    left join mov_counts_10pt_losses using (team)
+        left join mov_counts_w using (team)
+        left join mov_counts_l using (team)
+        left join mov_counts_clutch_wins using (team)
+        left join mov_counts_clutch_losses using (team)
+        left join mov_counts_blowout_wins using (team)
+        left join mov_counts_blowout_losses using (team)
+        left join mov_counts_10pt_wins using (team)
+        left join mov_counts_10pt_losses using (team)
 )
 
 select *

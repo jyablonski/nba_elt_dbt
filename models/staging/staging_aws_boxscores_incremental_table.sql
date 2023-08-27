@@ -32,15 +32,16 @@ with my_cte as (
         date::date,
         {{ generate_season_type('date') }}::text as type,
         season
-    from {{ source('nba_source', 'aws_boxscores_source')}}
-    where player is not null
-    {% if is_incremental() %}
+    from {{ source('nba_source', 'aws_boxscores_source') }}
+    where
+        player is not null
+        {% if is_incremental() %}
 
-      -- this filter will only be applied on an incremental run
-      -- only grab records where date is greater than the max date of the existing records in the tablegm
-      and date > (select max(date) from {{ this }})
+            -- this filter will only be applied on an incremental run
+            -- only grab records where date is greater than the max date of the existing records in the tablegm
+            and date > (select max(date) from {{ this }})
 
-    {% endif %}
+        {% endif %}
     order by date desc
 )
 

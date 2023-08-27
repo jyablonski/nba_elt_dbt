@@ -10,7 +10,7 @@ with games as (
         home_team_rank,
         away_team_rank
     from {{ ref('prep_schedule_table') }}
-    where proper_date = date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    where proper_date = date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 outcomes as (
@@ -18,13 +18,13 @@ outcomes as (
         a.team as home_team,
         b.date as proper_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }} b
-    left join {{ ref('staging_seed_team_attributes') }} a on b.team = a.team_acronym
+    from {{ ref('staging_aws_boxscores_incremental_table') }} as b
+        left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
     where b.location = 'H'
 ),
 
 home_team_avg as (
-    select 
+    select
         full_team as home_team,
         round(avg(pts_scored), 1)::numeric as home_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as home_team_avg_pts_scored_opp
@@ -34,7 +34,7 @@ home_team_avg as (
 ),
 
 away_team_avg as (
-    select 
+    select
         full_team as away_team,
         round(avg(pts_scored), 1)::numeric as away_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as away_team_avg_pts_scored_opp
@@ -67,13 +67,13 @@ away_team_win_pct as (
 
 -- these 2 have to be different for tonights games - pull from injury report
 team_top_players as (
-    select 
+    select
         p.player as player,
         p.team_acronym as team_acronym,
         p.team as team,
         t.rank as player_rank
     from {{ ref('staging_aws_injury_data_table') }} as p
-    left join {{ ref('staging_seed_top_players') }} as t using (player)
+        left join {{ ref('staging_seed_top_players') }} as t using (player)
     where t.rank is not null and p.status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
     -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),
@@ -97,7 +97,7 @@ away_team_top_players_aggs as (
 -- home days rest away days rest has to come from different methodology than ml_past_games
 
 home_days_rest as (
-    select 
+    select
         team as home_team,
         date as home_last_played_date
     from {{ ref('prep_team_days_rest') }}
@@ -105,7 +105,7 @@ home_days_rest as (
 ),
 
 away_days_rest as (
-    select 
+    select
         team as away_team,
         date as away_last_played_date
     from {{ ref('prep_team_days_rest') }}
@@ -113,37 +113,37 @@ away_days_rest as (
 ),
 
 final as (
-    select 
+    select
         home_team,
         away_team,
         home_moneyline,
         away_moneyline,
         proper_date::date as proper_date,
         home_team_rank,
-        (proper_date - home_last_played_date) - 1 AS home_days_rest,
         home_team_avg_pts_scored,
         home_team_avg_pts_scored_opp,
         home_team_win_pct,
         home_team_win_pct_last10,
-        coalesce(home_is_top_players, 2)::numeric as home_is_top_players,  -- if top players missing then they're HEALTHY
-        away_team_rank,
-        (proper_date - away_last_played_date) - 1 as away_days_rest,
+        coalesce(home_is_top_players, 2)::numeric as home_is_top_players,
+        away_team_rank,  -- if top players missing then they're HEALTHY
         away_team_avg_pts_scored,
         away_team_avg_pts_scored_opp,
         away_team_win_pct,
         away_team_win_pct_last10,
         coalesce(away_is_top_players, 2)::numeric as away_is_top_players,
-        outcome
+        outcome,
+        (proper_date - home_last_played_date) - 1 as home_days_rest,
+        (proper_date - away_last_played_date) - 1 as away_days_rest
     from games
-    left join home_team_avg using (home_team)
-    left join home_team_win_pct using (home_team)
-    left join home_team_top_players_aggs using (home_team)
-    left join away_team_avg using (away_team)
-    left join away_team_win_pct using (away_team)
-    left join away_team_top_players_aggs using (away_team)
-    left join outcomes using (home_team, proper_date)
-    left join home_days_rest using (home_team)
-    left join away_days_rest using (away_team)
+        left join home_team_avg using (home_team)
+        left join home_team_win_pct using (home_team)
+        left join home_team_top_players_aggs using (home_team)
+        left join away_team_avg using (away_team)
+        left join away_team_win_pct using (away_team)
+        left join away_team_top_players_aggs using (away_team)
+        left join outcomes using (home_team, proper_date)
+        left join home_days_rest using (home_team)
+        left join away_days_rest using (away_team)
 )
 
 -- outcome == 1 means home team won,

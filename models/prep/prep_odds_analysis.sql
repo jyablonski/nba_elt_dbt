@@ -1,11 +1,13 @@
 /* discrepencies bc some teams can both be -110 therefore 'Favored' */
 
 with my_cte as (
-    select 
+    select
         *,
-        case when moneyline < 0 then 'Favored'
-        when moneyline > 0 then 'Underdog'
-        else 'fuqqq' end as g_type
+        case
+            when moneyline < 0 then 'Favored'
+            when moneyline > 0 then 'Underdog'
+            else 'fuqqq'
+        end as g_type
     from {{ ref('staging_aws_odds_table') }}
 ),
 
@@ -20,7 +22,7 @@ game_outcomes as (
 final as (
     select *
     from my_cte
-    left join game_outcomes using (team, date)
+        left join game_outcomes using (team, date)
     where outcome is not null
 ),
 
@@ -66,7 +68,7 @@ favorite_losses_aggs as (
 
 
 final_two as (
-    select 
+    select
         final.team,
         final.team_acronym,
         final.date,
@@ -74,24 +76,30 @@ final_two as (
         final.g_type,
         final.moneyline,
         final.spread,
-        case when final.g_type = 'Underdog' then underdog_win_aggs.underdog_wins
-        else favorite_wins_aggs.favored_wins end as g_wins,
-        case when final.g_type = 'Underdog' then underdog_losses_aggs.underdog_losses
-        else favorite_losses_aggs.favored_losses end as g_losses
+        case
+            when final.g_type = 'Underdog' then underdog_win_aggs.underdog_wins
+            else favorite_wins_aggs.favored_wins
+        end as g_wins,
+        case
+            when final.g_type = 'Underdog' then underdog_losses_aggs.underdog_losses
+            else favorite_losses_aggs.favored_losses
+        end as g_losses
     from final
-    left join underdog_win_aggs using (g_type)
-    left join underdog_losses_aggs using (g_type)
-    left join favorite_wins_aggs using (g_type)
-    left join favorite_losses_aggs using (g_type)
+        left join underdog_win_aggs using (g_type)
+        left join underdog_losses_aggs using (g_type)
+        left join favorite_wins_aggs using (g_type)
+        left join favorite_losses_aggs using (g_type)
     order by moneyline desc
 ),
 
 final_three as (
-    select 
+    select
         *,
         round((g_wins::numeric / (g_wins::numeric + g_losses::numeric)), 3)::numeric as g_win_pct,
-        case when moneyline > 0 and outcome = 'W' then moneyline + 100
-        else 0 end as money_won_underdogs
+        case
+            when moneyline > 0 and outcome = 'W' then moneyline + 100
+            else 0
+        end as money_won_underdogs
     from final_two
 
 )

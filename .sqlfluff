@@ -1,15 +1,30 @@
 [sqlfluff]
 dialect = postgres
 templater = dbt
-# Don't apply L025 for now, we have quite a few violations.
-# L043 is questionable in it's treatment of nulls
-rules = L004,L010,L011,L014,L018,L023,L024,L026,L033,L035,L040,L045,L047,L048
+exclude_rules = L016,L032
+large_file_skip_byte_limit = 25000
 
-# dbt templating does not keep trailing new lines (L009)
-exclude_rules = L009
+# L016 - line too long
+# L032 - Using is an allowable and efficient way of joining tables with a shared key
 
-[sqlfluff:rules:L010]
+[sqlfluff:templater:dbt]
+project_dir = ./
+
+
+[sqlfluff:rules:capitalisation.keywords]
 capitalisation_policy = lower
 
-[sqlfluff:rules:L014]
+[sqlfluff:rules:capitalisation.identifiers]
 capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = lower
+
+[sqlfluff:indentation]
+indented_joins = True

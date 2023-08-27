@@ -12,7 +12,7 @@ with games as (
         home_days_rest,
         away_days_rest
     from {{ ref('prep_schedule_table') }}
-    where proper_date < date({{ dbt_utils.current_timestamp() }} - INTERVAL '6 hour')
+    where proper_date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 outcomes as (
@@ -20,13 +20,13 @@ outcomes as (
         a.team as home_team,
         b.date as proper_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }} b
-    left join {{ ref('staging_seed_team_attributes') }} a on b.team = a.team_acronym
+    from {{ ref('staging_aws_boxscores_incremental_table') }} as b
+        left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
     where b.location = 'H'
 ),
 
 home_team_avg as (
-    select 
+    select
         full_team as home_team,
         round(avg(pts_scored), 1)::numeric as home_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as home_team_avg_pts_scored_opp
@@ -36,7 +36,7 @@ home_team_avg as (
 ),
 
 away_team_avg as (
-    select 
+    select
         full_team as away_team,
         round(avg(pts_scored), 1)::numeric as away_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as away_team_avg_pts_scored_opp
@@ -68,7 +68,7 @@ away_team_win_pct as (
 ),
 
 home_team_top_players as (
-    select 
+    select
         team as home_team_acronym,
         date as proper_date,
         is_top_players as home_is_top_players
@@ -76,7 +76,7 @@ home_team_top_players as (
 ),
 
 away_team_top_players as (
-    select 
+    select
         team as away_team_acronym,
         date as proper_date,
         is_top_players as away_is_top_players
@@ -84,7 +84,7 @@ away_team_top_players as (
 ),
 
 final as (
-    select 
+    select
         home_team,
         away_team,
         proper_date,
@@ -104,13 +104,13 @@ final as (
         away_is_top_players,
         outcome
     from games
-    left join home_team_avg using (home_team)
-    left join home_team_win_pct using (home_team)
-    left join home_team_top_players using (home_team_acronym, proper_date)
-    left join away_team_avg using (away_team)
-    left join away_team_win_pct using (away_team)
-    left join away_team_top_players using (away_team_acronym, proper_date)
-    left join outcomes using (home_team, proper_date)
+        left join home_team_avg using (home_team)
+        left join home_team_win_pct using (home_team)
+        left join home_team_top_players using (home_team_acronym, proper_date)
+        left join away_team_avg using (away_team)
+        left join away_team_win_pct using (away_team)
+        left join away_team_top_players using (away_team_acronym, proper_date)
+        left join outcomes using (home_team, proper_date)
     where outcome is not null
 )
 

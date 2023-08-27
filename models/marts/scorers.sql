@@ -1,5 +1,5 @@
 with my_cte as (
-    select 
+    select
         player,
         p.team,
         t.team as full_team,
@@ -16,9 +16,9 @@ with my_cte as (
         penalized_games_missed,
         top5_candidates,
         mvp_rank
-    from {{ ref('prep_player_aggs') }} p
-    left join {{ ref('prep_contract_value_analysis') }} c using (player)
-    left join {{ ref('staging_seed_team_attributes') }} t on p.team = t.team_acronym
+    from {{ ref('prep_player_aggs') }} as p
+        left join {{ ref('prep_contract_value_analysis') }} using (player)
+        left join {{ ref('staging_seed_team_attributes') }} as t on p.team = t.team_acronym
     order by player_mvp_calc_adj desc
 )
 

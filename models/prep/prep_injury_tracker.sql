@@ -3,7 +3,7 @@ with injury_data as (
         player,
         status,
         injury
-    from {{ ref('staging_aws_injury_data_table')}}
+    from {{ ref('staging_aws_injury_data_table') }}
 
 ),
 
@@ -41,7 +41,7 @@ team_gp as (
     select distinct
         team,
         date
-    from {{ ref('prep_boxscores_mvp_calc') }} 
+    from {{ ref('prep_boxscores_mvp_calc') }}
 ),
 
 -- CTE using a windows function to make a continuous gp column for every game played by team
@@ -66,34 +66,34 @@ player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ ref('staging_seed_player_attributes')}}
+    from {{ ref('staging_seed_player_attributes') }}
 ),
 
 final as (
     select
-        concat(
-            '<span style=''font-size:16px; color:royalblue;''>', injury_data.player, '</span> <span style=''font-size:12px; color:grey;''>', player_stats.team, '</span>'
-        ) as player,
-        concat(status, ' - ', injury) as status,
         player_latest_game,
         team_latest_game,
-        team_latest_game - player_latest_game as days_missed,
         team_gp_continuous.continuous_games_played,
         team_gp_counts.team_games_played,
-        team_games_played - continuous_games_played as continuous_games_missed,
         games_played,
         season_avg_ppg,
         player_mvp_calc_avg,
         season_ts_percent,
         season_avg_plusminus,
-        player_logo
+        player_logo,
+        concat(
+            '<span style=''font-size:16px; color:royalblue;''>', injury_data.player, '</span> <span style=''font-size:12px; color:grey;''>', player_stats.team, '</span>'
+        ) as player,
+        concat(status, ' - ', injury) as status,
+        team_latest_game - player_latest_game as days_missed,
+        team_games_played - continuous_games_played as continuous_games_missed
     from injury_data
-    inner join player_stats using (player)
-    left join player_last_game_played using (player)
-    left join team_last_game_played using (team)
-    left join team_gp_continuous on (player_stats.team = team_gp_continuous.team and player_last_game_played.player_latest_game = team_gp_continuous.date)
-    left join team_gp_counts on (player_stats.team = team_gp_counts.team)
-    left join player_logo using (player)
+        inner join player_stats using (player)
+        left join player_last_game_played using (player)
+        left join team_last_game_played using (team)
+        left join team_gp_continuous on (player_stats.team = team_gp_continuous.team and player_last_game_played.player_latest_game = team_gp_continuous.date)
+        left join team_gp_counts on (player_stats.team = team_gp_counts.team)
+        left join player_logo using (player)
 )
 
 select *

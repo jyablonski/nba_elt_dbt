@@ -19,7 +19,7 @@ shooting_stats as (
 final as (
     select *
     from prod_scorers
-    left join shooting_stats using (player)
+        left join shooting_stats using (player)
 )
 
 select *

@@ -15,19 +15,18 @@ top_players as (
         player,
         team,
         rank as player_rank
-    from {{ ref('staging_seed_top_players')}}
+    from {{ ref('staging_seed_top_players') }}
 ),
 
 final as (
-    select
-        *
+    select *
     from my_cte
-    left join top_players using (player, team)
+        left join top_players using (player, team)
     where player_rank is not null
 ),
 
 team_aggs as (
-    select 
+    select
         team,
         game_id,
         date,
@@ -46,8 +45,8 @@ final2 as (
         b.opponent,
         coalesce(a.is_top_players, 0)::numeric as is_top_players
     from my_cte as b
-    left join team_aggs as a using (team, date, game_id)
-    order by team desc, date
+        left join team_aggs as a using (team, date, game_id)
+    order by team desc, date asc
 )
 
 select *
