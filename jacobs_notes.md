@@ -16,3 +16,14 @@ stackoverflow how to fix
 
 
 [sqlfluff default config](https://docs.sqlfluff.com/en/stable/configuration.html#default-configuration)
+
+
+```
+    entry: bash -c 'env DBT_PRAC_KEY=hooks'
+    additional_dependencies: [
+    'sqlfluff==2.3.0',
+    'sqlfluff-templater-dbt==2.3.0',
+    'dbt-core==1.5.0',
+    'dbt-postgres==1.5.0'
+    ]
+```

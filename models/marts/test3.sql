@@ -50,37 +50,21 @@ final as (
         sum_active_protocols,
         sum_active_protocols_lastwk
     from bans_data
-        left join protocols_data on bans_data.join_col = protocols_data.join_col
+        left join protocols_data using (join_col)
         left join protocols_data_lastwk using (join_col)
 ),
 
 final2 as (
     select
         *,
-        abs(
-            sum_active_protocols_lastwk - sum_active_protocols
-        )::numeric as protocols_differential,
+        abs(sum_active_protocols_lastwk - sum_active_protocols)::numeric as protocols_differential,
         case
             when sum_active_protocols_lastwk > sum_active_protocols
                 then
-                    abs(
-                        100
-                        * round(
-                            (sum_active_protocols_lastwk - sum_active_protocols)
-                            / sum_active_protocols_lastwk,
-                            3
-                        )
-                    )::numeric
+                    abs(100 * round((sum_active_protocols_lastwk - sum_active_protocols) / sum_active_protocols_lastwk, 3))::numeric
             when sum_active_protocols_lastwk < sum_active_protocols
                 then
-                    abs(
-                        100
-                        * round(
-                            (sum_active_protocols - sum_active_protocols_lastwk)
-                            / sum_active_protocols,
-                            3
-                        )
-                    )::numeric
+                    abs(100 * round((sum_active_protocols - sum_active_protocols_lastwk) / sum_active_protocols, 3))::numeric
             else 0
         end as protocols_pct_diff
 
@@ -91,24 +75,8 @@ final3 as (
     select
         *,
         case
-            when
-                sum_active_protocols > sum_active_protocols_lastwk
-                then
-                    concat(
-                        protocols_differential,
-                        ' More Cases (',
-                        round(protocols_pct_diff, 1),
-                        '% Increase) from 7 days ago'
-                    )
-            when
-                sum_active_protocols < sum_active_protocols_lastwk
-                then
-                    concat(
-                        protocols_differential,
-                        ' Fewer Cases (',
-                        round(protocols_pct_diff, 1),
-                        '% Decrease) from 7 days ago'
-                    )
+            when sum_active_protocols > sum_active_protocols_lastwk then concat(protocols_differential, ' More Cases (', round(protocols_pct_diff, 1), '% Increase) from 7 days ago')
+            when sum_active_protocols < sum_active_protocols_lastwk then concat(protocols_differential, ' Fewer Cases (', round(protocols_pct_diff, 1), '% Decrease) from 7 days ago')
             else 'No difference from 7 days ago'
         end as protocols_text
     from final2
