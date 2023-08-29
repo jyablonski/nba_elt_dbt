@@ -51,7 +51,7 @@ final as (
         sum_active_protocols_lastwk
     from bans_data
         left join protocols_data on bans_data.join_col = protocols_data.join_col
-        left join protocols_data_lastwk using (join_col)
+        left join protocols_data_lastwk on bans_data.join_col = protocols_data_lastwk.join_col
 ),
 
 final2 as (
