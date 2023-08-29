@@ -4,12 +4,13 @@ repos:
   hooks:
     - id: sqlfluff-lint
       entry: env DBT_PRAC_KEY=hooks sqlfluff lint --processes 0
-      additional_dependencies: ['dbt-core', 'dbt-postgres', 'sqlfluff-templater-dbt']
+      additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']
     - id: sqlfluff-fix
       # Set a couple of default flags:
       #  - `--force` to disable confirmation
       #  - `--show-lint-violations` shows issues to not require running `sqlfluff lint`
       #  - `--processes 0` to use maximum parallelism
       # By default, this hook applies all rules.
+      # stages: [manual]  # this command is available only to run manually
       entry: env DBT_PRAC_KEY=hooks sqlfluff fix --force --show-lint-violations --processes 0
-      additional_dependencies: ['dbt-core', 'dbt-postgres', 'sqlfluff-templater-dbt']
+      additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']
