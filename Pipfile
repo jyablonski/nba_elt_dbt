@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+sqlfluff = "*"
+sqlfluff-templater-dbt = "*"
 
 [packages]
 dbt-core = "==1.5.0"

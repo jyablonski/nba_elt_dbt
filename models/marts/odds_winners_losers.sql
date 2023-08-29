@@ -27,7 +27,7 @@ final as (
         team_outcomes.outcome,
         team_outcomes.mov
     from odds
-    inner join team_outcomes using (team, date)
+        inner join team_outcomes using (team, date)
 )
 
 select *

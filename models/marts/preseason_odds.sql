@@ -1,5 +1,5 @@
 with my_cte as (
-    select 
+    select
         team,
         team_full,
         conference,
@@ -12,7 +12,7 @@ with my_cte as (
         concat(predicted_wins, ' - ', predicted_losses) as predicted_stats,
         concat(projected_wins, ' - ', projected_losses) as projected_stats,
         case when (projected_wins - predicted_wins)::numeric > 0 then 'Over' else 'Under' end as over_under
-    from {{ ref('prep_standings_table')}}
+    from {{ ref('prep_standings_table') }}
 )
 
 select *

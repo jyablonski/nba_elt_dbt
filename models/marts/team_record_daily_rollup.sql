@@ -1,5 +1,5 @@
 with my_cte as (
-    select 
+    select
         team,
         date,
         conference,

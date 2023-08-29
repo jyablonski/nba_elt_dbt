@@ -16,16 +16,15 @@ with my_cte as (
         neu::numeric as neu,
         pos::numeric as pos,
         sentiment
-    from {{ source('nba_source', 'aws_reddit_comment_data_source')}}
+    from {{ source('nba_source', 'aws_reddit_comment_data_source') }}
     {% if is_incremental() %}
 
     -- this filter will only be applied on an incremental run
     -- only grab records where date is greater than the max date of the existing records in the tablegm
-    where scrape_date > (select max(scrape_date) from {{ this }})
+        where scrape_date > (select max(scrape_date) from {{ this }})
 
     {% endif %}
 )
 
-select
-    *
+select *
 from my_cte

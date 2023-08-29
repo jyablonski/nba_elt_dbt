@@ -2,60 +2,60 @@ with my_cte as (
     select
         player,
         salary
-    from {{ ref('staging_aws_contracts_table')}}
+    from {{ ref('staging_aws_contracts_table') }}
 ),
 
 player_gp as (
-    select  
+    select
         player,
         team,
         games_played
-    from {{ ref('prep_player_aggs')}}
+    from {{ ref('prep_player_aggs') }}
 ),
 
 team_gp as (
-    select 
-        distinct team,
+    select distinct
+        team,
         win_percentage,
         games_played as team_games_played
-    from {{ ref('prep_standings_table')}}
+    from {{ ref('prep_standings_table') }}
 ),
 
 combo as (
-    select 
+    select
         player,
         team,
         salary,
-        coalesce(games_played, 0) as games_played,
         team_games_played,
+        coalesce(games_played, 0) as games_played,
         round(win_percentage, 3) as win_percentage,
         salary * games_played as salary_earned,
         salary * team_games_played as salary_earned_max
     from my_cte
-    left join player_gp using (player)
-    left join team_gp using (team)
+        left join player_gp using (player)
+        left join team_gp using (team)
 ),
 
 team_max_date as (
-    select
-        distinct team,
+    select distinct
+        team,
         max(date) as date
-    from {{ ref('prep_past_schedule_analysis')}}
+    from {{ ref('prep_past_schedule_analysis') }}
     group by team
 ),
 
 team_record as (
-    select 
+    select
         team,
         record
-    from {{ ref('prep_past_schedule_analysis')}}
-    inner join team_max_date using (team)
+    from {{ ref('prep_past_schedule_analysis') }}
+        inner join team_max_date using (team)
 ),
 
 team_counts as (
-    select
-        distinct team,
-                win_percentage,
+    select distinct
+        team,
+        win_percentage,
         sum(salary_earned) as sum_salary_earned,
         sum(salary_earned_max) as sum_salary_earned_max,
         round((sum(salary_earned) / sum(salary_earned_max)), 3) as team_pct_salary_earned
@@ -67,7 +67,7 @@ team_counts as (
 final as (
     select distinct *
     from team_counts
-    left join team_record using (team)
+        left join team_record using (team)
     where team is not null
 )
 

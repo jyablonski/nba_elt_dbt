@@ -19,7 +19,7 @@ with twitter_cte as (
 
 /*
 recent_date as (
-    select distinct 
+    select distinct
         created_at
     from twitter_cte
     where created_at >= current_date - 1

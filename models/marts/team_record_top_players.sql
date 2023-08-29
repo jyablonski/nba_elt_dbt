@@ -1,6 +1,5 @@
 with final as (
-    select
-        *
+    select *
     from {{ ref('prep_team_top_player_stats') }}
 )
 

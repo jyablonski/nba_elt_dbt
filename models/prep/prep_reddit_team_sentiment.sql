@@ -8,22 +8,22 @@ with game_dates as (
         outcome,
         date as potential_game_date,
         1 as game_date
-    from {{ ref('prep_boxscores_mvp_calc')}}
+    from {{ ref('prep_boxscores_mvp_calc') }}
 ),
 
 -- REVIEW THIS MACRO EVERY COUPLE OF MONTHS
 new_comments as (
-    select 
+    select
         *,
         {{ convert_team_names_flairs('flair_final') }} as team
     from {{ ref('prep_reddit_comments') }}
 ),
 
 aggs as (
-    select 
+    select
         scrape_date,
-        scrape_date - 1 as potential_game_date,
         team,
+        scrape_date - 1 as potential_game_date,
         count(*) as num_comments,
         round(avg(score), 3) as avg_score,
         round(avg(neg), 3) as avg_neg,
@@ -35,7 +35,7 @@ aggs as (
 ),
 
 final as (
-    select 
+    select
         team,
         scrape_date,
         potential_game_date,
@@ -48,7 +48,7 @@ final as (
         coalesce(game_date, 0) as game_date,
         coalesce(outcome, 'NO GAME') as game_outcome
     from aggs
-    left join game_dates using (potential_game_date, team) 
+        left join game_dates using (potential_game_date, team)
     order by team, scrape_date
 )
 

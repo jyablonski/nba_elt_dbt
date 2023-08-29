@@ -12,14 +12,16 @@ with home_teams as (
         losing_team,
         max_home_lead,
         max_away_lead,
-        case when winning_team = home_team then 'Home'
-        else 'Road' end as winning_team_loc
+        case
+            when winning_team = home_team then 'Home'
+            else 'Road'
+        end as winning_team_loc
     from {{ ref('prep_pbp_table') }}
     order by date
 ),
 
 road_teams as (
-        select distinct
+    select distinct
         date,
         season_type,
         game_id,
@@ -32,8 +34,10 @@ road_teams as (
         losing_team,
         max_home_lead,
         max_away_lead,
-        case when winning_team = home_team then 'Home'
-        else 'Road' end as winning_team_loc
+        case
+            when winning_team = home_team then 'Home'
+            else 'Road'
+        end as winning_team_loc
     from {{ ref('prep_pbp_table') }}
     order by date
 ),
@@ -41,21 +45,27 @@ road_teams as (
 combo as (
     select *
     from road_teams
-    union 
+    union
     select *
     from home_teams
     order by date, game_id
 ),
 
 full_table as (
-    select 
+    select
         *,
-        case when location = 'Home' then abs(max_home_lead)
-        else abs(max_away_lead) end as max_team_lead,
-        case when location = 'Home' then abs(max_away_lead)
-        else abs(max_home_lead) end as max_opp_lead,
-        case when team = winning_team then 'W'
-        else 'L' end as outcome
+        case
+            when location = 'Home' then abs(max_home_lead)
+            else abs(max_away_lead)
+        end as max_team_lead,
+        case
+            when location = 'Home' then abs(max_away_lead)
+            else abs(max_home_lead)
+        end as max_opp_lead,
+        case
+            when team = winning_team then 'W'
+            else 'L'
+        end as outcome
     from combo
 )
 

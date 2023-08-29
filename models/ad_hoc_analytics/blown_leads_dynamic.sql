@@ -16,14 +16,16 @@ with home_teams as (
         losing_team,
         max_home_lead,
         max_away_lead,
-        case when winning_team = home_team then 'Home'
-        else 'Road' end as winning_team_loc
+        case
+            when winning_team = home_team then 'Home'
+            else 'Road'
+        end as winning_team_loc
     from {{ ref('prep_pbp_table') }}
     order by date
 ),
 
 road_teams as (
-        select distinct
+    select distinct
         date,
         season_type,
         game_id,
@@ -36,8 +38,10 @@ road_teams as (
         losing_team,
         max_home_lead,
         max_away_lead,
-        case when winning_team = home_team then 'Home'
-        else 'Road' end as winning_team_loc
+        case
+            when winning_team = home_team then 'Home'
+            else 'Road'
+        end as winning_team_loc
     from {{ ref('prep_pbp_table') }}
     order by date
 ),
@@ -45,26 +49,32 @@ road_teams as (
 combo as (
     select *
     from road_teams
-    union 
+    union
     select *
     from home_teams
     order by date, game_id
 ),
 
 full_table as (
-    select 
+    select
         *,
-        case when location = 'Home' then abs(max_home_lead)
-        else abs(max_away_lead) end as max_team_lead,
-        case when location = 'Home' then abs(max_away_lead)
-        else abs(max_home_lead) end as max_opp_lead,
-        case when team = winning_team then 'W'
-        else 'L' end as outcome
+        case
+            when location = 'Home' then abs(max_home_lead)
+            else abs(max_away_lead)
+        end as max_team_lead,
+        case
+            when location = 'Home' then abs(max_away_lead)
+            else abs(max_home_lead)
+        end as max_opp_lead,
+        case
+            when team = winning_team then 'W'
+            else 'L'
+        end as outcome
     from combo
 ),
 
 team_blown_leads as (
-    select 
+    select
         team,
         season_type,
         count(*) as blown_leads_{{ mov }}pt,
@@ -75,7 +85,7 @@ team_blown_leads as (
 ),
 
 team_comebacks as (
-    select 
+    select
         team,
         season_type,
         count(*) as team_comebacks_{{ mov }}pt,
@@ -86,8 +96,7 @@ team_comebacks as (
 ),
 
 final as (
-    select 
-        distinct 
+    select distinct
         p.team,
         p.season_type,
         coalesce(team_blown_leads.blown_leads_{{ mov }}pt, 0) as blown_leads_{{ mov }}pt,
@@ -95,23 +104,23 @@ final as (
         coalesce(team_comebacks.team_comebacks_{{ mov }}pt, 0) as team_comebacks_{{ mov }}pt,
         {{ generate_ord_numbers('coalesce(team_comebacks.comeback_rank, 30)') }} as comeback_rank
     from full_table as p
-    left join team_comebacks using (team, season_type)
-    left join team_blown_leads using (team, season_type)
+        left join team_comebacks using (team, season_type)
+        left join team_blown_leads using (team, season_type)
     where p.season_type in ('Regular Season', 'Playoffs')
     order by team_comebacks_{{ mov }}pt desc
 
 ),
 
 final2 as (
-    select 
+    select
         *,
         team_comebacks_{{ mov }}pt - blown_leads_{{ mov }}pt as net_comebacks,
         row_number() over (partition by season_type order by team_comebacks_{{ mov }}pt - blown_leads_{{ mov }}pt desc) as net_rank_numeric
     from final
-    order by season_type, net_comebacks desc
+    order by season_type asc, net_comebacks desc
 )
 
-select 
+select
     *,
     {{ generate_ord_numbers('net_rank_numeric') }} as net_rank
 from final2

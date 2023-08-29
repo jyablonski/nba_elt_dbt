@@ -12,8 +12,8 @@ with games_cte as (
         date,
         outcome,
         case when outcome = 'W' then 1 else 0 end as outcome_int
-    from {{ ref('staging_aws_boxscores_incremental_table') }} games
-    inner join {{ ref('staging_seed_team_attributes' )}} attributes on games.team = attributes.team_acronym
+    from {{ ref('staging_aws_boxscores_incremental_table') }} as games
+        inner join {{ ref('staging_seed_team_attributes' ) }} as attributes on games.team = attributes.team_acronym
 ),
 
 -- create 30 records for every team for fkn day a game is played in the nba.
@@ -23,7 +23,7 @@ date_cross_join as (
         v2.date,
         games_cte.conference
     from games_cte
-    cross join games_cte as v2
+        cross join games_cte as v2
     where v2.date < '2023-04-10'
 ),
 
@@ -46,7 +46,7 @@ ranked_table as (
         *,
         coalesce(running_total_games_played - running_total_wins, 0)::numeric as running_total_losses,
         -- row_number() over (partition by conference, date order by round(
-            -- (running_total_wins::numeric / running_total_games_played::numeric), 3)::numeric desc) as rank_raw,
+        -- (running_total_wins::numeric / running_total_games_played::numeric), 3)::numeric desc) as rank_raw,
         round((running_total_wins::numeric / running_total_games_played::numeric), 3)::numeric as running_win_pct,
         concat(running_total_wins, '-', coalesce(running_total_games_played - running_total_wins, 0)::numeric) as record_as_of_date
     from running_total
@@ -75,13 +75,13 @@ combo_table as (
         array_remove((array_agg(running_win_pct) over (partition by team order by date)), null) as running_win_pct_arr,
         array_remove((array_agg(record_as_of_date) over (partition by team order by date)), null) as record_as_of_date_arr
     from date_cross_join
-    left join ranked_table using (team, date)
+        left join ranked_table using (team, date)
     order by date_cross_join.date
 ),
 
 -- this cte filters the fk out of that shit to return only the most recent value
 filtered_arr as (
-    select 
+    select
         team,
         date,
         conference,
@@ -95,10 +95,11 @@ filtered_arr as (
 
 -- now every single day we have team win / loss records to properly re-calculate conference rank every day.
 final as (
-    select 
+    select
         *,
         row_number() over (partition by conference, date order by round(
-            (running_total_wins::numeric / running_total_games_played::numeric), 3)::numeric desc) as rank_raw
+            (running_total_wins::numeric / running_total_games_played::numeric), 3
+        )::numeric desc) as rank_raw
     from filtered_arr
     where running_total_games_played is not null
 ),
@@ -122,13 +123,13 @@ final2 as (
             when date = '2023-04-09' and conference = 'Western' and rank_raw = 6 then 5
             when date = '2023-04-09' and conference = 'Western' and rank_raw = 8 then 9
             when date = '2023-04-09' and conference = 'Western' and rank_raw = 9 then 8
-        else rank_raw
+            else rank_raw
         end as rank_raw
     from final
 )
 
 -- turn the rank into an ordinal value (1 -> 1st, 3 -> 3rd etc)
-select 
+select
     *,
     {{ generate_ord_numbers('rank_raw') }} as rank
 from final2

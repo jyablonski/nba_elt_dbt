@@ -28,20 +28,18 @@ with my_cte as (
         attendance::numeric,
         "att/game"::numeric as att_game,
         scrape_date::date as scrape_date
-    from {{ source('nba_source', 'aws_adv_stats_source')}}
+    from {{ source('nba_source', 'aws_adv_stats_source') }}
 ),
 
 most_recent_date as (
-    select
-        max(scrape_date) as scrape_date
-    from {{ source('nba_source', 'aws_adv_stats_source')}}
+    select max(scrape_date) as scrape_date
+    from {{ source('nba_source', 'aws_adv_stats_source') }}
 ),
 
 final as (
-    select
-        *
+    select *
     from my_cte
-    inner join most_recent_date using (scrape_date)
+        inner join most_recent_date using (scrape_date)
 )
 
 select *

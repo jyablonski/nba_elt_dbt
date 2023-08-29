@@ -35,12 +35,10 @@ final as (
         winning_team,
         losing_team
 
-    from {{ ref('prep_pbp_table')}}
-    inner join recent_date using (date)
-    order by game_description, time_remaining_final desc
+    from {{ ref('prep_pbp_table') }}
+        inner join recent_date using (date)
+    order by game_description asc, time_remaining_final desc
 )
 
-select 
-    *
+select *
 from final
-

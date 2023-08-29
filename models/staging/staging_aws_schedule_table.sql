@@ -7,10 +7,10 @@ with schedule_data as (
         home_team::text as home_team,
         date::text as date,
         proper_date::date as proper_date,
-        SUBSTR(start_time, 0, LENGTH(start_time) - 0)::text as start_time,
-        TO_CHAR(proper_date, 'Day') as day_name,
-        'join' as join_col
-    from {{ source('nba_source', 'aws_schedule_source')}}
+        substr(start_time, 0, length(start_time) - 0)::text as start_time,
+        'join' as join_col,
+        to_char(proper_date, 'Day') as day_name
+    from {{ source('nba_source', 'aws_schedule_source') }}
     where start_time like '%:%' -- hack to only get records that have a start time (7:00)
 )
 

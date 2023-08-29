@@ -1,10 +1,12 @@
 with my_cte as (
     select
         *,
-        case when url like '%twitter%' then 'Twitter'
-        when url like '%streamable%' then 'Streamable'
-        when url like '%reddit%' then 'Reddit Text Post'
-        else 'Unclassified' end as post_type
+        case
+            when url like '%twitter%' then 'Twitter'
+            when url like '%streamable%' then 'Streamable'
+            when url like '%reddit%' then 'Reddit Text Post'
+            else 'Unclassified'
+        end as post_type
     from {{ ref('staging_aws_reddit_data_table') }}
 ),
 
@@ -19,5 +21,5 @@ aggs as (
 
 select *
 from my_cte
-left join aggs using (post_type)
+    left join aggs using (post_type)
 order by score desc

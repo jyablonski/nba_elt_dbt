@@ -1,0 +1,6 @@
+cd:
+- .github/workflows/deploy.yml
+- docker/*
+
+dependencies:
+- Pipfile

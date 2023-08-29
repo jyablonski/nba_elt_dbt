@@ -1,6 +1,5 @@
 with sentiment_time_series as (
-    select
-        *
+    select *
     from {{ ref('prep_reddit_team_sentiment') }}
 )
 

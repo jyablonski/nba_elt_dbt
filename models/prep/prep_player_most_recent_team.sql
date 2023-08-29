@@ -20,7 +20,7 @@ player_most_recent_team as (
         player,
         team as most_recent_team
     from player_data
-    inner join player_most_recent_date using (player, date)
+        inner join player_most_recent_date using (player, date)
 ),
 
 -- this and the _agg cte give the NUMBER of teams the player played on this year
@@ -54,21 +54,19 @@ player_team_dates as (
 -- this includes a running list along with first/last dates a player appeared for a team
 -- 2022-06-20 UPDATE: im not currently using this but i might for next season.
 final as (
-    select 
+    select
         player,
         team,
         num_teams_total,
         first_appeared_date,
         last_appeared_date,
         most_recent_team,
-        case when team = most_recent_team then TRUE
-             else FALSE
-             end as is_active_team
+        coalesce (team = most_recent_team, false) as is_active_team
     from player_team_dates
-    left join player_data_num_teams_agg using (player)
-    full outer join player_most_recent_team using (player)
+        left join player_data_num_teams_agg using (player)
+        full outer join player_most_recent_team using (player)
 )
 
 select *
 from final
-where is_active_team = TRUE  -- and player = 'Greg Monroe'
+where is_active_team = true  -- and player = 'Greg Monroe'

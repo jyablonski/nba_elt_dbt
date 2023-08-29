@@ -1,6 +1,6 @@
 with my_cte as (
-    select 
-        distinct team,
+    select distinct
+        team,
         win_pct,
         avg_win_pct_opp,
         home_record,
@@ -10,7 +10,7 @@ with my_cte as (
         pct_vs_above_500,
         pct_vs_below_500,
         record
-    from {{ ref('prep_past_schedule_analysis')}}
+    from {{ ref('prep_past_schedule_analysis') }}
 )
 
 select *

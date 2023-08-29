@@ -1,5 +1,5 @@
 with bans_data as (
-    select 
+    select
         upcoming_games::integer as upcoming_games,
         upcoming_game_date::date as upcoming_game_date,
         location::text as location,
@@ -15,21 +15,21 @@ with bans_data as (
         '{{ env_var('DBT_PRAC_KEY') }}' as run_type,
         'join' as join_col
 
-    from {{ ref('prep_bans')}}
+    from {{ ref('prep_bans') }}
 ),
 
 protocols_data as (
     select
-        sum(active_protocols) as sum_active_protocols,
-        'join' as join_col
-    from {{ ref('prep_standings_table')}}
+        'join' as join_col,
+        sum(active_protocols) as sum_active_protocols
+    from {{ ref('prep_standings_table') }}
 ),
 
 protocols_data_lastwk as (
     select
         sum_active_protocols_lastwk,
         'join' as join_col
-    from {{ ref('staging_aws_injury_data_table_lastwk')}}
+    from {{ ref('staging_aws_injury_data_table_lastwk') }}
 ),
 
 final as (
@@ -50,20 +50,39 @@ final as (
         sum_active_protocols,
         sum_active_protocols_lastwk
     from bans_data
-    left join protocols_data using (join_col)
-    left join protocols_data_lastwk using (join_col)
+        left join protocols_data on bans_data.join_col = protocols_data.join_col
+        left join protocols_data_lastwk on bans_data.join_col = protocols_data_lastwk.join_col
 ),
 
 final2 as (
-    select 
+    select
         *,
-        abs(sum_active_protocols_lastwk - sum_active_protocols)::numeric as protocols_differential,
-        case when sum_active_protocols_lastwk > sum_active_protocols then
-            abs(100 * round((sum_active_protocols_lastwk - sum_active_protocols) / sum_active_protocols_lastwk, 3))::numeric
-            when sum_active_protocols_lastwk < sum_active_protocols then 
-                abs(100 * round((sum_active_protocols - sum_active_protocols_lastwk) / sum_active_protocols, 3))::numeric
+        abs(
+            sum_active_protocols_lastwk - sum_active_protocols
+        )::numeric as protocols_differential,
+        case
+            when sum_active_protocols_lastwk > sum_active_protocols
+                then
+                    abs(
+                        100
+                        * round(
+                            (sum_active_protocols_lastwk - sum_active_protocols)
+                            / sum_active_protocols_lastwk,
+                            3
+                        )
+                    )::numeric
+            when sum_active_protocols_lastwk < sum_active_protocols
+                then
+                    abs(
+                        100
+                        * round(
+                            (sum_active_protocols - sum_active_protocols_lastwk)
+                            / sum_active_protocols,
+                            3
+                        )
+                    )::numeric
             else 0
-            end as protocols_pct_diff
+        end as protocols_pct_diff
 
     from final
 ),
@@ -71,10 +90,27 @@ final2 as (
 final3 as (
     select
         *,
-        case when sum_active_protocols > sum_active_protocols_lastwk then concat(protocols_differential, ' More Cases (', round(protocols_pct_diff, 1), '% Increase) from 7 days ago')
-             when sum_active_protocols < sum_active_protocols_lastwk then concat(protocols_differential, ' Fewer Cases (', round(protocols_pct_diff, 1), '% Decrease) from 7 days ago')
-             else 'No difference from 7 days ago'
-             end as protocols_text
+        case
+            when
+                sum_active_protocols > sum_active_protocols_lastwk
+                then
+                    concat(
+                        protocols_differential,
+                        ' More Cases (',
+                        round(protocols_pct_diff, 1),
+                        '% Increase) from 7 days ago'
+                    )
+            when
+                sum_active_protocols < sum_active_protocols_lastwk
+                then
+                    concat(
+                        protocols_differential,
+                        ' Fewer Cases (',
+                        round(protocols_pct_diff, 1),
+                        '% Decrease) from 7 days ago'
+                    )
+            else 'No difference from 7 days ago'
+        end as protocols_text
     from final2
 )
 
