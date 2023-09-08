@@ -27,3 +27,5 @@ stackoverflow how to fix
     'dbt-postgres==1.5.0'
     ]
 ```
+
+https://www.datafold.com/blog/accelerating-dbt-core-ci-cd-with-github-actions-a-step-by-step-guide
