@@ -13,36 +13,41 @@ env:
   DBT_PW: ${{ secrets.DBT_PW }}
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
 
+# permission can be added at job level or workflow level    
+permissions:
+      id-token: write
+      contents: read    # This is required for actions/checkout
+
 jobs:
   run:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
       - uses: actions/setup-python@v2
         with:
           python-version: '3.10'
 
-      - name: install requirements
+      - name: Install Requirements
         run: |
           pip install pipenv
           pipenv install --dev
 
-      - name: configure aws credentials
+      - name: Configure Aws Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ env.IAM_ROLE }}
-          role-session-name: nba-elt-dbt-cicd
+          role-session-name: nba-elt-dbt-ci
           aws-region: ${{ env.AWS_REGION }}
 
       # this gets the manifest file from s3. This file
-      - name: Get manifest file
+      - name: Get Manifest File
         run: |
           aws s3 cp s3://${{ env.AWS_REGION }}/manifest.json manifest.json
 
-      - name: Install dbt dependencies
+      - name: Install dbt Dependencies
         run: |
           dbt deps --target dev --profiles-dir profiles/
 
