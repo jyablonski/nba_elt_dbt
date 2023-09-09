@@ -19,7 +19,7 @@ permissions:
       contents: read    # This is required for actions/checkout
 
 jobs:
-  run:
+  test_pipeline:
     runs-on: ubuntu-20.04
 
     steps:
@@ -45,6 +45,7 @@ jobs:
       # this gets the manifest file from s3. This file
       - name: Get Manifest File
         run: |
+          aws sts get-caller-identity
           aws s3 cp s3://${{ env.AWS_REGION }}/manifest.json manifest.json
 
       - name: Install dbt Dependencies
