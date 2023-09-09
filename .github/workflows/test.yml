@@ -45,8 +45,8 @@ jobs:
       # this gets the manifest file from s3. This file
       - name: Get Manifest File
         run: |
-          aws sts get-caller-identity
-          aws s3 cp s3://${{ env.AWS_REGION }}/manifest.json manifest.json
+          echo s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
+          aws s3 cp s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
 
       - name: Install dbt Dependencies
         run: |
