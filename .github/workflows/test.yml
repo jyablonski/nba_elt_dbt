@@ -45,17 +45,16 @@ jobs:
       # this gets the manifest file from s3. This file
       - name: Get Manifest File
         run: |
-          echo s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
           aws s3 cp s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
 
       - name: Install dbt Dependencies
         run: |
-          dbt deps --target dev --profiles-dir profiles/
+          pipenv run dbt deps --target dev --profiles-dir profiles/
 
       # only want to run dbt models that are modified
       - name: Build changed dbt Models
         run: |
-          dbt build --target dev --profiles-dir profiles/ --select state:modified+ --state ./
+          pipenv run dbt build --target dev --profiles-dir profiles/ --select state:modified+ --state ./
 
       - name: Upload Manifest to S3
         run: |
