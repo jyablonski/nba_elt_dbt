@@ -1,0 +1,56 @@
+name: dbt CI
+
+on: 
+  [pull_request]
+
+env:
+  IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
+  AWS_REGION : "us-east-1"
+  DBT_HOST: ${{ secrets.DBT_HOST }}
+  DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+  DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+  DBT_USER: ${{ secrets.DBT_USER }}
+  DBT_PW: ${{ secrets.DBT_PW }}
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: install requirements
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: nba-elt-dbt-cicd
+          aws-region: ${{ env.AWS_REGION }}
+
+      # this gets the manifest file from s3. This file
+      - name: Get manifest file
+        run: |
+          aws s3 cp s3://${{ env.AWS_REGION }}/manifest.json manifest.json
+
+      - name: Install dbt dependencies
+        run: |
+          dbt deps --target dev --profiles-dir profiles/
+
+      # only want to run dbt models that are modified
+      - name: Build changed dbt Models
+        run: |
+          dbt build --target dev --profiles-dir profiles/ --select state:modified+ --state ./
+
+      - name: Upload Manifest to S3
+        run: |
+          aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/manifest.json
