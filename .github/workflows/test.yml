@@ -58,9 +58,11 @@ jobs:
       - name: Build changed dbt Models
         env:
           DBT_PASS: ${{ env.DBT_PASS }}
+          TEST: hi
         run: |
           echo $DBT_HOST
           echo $DBT_PASS
+          echo $TEST
           echo hello world
           pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci
 
