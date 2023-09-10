@@ -19,3 +19,15 @@ default:
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASS') }}"
+
+dbt_ci:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DBT_HOST') }}"
+      port: 5432
+      dbname: "{{ env_var('DBT_DBNAME') }}"
+      schema: "{{ env_var('DBT_SCHEMA') }}"
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASS') }}"

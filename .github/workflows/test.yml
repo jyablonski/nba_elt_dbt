@@ -49,12 +49,12 @@ jobs:
 
       - name: Install dbt Dependencies
         run: |
-          pipenv run dbt deps --target dev --profiles-dir profiles/
+          pipenv run dbt deps --target dev --profiles-dir profiles/ --profile dbt_ci
 
       # only want to run dbt models that are modified
       - name: Build changed dbt Models
         run: |
-          pipenv run dbt build --target dev --profiles-dir profiles/ --select state:modified+ --state ./
+          pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
 
       - name: Upload Manifest to S3
         run: |
