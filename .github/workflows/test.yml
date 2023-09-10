@@ -12,6 +12,7 @@ env:
   DBT_USER: ${{ secrets.DBT_USER }}
   DBT_PW: ${{ secrets.DBT_PW }}
   DBT_PASS: ${{ secrets.DBT_PW }}
+  DBT_PRAC_KEY: ci
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
 
 # permission can be added at job level or workflow level    
