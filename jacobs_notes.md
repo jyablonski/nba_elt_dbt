@@ -27,3 +27,14 @@ stackoverflow how to fix
     'dbt-postgres==1.5.0'
     ]
 ```
+
+https://www.datafold.com/blog/accelerating-dbt-core-ci-cd-with-github-actions-a-step-by-step-guide
+https://stackoverflow.com/questions/75286648/multiple-profiles-in-one-profiles-yml-is-possible
+https://discourse.getdbt.com/t/how-we-sped-up-our-ci-runs-by-10x-using-slim-ci/2603
+https://github.com/RealSelf/dbt-source/blob/development/sample.profiles.yml
+
+`dbt build --select config.materialized:view --target prod`
+
+## Profiles 
+`profiles.yml`
+- Works with `dbt_project.yml` to define a default target

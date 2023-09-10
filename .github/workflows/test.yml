@@ -1,0 +1,63 @@
+name: dbt CI
+
+on: 
+  [pull_request]
+
+env:
+  IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
+  AWS_REGION : "us-east-1"
+  DBT_HOST: ${{ secrets.DBT_HOST }}
+  DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+  DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+  DBT_USER: ${{ secrets.DBT_USER }}
+  DBT_PASS: ${{ secrets.DBT_PASS }}
+  DBT_PRAC_KEY: ci
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
+# permission can be added at job level or workflow level    
+permissions:
+      id-token: write
+      contents: read    # This is required for actions/checkout
+
+jobs:
+  test_pipeline:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install Requirements
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Configure Aws Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: nba-elt-dbt-ci
+          aws-region: ${{ env.AWS_REGION }}
+
+      # this gets the manifest file from s3. This file
+      - name: Get Manifest File
+        run: |
+          aws s3 cp s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
+
+      - name: Install dbt Dependencies
+        run: |
+          pipenv run dbt deps --target dev --profiles-dir profiles/ --profile dbt_ci
+
+      # only want to run dbt models that are modified
+      # pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci - use for testing
+      - name: Build changed dbt Models
+        run: |
+          pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
+
+      - name: Upload Manifest to S3
+        run: |
+          aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/manifest.json
