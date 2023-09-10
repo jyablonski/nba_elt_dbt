@@ -32,3 +32,5 @@ https://www.datafold.com/blog/accelerating-dbt-core-ci-cd-with-github-actions-a-
 https://stackoverflow.com/questions/75286648/multiple-profiles-in-one-profiles-yml-is-possible
 https://discourse.getdbt.com/t/how-we-sped-up-our-ci-runs-by-10x-using-slim-ci/2603
 https://github.com/RealSelf/dbt-source/blob/development/sample.profiles.yml
+
+`dbt build --select config.materialized:view --target prod`
