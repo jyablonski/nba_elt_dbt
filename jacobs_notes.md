@@ -34,3 +34,7 @@ https://discourse.getdbt.com/t/how-we-sped-up-our-ci-runs-by-10x-using-slim-ci/2
 https://github.com/RealSelf/dbt-source/blob/development/sample.profiles.yml
 
 `dbt build --select config.materialized:view --target prod`
+
+## Profiles 
+`profiles.yml`
+- Works with `dbt_project.yml` to define a default target

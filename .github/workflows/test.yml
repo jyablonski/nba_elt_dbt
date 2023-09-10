@@ -54,11 +54,12 @@ jobs:
           pipenv run dbt deps --target dev --profiles-dir profiles/ --profile dbt_ci
 
       # only want to run dbt models that are modified
+      # pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
       - name: Build changed dbt Models
         env:
           DBT_PASS: ${{ env.DBT_PASS }}
         run:
-          pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
+          pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci
 
       - name: Upload Manifest to S3
         run: |
