@@ -4,3 +4,9 @@ cd:
 
 dependencies:
 - Pipfile
+
+data_models:
+- models/*
+
+sources:
+- models/sources.yml
