@@ -58,7 +58,10 @@ jobs:
       - name: Build changed dbt Models
         env:
           DBT_PASS: ${{ env.DBT_PASS }}
-        run:
+        run: |
+          echo $DBT_HOST
+          echo $DBT_PASS
+          echo hello world
           pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci
 
       - name: Upload Manifest to S3
