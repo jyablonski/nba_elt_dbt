@@ -56,7 +56,6 @@ jobs:
       # only want to run dbt models that are modified
       # pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci - use for testing
       - name: Build changed dbt Models
-        continue-on-error: true
         run: |
           pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
 
