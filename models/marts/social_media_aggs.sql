@@ -14,22 +14,25 @@ reddit_aggs as (
     from {{ ref('prep_reddit_aggs') }}
 ),
 
-final as (
-    select
-        twitter_aggs.date,
-        reddit_tot_comments,
-        reddit_pct_difference,
-        twitter_tot_comments,
-        twitter_pct_difference
-    from twitter_aggs
-        left join reddit_aggs using (date)
-    order by date desc
-),
-
 max_date as (
     select max(date) as date
-    from final
+    from reddit_aggs
+),
+
+
+final as (
+    select
+        reddit_aggs.date,
+        reddit_tot_comments,
+        reddit_pct_difference,
+        coalesce(twitter_tot_comments, 0) as twitter_tot_comments,
+        coalesce(twitter_pct_difference, 0) as twitter_pct_difference
+    from reddit_aggs
+        left join twitter_aggs on reddit_aggs.date = twitter_aggs.date
+        left join max_date on reddit_aggs.date = max_date.date
+    order by date desc
 )
+
 
 select *
 from final
