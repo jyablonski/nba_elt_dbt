@@ -33,7 +33,13 @@ final as (
         max_home_lead,
         max_away_lead,
         winning_team,
-        losing_team
+        losing_team,
+        case
+            when (scoring_team = leading_team) and (leading_team != 'TIE') then 'Leading'
+            when (scoring_team != leading_team) and (leading_team != 'TIE') then 'Trailing'
+            else 'TIE'
+        end as leading_team_text
+
 
     from {{ ref('prep_pbp_table') }}
         inner join recent_date using (date)
