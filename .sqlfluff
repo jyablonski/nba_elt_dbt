@@ -1,0 +1,33 @@
+[sqlfluff]	
+dialect = postgres	
+templater = dbt	
+exclude_rules = L016,L027,L029,L032,L034
+large_file_skip_byte_limit = 25000	
+
+# L016 - line too long gahbage	
+# L027 - i do select a, b instead of foo.a, vee.b - bad habit but excluding for now	
+# L029 - no sql-reserved keywords as aliases - bad habit but excluding for now	
+# L032 - no `using` keyword for joins - this is fine imo so fuqqit
+# L034 - really fucked up my shit tbh
+
+[sqlfluff:templater:dbt]	
+project_dir = ./	
+
+
+[sqlfluff:rules:capitalisation.keywords]	
+capitalisation_policy = lower	
+
+[sqlfluff:rules:capitalisation.identifiers]	
+capitalisation_policy = lower	
+
+[sqlfluff:rules:capitalisation.functions]	
+extended_capitalisation_policy = lower	
+
+[sqlfluff:rules:capitalisation.literals]	
+capitalisation_policy = lower	
+
+[sqlfluff:rules:capitalisation.types]	
+extended_capitalisation_policy = lower	
+
+[sqlfluff:indentation]	
+indented_joins = True	
