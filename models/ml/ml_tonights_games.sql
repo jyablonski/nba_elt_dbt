@@ -120,20 +120,20 @@ final as (
         away_moneyline,
         proper_date::date as proper_date,
         home_team_rank,
+        (proper_date - home_last_played_date) - 1 as home_days_rest,
         home_team_avg_pts_scored,
         home_team_avg_pts_scored_opp,
         home_team_win_pct,
         home_team_win_pct_last10,
         coalesce(home_is_top_players, 2)::numeric as home_is_top_players,
         away_team_rank,  -- if top players missing then they're HEALTHY
+        (proper_date - away_last_played_date) - 1 as away_days_rest,
         away_team_avg_pts_scored,
         away_team_avg_pts_scored_opp,
         away_team_win_pct,
         away_team_win_pct_last10,
         coalesce(away_is_top_players, 2)::numeric as away_is_top_players,
-        outcome,
-        (proper_date - home_last_played_date) - 1 as home_days_rest,
-        (proper_date - away_last_played_date) - 1 as away_days_rest
+        outcome
     from games
         left join home_team_avg using (home_team)
         left join home_team_win_pct using (home_team)
