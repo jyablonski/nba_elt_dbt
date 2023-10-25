@@ -18,10 +18,16 @@ with schedule_data as (
     from {{ ref('staging_aws_schedule_table') }}
 ),
 
-home_team_attributes_new as (
+home_team_attributes as (
+    select
+        team as home_team,
+        team_acronym as home_team_acronym
+    from {{ ref('staging_seed_team_attributes') }}
+),
+
+home_team_rank as (
     select
         team_full as home_team,
-        team as home_team_acronym,
         row_number() over () as home_team_rank
     from {{ ref('prep_standings_table') }}
 
@@ -35,6 +41,14 @@ home_team_odds as (
     from {{ ref('staging_aws_odds_table') }}
 ),
 
+
+away_team_attributes as (
+    select
+        team as away_team,
+        team_acronym as away_team_acronym
+    from {{ ref('staging_seed_team_attributes') }}
+),
+
 away_team_odds as (
     select
         team_acronym as away_team_acronym,
@@ -43,10 +57,9 @@ away_team_odds as (
     from {{ ref('staging_aws_odds_table') }}
 ),
 
-away_team_attributes_new as (
+away_team_rank as (
     select
         team_full as away_team,
-        team as away_team_acronym,
         row_number() over () as away_team_rank
     from {{ ref('prep_standings_table') }}
 
@@ -76,31 +89,32 @@ final_table as (
         schedule_data.home_team,
         schedule_data.date,
         schedule_data.proper_date,
-        home_team_attributes_new.home_team_acronym,
-        home_team_attributes_new.home_team_rank,
-        away_team_attributes_new.away_team_acronym,
-        away_team_attributes_new.away_team_rank,
+        home_team_attributes.home_team_acronym,
+        home_team_rank.home_team_rank,
+        away_team_attributes.away_team_acronym,
+        away_team_rank.away_team_rank,
         home_days_rest.home_days_rest,
         away_days_rest.away_days_rest,
         home_team_odds.home_moneyline,
-
         away_team_odds.away_moneyline,
         (
-            away_team_attributes_new.away_team_rank + home_team_attributes_new.home_team_rank
+            away_team_rank.away_team_rank + home_team_rank.home_team_rank
         ) / 2 as avg_team_rank
     from schedule_data
-        left join home_team_attributes_new using (home_team)
-        left join away_team_attributes_new using (away_team)
+        left join home_team_attributes using (home_team)
+        left join away_team_attributes using (away_team)
+        left join home_team_rank using (home_team)
+        left join away_team_rank using (away_team)
         left join
             home_team_odds
             on
-                home_team_attributes_new.home_team_acronym
+                home_team_attributes.home_team_acronym
                 = home_team_odds.home_team_acronym and schedule_data.proper_date
                 = home_team_odds.proper_date
         left join
             away_team_odds
             on
-                away_team_attributes_new.away_team_acronym
+                away_team_attributes.away_team_acronym
                 = away_team_odds.away_team_acronym and schedule_data.proper_date
                 = away_team_odds.proper_date
         left join home_days_rest on schedule_data.home_team = home_days_rest.home_team and schedule_data.proper_date = home_days_rest.proper_date
@@ -112,8 +126,8 @@ final_table2 as (
     select
         *,
         {{ dbt_utils.surrogate_key(['home_team', 'away_team', 'proper_date']) }} as game_pk,
-        cast (concat(
-            cast (proper_date as text), ' ', cast (start_time as text), ':00'
+        cast(concat(
+            cast(proper_date as text), ' ', cast(start_time as text), ':00'
         ) as timestamp) as proper_time,
         {{ generate_season_type('proper_date') }}::text as season_type
     from final_table

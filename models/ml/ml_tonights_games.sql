@@ -112,6 +112,7 @@ away_days_rest as (
     where rank = 1
 ),
 
+-- coalescing a shit ton of defaults if it's like the first game of the season
 final as (
     select
         home_team,
@@ -119,19 +120,19 @@ final as (
         home_moneyline,
         away_moneyline,
         proper_date::date as proper_date,
-        home_team_rank,
-        (proper_date - home_last_played_date) - 1 as home_days_rest,
-        home_team_avg_pts_scored,
-        home_team_avg_pts_scored_opp,
-        home_team_win_pct,
-        home_team_win_pct_last10,
+        coalesce(home_team_rank, 15) as home_team_rank,
+        coalesce((proper_date - home_last_played_date) - 1, 4) as home_days_rest,
+        coalesce(home_team_avg_pts_scored, 112) as home_team_avg_pts_scored,
+        coalesce(home_team_avg_pts_scored_opp, 112) as home_team_avg_pts_scored_opp,
+        coalesce(home_team_win_pct, 0.50) as home_team_win_pct,
+        coalesce(home_team_win_pct_last10, 0.50) as home_team_win_pct_last10,
         coalesce(home_is_top_players, 2)::numeric as home_is_top_players,
-        away_team_rank,  -- if top players missing then they're HEALTHY
-        (proper_date - away_last_played_date) - 1 as away_days_rest,
-        away_team_avg_pts_scored,
-        away_team_avg_pts_scored_opp,
-        away_team_win_pct,
-        away_team_win_pct_last10,
+        coalesce(away_team_rank, 15) as away_team_rank, -- if top players missing then they're HEALTHY
+        coalesce((proper_date - away_last_played_date) - 1, 4) as away_days_rest,
+        coalesce(away_team_avg_pts_scored, 112) as away_team_avg_pts_scored,
+        coalesce(away_team_avg_pts_scored_opp, 112) as away_team_avg_pts_scored_opp,
+        coalesce(away_team_win_pct, 0.50) as away_team_win_pct,
+        coalesce(away_team_win_pct_last10, 0.50) as away_team_win_pct_last10,
         coalesce(away_is_top_players, 2)::numeric as away_is_top_players,
         outcome
     from games
