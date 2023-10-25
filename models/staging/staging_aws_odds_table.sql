@@ -8,6 +8,7 @@ with odds_cte as (
         date::date as date,
         replace(team, ' ', '') as team_acronym
     from {{ source('nba_source', 'aws_odds_source') }}
+    where date >= '2023-10-01'
 
 )
 
