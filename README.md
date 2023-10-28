@@ -2,7 +2,15 @@
 
 Version: 2.4.0
 
-### dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
+## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
+
+## Tests
+To run tests locally, run `make test`
+
+The same test suite runs on every commit to a PR via GitHub Actions
+
+## NBA Project
+[NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
 1. Links to other Repos providing infrastructure for this Project
     * [Shiny Server](https://github.com/jyablonski/NBA-Dashboard)

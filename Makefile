@@ -34,17 +34,18 @@ docker-build-local:
 
 .PHONY: start-postgres
 start-postgres:
-	@docker compose -f docker/docker-compose-postgres.yml up -d
+	@docker compose -f docker/docker-compose-test.yml up -d postgres
 
-.PHONY: stop-postgres
-stop-postgres:
-	@docker compose -f docker/docker-compose-postgres.yml down
-
-.PHONY: dbt-run
-dbt-run:
-	@dbt build --profiles-dir profiles --profile dbt_ci
-
-.PHONY: test
-test:
+.PHONY: ci-test
+ci-test:
 	@docker compose -f docker/docker-compose-test.yml down
 	@docker compose -f docker/docker-compose-test.yml up --exit-code-from dbt_runner
+
+.PHONY: test
+test: start-postgres run_dbt down
+
+run_dbt:
+	@docker compose -f docker/docker-compose-test.yml run dbt_runner dbt build --profiles-dir profiles/ --profile dbt_ci
+
+down:
+	@docker compose -f docker/docker-compose-test.yml down
