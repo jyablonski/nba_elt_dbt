@@ -9,6 +9,6 @@ services:
     environment:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=postgres
+     - POSTGRES_DB=jacob_db
     volumes:
       - ${PWD}/docker/postgres_bootstrap.sql:/docker-entrypoint-initdb.d/postgres_bootstrap.sql

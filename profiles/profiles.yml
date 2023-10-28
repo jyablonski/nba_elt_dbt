@@ -25,9 +25,21 @@ dbt_ci:
   outputs:
     dev:
       type: postgres
-      host: "{{ env_var('DBT_HOST') }}"
+      host: postgres
       port: 5432
-      dbname: "{{ env_var('DBT_DBNAME') }}"
-      schema: "{{ env_var('DBT_SCHEMA') }}"
-      user: "{{ env_var('DBT_USER') }}"
-      password: "{{ env_var('DBT_PASS') }}"
+      dbname: jacob_db
+      schema: nba_source
+      user: postgres
+      password: postgres
+
+dbt_local:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      dbname: jacob_db
+      schema: nba_source
+      user: postgres
+      password: postgres

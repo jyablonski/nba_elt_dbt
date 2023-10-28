@@ -65,7 +65,10 @@ team_counts as (
 ),
 
 final as (
-    select distinct *
+    select distinct
+        *,
+        sum_salary_earned_max - sum_salary_earned as value_lost_from_injury,
+        1 - team_pct_salary_earned as team_pct_salary_lost
     from team_counts
         left join team_record using (team)
     where team is not null
