@@ -65,3 +65,11 @@ CREATE TABLE IF NOT EXISTS ml_tonights_games_prod (
 );
 
 ```
+
+``` sh
+dbt debug --profiles-dir profiles --profile dbt_ci
+dbt build --profiles-dir profiles --profile dbt_ci
+
+poetry run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
+
+```

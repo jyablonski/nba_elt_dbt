@@ -14,6 +14,8 @@ env:
   DBT_PASS: ${{ secrets.DBT_PASS }}
   DBT_PRAC_KEY: ci
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
+  PYTHON_VERSION: "3.11"
+  POETRY_VERSION: "1.6.1"
 
 # permission can be added at job level or workflow level    
 permissions:
@@ -25,17 +27,22 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
-
-      - name: Install Requirements
+      - name: Checkout Repo
         run: |
-          pip install pipenv
-          pipenv install --dev
+          python -m pip install --upgrade pip
+          pip install poetry==${{ env.POETRY_VERSION }}
+
+      - name: Install Python 3.11
+        uses: actions/setup-python@v4
+        id: setup_python
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: poetry
+          cache-dependency-path: poetry.lock
+
+      - name: Install dependencies
+        run: |
+          poetry install --without dev --no-root
 
       - name: Configure Aws Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -44,21 +51,14 @@ jobs:
           role-session-name: nba-elt-dbt-ci
           aws-region: ${{ env.AWS_REGION }}
 
-      # this gets the manifest file from s3. This file
       - name: Get Manifest File
         run: |
-          aws s3 cp s3://${{ env.S3_BUCKET }}/manifest.json manifest.json
+          aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json manifest/manifest.json
 
-      - name: Install dbt Dependencies
-        run: |
-          pipenv run dbt deps --target dev --profiles-dir profiles/ --profile dbt_ci
-
-      # only want to run dbt models that are modified
-      # pipenv run dbt debug --target dev --profiles-dir profiles/ --profile dbt_ci - use for testing
       - name: Build changed dbt Models
         run: |
-          pipenv run dbt build --target dev --profiles-dir profiles/ --profile dbt_ci --select state:modified+ --state ./
+          make ci-test
 
       - name: Upload Manifest to S3
         run: |
-          aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/manifest.json
+          aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
