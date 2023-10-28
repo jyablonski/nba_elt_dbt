@@ -7337,3 +7337,18 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (27,'Chicago Bulls',28.4,0.0,1.0,0.0,1.0,-20.0,20.0,0.0,104.7,124.9,-20.2,99.3,0.191,0.447,0.51,0.479,11.3,25.5,0.149,0.665,15.1,85.3,0.183,'United Center',21369.0,21369.0,'2023-10-27'),
 	 (28,'Washington Wizards',26.0,0.0,1.0,0.0,1.0,-23.0,23.0,0.0,108.5,129.3,-20.8,110.6,0.302,0.25,0.552,0.505,11.4,21.2,0.24,0.617,9.7,77.3,0.103,'Capital One Arena',NULL,NULL,'2023-10-27'),
 	 (29,'Houston Rockets',25.1,0.0,1.0,0.0,1.0,-30.0,30.0,0.0,90.4,121.9,-31.5,95.2,0.203,0.43,0.5,0.481,18.1,14.9,0.127,0.534,14.0,58.5,0.264,'Toyota Center',NULL,NULL,'2023-10-27');
+
+
+DROP TABLE IF EXISTS inactive_dates;
+CREATE TABLE IF NOT EXISTS inactive_dates (
+	"date" date,
+	is_inactive int
+);
+
+INSERT INTO inactive_dates("date", is_inactive)
+VALUES ('2022-02-18', 1),
+	   ('2022-02-19', 1),
+	   ('2022-02-20', 1),
+	   ('2022-02-21', 1),
+	   ('2022-02-22', 1),
+	   ('2022-02-23', 1);
