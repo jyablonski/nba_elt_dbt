@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload Manifest to S3
         run: |
-          if [ -e "target/manifest.json" ]; then
+          if find target -name manifest.json -print -quit | grep -q .; then
               aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
           else
               echo "File does not exist, no dbt Models were changed. Exiting Out"
