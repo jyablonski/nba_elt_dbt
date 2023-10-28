@@ -60,7 +60,7 @@ jobs:
 
       - name: Build changed dbt Models
         run: |
-          make ci-test
+          make test
 
       - name: Upload Manifest to S3
         run: |
