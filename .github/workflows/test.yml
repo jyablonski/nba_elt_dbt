@@ -64,4 +64,9 @@ jobs:
 
       - name: Upload Manifest to S3
         run: |
-          aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
+          if [ -e "$file_path" ]; then
+              aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
+          else
+              echo "File does not exist, no dbt Models were changed. Exiting Out"
+              exit 0
+          fi
