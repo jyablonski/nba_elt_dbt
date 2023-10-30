@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nba-elt-dbt"
-version = "2.4.0"
+version = "2.4.1"
 description = "dbt Transformations for NBA ELT Project"
 authors = ["jyablonski9 <jyablonski9@gmail.com>"]
 readme = "README.md"
@@ -12,8 +12,8 @@ dbt-postgres = "^1.6.5"
 pytz = "^2023.3.post1"
 
 [tool.poetry.group.dev.dependencies]
-sqlfluff = "^2.4.0"
-sqlfluff-templater-dbt = "^2.4.0"
+sqlfluff = "^2.4.1"
+sqlfluff-templater-dbt = "^2.4.1"
 
 [build-system]
 requires = ["poetry-core"]
