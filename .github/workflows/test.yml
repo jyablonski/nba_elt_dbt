@@ -1,5 +1,4 @@
 name: dbt CI
-# 2023-10-09 disabling bc my db has literally 0 space ha haa ha
 
 on: 
   [pull_request]
@@ -16,11 +15,10 @@ env:
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
   PYTHON_VERSION: "3.11"
   POETRY_VERSION: "1.6.1"
-
-# permission can be added at job level or workflow level    
+ 
 permissions:
       id-token: write
-      contents: read    # This is required for actions/checkout
+      contents: read
 
 jobs:
   test_pipeline:
