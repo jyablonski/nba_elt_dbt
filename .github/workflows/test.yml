@@ -39,7 +39,7 @@ jobs:
 
       - name: Get Manifest File
         run: |
-          aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json manifest/manifest.json
+          aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json target/manifest.json
 
       - name: Build changed dbt Models
         run: |
