@@ -43,7 +43,6 @@ models:
         +tags:
           - "NBA_PRODUCTION_MARTS"
           - "DAILY"
-        +post-hook: "grant select on {{ this }} to graphql_read"
       prep:
         +materialized: table
         +schema: nba_prep

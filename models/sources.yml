@@ -135,6 +135,12 @@ sources:
           - name: player
             tests:
               - not_null
+      - name: player_attributes
+        description: Player Attributes v2 Table
+        columns:
+          - name: player
+            tests:
+              - not_null
   - name: ml_models
     database: jacob_db
     schema: ml_models

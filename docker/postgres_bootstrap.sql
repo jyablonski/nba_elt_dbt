@@ -7352,3 +7352,25 @@ VALUES ('2022-02-18', 1),
 	   ('2022-02-21', 1),
 	   ('2022-02-22', 1),
 	   ('2022-02-23', 1);
+
+DROP TABLE IF EXISTS player_attributes;
+create table if not exists player_attributes (
+	id serial primary key,
+	player_id int,
+	player varchar(128),
+	headshot varchar(128),
+	created_at timestamp default current_timestamp,
+	modified_at timestamp default current_timestamp
+);
+
+INSERT INTO player_attributes (player_id,player,headshot,created_at,modified_at) VALUES
+	 (1630173,'Precious Achiuwa','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630173.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (203500,'Steven Adams','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203500.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1628389,'Bam Adebayo','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628389.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1630534,'Ochai Agbaji','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630534.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1630583,'Santi Aldama','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630583.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1629638,'Nickeil Alexander-Walker','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629638.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1628960,'Grayson Allen','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628960.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1628386,'Jarrett Allen','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628386.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (1630631,'Jose Alvarado','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630631.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
+	 (203937,'Kyle Anderson','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203937.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905');

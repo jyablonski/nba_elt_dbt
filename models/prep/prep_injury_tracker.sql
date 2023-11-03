@@ -59,14 +59,14 @@ team_gp_counts as (
         team,
         count(*) as team_games_played
     from team_gp
-    group by 1
+    group by team
 ),
 
 player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ ref('staging_seed_player_attributes') }}
+    from {{ source('nba_source', 'player_attributes') }}
 ),
 
 final as (

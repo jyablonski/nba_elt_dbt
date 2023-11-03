@@ -26,7 +26,7 @@ player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ ref('staging_seed_player_attributes') }}
+    from {{ source('nba_source', 'player_attributes') }}
 ),
 
 
