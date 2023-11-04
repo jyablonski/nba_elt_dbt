@@ -1,7 +1,7 @@
 {{ config(materialized='view') }}
 
 select
-    proper_date,
+    proper_date as game_date,
     home_team,
     home_moneyline as home_team_odds,
     home_team_predicted_win_pct,

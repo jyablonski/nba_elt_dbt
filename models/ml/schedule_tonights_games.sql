@@ -7,6 +7,7 @@
 select
     schedule.home_team,
     schedule.away_team,
+    avg_team_rank,
     home_team_odds,
     away_team_odds,
     start_time,
