@@ -9,38 +9,31 @@ seeds:
         tests:
            - unique
            - not_null
-    columns:
       - name: team_acronym
         description: NBA Team Acronym (ex. GSW)
         tests:
            - unique
            - not_null
-    columns:
       - name: primary_color
         description: NBA Team Primary Color (ex. Lakers - purple)
         tests:
            - not_null
-    columns:
       - name: secondary_color
         description: NBA Team Secondary Color (ex. Lakers - Gold)
         tests:
            - not_null
-    columns:
       - name: third_color
         description: NBA Team Third Color (if necessary)
         tests:
            - not_null
-    columns:
       - name: previous_season_wins
         description: NBA Team's Previous Reglar Season Win Total
         tests:
            - not_null
-    columns:
       - name: previous_season_rank
         description: NBA Team's Previous Regular Season Rank (1-30)
         tests:
            - not_null
-    columns:
       - name: team_logo
         description: NBA Team Logo (in SVG Format)
         tests:
