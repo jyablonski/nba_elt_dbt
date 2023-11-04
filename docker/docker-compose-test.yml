@@ -28,7 +28,9 @@ services:
     links:
       - postgres:postgres
     # have to run +state:modified+ to re-create the parent dependencies on any changed models during ci
-    command: dbt build --profiles-dir profiles/ --profile dbt_ci --select +state:modified+ --state ./target/
+
+    # command: dbt build --profiles-dir profiles/ --profile dbt_ci --select +state:modified+ --state ./target/
+    command: dbt build --profiles-dir profiles/ --profile dbt_ci
 
 
 networks:
