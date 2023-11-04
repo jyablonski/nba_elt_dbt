@@ -62,7 +62,7 @@ upcoming_games_count as (
     from upcoming_games
         left join upcoming_game_date using (join_col)
     where date = min_date
-    group by min_date, 'join'
+    group by min_date, join_col
 ),
 
 league_average_ppg_teams as (
