@@ -4,4 +4,4 @@ models:
   - name: prep_past_schedule_analysis
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "date"]
+          column_list: ["team", "game_date"]

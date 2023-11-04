@@ -7,16 +7,14 @@ with player_teams as (
 
 my_cte as (
     select distinct
-        b.player,
-        t.team,
-        b.games_played,
-        b.games_played_playoffs,
-        b.player_mvp_calc_avg,
-        b.player_mvp_calc_avg_playoffs,
-        coalesce(c.salary, 1000000) as salary
-    from {{ ref('prep_player_aggs') }} as b
-        left join {{ ref('staging_aws_contracts_table') }} as c using (player)
-        inner join player_teams as t using (player)
+        prep_player_stats.player,
+        prep_player_stats.team,
+        games_played,
+        avg_mvp_score,
+        coalesce(salary, 1000000) as salary
+    from {{ ref('prep_player_stats') }}
+        left join {{ ref('staging_aws_contracts_table') }} using (player)
+        inner join player_teams using (player)
 ),
 
 team_gp as (
@@ -65,29 +63,28 @@ prep1_part2 as (
     select
         player,
         salary_rank,
-        player_mvp_calc_avg,
         adj_penalty_final,
-        round(player_mvp_calc_avg * adj_penalty_final, 2)::numeric as player_mvp_calc_adj
+        round(avg_mvp_score * adj_penalty_final, 2)::numeric as avg_mvp_score
     from prep1_part1
 ),
 
 prep2 as (
     select
-        round(avg(player_mvp_calc_adj), 2)::numeric as pvm_rank,
+        round(avg(avg_mvp_score), 2)::numeric as pvm_rank,
         salary_rank
     from prep1_part2
-    group by 2
+    group by salary_rank
 
 ),
 
 prep3 as (
     select
         player,
-        player_mvp_calc_adj,
+        avg_mvp_score,
         adj_penalty_final,
-        round(percent_rank() over (partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric as rankingish,
+        round(percent_rank() over (partition by salary_rank order by avg_mvp_score)::numeric, 3)::numeric as rankingish,
         salary_rank,
-        round(percent_rank() over (partition by salary_rank order by player_mvp_calc_adj)::numeric, 3)::numeric * 100 as percentile_rank
+        round(percent_rank() over (partition by salary_rank order by avg_mvp_score)::numeric, 3)::numeric * 100 as percentile_rank
     from prep1_part2
     order by rankingish desc
 ),
@@ -98,7 +95,6 @@ final as (
         p1.salary_rank,
         p1.team,
         p1.games_played,
-        p1.player_mvp_calc_avg,
         p1.salary,
         p1.team_games_played,
         p1.games_missed,
@@ -106,7 +102,7 @@ final as (
         p2.pvm_rank,
         p3.rankingish,
         p3.percentile_rank,
-        p3.player_mvp_calc_adj,
+        p3.avg_mvp_score,
         p3.adj_penalty_final,
         case
             when percentile_rank >= 50 and salary >= 30000000 then 'Superstars'
@@ -114,12 +110,12 @@ final as (
             when percentile_rank < 90 and percentile_rank >= 20 then 'Normal'
             else 'Bad Value'
         end as color_var,
-        row_number() over (order by player_mvp_calc_adj desc) as mvp_rank,
-        case when row_number() over (order by player_mvp_calc_adj desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as top5_candidates
+        row_number() over (order by p3.avg_mvp_score desc) as mvp_rank,
+        case when row_number() over (order by p3.avg_mvp_score desc) <= 5 then 'Top 5 MVP Candidate' else 'Other' end as is_mvp_candidate
     from prep1 as p1
         left join prep2 as p2 using (salary_rank)
         left join prep3 as p3 using (player)
-    order by player_mvp_calc_adj desc
+    order by p3.avg_mvp_score desc
 )
 
 select *

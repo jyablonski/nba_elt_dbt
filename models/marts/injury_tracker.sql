@@ -5,13 +5,12 @@ with injury_data as (
         status,
         continuous_games_missed,
         games_played,
-        season_avg_ppg,
-        player_mvp_calc_avg,
-        season_ts_percent,
-        season_avg_plusminus
+        avg_ppg,
+        avg_ts_percent,
+        avg_plus_minus,
+        avg_mvp_score
     from {{ ref('prep_injury_tracker') }}
-    order by player_mvp_calc_avg desc
-    limit 15
+    order by avg_mvp_score desc
 
 )
 

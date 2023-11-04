@@ -4,7 +4,7 @@ with team_wins as (
     select distinct
 
         b.game_id,
-        b.date,
+        b.game_date,
         b.outcome,
         a.conference,
         (b.team),
@@ -14,7 +14,7 @@ with team_wins as (
         end as outcome_int
     from {{ ref('prep_boxscores_mvp_calc') }} as b
         left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
 
 ),
 
@@ -35,7 +35,7 @@ team_counts as (
         sum(outcome_int) as wins,
         (count(distinct game_id) - sum(outcome_int)) as losses
     from team_wins
-    group by 1
+    group by team
 ),
 
 team_attributes as (
@@ -47,7 +47,6 @@ team_attributes as (
 
 pre_final as (
     select distinct
-
         a.team_full,
         t.conference,
         c.games_played,
@@ -68,12 +67,12 @@ pre_final as (
 recent_10 as (
     select
         team,
-        date,
+        game_date,
         outcome,
         outcome_int,
-        row_number() over (partition by team order by date desc) as game_num
+        row_number() over (partition by team order by game_date desc) as game_num
     from team_wins
-    order by row_number() over (partition by team order by date desc)
+    order by row_number() over (partition by team order by game_date desc)
 ),
 
 recent_10_wins as (
@@ -88,12 +87,12 @@ recent_10_wins as (
 recent_10_losses as (
     select
         team,
-        date,
+        game_date,
         outcome,
         case when outcome = 'L' then 1 else 0 end as loss_count
     from recent_10
     where outcome = 'L' and game_num <= 10
-    order by date desc
+    order by game_date desc
 
 ),
 

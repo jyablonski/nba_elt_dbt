@@ -2,7 +2,7 @@ with my_data as (
     select distinct
         team,
         game_id,
-        date,
+        game_date,
         location,
         outcome,
         opponent,
@@ -31,7 +31,7 @@ final as (
     select
         *,
         case
-            when date < current_date then 'past'
+            when game_date < current_date then 'past'
             else 'future'
         end as game_status,
         case

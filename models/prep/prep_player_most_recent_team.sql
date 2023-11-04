@@ -61,7 +61,7 @@ final as (
         first_appeared_date,
         last_appeared_date,
         most_recent_team,
-        coalesce (team = most_recent_team, false) as is_active_team
+        coalesce(team = most_recent_team, false) as is_active_team
     from player_team_dates
         left join player_data_num_teams_agg using (player)
         full outer join player_most_recent_team using (player)

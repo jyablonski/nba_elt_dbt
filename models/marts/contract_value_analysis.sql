@@ -4,7 +4,7 @@ with my_cte as (
         salary_rank,
         team,
         games_played,
-        player_mvp_calc_adj as player_mvp_calc_avg,
+        avg_mvp_score,
         salary,
         team_games_played,
         games_missed,

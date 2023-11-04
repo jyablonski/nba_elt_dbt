@@ -1,6 +1,6 @@
 with my_cte as (
     select
-        proper_date,
+        game_date,
         away_team,
         home_team,
         outcome,

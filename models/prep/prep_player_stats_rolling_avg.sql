@@ -6,13 +6,13 @@
 with my_cte as (
     select
         player,
-        date,
+        game_date,
         pts::numeric,
         game_ts_percent::numeric,
-        player_mvp_calc_game::numeric,
-        plusminus::numeric
+        game_mvp_score::numeric,
+        plus_minus::numeric
     from {{ ref('prep_boxscores_mvp_calc') }}
-    order by player, date
+    order by player, game_date
 ),
 
 -- this will pull up to the last -10- games, not 9.
@@ -22,27 +22,26 @@ with my_cte as (
 cte_aggs as (
     select
         player,
-        date::date as date,
-        round(avg(pts) over(partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_pts,
-        round(avg(game_ts_percent) over(partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as rolling_avg_ts_percent,
-        round(avg(player_mvp_calc_game) over(partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_mvp_calc,
-        round(avg(plusminus) over(partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_plusminus
+        game_date,
+        round(avg(pts) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_pts,
+        round(avg(game_ts_percent) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as rolling_avg_ts_percent,
+        round(avg(game_mvp_score) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_mvp_score,
+        round(avg(plus_minus) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_plus_minus
     from my_cte
 ),
 
 max_date as (
-    select 
+    select
         player,
-        max(date) as date
+        max(game_date) as game_date
     from cte_aggs
-    group by 1
+    group by player
 ),
 
 final as (
-    select
-        *
+    select *
     from cte_aggs
-    inner join max_date using (player, date)
+        inner join max_date using (player, game_date)
 ),
 
 final2 as (
@@ -50,8 +49,8 @@ final2 as (
         player,
         rolling_avg_pts,
         rolling_avg_ts_percent,
-        rolling_avg_mvp_calc,
-        rolling_avg_plusminus
+        rolling_avg_mvp_score,
+        rolling_avg_plus_minus
     from final
 )
 

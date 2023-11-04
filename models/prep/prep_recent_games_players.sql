@@ -11,7 +11,7 @@ with player_season_high as (
 
 -- yesterday could mean literally yesterday, but just grab the most recent games.
 boxscores_yesterday as (
-    select max(date) as date
+    select max(date) as game_date
     from {{ ref('staging_aws_boxscores_incremental_table') }}
 ),
 
@@ -39,8 +39,9 @@ boxscores_cte as (
 player_aggs as (
     select distinct
         player,
-        season_avg_ppg
-    from {{ ref('prep_player_aggs') }}
+        avg_ppg
+    from {{ ref('prep_player_stats') }}
+    where season_type = 'Regular Season'
 ),
 
 final_table as (
@@ -48,8 +49,8 @@ final_table as (
         *,
         case
             when pts = max_pts then 1
-            when (pts >= season_avg_ppg + 10) and (pts != max_pts) then 2
-            when season_avg_ppg - pts > 10 then 3
+            when (pts >= avg_ppg + 10) and (pts != max_pts) then 2
+            when avg_ppg - pts > 10 then 3
             else 0
         end as pts_color,
         case
@@ -60,7 +61,7 @@ final_table as (
             '<span style=''font-size:16px; color:royalblue;''>', player, '</span> <span style=''font-size:12px; color:grey;''>', team, '</span>'
         ) as player_new
     from boxscores_cte
-        inner join boxscores_yesterday using (date)
+        inner join boxscores_yesterday using (game_date)
         left join player_season_high using (player)
         left join player_aggs using (player)
         left join player_contracts using (player)

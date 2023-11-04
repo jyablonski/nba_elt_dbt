@@ -11,7 +11,7 @@ team_outcomes as (
     select
         team,
         opponent,
-        date,
+        game_date,
         outcome,
         mov
     from {{ ref('mov') }}
@@ -27,7 +27,10 @@ final as (
         team_outcomes.outcome,
         team_outcomes.mov
     from odds
-        inner join team_outcomes using (team, date)
+        inner join team_outcomes
+            on
+                odds.date = team_outcomes.game_date
+                and odds.team = team_outcomes.team
 )
 
 select *

@@ -10,7 +10,7 @@ player_gp as (
         player,
         team,
         games_played
-    from {{ ref('prep_player_aggs') }}
+    from {{ ref('prep_player_stats') }}
 ),
 
 team_gp as (
@@ -39,7 +39,7 @@ combo as (
 team_max_date as (
     select distinct
         team,
-        max(date) as date
+        max(game_date) as game_date
     from {{ ref('prep_past_schedule_analysis') }}
     group by team
 ),

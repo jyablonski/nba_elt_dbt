@@ -3,7 +3,7 @@
 with home_wins as (
     select
         full_team as home_team,
-        date as game_date,
+        game_date,
         outcome
     from {{ ref('mov') }}
 ),

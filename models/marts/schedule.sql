@@ -2,9 +2,9 @@
 
 with new_odds as (
     select
-        proper_date as date,
-        day_name as day,
-        proper_time,
+        game_date,
+        day_name,
+        game_ts,
         avg_team_rank,
         home_team,
         away_team,
@@ -20,8 +20,7 @@ with new_odds as (
             else away_moneyline::text
         end as away_moneyline
     from {{ ref('prep_schedule_table') }}
-    -- where proper_date >= '2022-06-01'
-    where proper_date >= ((current_date)::date)
+    where game_date >= ((current_date)::date)
 ),
 
 
@@ -44,9 +43,9 @@ team_logo_away as (
 aws_schedule_table as (
 
     select
-        date,
-        day,
-        proper_time,
+        game_date,
+        day_name,
+        game_ts,
         avg_team_rank,
         start_time,
         home_team,
@@ -66,9 +65,7 @@ aws_schedule_table as (
     from new_odds
         left join team_logo_home using (home_team)
         left join team_logo_away using (away_team)
-    -- where date >= '2022-06-01'
-    where date >= ((current_date)::date)
-    order by proper_time
+    order by game_ts
 
 )
 

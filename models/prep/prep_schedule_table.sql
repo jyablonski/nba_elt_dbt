@@ -84,11 +84,11 @@ away_days_rest as (
 final_table as (
     select
         schedule_data.start_time2 as start_time,
-        schedule_data.day_name,
+        rtrim(schedule_data.day_name) as day_name,
         schedule_data.away_team,
         schedule_data.home_team,
         schedule_data.date,
-        schedule_data.proper_date,
+        schedule_data.proper_date as game_date,
         home_team_attributes.home_team_acronym,
         home_team_rank.home_team_rank,
         away_team_attributes.away_team_acronym,
@@ -99,7 +99,12 @@ final_table as (
         away_team_odds.away_moneyline,
         (
             away_team_rank.away_team_rank + home_team_rank.home_team_rank
-        ) / 2 as avg_team_rank
+        ) / 2 as avg_team_rank,
+        {{ dbt_utils.surrogate_key(['schedule_data.home_team', 'schedule_data.away_team', 'schedule_data.proper_date']) }} as game_pk,
+        cast(concat(
+            cast(schedule_data.proper_date as text), ' ', cast(start_time as text), ':00'
+        ) as timestamp) as game_ts,
+        {{ generate_season_type('schedule_data.proper_date') }}::text as season_type
     from schedule_data
         left join home_team_attributes using (home_team)
         left join away_team_attributes using (away_team)
@@ -119,27 +124,8 @@ final_table as (
                 = away_team_odds.proper_date
         left join home_days_rest on schedule_data.home_team = home_days_rest.home_team and schedule_data.proper_date = home_days_rest.proper_date
         left join away_days_rest on schedule_data.away_team = away_days_rest.away_team and schedule_data.proper_date = away_days_rest.proper_date
-    order by proper_date asc
-),
-
-final_table2 as (
-    select
-        *,
-        {{ dbt_utils.surrogate_key(['home_team', 'away_team', 'proper_date']) }} as game_pk,
-        cast(concat(
-            cast(proper_date as text), ' ', cast(start_time as text), ':00'
-        ) as timestamp) as proper_time,
-        {{ generate_season_type('proper_date') }}::text as season_type
-    from final_table
-    order by proper_time
+    order by schedule_data.proper_date asc
 )
 
 select *
-from final_table2
-/* WIP
-,
-        CASE WHEN ho.home_moneyline > 0 THEN CONCAT('+', ho.home_moneyline::text)
-                ELSE ho.home_moneyline END as home_moneyline2,
-        CASE WHEN ao.away_moneyline > 0 THEN CONCAT('+', ao.away_moneyline::text)
-                ELSE ao.away_moneyline END as away_moneyline2
-                */
+from final_table

@@ -1,11 +1,11 @@
 with teams_scores as (
     select
         team,
-        date,
-        type,
+        date as game_date,
+        season_type,
         sum(pts) as pts_game
     from {{ ref('staging_aws_boxscores_incremental_table') }}
-    group by team, date, type
+    group by team, game_date, season_type
 ),
 
 -- use regular season max pts and avg pts for the comparisons
@@ -15,7 +15,7 @@ teams_max_score as (
         max(pts_game) as team_max_score,
         avg(pts_game) as team_avg_score
     from teams_scores
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
     group by team
 ),
 
@@ -25,7 +25,7 @@ opp_max_score as (
         max(pts_game) as opp_max_score,
         avg(pts_game) as opp_avg_score
     from teams_scores
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
     group by team
 ),
 
@@ -49,20 +49,20 @@ opponent_logo as (
 team_pts_scored as (
     select
         b.team,
-        b.date,
+        b.game_date,
         b.game_id,
         b.opponent,
         b.outcome,
-        b.type,
+        b.season_type,
         sum(b.pts) as pts_scored
     from {{ ref('prep_boxscores_mvp_calc') }} as b
-    group by 1, 2, 3, 4, 5, 6
+    group by b.team, b.game_date, b.game_id, b.opponent, b.outcome, b.season_type
 ),
 
 opponent_scores as (
     select
         team as opponent,
-        date,
+        game_date,
         pts_scored as pts_scored_opp
     from team_pts_scored
 
@@ -72,9 +72,9 @@ select_final_games as (
     select
         b.team,
         l.team as full_team,
-        b.date,
+        b.game_date,
         b.game_id,
-        b.type,
+        b.season_type,
         b.outcome,
         b.opponent,
         b.pts_scored,
@@ -101,7 +101,7 @@ select_final_games as (
     from team_pts_scored as b
         left join teams_max_score as m on b.team = m.team
         left join team_logo as l on b.team = l.team_acronym
-        left join opponent_scores as o on b.opponent = o.opponent and b.date = o.date
+        left join opponent_scores as o on b.opponent = o.opponent and b.game_date = o.game_date
         left join opponent_logo on b.opponent = opponent_logo.opponent
         left join opp_max_score as s on b.opponent = s.opp
 ),
@@ -116,7 +116,7 @@ final as (
             else 'Blowout Game'
         end as game_type
     from select_final_games
-    order by date
+    order by game_date
 )
 
 

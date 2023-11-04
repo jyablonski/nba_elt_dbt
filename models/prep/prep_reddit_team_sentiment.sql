@@ -6,7 +6,7 @@ with game_dates as (
     select distinct
         team,
         outcome,
-        date as potential_game_date,
+        game_date as potential_game_date,
         1 as game_date
     from {{ ref('prep_boxscores_mvp_calc') }}
 ),

@@ -16,8 +16,8 @@ final_team_ratings as (
     select
         team_ratings.team,
         team_attributes.team_acronym,
-        team_ratings.w,
-        team_ratings.l,
+        team_ratings.w as wins,
+        team_ratings.l as losses,
         team_ratings.ortg,
         team_ratings.drtg,
         team_ratings.nrtg,
@@ -41,8 +41,8 @@ final as (
 select
     team,
     team_acronym,
-    w,
-    l,
+    wins,
+    losses,
     ortg,
     drtg,
     nrtg,

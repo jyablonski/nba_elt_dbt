@@ -1,6 +1,6 @@
 with my_cte as (
     select
-        proper_date as date,
+        game_date as game_date,
         away_team_acronym as away_team,
         home_team_acronym as home_team
     from {{ ref('prep_schedule_table') }}
@@ -11,7 +11,7 @@ away as (
     select
         away_team as team,
         home_team as opp,
-        date,
+        game_date,
         'join' as join_col,
         'road' as location_new
     from my_cte
@@ -21,7 +21,7 @@ home as (
     select
         home_team as team,
         away_team as opp,
-        date,
+        game_date,
         'join' as join_col,
         'home' as location_new
     from my_cte
@@ -60,7 +60,7 @@ final2 as (
         t.wins,
         f.opp,
         o.wins_opp,
-        f.date,
+        f.game_date,
         f.location_new,
         t.team_status,
         t.games_played,
@@ -74,7 +74,7 @@ final2 as (
 win_loss as (
     select distinct
         team,
-        date,
+        date as game_date,
         location,
         outcome
     from {{ ref('staging_aws_boxscores_incremental_table') }}
@@ -83,7 +83,7 @@ win_loss as (
 combo as (
     select
         *,
-        case when date >= current_date then 'future' else 'past' end as game_status,
+        case when game_date >= current_date then 'future' else 'past' end as game_status,
         case
             when outcome = 'W' then 1
             else 0
@@ -105,8 +105,8 @@ combo as (
             else 0
         end as below_games_played
     from final2
-        left join win_loss using (team, date)
-    order by date
+        left join win_loss using (team, game_date)
+    order by game_date
 ),
 
 home_games_played as (
@@ -205,7 +205,7 @@ prefinal as (
 prefinal2 as (
     select
         team,
-        date,
+        game_date,
         location_new,
         wins,
         opp,
