@@ -1,6 +1,6 @@
 ![Deployment](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/deploy.yml/badge.svg)
 
-Version: 2.4.1
+Version: 2.5.0
 
 ## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
