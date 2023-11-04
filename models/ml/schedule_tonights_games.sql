@@ -11,7 +11,7 @@ select
     home_team_odds,
     away_team_odds,
     start_time,
-    game_date,
+    schedule.game_date,
     home_moneyline,
     away_moneyline,
     home_team_predicted_win_pct,
@@ -33,4 +33,4 @@ from {{ ref('schedule') }}
         on
             schedule.home_team = tonights_games_ml.home_team
             and schedule.away_team = tonights_games_ml.away_team
-            and schedule.game_date = tonights_games_ml.proper_date
+            and schedule.game_date = tonights_games_ml.game_date

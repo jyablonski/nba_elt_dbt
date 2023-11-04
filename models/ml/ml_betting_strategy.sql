@@ -22,7 +22,7 @@ my_cte as (
     select
         ml.home_team,
         ml.away_team,
-        ml.proper_date::date as game_date,
+        ml.game_date::date as game_date,
         home_team_rank,
         home_days_rest,
         home_team_avg_pts_scored,
@@ -49,8 +49,8 @@ my_cte as (
             else 'Road Win'
         end as actual_outcome
     from {{ source('ml_models', 'tonights_games_ml') }} as ml
-        left join schedule_wins as w on ml.home_team = w.home_team and ml.proper_date::date = w.game_date
-    where ml.proper_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+        left join schedule_wins as w on ml.home_team = w.home_team and ml.game_date::date = w.game_date
+    where ml.game_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 -- the data points actually broken down

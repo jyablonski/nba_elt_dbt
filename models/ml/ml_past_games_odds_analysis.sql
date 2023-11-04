@@ -13,7 +13,7 @@ with my_cte as (
     select
         home_team,
         away_team,
-        proper_date::date as game_date,
+        game_date::date as game_date,
         home_team_rank,
         home_days_rest,
         home_team_avg_pts_scored,
@@ -31,7 +31,7 @@ with my_cte as (
         home_team_predicted_win_pct,
         away_team_predicted_win_pct
     from {{ source('ml_models', 'tonights_games_ml') }}
-    where proper_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where game_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 schedule_wins as (
