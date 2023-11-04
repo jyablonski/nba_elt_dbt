@@ -1,9 +1,4 @@
-with prod_scorers as (
-    select *
-    from {{ ref('prep_player_aggs') }}
-),
-
-shooting_stats as (
+with shooting_stats as (
     select
         player,
         fg_pct_0_3,
@@ -14,13 +9,7 @@ shooting_stats as (
         pct_3pfg_ast,
         dunks
     from {{ ref('prep_shooting_stats') }}
-),
-
-final as (
-    select *
-    from prod_scorers
-        left join shooting_stats using (player)
 )
 
 select *
-from final
+from shooting_stats

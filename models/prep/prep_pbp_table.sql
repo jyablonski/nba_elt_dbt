@@ -15,7 +15,7 @@ with pbp_data as (
         score_away,
         score_home,
         margin_score,
-        date,
+        date as game_date,
         season_type,
         case
             when quarter = '1st Quarter' then 48
@@ -95,7 +95,7 @@ pbp_data7 as (
 game_ids as (
     select distinct
         team as home_team,
-        date,
+        game_date,
         game_id
     from {{ ref('prep_boxscores_mvp_calc') }}
 ),
@@ -121,7 +121,7 @@ away_vars as (
 pbp_data8 as (
     select
         pbp_data7.home_team,
-        date,
+        pbp_data7.game_date,
         season_type,
         time_quarter,
         minutes,
@@ -160,7 +160,7 @@ pbp_data8 as (
         end as play,
         concat(home_team_full, ' Vs. ', away_team_full) as game_description
     from pbp_data7
-        left join game_ids using (home_team, date)
+        left join game_ids on pbp_data7.home_team = game_ids.home_team and pbp_data7.game_date = game_ids.game_date
         left join home_vars on pbp_data7.home_team = home_vars.home_team
         left join away_vars on pbp_data7.away_team = away_vars.away_team
 
@@ -187,12 +187,12 @@ final as (
 winning_team as (
     select
         game_description,
-        date,
+        game_date,
         min(time_remaining_final) as time_remaining_final,
         max(margin_score) as max_home_lead,
         min(margin_score) as max_away_lead
     from final
-    group by 1, 2
+    group by game_description, game_date
 ),
 
 winning_team2 as (
@@ -201,17 +201,17 @@ winning_team2 as (
         max_home_lead,
         max_away_lead,
         game_description,
-        date,
+        game_date,
         case
             when home_team = leading_team then away_team
             else home_team
         end as losing_team
     from final
-        inner join winning_team using (game_description, date, time_remaining_final)
+        inner join winning_team using (game_description, game_date, time_remaining_final)
     where leading_team != 'TIE' -- this is incase the game ends w/ free throws at 0.0 like hou vs sac on 2023-02-08 where the lead flips from 1 team to tie to the other team
 )
 
 /* have to throw in distinct here otherwise rows will get doubled */
 select distinct *
 from final
-    left join winning_team2 using (game_description, date)
+    left join winning_team2 using (game_description, game_date)

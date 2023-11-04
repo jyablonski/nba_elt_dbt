@@ -1,16 +1,15 @@
-{{ config(materialized='view') }}
-/*
-this model grabs all ml predictions from entire season and runs aggregations to find correct prediction %.
-it excludes tonight's games because we don't know whether the ml model is correct or incorrect on those predictions yet.
+{{ config(enabled = false) }}
 
-tonights_games_ml has to be a source bc im making that table externally in an ecs python script
-*/
+-- this model grabs all ml predictions from entire season and runs aggregations to find correct prediction %.
+-- it excludes tonight's games because we don't know whether the ml model is correct or incorrect on those predictions yet.
+
+-- tonights_games_ml has to be a source bc im making that table externally in an ecs python script
 
 with my_cte as (
     select
         home_team,
         away_team,
-        proper_date::date as proper_date,
+        game_date::date as game_date,
         home_team_rank,
         home_days_rest,
         home_team_avg_pts_scored,
@@ -28,13 +27,13 @@ with my_cte as (
         home_team_predicted_win_pct,
         away_team_predicted_win_pct
     from {{ source('ml_models', 'tonights_games_ml') }}
-    where proper_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where game_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 schedule_wins as (
     select
         a.team as home_team,
-        s.date as proper_date,
+        s.game_date,
         s.outcome as outcome
     from {{ ref('prep_schedule_analysis') }} as s
         left join {{ ref('staging_seed_team_attributes') }} as a on s.team = a.team_acronym
@@ -50,7 +49,7 @@ final as (
         end as ml_prediction,
         case when outcome = 'W' then 'Home Win' else 'Road Win' end as actual_outcome
     from my_cte
-        left join schedule_wins using (home_team, proper_date)
+        left join schedule_wins using (home_team, game_date)
 ),
 
 -- the data points actually broken down
@@ -58,7 +57,10 @@ final as (
 game_predictions as (
     select distinct
         *,
-        case when ml_prediction = actual_outcome then 1 else 0 end as ml_accuracy
+        case
+            when
+                ml_prediction = actual_outcome then 1 else 0
+        end as ml_accuracy
     from final
 ),
 

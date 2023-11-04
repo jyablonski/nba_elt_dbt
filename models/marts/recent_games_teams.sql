@@ -1,6 +1,6 @@
 /* only grabbing latest games, the prep table has everything for qa purposes */
 with recent_date as (
-    select max(date) as date
+    select max(date) as game_date
     from {{ ref('staging_aws_boxscores_incremental_table') }}
 ),
 
@@ -35,7 +35,7 @@ team_pts_scored as (
     select
         team,
         opponent,
-        date,
+        game_date,
         outcome,
         pts_scored,
         pts_scored_opp,
@@ -54,7 +54,7 @@ team_pts_scored as (
             else '@'
         end as new_loc
     from {{ ref('prep_recent_games_teams') }}
-        inner join recent_date using (date)
+        inner join recent_date using (game_date)
         left join leads using (team, opponent)
     where outcome = 'W'
 )

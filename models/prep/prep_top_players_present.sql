@@ -3,7 +3,7 @@ with my_cte as (
         player,
         team,
         game_id,
-        date,
+        game_date,
         location,
         outcome,
         opponent
@@ -29,24 +29,24 @@ team_aggs as (
     select
         team,
         game_id,
-        date,
+        game_date,
         count(*) as is_top_players
     from final
-    group by 1, 2, 3
+    group by team, game_id, game_date
 ),
 
 final2 as (
     select distinct
         b.team,
-        b.date,
+        b.game_date,
         b.game_id,
         b.outcome,
         b.location,
         b.opponent,
         coalesce(a.is_top_players, 0)::numeric as is_top_players
     from my_cte as b
-        left join team_aggs as a using (team, date, game_id)
-    order by team desc, date asc
+        left join team_aggs as a using (team, game_date, game_id)
+    order by team desc, game_date asc
 )
 
 select *

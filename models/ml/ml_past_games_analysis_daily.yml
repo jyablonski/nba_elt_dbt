@@ -4,7 +4,7 @@ models:
     - name: ml_past_games_analysis_daily
       description: Table showing a daily table of ML Prediction accuracy
       columns:
-        - name: proper_date
+        - name: game_date
           tests:
             - unique
             - not_null

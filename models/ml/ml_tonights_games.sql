@@ -6,17 +6,17 @@ with games as (
         away_moneyline,
         home_team_acronym,
         away_team_acronym,
-        proper_date,
+        game_date,
         home_team_rank,
         away_team_rank
     from {{ ref('prep_schedule_table') }}
-    where proper_date = date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where game_date = date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 outcomes as (
     select distinct
         a.team as home_team,
-        b.date as proper_date,
+        b.date as game_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
     from {{ ref('staging_aws_boxscores_incremental_table') }} as b
         left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
@@ -119,16 +119,16 @@ final as (
         away_team,
         home_moneyline,
         away_moneyline,
-        proper_date::date as proper_date,
+        game_date::date as game_date,
         coalesce(home_team_rank, 15) as home_team_rank,
-        coalesce((proper_date - home_last_played_date) - 1, 4) as home_days_rest,
+        coalesce((game_date - home_last_played_date) - 1, 4) as home_days_rest,
         coalesce(home_team_avg_pts_scored, 112) as home_team_avg_pts_scored,
         coalesce(home_team_avg_pts_scored_opp, 112) as home_team_avg_pts_scored_opp,
         coalesce(home_team_win_pct, 0.50) as home_team_win_pct,
         coalesce(home_team_win_pct_last10, 0.50) as home_team_win_pct_last10,
         coalesce(home_is_top_players, 2)::numeric as home_is_top_players,
         coalesce(away_team_rank, 15) as away_team_rank, -- if top players missing then they're HEALTHY
-        coalesce((proper_date - away_last_played_date) - 1, 4) as away_days_rest,
+        coalesce((game_date - away_last_played_date) - 1, 4) as away_days_rest,
         coalesce(away_team_avg_pts_scored, 112) as away_team_avg_pts_scored,
         coalesce(away_team_avg_pts_scored_opp, 112) as away_team_avg_pts_scored_opp,
         coalesce(away_team_win_pct, 0.50) as away_team_win_pct,
@@ -142,7 +142,7 @@ final as (
         left join away_team_avg using (away_team)
         left join away_team_win_pct using (away_team)
         left join away_team_top_players_aggs using (away_team)
-        left join outcomes using (home_team, proper_date)
+        left join outcomes using (home_team, game_date)
         left join home_days_rest using (home_team)
         left join away_days_rest using (away_team)
 )

@@ -1,13 +1,13 @@
 with mov_data as (
     select
         team,
-        date,
+        game_date,
         game_id,
         outcome,
         mov::integer,
         game_type
     from {{ ref('prep_recent_games_teams') }}
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
 ),
 
 mov_counts_w as (
@@ -17,7 +17,7 @@ mov_counts_w as (
         count(outcome) as outcome_wins_count
     from mov_data
     where outcome = 'W'
-    group by 1, 2
+    group by team, outcome
 ),
 
 mov_counts_l as (
@@ -27,7 +27,7 @@ mov_counts_l as (
         count(outcome) as outcome_losses_count
     from mov_data
     where outcome = 'L'
-    group by 1, 2
+    group by team, outcome
 ),
 
 mov_counts_clutch_wins as (
@@ -37,7 +37,7 @@ mov_counts_clutch_wins as (
         count(game_type) as clutch_wins_count
     from mov_data
     where game_type = 'Clutch Game' and outcome = 'W'
-    group by 1, 2
+    group by team, game_type
 ),
 
 mov_counts_clutch_losses as (
@@ -47,7 +47,7 @@ mov_counts_clutch_losses as (
         count(game_type) as clutch_losses_count
     from mov_data
     where game_type = 'Clutch Game' and outcome = 'L'
-    group by 1, 2
+    group by team, game_type
 ),
 
 mov_counts_blowout_wins as (
@@ -57,7 +57,7 @@ mov_counts_blowout_wins as (
         count(game_type) as blowout_wins_count
     from mov_data
     where game_type = 'Blowout Game' and outcome = 'W'
-    group by 1, 2
+    group by team, game_type
 ),
 
 mov_counts_blowout_losses as (
@@ -67,7 +67,7 @@ mov_counts_blowout_losses as (
         count(game_type) as blowout_losses_count
     from mov_data
     where game_type = 'Blowout Game' and outcome = 'L'
-    group by 1, 2
+    group by team, game_type
 ),
 
 mov_counts_10pt_wins as (
@@ -77,7 +77,7 @@ mov_counts_10pt_wins as (
         count(game_type) as tenpt_wins_count
     from mov_data
     where game_type = '10 pt Game' and outcome = 'W'
-    group by 1, 2
+    group by team, game_type
 ),
 
 mov_counts_10pt_losses as (
@@ -87,7 +87,7 @@ mov_counts_10pt_losses as (
         count(game_type) as tenpt_losses_count
     from mov_data
     where game_type = '10 pt Game' and outcome = 'L'
-    group by 1, 2
+    group by team, game_type
 ),
 
 -- reminder - you cant use a new column in a select statement to create ANOTHER column in postgres.

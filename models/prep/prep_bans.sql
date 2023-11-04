@@ -1,18 +1,17 @@
 -- only tracking regular season metrics as of now
 with boxscores as (
     select distinct
-
         game_id,
         location,
         outcome,
-        type,
+        season_type,
         (team),
         case
             when outcome = 'W' then 1
             else 0
         end as outcome_int
     from {{ ref('prep_boxscores_mvp_calc') }}
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
 ),
 
 tot_games_played as (
@@ -20,7 +19,7 @@ tot_games_played as (
         'join' as join_col,
         sum(outcome_int) as games_played
     from boxscores
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
 ),
 
 
@@ -63,7 +62,7 @@ upcoming_games_count as (
     from upcoming_games
         left join upcoming_game_date using (join_col)
     where date = min_date
-    group by 1
+    group by min_date, join_col
 ),
 
 league_average_ppg_teams as (
@@ -72,14 +71,14 @@ league_average_ppg_teams as (
         game_id,
         sum(pts) as sum_pts
     from {{ ref('prep_boxscores_mvp_calc') }}
-    where type = 'Regular Season'
-    group by 1, 2
+    where season_type = 'Regular Season'
+    group by team, game_id
 ),
 
 recent_game_date as (
     select
         'join' as join_col,
-        max(date) as most_recent_game
+        max(game_date) as most_recent_game
     from {{ ref('prep_boxscores_mvp_calc') }}
 ),
 
@@ -103,7 +102,7 @@ league_ts as (
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
     from {{ ref('staging_aws_boxscores_incremental_table') }}
-    where type = 'Regular Season'
+    where season_type = 'Regular Season'
 
 ),
 
@@ -123,7 +122,7 @@ final as (
         p.avg_pts,
         round((b.tot_wins::numeric / tg.games_played::numeric), 3)::numeric as win_pct,
         u.scrape_time as scrape_time,
-        '112.1'::numeric as last_yr_ppg,
+        '114.7'::numeric as last_yr_ppg,
         league_ts_2.league_ts_percent as league_ts_percent,
         most_recent_game,
         coalesce(g.upcoming_games, 0) as upcoming_games

@@ -70,8 +70,8 @@ final_stg_injury as (
         replace(replace(injury_data2.injury2, '(', ''), ')', '') as injury, /* removing left AND right parantheses */
         injury_data2.description,
         injury_counts.team_active_injuries as total_injuries,
-        injury_counts.team_active_injuries - cast (coalesce(protocol_counts.team_active_protocols, 0) as numeric) as team_active_injuries,
-        cast (coalesce(protocol_counts.team_active_protocols, 0) as numeric) as team_active_protocols,
+        injury_counts.team_active_injuries - cast(coalesce(protocol_counts.team_active_protocols, 0) as numeric) as team_active_injuries,
+        cast(coalesce(protocol_counts.team_active_protocols, 0) as numeric) as team_active_protocols,
         injury_data2.scrape_date,
         row_number() over (partition by player order by date desc) as uniqueness_filter
     from injury_data2

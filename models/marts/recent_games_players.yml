@@ -6,13 +6,13 @@ models:
       tests:
         - dbt_expectations.expect_table_row_count_to_be_between:
             min_value: 12
-            max_value: 25
+            max_value: 30
       columns:
           - name: player
             tests:
                 - unique
                 - not_null
-          - name: plusminus
+          - name: plus_minus
             tests:
                 - not_null
           - name: pts

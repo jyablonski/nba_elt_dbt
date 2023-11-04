@@ -1,7 +1,7 @@
 -- edge case where a player shot 2 tech free throws in a row, time quarter play and game description were all the same so test failed.
 
 with recent_date as (
-    select max(date) as date
+    select max(game_date) as game_date
     from {{ ref('prep_pbp_table') }}
 ),
 
@@ -19,7 +19,7 @@ final as (
         score_away,
         score_home,
         margin_score,
-        date,
+        game_date,
         leading_team,
         home_team_full,
         home_primary_color,
@@ -42,7 +42,7 @@ final as (
 
 
     from {{ ref('prep_pbp_table') }}
-        inner join recent_date using (date)
+        inner join recent_date using (game_date)
     order by game_description asc, time_remaining_final desc
 )
 

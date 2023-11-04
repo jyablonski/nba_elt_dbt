@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: prep_player_stats
+      description: Player Stats Table
+      tests:
+        - dbt_expectations.expect_compound_columns_to_be_unique:
+            column_list: ["player", "season_type"]

@@ -13,7 +13,7 @@ with my_cte as (
     select
         home_team,
         away_team,
-        proper_date::date as proper_date,
+        game_date::date as game_date,
         home_team_rank,
         home_days_rest,
         home_team_avg_pts_scored,
@@ -31,13 +31,13 @@ with my_cte as (
         home_team_predicted_win_pct,
         away_team_predicted_win_pct
     from {{ source('ml_models', 'tonights_games_ml') }}
-    where proper_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where game_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
 ),
 
 schedule_wins as (
     select
         a.team as home_team,
-        s.date as proper_date,
+        s.game_date,
         s.outcome as outcome
     from {{ ref('prep_schedule_analysis') }} as s
         left join {{ ref('staging_seed_team_attributes') }} as a on s.team = a.team_acronym
@@ -53,7 +53,7 @@ final as (
         end as ml_prediction,
         case when outcome = 'W' then 'Home Win' else 'Road Win' end as actual_outcome
     from my_cte
-        left join schedule_wins using (home_team, proper_date)
+        left join schedule_wins using (home_team, game_date)
 ),
 
 -- the data points actually broken down
@@ -68,7 +68,7 @@ game_predictions as (
 home_odds as (
     select
         a.team as home_team,
-        date as proper_date,
+        date as game_date,
         moneyline as home_moneyline
     from {{ ref('staging_aws_odds_table') }}
         left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
@@ -77,7 +77,7 @@ home_odds as (
 away_odds as (
     select
         a.team as away_team,
-        date as proper_date,
+        date as game_date,
         moneyline as away_moneyline
     from {{ ref('staging_aws_odds_table') }}
         left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
@@ -107,9 +107,9 @@ final_table as (
             else round(abs(away_moneyline) / (abs(away_moneyline) + 100), 3)
         end as away_implied_probability
     from game_predictions
-        left join home_odds using (home_team, proper_date)
-        left join away_odds using (away_team, proper_date)
-    order by proper_date desc
+        left join home_odds using (home_team, game_date)
+        left join away_odds using (away_team, game_date)
+    order by game_date desc
 )
 
 -- predictions are 8 correct, 7 incorrect

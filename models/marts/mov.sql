@@ -5,7 +5,7 @@ with mov_table as (
         team,
         full_team,
         game_id,
-        date,
+        game_date,
         outcome,
         opponent,
         pts_scored,

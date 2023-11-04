@@ -30,7 +30,7 @@ with my_cte as (
         coalesce(plusminus, 0) as plusminus,
         gmsc,
         date::date,
-        {{ generate_season_type('date') }}::text as type,
+        {{ generate_season_type('date') }}::text as season_type,
         season
     from {{ source('nba_source', 'aws_boxscores_source') }}
     where
