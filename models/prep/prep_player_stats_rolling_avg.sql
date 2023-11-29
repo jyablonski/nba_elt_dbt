@@ -38,6 +38,13 @@ max_date as (
     group by player
 ),
 
+player_logo as (
+    select
+        player,
+        headshot as player_logo
+    from {{ source('nba_source', 'player_attributes') }}
+),
+
 final as (
     select *
     from cte_aggs
@@ -46,14 +53,15 @@ final as (
 
 final2 as (
     select
-        player,
+        final.player,
+        player_logo,
         rolling_avg_pts,
         rolling_avg_ts_percent,
         rolling_avg_mvp_score,
         rolling_avg_plus_minus
     from final
+        inner join player_logo on final.player = player_logo.player
 )
 
 select *
 from final2
---where player = 'Stephen Curry'
