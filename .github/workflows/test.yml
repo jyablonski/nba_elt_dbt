@@ -39,7 +39,9 @@ jobs:
         run: |
           aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json target/manifest.json
 
-      - name: Build changed dbt Models
+      # NOTE: this builds the entire project and doesnt actually use the manifest json
+      # bc it builds fast as fuck anyways boi
+      - name: Build dbt Models
         run: |
           make ci-test
 

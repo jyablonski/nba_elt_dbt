@@ -36,6 +36,10 @@ final as (
     select
         *,
         case
+            when away_team = selected_winner then away_team_odds
+            else home_team_odds
+        end as selected_winner_odds,
+        case
             when selected_winner = actual_winner then 1
             else 0
         end as is_correct_prediction
@@ -46,7 +50,7 @@ final as (
 select
     *,
     case
-        when is_correct_prediction = 1 then bet_amount
+        when is_correct_prediction = 1 then bet_amount / abs(selected_winner_odds / 100)
         else bet_amount * -1
     end as bet_profit
 from final
