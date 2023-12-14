@@ -343,3 +343,5 @@ All Finished!
 
 
 ```
+
+`dbt run --select "my_first_model my_second_model"`
