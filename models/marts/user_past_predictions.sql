@@ -50,7 +50,7 @@ final as (
 select
     *,
     case
-        when is_correct_prediction = 1 then bet_amount / abs(selected_winner_odds / 100)
-        else bet_amount * -1
+        when is_correct_prediction = 1 then round(cast(cast(bet_amount as numeric) / abs(cast(selected_winner_odds as numeric) / 100) as numeric), 2)
+        else round(cast(bet_amount * -1.00 as numeric), 2)
     end as bet_profit
 from final
