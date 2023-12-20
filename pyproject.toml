@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nba-elt-dbt"
-version = "2.5.2"
+version = "2.5.3"
 description = "dbt Transformations for NBA ELT Project"
 authors = ["jyablonski9 <jyablonski9@gmail.com>"]
 readme = "README.md"
