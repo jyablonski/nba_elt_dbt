@@ -34,3 +34,4 @@ from {{ ref('schedule') }}
             schedule.home_team = tonights_games_ml.home_team
             and schedule.away_team = tonights_games_ml.away_team
             and schedule.game_date = tonights_games_ml.game_date
+where schedule.game_date = current_date
