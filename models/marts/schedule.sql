@@ -20,7 +20,6 @@ with new_odds as (
             else away_moneyline::text
         end as away_moneyline
     from {{ ref('prep_schedule_table') }}
-    -- where game_date >= ((current_date)::date)
 ),
 
 
