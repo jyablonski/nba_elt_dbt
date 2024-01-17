@@ -345,3 +345,5 @@ All Finished!
 ```
 
 `dbt run --select "my_first_model my_second_model"`
+
+`dbt compile --inline "{{ testgen.get_test_suggestions(ref('prep_boxscores_mvp_calc')) }}"`
