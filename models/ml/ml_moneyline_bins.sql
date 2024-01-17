@@ -65,7 +65,7 @@ bet_aggs_lag as (
         lag(profit) over (order by moneyline_parameter_lower::numeric desc) as prev_profit,
         profit - lag(profit) over (order by moneyline_parameter_lower::numeric desc) as profit_change,
         round(profit / lag(profit) over (order by moneyline_parameter_lower::numeric desc), 3)::numeric as profit_pct_change,
-        {{ dbt_utils.current_timestamp() }} as current_date
+        {{ dbt.current_timestamp() }} as current_date
     from bet_aggs
 
 )

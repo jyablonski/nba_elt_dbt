@@ -9,7 +9,7 @@
 with latest_date as (
     select min(game_date) as game_date
     from {{ ref('prep_schedule_table') }}
-    where game_date = date({{ dbt_utils.current_timestamp() }} - interval '5 hour')
+    where game_date = date({{ dbt.current_timestamp() }} - interval '5 hour')
 ),
 
 -- updates inactive_dates csv file in data folder for all star break / thanksgiving

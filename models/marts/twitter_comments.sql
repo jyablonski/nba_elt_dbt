@@ -12,7 +12,7 @@ with twitter_cte as (
         neu,
         pos
     from {{ ref('prep_twitter_comments') }}
-    where scrape_ts >= date({{ dbt_utils.current_timestamp() }})
+    where scrape_ts >= date({{ dbt.current_timestamp() }})
     order by likes desc
     limit 2000
 ),

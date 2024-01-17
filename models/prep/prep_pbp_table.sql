@@ -2,8 +2,8 @@
 with pbp_data as (
     select
         time_quarter,
-        {{ dbt_utils.split_part('time_quarter', " ':' ", 1) }}::numeric as minutes,
-        {{ dbt_utils.split_part('time_quarter', " ':' ", 2) }}::numeric as seconds,
+        {{ split_part('time_quarter', " ':' ", 1) }}::numeric as minutes,
+        {{ split_part('time_quarter', " ':' ", 2) }}::numeric as seconds,
         description_play_visitor,
         away_score,
         score,

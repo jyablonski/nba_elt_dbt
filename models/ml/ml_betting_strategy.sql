@@ -50,7 +50,7 @@ my_cte as (
         end as actual_outcome
     from {{ source('ml_models', 'tonights_games_ml') }} as ml
         left join schedule_wins as w on ml.home_team = w.home_team and ml.game_date::date = w.game_date
-    where ml.game_date::date < date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where ml.game_date::date < date({{ dbt.current_timestamp() }} - interval '6 hour')
 ),
 
 -- the data points actually broken down

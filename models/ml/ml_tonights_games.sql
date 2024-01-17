@@ -10,7 +10,7 @@ with games as (
         home_team_rank,
         away_team_rank
     from {{ ref('prep_schedule_table') }}
-    where game_date = date({{ dbt_utils.current_timestamp() }} - interval '6 hour')
+    where game_date = date({{ dbt.current_timestamp() }} - interval '6 hour')
 ),
 
 outcomes as (

@@ -6,14 +6,14 @@ with injury_data as (
         team,
         date,
         scrape_date,
-        {{ dbt_utils.split_part('description', " ' - ' ", 1) }} as injury, /* grabbing injury + status with the parantheses included still */
-        {{ dbt_utils.split_part('description', " ' - ' ", 2) }} as description, /* grabbing description */
+        {{ split_part('description', " ' - ' ", 1) }} as injury, /* grabbing injury + status with the parantheses included still */
+        {{ split_part('description', " ' - ' ", 2) }} as description, /* grabbing description */
         case
-            when {{ dbt_utils.split_part('description', " ' - ' ", 1) }} like '%health and safety protocols%' then 1
-            when {{ dbt_utils.split_part('description', " ' - ' ", 1) }} like '%Health and Safety Protocols%' then 1
-            when {{ dbt_utils.split_part('description', " ' - ' ", 1) }} like '%health protocols%' then 1
-            when {{ dbt_utils.split_part('description', " ' - ' ", 1) }} like '%Health Protocols%' then 1
-            when {{ dbt_utils.split_part('description', " ' - ' ", 1) }} like '%protocols%' then 1
+            when {{ split_part('description', " ' - ' ", 1) }} like '%health and safety protocols%' then 1
+            when {{ split_part('description', " ' - ' ", 1) }} like '%Health and Safety Protocols%' then 1
+            when {{ split_part('description', " ' - ' ", 1) }} like '%health protocols%' then 1
+            when {{ split_part('description', " ' - ' ", 1) }} like '%Health Protocols%' then 1
+            when {{ split_part('description', " ' - ' ", 1) }} like '%protocols%' then 1
             else 0
         end as protocols
     from {{ source('nba_source', 'aws_injury_data_source') }}
@@ -22,8 +22,8 @@ with injury_data as (
 injury_data2 as (
     select
         *,
-        {{ dbt_utils.split_part('injury', " ' ('", 1) }} as status, /* grabbing everything left of the 1st parantheses */
-        {{ dbt_utils.split_part('injury', " ' ('", 2) }} as injury2 /* grabbing the actual injury */
+        {{ split_part('injury', " ' ('", 1) }} as status, /* grabbing everything left of the 1st parantheses */
+        {{ split_part('injury', " ' ('", 2) }} as injury2 /* grabbing the actual injury */
     from injury_data
 ),
 
