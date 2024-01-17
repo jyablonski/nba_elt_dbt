@@ -11,7 +11,7 @@ with player_records as (
         player,
         team,
         date,
-        {{ dbt_utils.surrogate_key(["player", "team"]) }} as scd_id
+        {{ dbt_utils.generate_surrogate_key(["player", "team"]) }} as scd_id
     from {{ ref('staging_aws_boxscores_incremental_table') }}
     {% if is_incremental() %}
 

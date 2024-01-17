@@ -100,7 +100,7 @@ final_table as (
         (
             away_team_rank.away_team_rank + home_team_rank.home_team_rank
         ) / 2 as avg_team_rank,
-        {{ dbt_utils.surrogate_key(['schedule_data.home_team', 'schedule_data.away_team', 'schedule_data.proper_date']) }} as game_pk,
+        {{ dbt_utils.generate_surrogate_key(['schedule_data.home_team', 'schedule_data.away_team', 'schedule_data.proper_date']) }} as game_pk,
         cast(concat(
             cast(schedule_data.proper_date as text), ' ', cast(start_time as text), ':00'
         ) as timestamp) as game_ts,

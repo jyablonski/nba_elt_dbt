@@ -61,7 +61,7 @@ protocol_counts as (
 
 final_stg_injury as (
     select distinct
-        {{ dbt_utils.surrogate_key(['player', 'injury', 'description']) }} as injury_pk,
+        {{ dbt_utils.generate_surrogate_key(['player', 'injury', 'description']) }} as injury_pk,
         injury_data2.player,
         team_attributes.team_acronym,
         injury_data2.team,
