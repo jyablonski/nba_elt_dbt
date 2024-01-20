@@ -7144,20 +7144,6 @@ INSERT INTO nba_prod.user_predictions (username,game_date,home_team,home_team_od
 	 ('jyablonski','2023-10-25','Utah Jazz',105,0.308,'Sacramento Kings',-125,0.692,'Sacramento Kings',10,'2023-10-25 13:53:55.055347'),
 	 ('jyablonski','2023-10-26','Los Angeles Lakers',-225,0.228,'Phoenix Suns',185,0.772,'Los Angeles Lakers',10,'2023-10-26 13:33:36.280717'),
 	 ('jyablonski','2023-10-26','Milwaukee Bucks',-250,0.535,'Philadelphia 76ers',200,0.465,'Milwaukee Bucks',10,'2023-10-26 13:33:36.280717');
-INSERT INTO nba_prod.user_predictions (username,game_date,home_team,home_team_odds,home_team_predicted_win_pct,away_team,away_team_odds,away_team_predicted_win_pct,selected_winner,bet_amount,created_at) VALUES
-	 ('jyablonski','2023-10-27','Chicago Bulls',-140,0.111,'Toronto Raptors',115,0.889,'Toronto Raptors',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Memphis Grizzlies',165,0.198,'Denver Nuggets',-200,0.802,'Denver Nuggets',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Boston Celtics',-325,0.487,'Miami Heat',250,0.513,'Boston Celtics',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Atlanta Hawks',-125,0.531,'New York Knicks',105,0.469,'New York Knicks',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Portland Trail Blazers',115,0.332,'Orlando Magic',-140,0.668,'Orlando Magic',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Utah Jazz',130,0.158,'Los Angeles Clippers',-152,0.842,'Los Angeles Clippers',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Cleveland Cavaliers',-160,0.597,'Oklahoma City Thunder',130,0.403,'Oklahoma City Thunder',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Charlotte Hornets',-170,0.876,'Detroit Pistons',140,0.124,'Detroit Pistons',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','San Antonio Spurs',-130,0.284,'Houston Rockets',110,0.716,'San Antonio Spurs',10,'2023-10-27 13:48:07.160947'),
-	 ('jyablonski','2023-10-27','Dallas Mavericks',-240,0.878,'Brooklyn Nets',190,0.122,'Dallas Mavericks',10,'2023-10-27 13:48:07.160947');
-INSERT INTO nba_prod.user_predictions (username,game_date,home_team,home_team_odds,home_team_predicted_win_pct,away_team,away_team_odds,away_team_predicted_win_pct,selected_winner,bet_amount,created_at) VALUES
-	 ('jyablonski','2023-10-27','Sacramento Kings',-160,0.779,'Golden State Warriors',130,0.221,'Golden State Warriors',10,'2023-10-27 13:48:07.160947');
-
 
 DROP TABLE IF EXISTS ml_models.tonights_games_ml;
 CREATE TABLE IF NOT EXISTS ml_models.tonights_games_ml (

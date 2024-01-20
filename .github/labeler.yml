@@ -6,7 +6,7 @@ dependencies:
 - Pipfile
 
 data_models:
-- models/*
+- models/**
 
 sources:
 - models/sources.yml

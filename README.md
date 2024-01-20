@@ -1,6 +1,6 @@
-![Deployment](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/deploy.yml/badge.svg)
+![Deployment](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/deploy.yml/badge.svg) ![Tests](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/test.yml/badge.svg)
 
-Version: 2.5.4
+Version: 2.5.5
 
 ## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
@@ -13,8 +13,8 @@ The same test suite runs on every commit to a PR via GitHub Actions
 ![nba_pipeline_diagram](https://github.com/jyablonski/nba_elt_dbt/assets/16946556/044dbb79-ce33-4d4b-8262-357c531e7ce7)
 
 1. Links to other Repos providing infrastructure for this Project
-    * [Shiny Server](https://github.com/jyablonski/NBA-Dashboard)
-    * [Python Web Scrape](https://github.com/jyablonski/python_docker)
+    * [Dash Server](https://github.com/jyablonski/nba_elt_dashboard)
+    * [Ingestion Script](https://github.com/jyablonski/python_docker)
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
     * [REST API](https://github.com/jyablonski/nba_elt_rest_api)

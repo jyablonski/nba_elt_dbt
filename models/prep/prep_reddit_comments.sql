@@ -28,7 +28,7 @@ final as (
         *,
         ltrim(flair2, ': ') as flair_new,
         not coalesce(edited = 'false', false) as edited_final,
-        {{ dbt_utils.split_part('flair2', " ': ' ", 2) }} as flair_new2,
+        {{ split_part('flair2', " ': ' ", 2) }} as flair_new2,
         regexp_replace(flair1, '\d+$', '') as flair_final, --removes trailing digits (Warriors5, Suns2, Bulls1)
         row_number() over (order by score desc) as total_score_rank
     from duplicate_comments
