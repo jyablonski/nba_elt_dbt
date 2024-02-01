@@ -43,6 +43,11 @@ models:
         +tags:
           - "NBA_PRODUCTION_MARTS"
           - "DAILY"
+      reporting:
+        +materialized: view
+        +schema: reporting
+        +tags:
+          - "REPORTING"
       prep:
         +materialized: table
         +schema: nba_prep
