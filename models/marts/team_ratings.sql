@@ -12,7 +12,6 @@ team_attributes as (
 ),
 
 final_team_ratings as (
-
     select
         team_ratings.team,
         team_attributes.team_acronym,
@@ -26,7 +25,7 @@ final_team_ratings as (
         row_number() over (order by ortg desc)::integer as ortg_rank,
         concat('logos/', lower(team_acronym), '.png') as team_logo
     from team_ratings
-        left join team_attributes using (team)
+        left join team_attributes on team_ratings.team = team_attributes.team
 ),
 
 final as (

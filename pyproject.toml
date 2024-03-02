@@ -18,3 +18,34 @@ sqlfluff-templater-dbt = "2.3.5"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.sqlfluff.core]
+templater = "dbt"
+dialect = "postgres"
+exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L057"
+large_file_skip_byte_limit = 100000
+
+[tool.sqlfluff.indentation]
+indented_joins = true
+
+[tool.sqlfluff.templater.dbt]
+project_dir = "./"
+
+[tool.sqlfluff.rules.capitalisation.keywords]
+capitalisation_policy = "lower"
+
+[tool.sqlfluff.rules.capitalisation.identifiers]
+capitalisation_policy = "lower"
+
+[tool.sqlfluff.rules.capitalisation.literals]
+capitalisation_policy = "lower"
+
+[tool.sqlfluff.rules.capitalisation.types]
+capitalisation_policy = "lower"
+
+[tool.sqlfluff.rules.capitalisation.functions]
+capitalisation_policy = "lower"
+
+[tool.sqlfluff.rules.jinja.padding]
+single_space = true
