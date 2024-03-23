@@ -1,23 +1,27 @@
 with my_cte as (
     select
-        player,
-        season_type,
-        p.team,
-        t.team as full_team,
-        avg_ppg,
-        avg_ts_percent,
+        prep_player_stats.player,
+        player_attributes.headshot as player_logo,
+        prep_player_stats.season_type,
+        prep_player_stats.team,
+        staging_seed_team_attributes.team as full_team,
+        prep_player_stats.avg_ppg,
+        prep_player_stats.avg_ts_percent,
         prep_contract_value_analysis.avg_mvp_score,
-        avg_plus_minus,
-        p.games_played,
-        ppg_rank,
-        scoring_category,
-        games_missed,
-        penalized_games_missed,
-        is_mvp_candidate,
+        prep_player_stats.avg_plus_minus,
+        prep_player_stats.games_played,
+        prep_player_stats.ppg_rank,
+        prep_player_stats.scoring_category,
+        prep_contract_value_analysis.games_missed,
+        prep_contract_value_analysis.penalized_games_missed,
+        prep_contract_value_analysis.is_mvp_candidate,
         prep_contract_value_analysis.mvp_rank
-    from {{ ref('prep_player_stats') }} as p
-        left join {{ ref('prep_contract_value_analysis') }} using (player)
-        left join {{ ref('staging_seed_team_attributes') }} as t on p.team = t.team_acronym
+    from {{ ref('prep_player_stats') }} as prep_player_stats
+        left join {{ ref('prep_contract_value_analysis') }} on prep_player_stats.player = prep_contract_value_analysis.player
+        left join {{ ref('staging_seed_team_attributes') }} as staging_seed_team_attributes
+            on prep_player_stats.team = staging_seed_team_attributes.team_acronym
+        left join {{ source('nba_source', 'player_attributes') }}
+            on prep_player_stats.player = player_attributes.player
     order by avg_mvp_score desc
 )
 
