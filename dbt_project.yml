@@ -79,8 +79,18 @@ models:
           - "ANALYTICS"
           - "AD HOC"
           - "VIEW"
+      fact:
+        +materialized: table
+        +schema: fact
+        +tags:
+          - "DAILY"
+      dim:
+        +materialized: table
+        +schema: dim
+        +tags:
+          - "DAILY"
 seeds:
   nba_elt_project:
-    +schema: nba_staging
+    +schema: nba_source
     +tags:
       - "NBA_PRODUCTION_STAGING"

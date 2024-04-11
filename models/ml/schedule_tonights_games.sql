@@ -29,9 +29,9 @@ select
         else 0
     end as away_is_great_value
 from {{ ref('schedule') }}
-    inner join {{ source('ml_models', 'tonights_games_ml') }}
+    inner join {{ source('ml_models', 'ml_game_predictions') }}
         on
-            schedule.home_team = tonights_games_ml.home_team
-            and schedule.away_team = tonights_games_ml.away_team
-            and schedule.game_date = tonights_games_ml.game_date
+            schedule.home_team = ml_game_predictions.home_team
+            and schedule.away_team = ml_game_predictions.away_team
+            and schedule.game_date = ml_game_predictions.game_date
 where schedule.game_date = current_date

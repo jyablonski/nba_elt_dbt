@@ -146,7 +146,7 @@ sources:
     schema: ml_models
     description: Landing Zone for NBA ML Data
     tables:
-      - name: tonights_games_ml
+      - name: ml_game_predictions
         columns:
           - name: game_date
             tests:
