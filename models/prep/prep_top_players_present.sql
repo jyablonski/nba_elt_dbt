@@ -29,7 +29,7 @@ team_aggs as (
         game_date,
         count(*) as is_top_players
     from final
-    group by 
+    group by
         team,
         game_date
 ),

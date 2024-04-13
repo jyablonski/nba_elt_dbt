@@ -41,7 +41,7 @@ adv_stats as (
         row_number() over (order by "ts%"::numeric desc) as ts_percent_order,
         row_number() over (order by "tov%_opp"::numeric desc) as tov_percent_opp_order,
         row_number() over (order by "efg%_opp"::numeric) as efg_percent_opp_order,
-        row_number() over (order by "ft/fga_opp" ::numeric) as ft_fga_opp_order,
+        row_number() over (order by "ft/fga_opp"::numeric) as ft_fga_opp_order,
         created_at,
         modified_at
     from {{ source('nba_source', 'aws_adv_stats_source') }}

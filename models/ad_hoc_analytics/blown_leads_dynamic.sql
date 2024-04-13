@@ -50,7 +50,7 @@ combo as (
     union
     select *
     from home_teams
-    order by 
+    order by
         game_date
 ),
 

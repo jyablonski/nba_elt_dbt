@@ -3,8 +3,8 @@ with my_cte as (
         team,
         game_date
     from {{ ref('boxscores') }}
-    order by 
-        team, 
+    order by
+        team,
         game_date
 ),
 

@@ -47,7 +47,7 @@ player_team_dates as (
         min(game_date) as first_appeared_date,
         max(game_date) as last_appeared_date
     from player_data
-    group by 
+    group by
         player,
         team
 

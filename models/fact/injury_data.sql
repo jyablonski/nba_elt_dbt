@@ -14,8 +14,10 @@ with injury_data as (
         replace(
             replace(
                 {{ split_part(split_part('description', " ' - ' ", 1), " ' ('", 2) }},
-                '(', ''), ')', '') -- removing any trailing or leading parantheses
-            as injury,
+                '(', ''
+            ), ')', ''
+        ) -- removing any trailing or leading parantheses
+        as injury,
         case
             when {{ split_part('description', " ' - ' ", 1) }} like '%health and safety protocols%' then 1
             when {{ split_part('description', " ' - ' ", 1) }} like '%Health and Safety Protocols%' then 1

@@ -5,7 +5,7 @@ with teams_scores as (
         season_type,
         sum(pts) as pts_game
     from {{ ref('boxscores') }}
-    group by 
+    group by
         team,
         game_date,
         season_type
@@ -58,7 +58,7 @@ team_pts_scored as (
         season_type,
         sum(pts) as pts_scored
     from {{ ref('boxscores') }}
-    group by 
+    group by
         team,
         game_date,
         opponent,

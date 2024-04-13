@@ -24,7 +24,7 @@ with agg_stats as (
         count(*) as games_played
     from {{ ref('boxscores') }}
     where player is not null and season_type = 'Regular Season'
-    group by 
+    group by
         player,
         season_type
 ),

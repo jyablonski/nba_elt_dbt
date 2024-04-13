@@ -20,7 +20,7 @@ mov_counts as (
             else 'more than 20 points'
         end as explanation
     from mov_data
-    group by 
+    group by
         game_type,
         season_type
 )

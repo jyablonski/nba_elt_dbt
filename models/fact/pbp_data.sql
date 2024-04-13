@@ -34,15 +34,15 @@ with pbp_raw as (
         created_at,
         modified_at
     from {{ source('nba_source', 'aws_pbp_data_source') }}
-    where 
+    where
         substr(timequarter, 1, length(timequarter) - 2)::text like '%:%' -- needed in case bbref fucks up again and includes faulty time values
-    {% if is_incremental() %}
+        {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        and date > (select max(game_date) from {{ this }})
+            and date > (select max(game_date) from {{ this }})
 
-    {% endif %}
+        {% endif %}
 
 ),
 
@@ -68,7 +68,7 @@ time_remaining_calcs as (
 ),
 
 pbp_adjusted as (
-    select 
+    select
         pbp_raw.*,
         round((time_remaining_adj / 60), 2)::numeric as time_remaining_final,
         coalesce(lag(round((time_remaining_adj / 60), 2)::numeric, 1) over (), 0) as before_time,
@@ -84,9 +84,11 @@ pbp_adjusted as (
             else home_score
         end as play,
         coalesce(
-            (coalesce(lag(round((time_remaining_adj / 60), 2)::numeric, 1) over (), 0)
-            - round((time_remaining_adj / 60), 2)::numeric), 0
-            )::numeric as time_difference,
+            (
+                coalesce(lag(round((time_remaining_adj / 60), 2)::numeric, 1) over (), 0)
+                - round((time_remaining_adj / 60), 2)::numeric
+            ), 0
+        )::numeric as time_difference,
         home_team_attributes.team as home_team_full,
         home_team_attributes.primary_color as home_primary_color,
         away_team_attributes.team as away_team_full,
@@ -106,10 +108,11 @@ pbp_adjusted as (
         end as scoring_team
     from pbp_raw
         inner join time_remaining_calcs
-            on pbp_raw.description_play_visitor = time_remaining_calcs.description_play_visitor
-            and pbp_raw.game_date = time_remaining_calcs.game_date
-            and pbp_raw.quarter = time_remaining_calcs.quarter
-            and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
+            on
+                pbp_raw.description_play_visitor = time_remaining_calcs.description_play_visitor
+                and pbp_raw.game_date = time_remaining_calcs.game_date
+                and pbp_raw.quarter = time_remaining_calcs.quarter
+                and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
         left join {{ source('nba_source', 'aws_team_attributes_source') }} as home_team_attributes
             on pbp_raw.home_team = home_team_attributes.team_acronym
         left join {{ source('nba_source', 'aws_team_attributes_source') }} as away_team_attributes
@@ -124,7 +127,7 @@ min_max_aggs as (
         max(margin_score) as max_home_lead,
         min(margin_score) as max_away_lead
     from pbp_adjusted
-    group by 
+    group by
         game_description,
         game_date
 ),
@@ -142,9 +145,10 @@ lead_measures as (
         end as losing_team
     from pbp_adjusted
         inner join min_max_aggs
-            on pbp_adjusted.game_description = min_max_aggs.game_description
-            and pbp_adjusted.game_date = min_max_aggs.game_date
-            and pbp_adjusted.time_remaining_final = min_max_aggs.time_remaining_final
+            on
+                pbp_adjusted.game_description = min_max_aggs.game_description
+                and pbp_adjusted.game_date = min_max_aggs.game_date
+                and pbp_adjusted.time_remaining_final = min_max_aggs.time_remaining_final
     where leading_team != 'TIE' -- this is incase the game ends w/ free throws at 0.0 like hou vs sac on 2023-02-08 where the lead flips from 1 team to tie to the other team
 
 )
@@ -185,5 +189,6 @@ select
     end as leading_team_text
 from pbp_adjusted
     inner join lead_measures
-        on pbp_adjusted.game_description = lead_measures.game_description
-        and pbp_adjusted.game_date = lead_measures.game_date
+        on
+            pbp_adjusted.game_description = lead_measures.game_description
+            and pbp_adjusted.game_date = lead_measures.game_date

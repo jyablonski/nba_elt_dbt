@@ -112,18 +112,22 @@ final_table as (
         left join away_team_rank using (away_team)
         left join
             home_team_odds
-            on home_team_attributes.home_team_acronym = home_team_odds.home_team_acronym
-            and schedule_data.proper_date = home_team_odds.proper_date
+            on
+                home_team_attributes.home_team_acronym = home_team_odds.home_team_acronym
+                and schedule_data.proper_date = home_team_odds.proper_date
         left join
             away_team_odds
-            on away_team_attributes.away_team_acronym = away_team_odds.away_team_acronym 
-            and schedule_data.proper_date = away_team_odds.proper_date
-        left join home_days_rest 
-            on schedule_data.home_team = home_days_rest.home_team
-            and schedule_data.proper_date = home_days_rest.proper_date
+            on
+                away_team_attributes.away_team_acronym = away_team_odds.away_team_acronym
+                and schedule_data.proper_date = away_team_odds.proper_date
+        left join home_days_rest
+            on
+                schedule_data.home_team = home_days_rest.home_team
+                and schedule_data.proper_date = home_days_rest.proper_date
         left join away_days_rest
-            on schedule_data.away_team = away_days_rest.away_team
-            and schedule_data.proper_date = away_days_rest.proper_date
+            on
+                schedule_data.away_team = away_days_rest.away_team
+                and schedule_data.proper_date = away_days_rest.proper_date
     order by schedule_data.proper_date asc
 )
 

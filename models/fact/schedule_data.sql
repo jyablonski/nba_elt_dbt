@@ -17,16 +17,16 @@ with schedule_data as (
             on aws_schedule_source.home_team = home_team_attributes.team
         left join {{ source('nba_source', 'aws_team_attributes_source') }} as away_team_attributes
             on aws_schedule_source.away_team = away_team_attributes.team
-    where 
+    where
         start_time like '%:%' -- hack to only get records that have a start time (7:00)
         and start_time != '11:00' -- bug, thx bbref
-    {% if is_incremental() %}
+        {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
+            and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
 
-    {% endif %}
+        {% endif %}
 )
 
 select *
