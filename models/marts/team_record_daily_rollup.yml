@@ -6,7 +6,7 @@ models:
       - name: team
         tests:
           - not_null
-      - name: date
+      - name: game_date
         tests:
           - not_null
       - name: running_total_games_played

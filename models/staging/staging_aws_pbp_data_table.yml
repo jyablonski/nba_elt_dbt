@@ -1,9 +1,0 @@
-version: 2
-
-models:
-    - name: staging_aws_pbp_data_table
-      description: Staging table for pbp data
-      columns:
-        - name: date
-          tests:
-            - not_null

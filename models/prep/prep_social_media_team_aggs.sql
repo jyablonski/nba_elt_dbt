@@ -7,7 +7,7 @@ with my_cte as (
         neg,
         neu,
         pos
-    from {{ ref('prep_reddit_comments') }}
+    from {{ ref('reddit_comment_data') }}
 ),
 
 aggs as (

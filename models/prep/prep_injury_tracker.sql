@@ -1,9 +1,9 @@
 with injury_data as (
     select
         player,
-        status,
+        injury_status,
         injury
-    from {{ ref('staging_aws_injury_data_table') }}
+    from {{ ref('injury_data') }}
 
 ),
 
@@ -23,7 +23,7 @@ player_last_game_played as (
     select
         player,
         max(game_date) as player_latest_game
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     group by player
 
 ),
@@ -32,7 +32,7 @@ team_last_game_played as (
     select
         team,
         max(game_date) as team_latest_game
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     group by team
 ),
 
@@ -41,7 +41,7 @@ team_gp as (
     select distinct
         team,
         game_date
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
 ),
 
 -- CTE using a windows function to make a continuous gp column for every game played by team
@@ -66,7 +66,7 @@ player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ source('nba_source', 'player_attributes') }}
+    from {{ ref('players') }}
 ),
 
 final as (
@@ -84,7 +84,7 @@ final as (
         concat(
             '<span style=''font-size:16px; color:royalblue;''>', injury_data.player, '</span> <span style=''font-size:12px; color:grey;''>', player_stats.team, '</span>'
         ) as player,
-        concat(status, ' - ', injury) as status,
+        concat(injury_status, ' - ', injury) as injury_status,
         team_latest_game - player_latest_game as days_missed,
         team_games_played - continuous_games_played as continuous_games_missed
     from injury_data

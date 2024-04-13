@@ -3,7 +3,7 @@ with my_cte as (
         game_date as game_date,
         away_team_acronym as away_team,
         home_team_acronym as home_team
-    from {{ ref('prep_schedule_table') }}
+    from {{ ref('schedule_data') }}
     where season_type = 'Regular Season'
 ),
 
@@ -77,7 +77,7 @@ win_loss as (
         date as game_date,
         location,
         outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
 ),
 
 combo as (

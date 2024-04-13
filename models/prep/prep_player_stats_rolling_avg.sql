@@ -11,8 +11,10 @@ with my_cte as (
         game_ts_percent::numeric,
         game_mvp_score::numeric,
         plus_minus::numeric
-    from {{ ref('prep_boxscores_mvp_calc') }}
-    order by player, game_date
+    from {{ ref('boxscores') }}
+    order by
+        player,
+        game_date
 ),
 
 -- this will pull up to the last -10- games, not 9.
@@ -42,7 +44,7 @@ player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ source('nba_source', 'player_attributes') }}
+    from {{ ref('players') }}
 ),
 
 final as (

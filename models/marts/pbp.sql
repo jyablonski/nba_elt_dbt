@@ -2,7 +2,7 @@
 
 with recent_date as (
     select max(game_date) as game_date
-    from {{ ref('prep_pbp_table') }}
+    from {{ ref('pbp_data') }}
 ),
 
 final as (
@@ -39,9 +39,7 @@ final as (
             when (scoring_team != leading_team) and (leading_team != 'TIE') then 'Trailing'
             else 'TIE'
         end as leading_team_text
-
-
-    from {{ ref('prep_pbp_table') }}
+    from {{ ref('pbp_data') }}
         inner join recent_date using (game_date)
     order by game_description asc, time_remaining_final desc
 )

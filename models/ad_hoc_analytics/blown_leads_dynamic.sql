@@ -6,7 +6,6 @@ with home_teams as (
     select distinct
         game_date,
         season_type,
-        game_id,
         home_team as opp,
         home_team_full as opp_full,
         away_team as team,
@@ -20,7 +19,7 @@ with home_teams as (
             when winning_team = home_team then 'Home'
             else 'Road'
         end as winning_team_loc
-    from {{ ref('prep_pbp_table') }}
+    from {{ ref('pbp_data') }}
     order by game_date
 ),
 
@@ -28,7 +27,6 @@ road_teams as (
     select distinct
         game_date,
         season_type,
-        game_id,
         away_team as opp,
         away_team_full as opp_full,
         home_team as team,
@@ -42,7 +40,7 @@ road_teams as (
             when winning_team = home_team then 'Home'
             else 'Road'
         end as winning_team_loc
-    from {{ ref('prep_pbp_table') }}
+    from {{ ref('pbp_data') }}
     order by game_date
 ),
 
@@ -52,7 +50,8 @@ combo as (
     union
     select *
     from home_teams
-    order by game_date, game_id
+    order by 
+        game_date
 ),
 
 full_table as (

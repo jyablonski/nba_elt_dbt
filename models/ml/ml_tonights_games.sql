@@ -18,8 +18,8 @@ outcomes as (
         a.team as home_team,
         b.date as game_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }} as b
-        left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
+    from {{ ref('boxscores') }} as b
+        left join {{ ref('teams') }} as a on b.team = a.team_acronym
     where b.location = 'H'
 ),
 
@@ -72,7 +72,7 @@ team_top_players as (
         p.team_acronym as team_acronym,
         p.team as team,
         t.rank as player_rank
-    from {{ ref('staging_aws_injury_data_table') }} as p
+    from {{ ref('injury_data') }} as p
         left join {{ ref('staging_seed_top_players') }} as t using (player)
     where t.rank is not null and p.status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
     -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.

@@ -8,21 +8,30 @@ with my_cte as (
             when moneyline > 0 then 'Underdog'
             else 'fuqqq'
         end as g_type
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('odds_data') }}
 ),
 
 game_outcomes as (
     select distinct
         team,
-        date,
+        game_date,
         outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
 ),
 
 final as (
-    select *
+    select
+        my_cte.team,
+        my_cte.team_acronym,
+        my_cte.g_type,
+        my_cte.moneyline,
+        my_cte.spread,
+        game_outcomes.game_date,
+        game_outcomes.outcome
     from my_cte
-        left join game_outcomes using (team, date)
+        left join game_outcomes
+            on my_cte.team = game_outcomes.team
+            and my_cte.date = game_outcomes.game_date
     where outcome is not null
 ),
 
@@ -33,7 +42,9 @@ underdog_win_aggs as (
         count(*) as underdog_wins
     from final
     where outcome = 'W' and g_type = 'Underdog'
-    group by 1, 2
+    group by
+        outcome,
+        g_type
 ),
 
 underdog_losses_aggs as (
@@ -43,7 +54,9 @@ underdog_losses_aggs as (
         count(*) as underdog_losses
     from final
     where outcome = 'L' and g_type = 'Underdog'
-    group by 1, 2
+    group by
+        outcome,
+        g_type
 ),
 
 favorite_wins_aggs as (
@@ -53,7 +66,9 @@ favorite_wins_aggs as (
         count(*) as favored_wins
     from final
     where outcome = 'W' and g_type = 'Favored'
-    group by 1, 2
+    group by
+        outcome,
+        g_type
 ),
 
 favorite_losses_aggs as (
@@ -63,7 +78,9 @@ favorite_losses_aggs as (
         count(*) as favored_losses
     from final
     where outcome = 'L' and g_type = 'Favored'
-    group by 1, 2
+    group by
+        outcome,
+        g_type
 ),
 
 
@@ -71,7 +88,7 @@ final_two as (
     select
         final.team,
         final.team_acronym,
-        final.date,
+        final.game_date,
         final.outcome,
         final.g_type,
         final.moneyline,

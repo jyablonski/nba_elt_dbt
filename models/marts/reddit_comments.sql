@@ -10,7 +10,7 @@ with my_cte as (
         neu,
         neg,
         scrape_date
-    from {{ ref('prep_reddit_comments') }}
+    from {{ ref('reddit_comment_data') }}
 ),
 
 max_date as (

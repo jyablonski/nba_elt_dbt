@@ -51,6 +51,21 @@ sources:
           - name: team
             tests:
               - not_null
+      - name: team_top_players
+        columns:
+          - name: player
+            tests:
+              - not_null
+      - name: aws_player_attributes_source
+        columns:
+          - name: player
+            tests:
+              - not_null
+      - name: aws_team_attributes_source
+        columns:
+          - name: team
+            tests:
+              - not_null
       - name: aws_reddit_data_source
         description: Raw reddit data 
         loaded_at_field: scrape_time

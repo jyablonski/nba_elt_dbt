@@ -20,8 +20,8 @@ outcomes as (
         a.team as home_team,
         b.date as game_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('staging_aws_boxscores_incremental_table') }} as b
-        left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
+    from {{ ref('boxscores') }} as b
+        left join {{ ref('teams') }} as a on b.team = a.team_acronym
     where b.location = 'H'
 ),
 

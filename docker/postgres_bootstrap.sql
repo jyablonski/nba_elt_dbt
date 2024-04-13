@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS aws_boxscores_source (
 	"type" text NULL,
 	season int8 NULL,
 	scrape_date date NULL,
-    created timestamp default current_timestamp,
-    modified timestamp default current_timestamp
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
@@ -941,8 +941,8 @@ CREATE TABLE IF NOT EXISTS aws_injury_data_source (
 	description text NULL,
 	"date" text NULL,
 	scrape_date date NULL,
-	created timestamp default current_timestamp,
-    modified timestamp default current_timestamp
+	created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
@@ -1048,7 +1048,9 @@ CREATE TABLE IF NOT EXISTS aws_odds_source (
 	total text NULL,
 	moneyline float8 NULL,
 	"date" date NULL,
-	datetime1 timestamp NULL
+	datetime1 timestamp NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
@@ -1119,7 +1121,9 @@ CREATE TABLE IF NOT EXISTS aws_opp_stats_source (
 	threep_percent_opp float8 NULL,
 	threep_made_opp float8 NULL,
 	ppg_opp float8 NULL,
-	scrape_date date NULL
+	scrape_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
@@ -1171,7 +1175,9 @@ CREATE TABLE IF NOT EXISTS aws_pbp_data_source (
 	scorehome float8 NULL,
 	marginscore float8 NULL,
 	"date" date NULL,
-	scrape_date date NULL
+	scrape_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
@@ -3374,7 +3380,9 @@ CREATE TABLE IF NOT EXISTS aws_player_attributes_source (
 	player text NULL,
 	is_rookie bool NULL,
 	yrs_exp int8 NULL,
-	headshot text NULL
+	headshot text NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
@@ -4037,7 +4045,9 @@ DROP TABLE IF EXISTS aws_preseason_odds_source;
 CREATE TABLE IF NOT EXISTS aws_preseason_odds_source (
 	team text NULL,
 	odds int8 NULL,
-	predicted float8 NULL
+	predicted float8 NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
@@ -4092,7 +4102,9 @@ CREATE TABLE IF NOT EXISTS aws_reddit_comment_data_source (
 	pos float8 NULL,
 	sentiment int8 NULL,
 	row_col float8 NULL,
-	md5_pk text NULL
+	md5_pk text NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
@@ -4740,7 +4752,9 @@ CREATE TABLE IF NOT EXISTS aws_reddit_data_source (
 	num_comments int8 NULL,
 	body text NULL,
 	scrape_date date NULL,
-	scrape_time timestamp NULL
+	scrape_time timestamp NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_reddit_data_source (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
@@ -4953,7 +4967,9 @@ CREATE TABLE IF NOT EXISTS aws_schedule_source (
 	away_team text NULL,
 	home_team text NULL,
 	"date" text NULL,
-	proper_date date NULL
+	proper_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_schedule_source (start_time,away_team,home_team,"date",proper_date) VALUES
@@ -5002,7 +5018,9 @@ CREATE TABLE aws_shooting_stats_source (
 	heaves_att text NULL,
 	heaves_makes text NULL,
 	scrape_date date NULL,
-	scrape_ts timestamp NULL
+	scrape_ts timestamp NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
@@ -5509,7 +5527,9 @@ CREATE TABLE IF NOT EXISTS aws_stats_source (
 	tov text NULL,
 	pf text NULL,
 	pts float8 NULL,
-	scrape_date date NULL
+	scrape_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_stats_source (player,pos,age,tm,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
@@ -6290,7 +6310,9 @@ CREATE TABLE IF NOT EXISTS aws_team_attributes_source (
 	third_color text NULL,
 	previous_season_wins int8 NULL,
 	previous_season_rank int8 NULL,
-	team_logo text NULL
+	team_logo text NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
@@ -6332,7 +6354,9 @@ DROP TABLE IF EXISTS aws_transactions_source;
 CREATE TABLE IF NOT EXISTS aws_transactions_source (
 	"date" timestamp NULL,
 	"transaction" text NULL,
-	scrape_date date NULL
+	scrape_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
@@ -6474,7 +6498,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 
 DROP TABLE IF EXISTS aws_twitter_data_source;
 CREATE TABLE IF NOT EXISTS aws_twitter_data_source (
-	created_at text NULL,
+	api_created_at text NULL,
 	"date" text NULL,
 	username text NULL,
 	tweet text NULL,
@@ -6489,14 +6513,16 @@ CREATE TABLE IF NOT EXISTS aws_twitter_data_source (
 	neg float8 NULL,
 	neu float8 NULL,
 	pos float8 NULL,
-	sentiment int8 NULL
+	sentiment int8 NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 
 DROP TABLE IF EXISTS aws_twitter_tweepy_data_source;
 CREATE TABLE IF NOT EXISTS aws_twitter_tweepy_data_source (
 	tweet_id text NULL,
-	created_at text NULL,
+	api_created_at text NULL,
 	username text NULL,
 	user_id float8 NULL,
 	tweet text NULL,
@@ -6510,12 +6536,14 @@ CREATE TABLE IF NOT EXISTS aws_twitter_tweepy_data_source (
 	neg float8 NULL,
 	neu float8 NULL,
 	pos float8 NULL,
-	sentiment int8 NULL
+	sentiment int8 NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 DROP TABLE IF EXISTS aws_twitter_tweets_source;
 CREATE TABLE IF NOT EXISTS aws_twitter_tweets_source (
-	created_at text NULL,
+	api_created_at text NULL,
 	"date" text NULL,
 	username text NULL,
 	tweet text NULL,
@@ -6530,12 +6558,14 @@ CREATE TABLE IF NOT EXISTS aws_twitter_tweets_source (
 	neg float8 NULL,
 	neu float8 NULL,
 	pos float8 NULL,
-	sentiment int8 NULL
+	sentiment int8 NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 
 
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453214952275970','Tue Jun 13 03:00:19 +0000 2023','juuaunn',3226826657,'RT @iampauloandre: Chegou a Hora H da NBA, o momento da grande final! Foram meses incríveis acompanhando, inclusive de perto. E nesse momen…',0.0,163.0,'pt','2023-06-14 12:01:38.590','http://pbs.twimg.com/profile_images/1666566594233880590/UQaC-lLt_normal.jpg','https://twitter.com/twitter/statuses/1668453214952275970',0.0,0.0,1.0,0.0,0),
 	 ('1668453214948139008','Tue Jun 13 03:00:19 +0000 2023','MandR____',1350954468024741890,'RT @BronGotGame: Please Lord let the NBA finals end today https://t.co/sjmLwYKjo4',0.0,74.0,'en','2023-06-14 12:01:38.595','http://pbs.twimg.com/profile_images/1657155122244337666/PtJF2GRN_normal.jpg','https://twitter.com/twitter/statuses/1668453214948139008',0.3182,0.0,0.813,0.187,1),
 	 ('1668453214922981376','Tue Jun 13 03:00:19 +0000 2023','ClippersNFo',1531434093447196670,'Congratulations to Clipper legends, @Reggie_Jackson and @DeAndre for winning the NBA Finals⚔️ https://t.co/SFvweLIC60',13.0,2.0,'en','2023-06-14 12:01:38.599','http://pbs.twimg.com/profile_images/1663780457970900992/InwRnwXY_normal.jpg','https://twitter.com/twitter/statuses/1668453214922981376',0.8074,0.0,0.601,0.399,1),
@@ -6548,7 +6578,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453214545678336','Tue Jun 13 03:00:19 +0000 2023','daveyfelds4',1786849596,'RT @AndrewDBailey: Flopping has to go, NBA. Please, for the love of basketball fans everywhere. Get rid of it.',0.0,23.0,'en','2023-06-14 12:01:38.694','http://pbs.twimg.com/profile_images/1511136680622788615/uwOenEaW_normal.jpg','https://twitter.com/twitter/statuses/1668453214545678336',0.7579,0.0,0.723,0.277,1),
 	 ('1668453213949788160','Tue Jun 13 03:00:19 +0000 2023','miwith360on',1352821943846756350,'@BleacherReport @BR_NBA Mid',0.0,0.0,'und','2023-06-14 12:01:38.698','http://pbs.twimg.com/profile_images/1659413553516797952/NgX5Kyok_normal.jpg','https://twitter.com/twitter/statuses/1668453213949788160',0.0,0.0,1.0,0.0,0),
 	 ('1668453213652271105','Tue Jun 13 03:00:19 +0000 2023','CanWeTalkLakers',1593856379034427390,'FINALLY THE NBA OFF SEASON 😊',0.0,0.0,'en','2023-06-14 12:01:38.702','http://pbs.twimg.com/profile_images/1660859645307543552/RmLUxcVx_normal.jpg','https://twitter.com/twitter/statuses/1668453213652271105',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453213513850880','Tue Jun 13 03:00:19 +0000 2023','PlayaPotna_Myke',578372082,'Denver looked great all Season
 Congrats to them Boys
 
@@ -6574,7 +6604,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:38.881'
 	 ('1668453212037304320','Tue Jun 13 03:00:18 +0000 2023','cdpauli',387366837,'No puede ser otro time out ya solo son 14 segundos y 5 puntos arriba !! #nba #NBAFinals ya se deja ver los #nuggets… https://t.co/ksQ6L0iA2l',2.0,0.0,'es','2023-06-14 12:01:38.885','http://pbs.twimg.com/profile_images/1641655479477649409/WbAG0F6Z_normal.jpg','https://twitter.com/twitter/statuses/1668453212037304320',-0.4184,0.112,0.888,0.0,0),
 	 ('1668453211945201664','Tue Jun 13 03:00:18 +0000 2023','Bobong_Berting',811053883854180350,'Congratulations! #DenverNuggets is the 2022-2023 NBA Champion!',0.0,0.0,'en','2023-06-14 12:01:38.890','http://pbs.twimg.com/profile_images/1161972764984504321/LL8xNcIa_normal.jpg','https://twitter.com/twitter/statuses/1668453211945201664',0.855,0.0,0.374,0.626,1),
 	 ('1668453211932336130','Tue Jun 13 03:00:18 +0000 2023','Matthew___10',1428157782021349380,'The Denver Nuggets have never won an NBA championship.',0.0,0.0,'en','2023-06-14 12:01:38.894','http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png','https://twitter.com/twitter/statuses/1668453211932336130',-0.0253,0.232,0.543,0.225,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453211907280902','Tue Jun 13 03:00:18 +0000 2023','RobbyDonoho',70595671,'Miami ran out of gas but this Denver Nuggets team is phenomenal. One of the best NBA teams I’ve seen in recent memo… https://t.co/8YVkSjj7jN',3.0,0.0,'en','2023-06-14 12:01:38.898','http://pbs.twimg.com/profile_images/1610338346877812738/YplDUCwX_normal.jpg','https://twitter.com/twitter/statuses/1668453211907280902',0.7783,0.0,0.799,0.201,1),
 	 ('1668453211898781696','Tue Jun 13 03:00:18 +0000 2023','AbuziVert',1488723875391279100,'DENVER NUGGETS ARE YOUR NBA CHAMPIONS #NBAFinals https://t.co/LPYg50FGyw',1.0,1.0,'en','2023-06-14 12:01:38.902','http://pbs.twimg.com/profile_images/1666632124290715648/tFjs_Mkc_normal.jpg','https://twitter.com/twitter/statuses/1668453211898781696',0.6289,0.0,0.629,0.371,1),
 	 ('1668453211827470336','Tue Jun 13 03:00:18 +0000 2023','Ddelliponti07',1529246295805906940,'@BleacherReport I SPEAK TO ALL NBA FANS THE PHOENIX SUNS SHOULD BE WINNING A NBA CHAMPIONSHIP RIGHT NOW AND GOAT KD… https://t.co/dY0tVBvWHO',1.0,0.0,'en','2023-06-14 12:01:38.982','http://pbs.twimg.com/profile_images/1657467199940853761/PYajqpLL_normal.jpg','https://twitter.com/twitter/statuses/1668453211827470336',0.8301,0.0,0.699,0.301,1),
@@ -6587,7 +6617,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 
 Now time for the NBA off-season (hype)',0.0,1.0,'en','2023-06-14 12:01:39.083','http://pbs.twimg.com/profile_images/1630030863516725254/GmIaqplq_normal.jpg','https://twitter.com/twitter/statuses/1668453211009679363',-0.6249,0.204,0.796,0.0,0),
 	 ('1668453211005669376','Tue Jun 13 03:00:18 +0000 2023','BR_NBA',36724576,'RT @BleacherReport: Nuggets fans after that foul call... https://t.co/WwlgoHo4AX',0.0,244.0,'en','2023-06-14 12:01:39.087','http://pbs.twimg.com/profile_images/1266053203616989186/ozSULDRt_normal.jpg','https://twitter.com/twitter/statuses/1668453211005669376',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453210942521344','Tue Jun 13 03:00:18 +0000 2023','GFentz',165220486,'NBA Champion DeAndre Jordan',3.0,0.0,'fr','2023-06-14 12:01:39.092','http://pbs.twimg.com/profile_images/442163199816007680/KKrUnEVZ_normal.jpeg','https://twitter.com/twitter/statuses/1668453210942521344',0.5994,0.0,0.435,0.565,1),
 	 ('1668453210854510594','Tue Jun 13 03:00:18 +0000 2023','southSidep__',781304405459030020,'RT @ShannonSharpe: That’s BULLJIVE. @nba that’s AWFUL officiating',0.0,472.0,'en','2023-06-14 12:01:39.096','http://pbs.twimg.com/profile_images/1550970432882450437/kZjfdPxj_normal.jpg','https://twitter.com/twitter/statuses/1668453210854510594',-0.5766,0.348,0.652,0.0,0),
 	 ('1668453210795933697','Tue Jun 13 03:00:18 +0000 2023','huannguyen_',43493333,'The Joker is an NBA champion wow',0.0,0.0,'en','2023-06-14 12:01:39.100','http://pbs.twimg.com/profile_images/1358563057744506882/7g6sr9Vd_normal.jpg','https://twitter.com/twitter/statuses/1668453210795933697',0.8481,0.0,0.303,0.697,1),
@@ -6605,7 +6635,7 @@ undisputed!
 	 ('1668453209621377024','Tue Jun 13 03:00:18 +0000 2023','TLest1993',350483370,'RT @TalkinHawks: Christian Braun is an NBA Champion.
 
 Jayhawks win. Period.',0.0,27.0,'en','2023-06-14 12:01:39.205','http://pbs.twimg.com/profile_images/1644211338896392194/IbVaY5RG_normal.jpg','https://twitter.com/twitter/statuses/1668453209621377024',0.8271,0.0,0.539,0.461,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453209482883072','Tue Jun 13 03:00:18 +0000 2023','patrovsk',1538367005279100930,'O VERDADEIRO MVP FOI CAMPEÃO DA NBA JOKIC CRAQUEEEEEE',1.0,0.0,'pt','2023-06-14 12:01:39.284','http://pbs.twimg.com/profile_images/1666952716558499843/w0dP-a-S_normal.jpg','https://twitter.com/twitter/statuses/1668453209482883072',0.0,0.0,1.0,0.0,0),
 	 ('1668453209361244160','Tue Jun 13 03:00:18 +0000 2023','jshepherd18_',2759036598,'We really about to say the nuggets are nba champions..that’s crazy',0.0,0.0,'en','2023-06-14 12:01:39.288','http://pbs.twimg.com/profile_images/1618670569481768984/rUgr5htw_normal.jpg','https://twitter.com/twitter/statuses/1668453209361244160',-0.34,0.194,0.806,0.0,0),
 	 ('1668453209180979201','Tue Jun 13 03:00:18 +0000 2023','sports_god1',380549829,'Incoming #JOKER #FINALSMVP #NUGGETS Seconds away from 1st Championship! #NBAFinals it was INEVITABLE #HEAT don''t fe… https://t.co/vdpiO1mpXq',1.0,0.0,'en','2023-06-14 12:01:39.293','http://pbs.twimg.com/profile_images/769652111621492736/vhJX9M8H_normal.jpg','https://twitter.com/twitter/statuses/1668453209180979201',0.4926,0.0,0.834,0.166,1),
@@ -6620,7 +6650,7 @@ Parabéns Denver Nuggets, nenhum time mereceu mais esse título.',2.0,0.0,'pt','
 	 ('1668453208304279554','Tue Jun 13 03:00:17 +0000 2023','bennyburnerchip',1664636619222032380,'@redditmavericks NBA Champion Ish Smith!!!',8.0,2.0,'en','2023-06-14 12:01:39.391','http://pbs.twimg.com/profile_images/1664830684995678210/UeGn0cvn_normal.jpg','https://twitter.com/twitter/statuses/1668453208304279554',0.6981,0.0,0.456,0.544,1),
 	 ('1668453208304279553','Tue Jun 13 03:00:17 +0000 2023','beazinhadelima',345497981,'e teremos um campeão inédito da nba',0.0,0.0,'pt','2023-06-14 12:01:39.395','http://pbs.twimg.com/profile_images/1347707274320609283/wHQr-Zts_normal.jpg','https://twitter.com/twitter/statuses/1668453208304279553',0.0,0.0,1.0,0.0,0),
 	 ('1668453208140791814','Tue Jun 13 03:00:17 +0000 2023','Edu_Vader',20656681,'Tremendo el 5 partido!! Los #Nuggets serán campeones de la @NBA',0.0,0.0,'es','2023-06-14 12:01:39.399','http://pbs.twimg.com/profile_images/1634213744107483139/xG5bJMOr_normal.jpg','https://twitter.com/twitter/statuses/1668453208140791814',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453208132399104','Tue Jun 13 03:00:17 +0000 2023','svcigar',1374718313272651780,'Congratulations to @nuggets on WINNING THE NBA FINALS!!! #NBAFinals',3.0,0.0,'en','2023-06-14 12:01:39.404','http://pbs.twimg.com/profile_images/1666151692696420370/RiV639Rj_normal.jpg','https://twitter.com/twitter/statuses/1668453208132399104',0.8723,0.0,0.44,0.56,1),
 	 ('1668453208115625984','Tue Jun 13 03:00:17 +0000 2023','illusionfeeling',1134228974194909180,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
 
@@ -6637,7 +6667,7 @@ De las últi… https://t.co/TjjL8aheBp',18.0,0.0,'es','2023-06-14 12:01:39.487'
 	 ('1668453207079542788','Tue Jun 13 03:00:17 +0000 2023','killshit_bando',214519289,'Definitely the worst NBA finals I remember ever watching. But I’m happy for the nuggets',0.0,0.0,'en','2023-06-14 12:01:39.586','http://pbs.twimg.com/profile_images/1645419016679219200/rsQkwBdV_normal.jpg','https://twitter.com/twitter/statuses/1668453207079542788',0.6542,0.125,0.538,0.337,1),
 	 ('1668453207046250497','Tue Jun 13 03:00:17 +0000 2023','Showtim3Lakers',1612260639132770300,'Thomas Bryant nba champion I’m sick',0.0,0.0,'en','2023-06-14 12:01:39.591','http://pbs.twimg.com/profile_images/1665823221269266433/Rxaafz9k_normal.jpg','https://twitter.com/twitter/statuses/1668453207046250497',0.1531,0.295,0.357,0.348,1),
 	 ('1668453207037603840','Tue Jun 13 03:00:17 +0000 2023','luludw3',2945580832,'Les Denver Nuggets sont Champions NBA, félicitations c’est vraiment mérité !',0.0,0.0,'fr','2023-06-14 12:01:39.595','http://pbs.twimg.com/profile_images/1423271034699100161/tCYLjp2P_normal.jpg','https://twitter.com/twitter/statuses/1668453207037603840',0.5707,0.0,0.709,0.291,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453206983335938','Tue Jun 13 03:00:17 +0000 2023','wilsonjude56',711801060,'@SportsCenter NBA wanted game 6 in Miami so bad lol',2.0,0.0,'en','2023-06-14 12:01:39.600','http://pbs.twimg.com/profile_images/1606557676783079424/xEvDZhsD_normal.jpg','https://twitter.com/twitter/statuses/1668453206983335938',-0.3427,0.308,0.48,0.211,0),
 	 ('1668453206731399169','Tue Jun 13 03:00:17 +0000 2023','RelloST',27698185,'RT @MambaSZN: Jimmy Butler in the NBA Finals  https://t.co/9GDKh0rUaW',0.0,81.0,'en','2023-06-14 12:01:39.604','http://pbs.twimg.com/profile_images/1624480954273214466/GRIDQhP8_normal.jpg','https://twitter.com/twitter/statuses/1668453206731399169',0.0,0.0,1.0,0.0,0),
 	 ('1668453206655901696','Tue Jun 13 03:00:17 +0000 2023','alvc666',1146487320612225020,'nikola jokic es el mejor jugador d la nba actualmente',0.0,0.0,'es','2023-06-14 12:01:39.609','http://pbs.twimg.com/profile_images/1536558159560593408/YYGRaBqf_normal.jpg','https://twitter.com/twitter/statuses/1668453206655901696',0.0,0.0,1.0,0.0,0),
@@ -6650,7 +6680,7 @@ Just peak terrible.  Always.',0.0,6.0,'en','2023-06-14 12:01:39.688','http://pbs
 	 ('1668453205854789634','Tue Jun 13 03:00:17 +0000 2023','NiqueDaSneak23',1354177037695639550,'Looks like that concludes one of the funniest/strangest NBA seasons ever too bad Jimmy couldn’t get his ring but go… https://t.co/kKggONVdOR',2.0,0.0,'en','2023-06-14 12:01:39.704','http://pbs.twimg.com/profile_images/1422384045401444356/GVY8dMh5_normal.jpg','https://twitter.com/twitter/statuses/1668453205854789634',-0.128,0.098,0.826,0.076,0),
 	 ('1668453205833924608','Tue Jun 13 03:00:17 +0000 2023','heyhalima',1665724952488624130,'NIKOLA JOKIC NBA CHAMPION #SOON',1.0,1.0,'pl','2023-06-14 12:01:39.783','http://pbs.twimg.com/profile_images/1665731749429518338/DCQbb1Za_normal.jpg','https://twitter.com/twitter/statuses/1668453205833924608',0.5994,0.0,0.506,0.494,1),
 	 ('1668453205515153411','Tue Jun 13 03:00:17 +0000 2023','LeviticusSports',1465842679011491840,'Man it’s about to be the NFL and NBA offseason. Worst time for sports',1.0,1.0,'en','2023-06-14 12:01:39.788','http://pbs.twimg.com/profile_images/1648164302463852544/woK5hfXq_normal.jpg','https://twitter.com/twitter/statuses/1668453205515153411',-0.6249,0.24,0.76,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453205351571456','Tue Jun 13 03:00:17 +0000 2023','Matthews1526',1221903167010607100,'@NBA Lmaooo yall wanted yo extend it?',0.0,0.0,'en','2023-06-14 12:01:39.792','http://pbs.twimg.com/profile_images/1445775541932421126/k2q3ITVL_normal.jpg','https://twitter.com/twitter/statuses/1668453205351571456',0.1779,0.0,0.779,0.221,1),
 	 ('1668453205238337537','Tue Jun 13 03:00:17 +0000 2023','dwayneohoward',724010869458227200,'@Herring_NBA That was the end right there',0.0,0.0,'en','2023-06-14 12:01:39.796','http://pbs.twimg.com/profile_images/1644215675395756035/gJ9wSBQz_normal.jpg','https://twitter.com/twitter/statuses/1668453205238337537',0.0,0.0,1.0,0.0,0),
 	 ('1668453205141778435','Tue Jun 13 03:00:17 +0000 2023','dyelison21',3152838837,'Jokic é campeão da NBA!!!',0.0,1.0,'pt','2023-06-14 12:01:39.800','http://pbs.twimg.com/profile_images/1634032716969660416/VWbd9pTj_normal.jpg','https://twitter.com/twitter/statuses/1668453205141778435',0.0,0.0,1.0,0.0,0),
@@ -6669,7 +6699,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453204680658945','Tue Jun 13 03:00:17 +0000 2023','bigdondoo',121905529,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:39.924','http://pbs.twimg.com/profile_images/1585661962918146049/TCCKZS6__normal.jpg','https://twitter.com/twitter/statuses/1668453204680658945',0.6486,0.0,0.819,0.181,1),
 	 ('1668453204651024384','Tue Jun 13 03:00:17 +0000 2023','eduardooamancio',892155135568248830,'Mlk, o Bruce Brown vai ser campeão da NBA e o Harden não kkkkkkkkkkkkk',0.0,0.0,'pt','2023-06-14 12:01:39.982','http://pbs.twimg.com/profile_images/1572761390582042627/eHIn60gQ_normal.jpg','https://twitter.com/twitter/statuses/1668453204651024384',0.0,0.0,1.0,0.0,0),
 	 ('1668453204252557312','Tue Jun 13 03:00:16 +0000 2023','SportsByMalik',229933395,'Congratulations to the Denver Nuggets 1st NBA Championship',0.0,0.0,'en','2023-06-14 12:01:39.986','http://pbs.twimg.com/profile_images/1592765469978759169/n6LNXPBO_normal.jpg','https://twitter.com/twitter/statuses/1668453204252557312',0.7783,0.0,0.469,0.531,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453204059717633','Tue Jun 13 03:00:16 +0000 2023','JMJje',945982106,'@RoobetES Necesito eso y nuevo campeón de la nba',0.0,0.0,'es','2023-06-14 12:01:39.999','http://pbs.twimg.com/profile_images/1493964629533413379/PNfj2_qB_normal.jpg','https://twitter.com/twitter/statuses/1668453204059717633',0.0,0.0,1.0,0.0,0),
 	 ('1668453203929694209','Tue Jun 13 03:00:16 +0000 2023','_dandesp',900517794923646980,'🃏🃏🃏 
 
@@ -6690,7 +6720,7 @@ going to retire as a top 20 player in… https://t.co/r2voAxZBYa',7.0,0.0,'en','
 	 ('1668453203099123716','Tue Jun 13 03:00:16 +0000 2023','strategywargamr',1623625740,'Congrats to @nuggets on being World Champions! #NBA',0.0,0.0,'en','2023-06-14 12:01:40.195','http://pbs.twimg.com/profile_images/1333446306782703625/Y8L9FHRX_normal.jpg','https://twitter.com/twitter/statuses/1668453203099123716',0.7959,0.0,0.458,0.542,1),
 	 ('1668453202671419393','Tue Jun 13 03:00:16 +0000 2023','DjLilDallas',73549382,'RT @DiamondstoneT: DENVER NUGGETS ARE THE 2023 NBA CHAMPIONS https://t.co/QceKBX16Ny',0.0,17.0,'en','2023-06-14 12:01:40.626','http://pbs.twimg.com/profile_images/1468852306313728003/-GubdWGB_normal.jpg','https://twitter.com/twitter/statuses/1668453202671419393',0.6289,0.0,0.685,0.315,1),
 	 ('1668453202616827904','Tue Jun 13 03:00:16 +0000 2023','crfdwayne',1708941307,'JOKER O VERDADEIRO MVP É CAMPEÃO DA NBA E PODERÁ VER SEUS CAVALOS NA SÉRVIA AMANHÃ',1.0,0.0,'pt','2023-06-14 12:01:40.643','http://pbs.twimg.com/profile_images/1662661725383016448/QsZS0zKQ_normal.jpg','https://twitter.com/twitter/statuses/1668453202616827904',0.128,0.0,0.889,0.111,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453202365394945','Tue Jun 13 03:00:16 +0000 2023','dslack',821097.0,'RT @john_chou: . @YouTubeTV sucks. how do you go to an emergency broadcast screen during the last minute of the nba finals?!',0.0,1.0,'en','2023-06-14 12:01:40.660','http://pbs.twimg.com/profile_images/26376612/IMG_0617_normal.jpg','https://twitter.com/twitter/statuses/1668453202365394945',-0.6588,0.221,0.779,0.0,0),
 	 ('1668453202079907841','Tue Jun 13 03:00:16 +0000 2023','gabslowp',1600676539099713540,'RT @NBAdabad: VAI ACONTECER
 
@@ -6706,7 +6736,7 @@ o titulo do lakers na bolha eu nem conto',3.0,0.0,'pt','2023-06-14 12:01:40.742'
 	 ('1668453201035554816','Tue Jun 13 03:00:16 +0000 2023','Bloop_1',774790615997394940,'Glad this NBA season is over, it was a hot mess.',3.0,0.0,'en','2023-06-14 12:01:40.835','http://pbs.twimg.com/profile_images/1579325156887068672/Wj_fSv-U_normal.jpg','https://twitter.com/twitter/statuses/1668453201035554816',0.128,0.185,0.593,0.222,1),
 	 ('1668453200884539394','Tue Jun 13 03:00:16 +0000 2023','GuiSilva78963',1667162609697583100,'Denver campeão 🃏 #NBAFinals #nba
 #DenverNuggets',0.0,0.0,'pt','2023-06-14 12:01:40.844','http://pbs.twimg.com/profile_images/1667163077907738631/aNxXBUMw_normal.jpg','https://twitter.com/twitter/statuses/1668453200884539394',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453200628789256','Tue Jun 13 03:00:16 +0000 2023','Kaiquera05',1428198869792350210,'o dia em que jimmy butler deu um título de nba na mão do jokic. 🍿',0.0,0.0,'pt','2023-06-14 12:01:40.880','http://pbs.twimg.com/profile_images/1664692741111009295/yFnQofke_normal.jpg','https://twitter.com/twitter/statuses/1668453200628789256',0.0,0.0,1.0,0.0,0),
 	 ('1668453200435851264','Tue Jun 13 03:00:16 +0000 2023','_Six8thegreat',1610045018,'Nba Champion Thomas Bryant',0.0,0.0,'en','2023-06-14 12:01:40.888','http://pbs.twimg.com/profile_images/1666065712433987584/Xx42oxnE_normal.jpg','https://twitter.com/twitter/statuses/1668453200435851264',0.5994,0.0,0.435,0.565,1),
 	 ('1668453200360251392','Tue Jun 13 03:00:15 +0000 2023','GLOINGEM',1168982897539371010,'Congratulations @nuggets on your first NBA Championship',0.0,0.0,'en','2023-06-14 12:01:40.897','http://pbs.twimg.com/profile_images/1601646064452386818/UnF1FBCR_normal.jpg','https://twitter.com/twitter/statuses/1668453200360251392',0.7783,0.0,0.424,0.576,1),
@@ -6727,7 +6757,7 @@ Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo�
 1+ BPG 
 
 in a Finals series. https://t.co/9QHldfLV…',0.0,196.0,'en','2023-06-14 12:01:41.080','http://pbs.twimg.com/profile_images/1609752135146639371/6W9eSQU0_normal.jpg','https://twitter.com/twitter/statuses/1668453198644822016',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453198405992449','Tue Jun 13 03:00:15 +0000 2023','warrenlain',15117970,'@YouTubeTV glitched out twice during the final two minutes of the NBA Finals. This on top of the Celtics Heat game… https://t.co/PIK6g13tWB',3.0,0.0,'en','2023-06-14 12:01:41.085','http://pbs.twimg.com/profile_images/1179643152929456128/4iFS1A44_normal.jpg','https://twitter.com/twitter/statuses/1668453198405992449',0.2023,0.0,0.921,0.079,1),
 	 ('1668453198263205888','Tue Jun 13 03:00:15 +0000 2023','Doco343',595632165,'Thomas Bryant is an nba champ',0.0,0.0,'en','2023-06-14 12:01:41.089','http://pbs.twimg.com/profile_images/1356399003458482178/M6IPkXSx_normal.jpg','https://twitter.com/twitter/statuses/1668453198263205888',0.4767,0.0,0.617,0.383,1),
 	 ('1668453198112374784','Tue Jun 13 03:00:15 +0000 2023','itsyoungjugg',2319328786,'This was the weirdest NBA season ever man
@@ -6741,7 +6771,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.189','http://pbs.twimg.com/profile_images/1665880423275147265/jxy3kR1J_normal.jpg','https://twitter.com/twitter/statuses/1668453196958670850',0.0,0.0,1.0,0.0,0),
 	 ('1668453196937797632','Tue Jun 13 03:00:15 +0000 2023','MikeyWoodyshrek',959529009477451780,'@inside_ur_mom Celtics should’ve made this Finals man. I’m just happy Aaron Gordon &amp; Jeff Green are about to be NBA Champions.',0.0,0.0,'en','2023-06-14 12:01:41.193','http://pbs.twimg.com/profile_images/1618057941294137344/Sn31cpfI_normal.jpg','https://twitter.com/twitter/statuses/1668453196937797632',0.7964,0.0,0.728,0.272,1),
 	 ('1548038966556823553','Fri Jul 15 20:17:05 +0000 2022','AbzSemtex',1238213044758630400,'@2KIntel Nba live 2.0?',3.0,0.0,'en','2022-07-17 11:02:36.061','http://pbs.twimg.com/profile_images/1545885767272222720/Zj5deA3z_normal.jpg','https://twitter.com/twitter/statuses/1548038966556823553',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453196933595136','Tue Jun 13 03:00:15 +0000 2023','Aidan_Clemenson',925543191503241220,'The Nuggets are the BEST NBA team and your 2023 Champion!',0.0,0.0,'en','2023-06-14 12:01:41.198','http://pbs.twimg.com/profile_images/1650589087097815040/0weyDb85_normal.jpg','https://twitter.com/twitter/statuses/1668453196933595136',0.8786,0.0,0.497,0.503,1),
 	 ('1668453196925206533','Tue Jun 13 03:00:15 +0000 2023','lzo1989',1002383668608937980,'Gringo comemorando campeonato mt bosta
 
@@ -6758,7 +6788,7 @@ Po seu time ganhando o PRIMEIRO título na NBA e eles assim "hooray!!!!" 🥳�
 
 ¿Podrán aguantar la diferencia?',0.0,1.0,'es','2023-06-14 12:01:41.384','http://pbs.twimg.com/profile_images/796361368714825728/CBJcIhOy_normal.jpg','https://twitter.com/twitter/statuses/1668453195700486147',0.0,0.0,1.0,0.0,0),
 	 ('1668453195650310144','Tue Jun 13 03:00:14 +0000 2023','J_Camacho00',2936719249,'The Denver Nuggets are your 2022-2023 NBA Champions with Nikola Jokic as your Finals MVP',0.0,0.0,'en','2023-06-14 12:01:41.388','http://pbs.twimg.com/profile_images/1627199141205135361/DgoGU1rv_normal.jpg','https://twitter.com/twitter/statuses/1668453195650310144',0.5267,0.0,0.805,0.195,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453195624902657','Tue Jun 13 03:00:14 +0000 2023','ElWormy',1452396872216289280,'RT @MambaSZN: Jimmy Butler in the NBA Finals  https://t.co/9GDKh0rUaW',0.0,81.0,'en','2023-06-14 12:01:41.392','http://pbs.twimg.com/profile_images/1667327550597505024/5pjn7JOP_normal.jpg','https://twitter.com/twitter/statuses/1668453195624902657',0.0,0.0,1.0,0.0,0),
 	 ('1668453195381628930','Tue Jun 13 03:00:14 +0000 2023','basedadxm',2815464541,'nba champ zeke nnaji',0.0,0.0,'ht','2023-06-14 12:01:41.396','http://pbs.twimg.com/profile_images/1453840817974837248/Wct2Y6VD_normal.jpg','https://twitter.com/twitter/statuses/1668453195381628930',0.4767,0.0,0.492,0.508,1),
 	 ('1668453195343884289','Tue Jun 13 03:00:14 +0000 2023','amruthsaji',157090601,'RT @mevvybear: There has been absolutely no hype for this NBA Finals literally nobody knows it’s even on right now',0.0,454.0,'en','2023-06-14 12:01:41.400','http://pbs.twimg.com/profile_images/1221647703018549248/LfpihLAx_normal.jpg','https://twitter.com/twitter/statuses/1668453195343884289',-0.3597,0.116,0.884,0.0,0),
@@ -6771,7 +6801,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.499','http://pbs.twimg.com/profile_images/1660826776644272128/EUN656o9_normal.jpg','https://twitter.com/twitter/statuses/1668453194844741632',0.0,0.0,1.0,0.0,0),
 	 ('1668453194777731075','Tue Jun 13 03:00:14 +0000 2023','mattipaez',173635382,'RT @SiemPReCABJ12: Como no te va a gustar la NBA, sos pelotudo?',0.0,11.0,'es','2023-06-14 12:01:41.502','http://pbs.twimg.com/profile_images/1503250788415541248/lk5UCCw8_normal.jpg','https://twitter.com/twitter/statuses/1668453194777731075',-0.296,0.18,0.82,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453194479935488','Tue Jun 13 03:00:14 +0000 2023','LivingITMoney',37918884,'The year is 2026 and the Mavs have just won the NBA championship',0.0,0.0,'en','2023-06-14 12:01:41.582','http://pbs.twimg.com/profile_images/1660991164990799880/_sUdjuMJ_normal.jpg','https://twitter.com/twitter/statuses/1668453194479935488',0.765,0.0,0.625,0.375,1),
 	 ('1668453194404610048','Tue Jun 13 03:00:14 +0000 2023','JulienEdwards',18365032,'Reggie Jackson and Deandre Jordan are nba champions',0.0,0.0,'en','2023-06-14 12:01:41.588','http://pbs.twimg.com/profile_images/723600177878028288/McP7VJqK_normal.jpg','https://twitter.com/twitter/statuses/1668453194404610048',0.5267,0.0,0.673,0.327,1),
 	 ('1668453194404339712','Tue Jun 13 03:00:14 +0000 2023','FornoNba',1328012813177155580,'É oficial
@@ -6788,7 +6818,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.598','http://pbs.twimg.co
 	 ('1668453193712381954','Tue Jun 13 03:00:14 +0000 2023','KyleDillard20',206955830,'LETS GO DENVER OMG WE’RE GONNA BE NBA CHAMPIONS IM GONNA CRY😫🥹',0.0,0.0,'en','2023-06-14 12:01:41.689','http://pbs.twimg.com/profile_images/1507741009639268355/oUdlAfnv_normal.jpg','https://twitter.com/twitter/statuses/1668453193712381954',0.5267,0.0,0.764,0.236,1),
 	 ('1668453193703931904','Tue Jun 13 03:00:14 +0000 2023','fareziin',1408854580700581890,'parabéns Jokic e seus capangas pelo título da NBA',1.0,0.0,'pt','2023-06-14 12:01:41.693','http://pbs.twimg.com/profile_images/1660072657621057536/POr6Dh8B_normal.jpg','https://twitter.com/twitter/statuses/1668453193703931904',0.0,0.0,1.0,0.0,0),
 	 ('1668453193263505410','Tue Jun 13 03:00:14 +0000 2023','QuakeGW',83424185,'Nuggets stink. NBA Season was ass cheeks.',4.0,0.0,'en','2023-06-14 12:01:41.697','http://pbs.twimg.com/profile_images/1520995357316026368/cB2rDszM_normal.jpg','https://twitter.com/twitter/statuses/1668453193263505410',-0.7351,0.554,0.446,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453193251004418','Tue Jun 13 03:00:14 +0000 2023','David_Terrero_',122245760,'Denver Nuggets es el nuevo campeón de la NBA. 
 28+16 para un señor llamado Nikola Jokic.',0.0,0.0,'es','2023-06-14 12:01:41.701','http://pbs.twimg.com/profile_images/1473737441517490183/VBfhWL9r_normal.jpg','https://twitter.com/twitter/statuses/1668453193251004418',0.0,0.0,1.0,0.0,0),
 	 ('1668453193183797248','Tue Jun 13 03:00:14 +0000 2023','CrossSports_',562366227,'That’s game. Congratulations to the @nuggets on winning the 2022-23 NBA World Championship! #NBAFinals https://t.co/8SldYQYoA7',1.0,0.0,'en','2023-06-14 12:01:41.705','http://pbs.twimg.com/profile_images/1563679928171655168/KnSqBIFi_normal.jpg','https://twitter.com/twitter/statuses/1668453193183797248',0.8883,0.0,0.534,0.466,1),
@@ -6810,7 +6840,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453191963254785','Tue Jun 13 03:00:13 +0000 2023','TheKidClo',369271898,'@ManuCmplx I think the fact that Miami made it this far missing Dipo (their best defender off the bench) and Herro… https://t.co/OR0ljpSIyx',0.0,0.0,'en','2023-06-14 12:01:41.882','http://pbs.twimg.com/profile_images/1416541235788107777/nI0Xsm4s_normal.jpg','https://twitter.com/twitter/statuses/1668453191963254785',0.5267,0.085,0.698,0.217,1),
 	 ('1668453191929741313','Tue Jun 13 03:00:13 +0000 2023','_karlath',1482232372192030720,'Sem comentários pra essa final da nba 😭',0.0,0.0,'pt','2023-06-14 12:01:41.887','http://pbs.twimg.com/profile_images/1633160966778023957/A7tmo06W_normal.jpg','https://twitter.com/twitter/statuses/1668453191929741313',0.0,0.0,1.0,0.0,0),
 	 ('1668453191825104896','Tue Jun 13 03:00:13 +0000 2023','blessedswift',357318897,'Maybe Taylor will sing change in Colorado bc the nuggets just won the NBA finals',7.0,0.0,'en','2023-06-14 12:01:41.891','http://pbs.twimg.com/profile_images/1320568520799703041/y30jrSTZ_normal.jpg','https://twitter.com/twitter/statuses/1668453191825104896',0.5719,0.0,0.791,0.209,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453191774527488','Tue Jun 13 03:00:13 +0000 2023','GleyberGoat25',2611666213,'@GarrettAlapeck i swear kawhi not a real human he the first nba player to ever run on AAA batteries bros system just be malfunctioning',0.0,0.0,'en','2023-06-14 12:01:41.894','http://pbs.twimg.com/profile_images/1583969202054074370/HOzRaj9y_normal.jpg','https://twitter.com/twitter/statuses/1668453191774527488',-0.0516,0.054,0.946,0.0,0),
 	 ('1668453191455760384','Tue Jun 13 03:00:13 +0000 2023','SergioLeon01',75728483,'Bro que partidazo! Denver Justo ganador, el mejor equipo de la NBA y de estos playoffs.',0.0,0.0,'es','2023-06-14 12:01:41.898','http://pbs.twimg.com/profile_images/1626270474232647682/K35hAInh_normal.jpg','https://twitter.com/twitter/statuses/1668453191455760384',0.0,0.0,1.0,0.0,0),
 	 ('1668453191380344833','Tue Jun 13 03:00:13 +0000 2023','Forevertelly',1638757454535340030,'Jimmy butler lost all respect Boston series but now he’s really dead to the nba world🚮',0.0,0.0,'en','2023-06-14 12:01:41.902','http://pbs.twimg.com/profile_images/1662245824581992448/KFrZy6fH_normal.jpg','https://twitter.com/twitter/statuses/1668453191380344833',-0.7899,0.348,0.563,0.089,0),
@@ -6823,7 +6853,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:41.997','http://pbs.twimg.com/profile_images/1461180821855952896/u68IGxI2_normal.jpg','https://twitter.com/twitter/statuses/1668453190839283713',0.0,0.0,1.0,0.0,0),
 	 ('1668453190474276864','Tue Jun 13 03:00:13 +0000 2023','DrP3pper215',943491922345254910,'2023 NBA Finals MVP. https://t.co/cG7cv8VxEH',0.0,0.0,'en','2023-06-14 12:01:42.001','http://pbs.twimg.com/profile_images/1648195789364113409/poUAfUOx_normal.jpg','https://twitter.com/twitter/statuses/1668453190474276864',0.0,0.0,1.0,0.0,0),
 	 ('1668453189954174977','Tue Jun 13 03:00:13 +0000 2023','mathfelice7',63359720,'Miami não era nem pra estar aí. Finalzinha mais pau mole dos últimos anos. Coincidentemente, as piores dos últimos… https://t.co/QhNhsfGdfA',0.0,0.0,'pt','2023-06-14 12:01:42.080','http://pbs.twimg.com/profile_images/1584678370935279616/dk1lAcwe_normal.jpg','https://twitter.com/twitter/statuses/1668453189954174977',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453189820227584','Tue Jun 13 03:00:13 +0000 2023','vdaphotos',1489833125618524160,'@ShannonSharpe @NBA the real bulljive is you not coming back on Undisputed UNC. gonna miss you!',1.0,0.0,'en','2023-06-14 12:01:42.099','http://pbs.twimg.com/profile_images/1594377426422726657/UQoi0fgc_normal.jpg','https://twitter.com/twitter/statuses/1668453189820227584',-0.2244,0.112,0.888,0.0,0),
 	 ('1668453189606309888','Tue Jun 13 03:00:13 +0000 2023','_uzicar__',1354300376313335810,'AARON GORDON YOU ARE AN NBA CHAMPION',4.0,0.0,'en','2023-06-14 12:01:42.126','http://pbs.twimg.com/profile_images/1657953246873518082/1FFYV9qF_normal.jpg','https://twitter.com/twitter/statuses/1668453189606309888',0.5994,0.0,0.606,0.394,1),
 	 ('1668453189169864709','Tue Jun 13 03:00:13 +0000 2023','hsb_me',46226224,'AND THAT’S A WRAP #NBA #FAMBAM 🏀👟🏀',0.0,0.0,'en','2023-06-14 12:01:42.142','http://pbs.twimg.com/profile_images/642474405503741952/tAiw8aI__normal.jpg','https://twitter.com/twitter/statuses/1668453189169864709',0.0,0.0,1.0,0.0,0),
@@ -6842,7 +6872,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:42.230','http://pbs.twimg.co
 	 ('1668453187949297666','Tue Jun 13 03:00:13 +0000 2023','jjuninxl',1299154322404651010,'RT @NBAdabad: VAI ACONTECER
 
 DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:42.287','http://pbs.twimg.com/profile_images/1455176394007318531/oq8kqiT4_normal.jpg','https://twitter.com/twitter/statuses/1668453187949297666',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453187597074434','Tue Jun 13 03:00:12 +0000 2023','La_Dbs',592311809,'RT @neotheone19: si no están viendo las NBA Finals, que están haciendo??!! Partidazo.',0.0,1.0,'es','2023-06-14 12:01:42.298','http://pbs.twimg.com/profile_images/1607451012138242050/WKBasYo0_normal.jpg','https://twitter.com/twitter/statuses/1668453187597074434',-0.4843,0.208,0.792,0.0,0),
 	 ('1668453187097952256','Tue Jun 13 03:00:12 +0000 2023','_Rhine__',1090608088732913660,'@ilovejadenhardy @NBA Bro refs gave Jimmy 3 free points torwards the end',0.0,0.0,'en','2023-06-14 12:01:42.302','http://pbs.twimg.com/profile_images/1601976029534380032/39T7je0i_normal.jpg','https://twitter.com/twitter/statuses/1668453187097952256',0.5106,0.0,0.752,0.248,1),
 	 ('1668453187043446784','Tue Jun 13 03:00:12 +0000 2023','JE_Morais01',2888369135,'NBA é cruel demais amigo... o que o Jimmy Butler fez nesse final é criminoso, Nuggets campeão merecido p caralho.',0.0,0.0,'pt','2023-06-14 12:01:42.381','http://pbs.twimg.com/profile_images/1668226560103444483/ZpuBH_6x_normal.jpg','https://twitter.com/twitter/statuses/1668453187043446784',-0.5859,0.213,0.787,0.0,0),
@@ -6856,7 +6886,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 
 NBA Champion 
 NBA Finals MVP',0.0,0.0,'pl','2023-06-14 12:01:42.811','http://pbs.twimg.com/profile_images/1608902100423168001/md9i6RaM_normal.jpg','https://twitter.com/twitter/statuses/1668453186569658369',0.5994,0.0,0.606,0.394,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453186200383490','Tue Jun 13 03:00:12 +0000 2023','miIuinthesky',741069542647058430,'y pensar que si no lo hubiesen cedido a campazzo hoy tendríamos a un argentino campeón de la nba https://t.co/eiBaVjHbqJ',5.0,0.0,'es','2023-06-14 12:01:42.885','http://pbs.twimg.com/profile_images/1641459089896009735/iY47ecmQ_normal.jpg','https://twitter.com/twitter/statuses/1668453186200383490',-0.296,0.121,0.879,0.0,0),
 	 ('1668453185869037568','Tue Jun 13 03:00:12 +0000 2023','Ernzrdz6',1399836998773395460,'RT @RealSkipBayless: CONGRATS TO THE DENVER NUGGETS, NBA CHAMPS FOR THE FIRST TIME EVER.',0.0,287.0,'en','2023-06-14 12:01:42.895','http://pbs.twimg.com/profile_images/1658640348422307840/Q1AJyEUk_normal.jpg','https://twitter.com/twitter/statuses/1668453185869037568',0.8256,0.0,0.61,0.39,1),
 	 ('1668453185831174144','Tue Jun 13 03:00:12 +0000 2023','EmersonCKlein1',1363293056062078980,'Denver muito perto do título.
@@ -6870,7 +6900,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:43.013','http://pbs.twimg.com/profile_images/1603582156424495104/GsXVVqe1_normal.jpg','https://twitter.com/twitter/statuses/1668453184396730368',0.0,0.0,1.0,0.0,0),
 	 ('1668453184384409600','Tue Jun 13 03:00:12 +0000 2023','bingyuicejade',721944700685393920,'提前庆祝！ https://t.co/1toa7XP9j6',27.0,0.0,'ja','2023-06-14 12:01:43.017','http://pbs.twimg.com/profile_images/1597197616869126144/S7sC9dQ0_normal.jpg','https://twitter.com/twitter/statuses/1668453184384409600',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453184208273409','Tue Jun 13 03:00:12 +0000 2023','MRDK75145185',1599342942136713220,'RT @NBA: Tyler Herro is ACTIVE for Game 5 👀
 
 Miami looks to extend the #NBAFinals presented by @YouTubeTV at 8:30pm/et on ABC!
@@ -6893,7 +6923,7 @@ Learn Why: https://t.co/Sn1CTXzWR2',0.0,19.0,'en','2023-06-14 12:01:43.101','htt
 	 ('1668453183486558209','Tue Jun 13 03:00:11 +0000 2023','federalia',1291809407421095940,'DeAndre Jordan, YOU are an NBA Champion 🥹🥹🥹',1.0,0.0,'en','2023-06-14 12:01:43.211','http://pbs.twimg.com/profile_images/1583783999067103232/Ges8PNBV_normal.jpg','https://twitter.com/twitter/statuses/1668453183486558209',0.5994,0.0,0.642,0.358,1),
 	 ('1668453183348174850','Tue Jun 13 03:00:11 +0000 2023','CurryfromSP',1385178431646797820,'RT @_warriorsguy: Últimos segundos como atual campeão da NBA 😭😭😭😭',0.0,1.0,'pt','2023-06-14 12:01:43.283','http://pbs.twimg.com/profile_images/1630025635446784000/6pfb8tGp_normal.jpg','https://twitter.com/twitter/statuses/1668453183348174850',0.0,0.0,1.0,0.0,0),
 	 ('1668453183050461186','Tue Jun 13 03:00:11 +0000 2023','Anatuesday',278367758,'RT @R_AndradeFranco: Mountain Time Zone, the forgotten ones, about to win an NBA title.',0.0,4.0,'en','2023-06-14 12:01:43.291','http://pbs.twimg.com/profile_images/1662862453502275586/luKQEU4r_normal.jpg','https://twitter.com/twitter/statuses/1668453183050461186',0.4404,0.107,0.678,0.215,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453182865907714','Tue Jun 13 03:00:11 +0000 2023','DallasC30264511',1635394349113516030,'@NBA Jimmy Butler https://t.co/d01HJdq3X3',5.0,0.0,'en','2023-06-14 12:01:43.306','http://pbs.twimg.com/profile_images/1663265244544679940/Avrg8ij2_normal.jpg','https://twitter.com/twitter/statuses/1668453182865907714',0.0,0.0,1.0,0.0,0),
 	 ('1668453182828347394','Tue Jun 13 03:00:11 +0000 2023','NikeshaBrown2',1048784760389087230,'@NBA get your referees?? Nothing! This was just ridiculous… you can’t make me crazy.🤪 I SAW! WHAT I SAW!👀 https://t.co/vZpn0WUO5W',0.0,0.0,'en','2023-06-14 12:01:43.323','http://pbs.twimg.com/profile_images/1607871537738309633/L7cXoeVm_normal.jpg','https://twitter.com/twitter/statuses/1668453182828347394',0.0,0.0,1.0,0.0,0),
 	 ('1668453182786228224','Tue Jun 13 03:00:11 +0000 2023','nick_rothschild',36561584,'For anyone wondering, this is where local media gets to watch the Nuggets win their first NBA championship #Denver7 https://t.co/CEaGKDMWLl',15.0,2.0,'en','2023-06-14 12:01:43.380','http://pbs.twimg.com/profile_images/1394709847875092481/cZIwduon_normal.jpg','https://twitter.com/twitter/statuses/1668453182786228224',0.7717,0.0,0.729,0.271,1),
@@ -6910,7 +6940,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453182274666496','Tue Jun 13 03:00:11 +0000 2023','DustinT__NBA',1576511575044694020,'Nuggets deserved this one. Have to give them their flowers. Best team in the league with the best player in the league.',2.0,0.0,'en','2023-06-14 12:01:43.481','http://pbs.twimg.com/profile_images/1650224475294818304/Ft2BjXPu_normal.jpg','https://twitter.com/twitter/statuses/1668453182274666496',0.8555,0.0,0.704,0.296,1),
 	 ('1668453182077546496','Tue Jun 13 03:00:11 +0000 2023','alquimistaxy',880882633,'@NBA Nuggets champs, despite the refs',0.0,0.0,'en','2023-06-14 12:01:43.491','http://pbs.twimg.com/profile_images/1570608170434797570/5tWrdExD_normal.png','https://twitter.com/twitter/statuses/1668453182077546496',0.4215,0.0,0.641,0.359,1),
 	 ('1668453181880147968','Tue Jun 13 03:00:11 +0000 2023','RZx1797',1553125189646524420,'O DENVER NUGGETS E CAMPEÃO DA NBA,MERECIDO DMS',0.0,0.0,'pt','2023-06-14 12:01:43.506','http://pbs.twimg.com/profile_images/1665903818930900992/AZywG2sc_normal.jpg','https://twitter.com/twitter/statuses/1668453181880147968',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453181792165888','Tue Jun 13 03:00:11 +0000 2023','NYRUBE',232022099,'Jimmy Butler and the Denver Nuggets are the new NBA champions! 🥴💀🗑️',1.0,0.0,'en','2023-06-14 12:01:43.518','http://pbs.twimg.com/profile_images/485983333197680641/rPCpfuC0_normal.jpeg','https://twitter.com/twitter/statuses/1668453181792165888',0.5707,0.0,0.749,0.251,1),
 	 ('1668453181716660225','Tue Jun 13 03:00:11 +0000 2023','NBA_Reddit',1626965413,'That’s game.',32.0,1.0,'en','2023-06-14 12:01:43.581','http://pbs.twimg.com/profile_images/912830725551882240/FYhA45Sf_normal.jpg','https://twitter.com/twitter/statuses/1668453181716660225',0.0,0.0,1.0,0.0,0),
 	 ('1668453181603344387','Tue Jun 13 03:00:11 +0000 2023','cmattdowns',1246615231,'@NBA The nuggets are overrated.',1.0,0.0,'en','2023-06-14 12:01:43.592','http://pbs.twimg.com/profile_images/1532794413147119616/7Mdr0TBD_normal.jpg','https://twitter.com/twitter/statuses/1668453181603344387',0.0,0.0,1.0,0.0,0),
@@ -6923,7 +6953,7 @@ What a weird ass season.',0.0,6.0,'en','2023-06-14 12:01:43.604','http://pbs.twi
 	 ('1668453181054160900','Tue Jun 13 03:00:11 +0000 2023','520Laker',1643752116715139070,'RT @kimandone: Alright so what’s happening with Ja @nba?',0.0,3.0,'en','2023-06-14 12:01:43.682','http://pbs.twimg.com/profile_images/1647396556591730695/roEWwrvE_normal.jpg','https://twitter.com/twitter/statuses/1668453181054160900',0.25,0.0,0.8,0.2,1),
 	 ('1668453180756180993','Tue Jun 13 03:00:11 +0000 2023','MattLanglais1',2783224654,'RT @Celtics_Junkies: Jimmy Butler deserve all the same slander that Jayson Tatum got last season from the NBA Finals … if not more.',0.0,494.0,'en','2023-06-14 12:01:43.694','http://pbs.twimg.com/profile_images/1426259789156343809/F_95fuOe_normal.jpg','https://twitter.com/twitter/statuses/1668453180756180993',0.0,0.0,1.0,0.0,0),
 	 ('1668453180756172803','Tue Jun 13 03:00:11 +0000 2023','AKidNamedQuee',170558958,'RT @RealSkipBayless: I love and honor the effort on both sides, but this has to be the worst NBA Finals game EVER PLAYED.',0.0,965.0,'en','2023-06-14 12:01:43.705','http://pbs.twimg.com/profile_images/1598868917119844352/k-vCTIg8_normal.jpg','https://twitter.com/twitter/statuses/1668453180756172803',0.307,0.174,0.553,0.273,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453180735213570','Tue Jun 13 03:00:11 +0000 2023','StrictlyMvelo',1301377579434283010,'As I predicted during the regular season…DENVER NUGGETS are the NBA CHAMPIONS 🤝🏿🤝🏿👑👑☺️☺️🐐🐐',0.0,0.0,'en','2023-06-14 12:01:43.715','http://pbs.twimg.com/profile_images/1547678025465991173/IP5A6y9V_normal.jpg','https://twitter.com/twitter/statuses/1668453180735213570',0.6289,0.0,0.727,0.273,1),
 	 ('1668453180621963265','Tue Jun 13 03:00:11 +0000 2023','billcookseyddt',1626310333609410560,'Jimmy Butler just melted in the spot light.  Damn. I though Playoff Jimmy had it. #HEATCulture  #heat #Nuggets  #NuggetsNation  #nba',0.0,0.0,'en','2023-06-14 12:01:43.780','http://pbs.twimg.com/profile_images/1626310567903260674/FrgnrWM3_normal.jpg','https://twitter.com/twitter/statuses/1668453180621963265',-0.4019,0.13,0.87,0.0,0),
 	 ('1668453180588404741','Tue Jun 13 03:00:11 +0000 2023','King_Devbear',456069081,'There is no worse feeling than the end of the NBA season.  No sports until football in the fall',3.0,0.0,'en','2023-06-14 12:01:43.790','http://pbs.twimg.com/profile_images/1086321143823380480/iziCq5d0_normal.jpg','https://twitter.com/twitter/statuses/1668453180588404741',-0.7184,0.313,0.625,0.062,0),
@@ -6940,7 +6970,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo…',0.0,4.0,'es','2023-06-14 12:01:43.904','http://pbs.twimg.com/profile_images/1557855475915431936/L1VxpZtg_normal.jpg','https://twitter.com/twitter/statuses/1668453179355197443',0.0,0.0,1.0,0.0,0),
 	 ('1668453179275485185','Tue Jun 13 03:00:10 +0000 2023','KevalGobin',601371419,'Congrats to Jokic, Murray &amp; the @nuggets  well deserved NBA champions 2023 🏆',0.0,0.0,'en','2023-06-14 12:01:43.933','http://pbs.twimg.com/profile_images/1317731570434904064/-zUcF71C_normal.jpg','https://twitter.com/twitter/statuses/1668453179275485185',0.836,0.0,0.503,0.497,1),
 	 ('1668453179149656065','Tue Jun 13 03:00:10 +0000 2023','Tony_Kudo',1540185708874326020,'Denver won the stanley cup and nba finals back to back years is wild lmao',1.0,0.0,'en','2023-06-14 12:01:43.955','http://pbs.twimg.com/profile_images/1663213583679868928/zeMF-5KF_normal.jpg','https://twitter.com/twitter/statuses/1668453179149656065',0.8225,0.0,0.631,0.369,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453179019907072','Tue Jun 13 03:00:10 +0000 2023','jrichardgoodman',758110205674610690,'Denver plus 12 on the glass 
 Defense rebounding wins nba chips 👊',59.0,12.0,'en','2023-06-14 12:01:43.982','http://pbs.twimg.com/profile_images/1536406995305046017/1Llpbm5T_normal.jpg','https://twitter.com/twitter/statuses/1668453179019907072',0.6369,0.0,0.634,0.366,1),
 	 ('1668453178994487297','Tue Jun 13 03:00:10 +0000 2023','meunomeehzaza',1554591084189196290,'tao comemorando nba na minha rua',2.0,0.0,'pt','2023-06-14 12:01:43.992','http://pbs.twimg.com/profile_images/1554591560175583233/6iRmHbiZ_normal.jpg','https://twitter.com/twitter/statuses/1668453178994487297',0.0,0.0,1.0,0.0,0),
@@ -6956,7 +6986,7 @@ Nikola Jokic, Jama…',0.0,22.0,'en','2023-06-14 12:01:44.090','http://pbs.twimg
 	 ('1668453177509793792','Tue Jun 13 03:00:10 +0000 2023','Murilindo__',1661915364484165630,'E O CAMPEAO DA NBA É UM ROMANTICOO🥰🥰🃏',0.0,0.0,'pt','2023-06-14 12:01:44.094','http://pbs.twimg.com/profile_images/1662132235082907653/W7wykK69_normal.jpg','https://twitter.com/twitter/statuses/1668453177509793792',0.0,0.0,1.0,0.0,0),
 	 ('1668453177308454916','Tue Jun 13 03:00:10 +0000 2023','Lronjackdic',28636661,'Well, another ABA team to win an NBA title before the Pacers. I am happy for any 1st time champ.',0.0,0.0,'en','2023-06-14 12:01:44.099','http://pbs.twimg.com/profile_images/1042176115752796162/Fg80QI6r_normal.jpg','https://twitter.com/twitter/statuses/1668453177308454916',0.9136,0.0,0.542,0.458,1),
 	 ('1668453177228767232','Tue Jun 13 03:00:10 +0000 2023','jayfrombklny',1514225156490768380,'RT @OfficialNetsFan: Bruce Brown and Jeff Green have both won an NBA Championship! https://t.co/8WVCMhls4a',0.0,17.0,'en','2023-06-14 12:01:44.103','http://pbs.twimg.com/profile_images/1649846636531572737/OQoEzzVx_normal.jpg','https://twitter.com/twitter/statuses/1668453177228767232',0.784,0.0,0.635,0.365,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453177119895554','Tue Jun 13 03:00:10 +0000 2023','dakid_genius',1551598274,'RT @ChickenColeman: Caleb Martin in the ECF vs Caleb Martin in the NBA Finals https://t.co/dHLlkFS7Fi',0.0,50.0,'en','2023-06-14 12:01:44.183','http://pbs.twimg.com/profile_images/1631779996149903360/ck8kx4_B_normal.jpg','https://twitter.com/twitter/statuses/1668453177119895554',0.0,0.0,1.0,0.0,0),
 	 ('1668453177052606464','Tue Jun 13 03:00:10 +0000 2023','olamiide',192517922,'RT @_Talkin_NBA: This city deserves an NBA championship!',0.0,1.0,'en','2023-06-14 12:01:44.188','http://pbs.twimg.com/profile_images/1558996459147694080/G5Yz55wV_normal.jpg','https://twitter.com/twitter/statuses/1668453177052606464',0.4926,0.0,0.687,0.313,1),
 	 ('1668453176880791554','Tue Jun 13 03:00:10 +0000 2023','larryberry33',395001648,'RT @BAULAPARRANTES: PEYTON WATSON YOU ARE AN NBA CHAMPION lol',0.0,3.0,'ht','2023-06-14 12:01:44.192','http://pbs.twimg.com/profile_images/1635308559037796355/p0fzeVFe_normal.jpg','https://twitter.com/twitter/statuses/1668453176880791554',0.8143,0.0,0.518,0.482,1),
@@ -6968,7 +6998,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453176176148481','Tue Jun 13 03:00:10 +0000 2023','brizznasty23',16937123,'Damn GGs heat. Denver Nuggets are NBA champs',0.0,0.0,'en','2023-06-14 12:01:44.286','http://pbs.twimg.com/profile_images/1634782849961431041/psgixIAq_normal.jpg','https://twitter.com/twitter/statuses/1668453176176148481',0.0258,0.235,0.522,0.243,1),
 	 ('1668453176108888065','Tue Jun 13 03:00:10 +0000 2023','7ioiiz',1063104060600000510,'دنفر ناغيتس وبقيادة الساحر يوكييييييتش 
 بطلاً للNBA 2023 🔥🔥🔥🔝🔝🔝',0.0,0.0,'ar','2023-06-14 12:01:44.291','http://pbs.twimg.com/profile_images/1668047735147077635/qHQ5mm2v_normal.jpg','https://twitter.com/twitter/statuses/1668453176108888065',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453175450537984','Tue Jun 13 03:00:10 +0000 2023','johnalvarezjr_',963731403287404540,'RT @___Colb___: Jimmy Butler gave us an all time war criminal performance in this NBA Finals.',0.0,36.0,'en','2023-06-14 12:01:44.295','http://pbs.twimg.com/profile_images/1598514252062392320/Rx2wyjWG_normal.jpg','https://twitter.com/twitter/statuses/1668453175450537984',-0.8074,0.343,0.657,0.0,0),
 	 ('1668453175391551488','Tue Jun 13 03:00:10 +0000 2023','htvzn',1476750384697913340,'RT @problemsthots: idc if y’all say we casuals lol these been the most boring nba finals ever.',0.0,11.0,'en','2023-06-14 12:01:44.299','http://pbs.twimg.com/profile_images/1661211358900236290/Nd_rAXlw_normal.jpg','https://twitter.com/twitter/statuses/1668453175391551488',0.0534,0.127,0.736,0.137,1),
 	 ('1668453175026675712','Tue Jun 13 03:00:09 +0000 2023','AbsolutCharly',2431782825,'Go Hard or Go Home #HEATCulture #NBAFinals #Nba #NBAxESPN',0.0,0.0,'en','2023-06-14 12:01:44.303','http://pbs.twimg.com/profile_images/1541198249394044929/u6bdbyUc_normal.jpg','https://twitter.com/twitter/statuses/1668453175026675712',-0.1027,0.149,0.851,0.0,0),
@@ -6983,7 +7013,7 @@ More Ga…',0.0,153.0,'en','2023-06-14 12:01:44.388','http://pbs.twimg.com/profi
 	 ('1668453174896721922','Tue Jun 13 03:00:09 +0000 2023','PrinceMarcus_29',1649448284291825660,'Announce the suspension already @NBA',1.0,1.0,'en','2023-06-14 12:01:44.400','http://pbs.twimg.com/profile_images/1663988470417707009/YjmxOZ4q_normal.jpg','https://twitter.com/twitter/statuses/1668453174896721922',0.0,0.0,1.0,0.0,0),
 	 ('1668453174871482370','Tue Jun 13 03:00:09 +0000 2023','Sir_JHud',36842417,'RT @Celtics_Junkies: Jimmy Butler deserve all the same slander that Jayson Tatum got last season from the NBA Finals … if not more.',0.0,494.0,'en','2023-06-14 12:01:44.404','http://pbs.twimg.com/profile_images/1630617031321042969/GTTxCeHS_normal.jpg','https://twitter.com/twitter/statuses/1668453174871482370',0.0,0.0,1.0,0.0,0),
 	 ('1668453174745743361','Tue Jun 13 03:00:09 +0000 2023','TonyLGND',234022250,'NBA Champion Deandre Jordan. 😭😭😭',0.0,0.0,'fr','2023-06-14 12:01:44.484','http://pbs.twimg.com/profile_images/1285287413888229376/MPuSQRlM_normal.jpg','https://twitter.com/twitter/statuses/1668453174745743361',0.5994,0.0,0.506,0.494,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453174603132930','Tue Jun 13 03:00:09 +0000 2023','emily_noe',471477843,'What an uneventful NBA final series',0.0,0.0,'en','2023-06-14 12:01:44.489','http://pbs.twimg.com/profile_images/1581788236241936385/jU-XYX9w_normal.jpg','https://twitter.com/twitter/statuses/1668453174603132930',0.0,0.0,1.0,0.0,0),
 	 ('1668453174527574016','Tue Jun 13 03:00:09 +0000 2023','biffyb',69824625,'@NBA Clean up your game, this was ugly.',0.0,0.0,'en','2023-06-14 12:01:44.493','http://pbs.twimg.com/profile_images/1590943155230281728/KSX1pjXx_normal.jpg','https://twitter.com/twitter/statuses/1668453174527574016',-0.1531,0.275,0.5,0.225,0),
 	 ('1668453174317907970','Tue Jun 13 03:00:09 +0000 2023','kaka_vicio',2739125117,'deu a lógica na NBA, o melhor time venceu',1.0,0.0,'pt','2023-06-14 12:01:44.497','http://pbs.twimg.com/profile_images/1409283755823484929/Yg6ASMtm_normal.jpg','https://twitter.com/twitter/statuses/1668453174317907970',0.0,0.0,1.0,0.0,0),
@@ -6994,7 +7024,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453173961318400','Tue Jun 13 03:00:09 +0000 2023','ScotMoney34',951358475866697730,'Celtics legend Jeff Green is an NBA champion',2.0,0.0,'en','2023-06-14 12:01:44.595','http://pbs.twimg.com/profile_images/1664378278386311171/3E9_WWDO_normal.jpg','https://twitter.com/twitter/statuses/1668453173961318400',0.5994,0.0,0.642,0.358,1),
 	 ('1668453173898489858','Tue Jun 13 03:00:09 +0000 2023','playboytrill26',832982967031099390,'RT @ShannonSharpe: That’s BULLJIVE. @nba that’s AWFUL officiating',0.0,472.0,'en','2023-06-14 12:01:44.599','http://pbs.twimg.com/profile_images/1266882704362127360/oB8P9ZhT_normal.jpg','https://twitter.com/twitter/statuses/1668453173898489858',-0.5766,0.348,0.652,0.0,0),
 	 ('1668453173793550336','Tue Jun 13 03:00:09 +0000 2023','connormcwright',1128706699,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:44.603','http://pbs.twimg.com/profile_images/1314724678062276608/uu4Tyosb_normal.jpg','https://twitter.com/twitter/statuses/1668453173793550336',0.6486,0.0,0.819,0.181,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453173718138882','Tue Jun 13 03:00:09 +0000 2023','WembySATX',1197751810439745540,'@NBA Finally this corny ass team will be off my screen 😭',0.0,0.0,'en','2023-06-14 12:01:44.682','http://pbs.twimg.com/profile_images/1662666799366778880/U0yiGmMs_normal.jpg','https://twitter.com/twitter/statuses/1668453173718138882',-0.5423,0.259,0.741,0.0,0),
 	 ('1668453173609070594','Tue Jun 13 03:00:09 +0000 2023','sirbustercherry',1634951340978847740,'@NBA https://t.co/8GbgZWQHfg',0.0,0.0,'und','2023-06-14 12:01:44.688','http://pbs.twimg.com/profile_images/1645633013462491136/ZdsilEV9_normal.jpg','https://twitter.com/twitter/statuses/1668453173609070594',0.0,0.0,1.0,0.0,0),
 	 ('1668453173466476547','Tue Jun 13 03:00:09 +0000 2023','quebuscas4pf',1388267821,'Que haré ahora sin la NBA en qué gastare los chavos 🤣',0.0,0.0,'es','2023-06-14 12:01:44.692','http://pbs.twimg.com/profile_images/1650525373187207172/OjTeYKkM_normal.jpg','https://twitter.com/twitter/statuses/1668453173466476547',-0.5574,0.265,0.735,0.0,0),
@@ -7007,7 +7037,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id
 	 ('1668453172522676225','Tue Jun 13 03:00:09 +0000 2023','Charlymj',137789601,'Se lo merece el Gordo x q es crack Total 😍😍 Jokic Campeon de la NBA https://t.co/W8YiWWVIFw',0.0,0.0,'es','2023-06-14 12:01:44.789','http://pbs.twimg.com/profile_images/1582141523063410688/iitdoeb7_normal.jpg','https://twitter.com/twitter/statuses/1668453172522676225',0.0,0.0,1.0,0.0,0),
 	 ('1668453171943952385','Tue Jun 13 03:00:09 +0000 2023','iamnotatrollong',1569478804506316800,'This image is more entertaining than te nba finals https://t.co/tTlZls6X9l',2.0,0.0,'en','2023-06-14 12:01:45.149','http://pbs.twimg.com/profile_images/1665066386744393728/a1051p7Q_normal.jpg','https://twitter.com/twitter/statuses/1668453171943952385',0.4927,0.0,0.738,0.262,1),
 	 ('1668453171797331974','Tue Jun 13 03:00:09 +0000 2023','gdarici_s',243452456,'caraca mano, NBA é muito da hora! Tá maluco quem não gosta de basquete',0.0,0.0,'pt','2023-06-14 12:01:45.181','http://pbs.twimg.com/profile_images/1615310936633384962/-YVNky6n_normal.jpg','https://twitter.com/twitter/statuses/1668453171797331974',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453171780554752','Tue Jun 13 03:00:09 +0000 2023','CezrDaPleazr',351158489,'DeAndre Jordan is an NBA champion. #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:45.186','http://pbs.twimg.com/profile_images/1643473221789044737/5zh_0sU5_normal.jpg','https://twitter.com/twitter/statuses/1668453171780554752',0.5994,0.0,0.606,0.394,1),
 	 ('1668453171407224833','Tue Jun 13 03:00:09 +0000 2023','Azukiller_MFFL',799729530092912640,'マレーとヨキッチが2人で止めてるの良いね
 KCPも偉いし https://t.co/FJRaOD1OaO',1.0,0.0,'ja','2023-06-14 12:01:45.191','http://pbs.twimg.com/profile_images/1603962843355033601/72SeVQ_1_normal.jpg','https://twitter.com/twitter/statuses/1668453171407224833',0.0,0.0,1.0,0.0,0),
@@ -7019,7 +7049,7 @@ KCPも偉いし https://t.co/FJRaOD1OaO',1.0,0.0,'ja','2023-06-14 12:01:45.191',
 	 ('1668453170325127170','Tue Jun 13 03:00:08 +0000 2023','Kabo0s85',920945016,'Let me be the first to congratulate the Denver Nuggets on winning an NBA championship',1.0,0.0,'en','2023-06-14 12:01:45.300','http://pbs.twimg.com/profile_images/1494031470855217157/MbpChhHb_normal.jpg','https://twitter.com/twitter/statuses/1668453170325127170',0.8591,0.0,0.558,0.442,1),
 	 ('1668453170295578625','Tue Jun 13 03:00:08 +0000 2023','Sole_Exquisite1',1375614373,'Man this nba finals was so weak bruh',0.0,0.0,'en','2023-06-14 12:01:45.381','http://pbs.twimg.com/profile_images/456567671652249600/wY8CI2IB_normal.jpeg','https://twitter.com/twitter/statuses/1668453170295578625',-0.5777,0.348,0.652,0.0,0),
 	 ('1668453170132008961','Tue Jun 13 03:00:08 +0000 2023','_dpern',54406432,'Jamal Murray is an NBA champion https://t.co/fU6hkZLtPm',0.0,0.0,'en','2023-06-14 12:01:45.386','http://pbs.twimg.com/profile_images/1463485963318054914/h9WRvyzQ_normal.jpg','https://twitter.com/twitter/statuses/1668453170132008961',0.5994,0.0,0.606,0.394,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453169943199744','Tue Jun 13 03:00:08 +0000 2023','matinoguera95',752591696110690300,'RT @6toHombreLATAM: Que partidazo, por favor. Que linda es la NBA.',0.0,56.0,'es','2023-06-14 12:01:45.391','http://pbs.twimg.com/profile_images/1383922159400017928/ekB3NVK5_normal.jpg','https://twitter.com/twitter/statuses/1668453169943199744',0.4019,0.0,0.787,0.213,1),
 	 ('1668453169880522752','Tue Jun 13 03:00:08 +0000 2023','commie_slapper',1648238225243410430,'@NBA They don’t want a white man to win so bad',0.0,0.0,'en','2023-06-14 12:01:45.397','http://pbs.twimg.com/profile_images/1654722299596247040/1miMm5me_normal.jpg','https://twitter.com/twitter/statuses/1668453169880522752',-0.1005,0.271,0.422,0.307,0),
 	 ('1668453169779621888','Tue Jun 13 03:00:08 +0000 2023','ffcjuliab',1648494688905711620,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
@@ -7036,7 +7066,7 @@ No es hijo de su majestad
 #NBA #NBAFinals #NBAxESPN https://t.co/hQgMH8kY3l',64.0,9.0,'es','2023-06-14 12:01:45.501','http://pbs.twimg.com/profile_images/1409665615011397637/NsLDgoUS_normal.jpg','https://twitter.com/twitter/statuses/1668453168789835778',-0.296,0.136,0.864,0.0,0),
 	 ('1668453168752066560','Tue Jun 13 03:00:08 +0000 2023','Papa_BPrime',103533056,'I had a winning record betting on the NBA this season. Next year we in Vegas fellas',1.0,1.0,'en','2023-06-14 12:01:45.506','http://pbs.twimg.com/profile_images/1585426857079496704/-WQlzeNq_normal.jpg','https://twitter.com/twitter/statuses/1668453168752066560',0.5267,0.0,0.805,0.195,1),
 	 ('1668453168743870464','Tue Jun 13 03:00:08 +0000 2023','MeadowAtLast',92949461,'bruce brown and KCP were honestly born to play in the NBA finals',0.0,0.0,'en','2023-06-14 12:01:45.580','http://pbs.twimg.com/profile_images/1505093690972262403/aVnvoJUf_normal.jpg','https://twitter.com/twitter/statuses/1668453168743870464',0.6597,0.0,0.671,0.329,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453168731271169','Tue Jun 13 03:00:08 +0000 2023','JrsRmgn',1009772656525053950,'Final seconds of the NBA season🥲',0.0,0.0,'en','2023-06-14 12:01:45.585','http://pbs.twimg.com/profile_images/1626588219893743623/Y_wn4hLq_normal.jpg','https://twitter.com/twitter/statuses/1668453168731271169',0.0,0.0,1.0,0.0,0),
 	 ('1668453168387362816','Tue Jun 13 03:00:08 +0000 2023','AbsolFairyy',602533068,'2 time NBA champ KCP',4.0,1.0,'en','2023-06-14 12:01:45.590','http://pbs.twimg.com/profile_images/1666288213496041473/pBJmw3sP_normal.jpg','https://twitter.com/twitter/statuses/1668453168387362816',0.4767,0.0,0.492,0.508,1),
 	 ('1668453168374755334','Tue Jun 13 03:00:08 +0000 2023','keepiin',2476265262,'RT @NBA: THE STAGE IS SET 🍿
@@ -7055,7 +7085,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.693'
 #NBAFinals
 #NBA
 #NBAFinalsNaESPN',0.0,0.0,'pt','2023-06-14 12:01:45.703','http://pbs.twimg.com/profile_images/1528436226243559427/SeCMReUm_normal.jpg','https://twitter.com/twitter/statuses/1668453166965243905',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453166948700160','Tue Jun 13 03:00:08 +0000 2023','Band0415',1296516307974647810,'This NBA FINAL IS BORING 🥱 #MIAvsDEN https://t.co/h7McrGaV1O',5.0,0.0,'en','2023-06-14 12:01:45.784','http://pbs.twimg.com/profile_images/1300198656335773697/1Up7fxS-_normal.jpg','https://twitter.com/twitter/statuses/1668453166948700160',-0.4648,0.336,0.664,0.0,0),
 	 ('1668453166810120193','Tue Jun 13 03:00:07 +0000 2023','Derek9306',1436743569201586180,'RT @reseSZN: Jimmy Butler in the NBA finals https://t.co/wU500gu0ZW',0.0,13.0,'en','2023-06-14 12:01:45.788','http://pbs.twimg.com/profile_images/1663869698822266881/wxVdiTZg_normal.jpg','https://twitter.com/twitter/statuses/1668453166810120193',0.0,0.0,1.0,0.0,0),
 	 ('1668453166805839872','Tue Jun 13 03:00:07 +0000 2023','rpendola',188409587,'94-89 para Denver a 14 segundos de su primer título de #NBA',0.0,0.0,'es','2023-06-14 12:01:45.793','http://pbs.twimg.com/profile_images/1507125224373997572/pTfn98qG_normal.jpg','https://twitter.com/twitter/statuses/1668453166805839872',0.0,0.0,1.0,0.0,0),
@@ -7070,7 +7100,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.801'
 
 Jayhawks win. Period.',0.0,27.0,'en','2023-06-14 12:01:45.899','http://pbs.twimg.com/profile_images/1054909189464690689/4UkpBXII_normal.jpg','https://twitter.com/twitter/statuses/1668453165694320640',0.8271,0.0,0.539,0.461,1),
 	 ('1668453165400825859','Tue Jun 13 03:00:07 +0000 2023','bennyburnerchip',1664636619222032380,'RT @redditmavericks: Nba champion DeAndre Jordan wow',0.0,4.0,'fr','2023-06-14 12:01:45.904','http://pbs.twimg.com/profile_images/1664830684995678210/UeGn0cvn_normal.jpg','https://twitter.com/twitter/statuses/1668453165400825859',0.8271,0.0,0.394,0.606,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453165266612224','Tue Jun 13 03:00:07 +0000 2023','Shellhitemup',2519392531,'RT @RealSkipBayless: I love and honor the effort on both sides, but this has to be the worst NBA Finals game EVER PLAYED.',0.0,965.0,'en','2023-06-14 12:01:45.908','http://pbs.twimg.com/profile_images/1409668781035634688/rQWcwCF6_normal.jpg','https://twitter.com/twitter/statuses/1668453165266612224',0.307,0.174,0.553,0.273,1),
 	 ('1668453164779970561','Tue Jun 13 03:00:07 +0000 2023','sig_50',984297329313435650,'The Denver Nuggets are NBA Champions. They deserve every bit of this success….Jokic, Jamal, Aaron Gordon finally fi… https://t.co/omXs4AXwq7',0.0,0.0,'en','2023-06-14 12:01:45.984','http://pbs.twimg.com/profile_images/1249579151285157888/fp8Zi_lP_normal.jpg','https://twitter.com/twitter/statuses/1668453164779970561',0.5267,0.0,0.841,0.159,1),
 	 ('1668453164683501568','Tue Jun 13 03:00:07 +0000 2023','smjxmj',422063877,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:45.989','http://pbs.twimg.com/profile_images/1541241885515202561/q-PCncqp_normal.jpg','https://twitter.com/twitter/statuses/1668453164683501568',0.6486,0.0,0.819,0.181,1),
@@ -7084,7 +7114,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.998'
 #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:46.095','http://pbs.twimg.com/profile_images/1628785895183900672/ddPLO9Ov_normal.jpg','https://twitter.com/twitter/statuses/1668453164088176641',0.6289,0.0,0.547,0.453,1),
 	 ('1668453163899158528','Tue Jun 13 03:00:07 +0000 2023','MSGFanMax',1239938825499131900,'NIKOLA JOKIC IS AN NBA CHAMPION',1.0,0.0,'en','2023-06-14 12:01:46.110','http://pbs.twimg.com/profile_images/1668819972657643521/iseJrn21_normal.jpg','https://twitter.com/twitter/statuses/1668453163899158528',0.5994,0.0,0.562,0.438,1),
 	 ('1668453163819573248','Tue Jun 13 03:00:07 +0000 2023','KevinNahyr26',336231847,'El JOKER Y SU PRIMER ANILLO EN LA NBA! Un FENÓMENO',0.0,0.0,'es','2023-06-14 12:01:46.122','http://pbs.twimg.com/profile_images/1634393966123556865/WKF5e9dV_normal.jpg','https://twitter.com/twitter/statuses/1668453163819573248',0.3664,0.0,0.781,0.219,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453163744264192','Tue Jun 13 03:00:07 +0000 2023','dksupremee',2374814708,'what an NBA season bro',0.0,0.0,'en','2023-06-14 12:01:46.182','http://pbs.twimg.com/profile_images/1645997915297681409/FUicTHRa_normal.jpg','https://twitter.com/twitter/statuses/1668453163744264192',0.0,0.0,1.0,0.0,0),
 	 ('1668453163723096064','Tue Jun 13 03:00:07 +0000 2023','RayCoyg',1637466752895397890,'@NBA Jimmy sold',0.0,0.0,'en','2023-06-14 12:01:46.193','http://pbs.twimg.com/profile_images/1637471613925851136/Ho9uGQpA_normal.jpg','https://twitter.com/twitter/statuses/1668453163723096064',0.0,0.0,1.0,0.0,0),
 	 ('1668453163639218178','Tue Jun 13 03:00:07 +0000 2023','Mnjt01',1290033134269091840,'Parabéns Denver, pelo título da NBA',0.0,0.0,'pt','2023-06-14 12:01:46.203','http://pbs.twimg.com/profile_images/1624791616706813961/Jxl0IijK_normal.jpg','https://twitter.com/twitter/statuses/1668453163639218178',0.0,0.0,1.0,0.0,0),
@@ -7114,7 +7144,8 @@ CREATE TABLE IF NOT EXISTS nba_prod.user_predictions (
 	away_team_predicted_win_pct float8 NULL,
 	selected_winner text NULL,
 	bet_amount int4 NULL,
-	created_at timestamp NULL DEFAULT now()
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO nba_prod.user_predictions (username,game_date,home_team,home_team_odds,home_team_predicted_win_pct,away_team,away_team_odds,away_team_predicted_win_pct,selected_winner,bet_amount,created_at) VALUES
@@ -7174,7 +7205,9 @@ CREATE TABLE IF NOT EXISTS ml_models.ml_game_predictions (
 	away_team_win_pct_last10 float8 NULL,
 	away_is_top_players int8 NULL,
 	home_team_predicted_win_pct float8 NULL,
-	away_team_predicted_win_pct float8 NULL
+	away_team_predicted_win_pct float8 NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO ml_models.ml_game_predictions ("index",home_team,home_moneyline,away_team,away_moneyline,game_date,home_team_rank,home_days_rest,home_team_avg_pts_scored,home_team_avg_pts_scored_opp,home_team_win_pct,home_team_win_pct_last10,home_is_top_players,away_team_rank,away_days_rest,away_team_avg_pts_scored,away_team_avg_pts_scored_opp,away_team_win_pct,away_team_win_pct_last10,away_is_top_players,home_team_predicted_win_pct,away_team_predicted_win_pct) VALUES
@@ -7227,7 +7260,9 @@ CREATE TABLE IF NOT EXISTS aws_adv_stats_source (
 	arena text NULL,
 	attendance float8 NULL,
 	"att/game" float8 NULL,
-	scrape_date date NULL
+	scrape_date date NULL,
+    created_at timestamp default current_timestamp,
+    modified_at timestamp default current_timestamp
 );
 
 INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
@@ -7366,3 +7401,79 @@ INSERT INTO player_attributes (player_id,player,headshot,created_at,modified_at)
 	 (1628386,'Jarrett Allen','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628386.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
 	 (1630631,'Jose Alvarado','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630631.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
 	 (203937,'Kyle Anderson','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203937.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905');
+
+DROP TABLE IF EXISTS team_top_players;
+create table if not exists team_top_players (
+	player text NULL,
+	team text NULL,
+	"rank" int8 NULL,
+	created_at timestamp default current_timestamp,
+	modified_at timestamp default current_timestamp
+);
+
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('Trae Young','ATL',1),
+	 ('Dejounte Murray','ATL',2),
+	 ('Jayson Tatum','BOS',1),
+	 ('Jaylen Brown','BOS',2),
+	 ('Mikal Bridges','BKN',1),
+	 ('Cam Thomas','BKN',2),
+	 ('LaMelo Ball','CHA',1),
+	 ('Miles Bridges','CHA',2),
+	 ('DeMar DeRozan','CHI',1),
+	 ('Zach LaVine','CHI',2);
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('Donovan Mitchell','CLE',1),
+	 ('Jarrett Allen','CLE',2),
+	 ('Luka Doncic','DAL',1),
+	 ('Kyrie Irving','DAL',2),
+	 ('Nikola Jokic','DEN',1),
+	 ('Jamal Murray','DEN',2),
+	 ('Cade Cunningham','DET',1),
+	 ('Jalen Duren','DET',2),
+	 ('Stephen Curry','GSW',1),
+	 ('Draymond Green','GSW',2);
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('Jalen Green','HOU',1),
+	 ('Alperen Sengun','HOU',2),
+	 ('Tyrese Haliburton','IND',1),
+	 ('Pascal Siakam','IND',2),
+	 ('Kawhi Leonard','LAC',1),
+	 ('Paul George','LAC',2),
+	 ('LeBron James','LAL',1),
+	 ('Anthony Davis','LAL',2),
+	 ('Ja Morant','MEM',1),
+	 ('Desmond Bane','MEM',2);
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('Jimmy Butler','MIA',1),
+	 ('Bam Adebayo','MIA',2),
+	 ('Giannis Antetokounmpo','MIL',1),
+	 ('Damian Lillard','MIL',2),
+	 ('Karl-Anthony Towns','MIN',1),
+	 ('Anthony Edwards','MIN',2),
+	 ('Brandon Ingram','NOP',1),
+	 ('Zion Williamson','NOP',2),
+	 ('Jalen Brunson','NYK',1),
+	 ('Julius Randle','NYK',2);
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('Shai Gilgeous-Alexander','OKC',1),
+	 ('Jalen Williams','OKC',2),
+	 ('Paolo Banchero','ORL',1),
+	 ('Franz Wagner','ORL',2),
+	 ('Joel Embiid','PHI',1),
+	 ('Tyrese Maxey','PHI',2),
+	 ('Devin Booker','PHX',1),
+	 ('Kevin Durant','PHX',2),
+	 ('Anfernee Simons','POR',1),
+	 ('Jerami Grant','POR',2);
+INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+	 ('De''Aaron Fox','SAC',1),
+	 ('Harrison Barnes','SAC',2),
+	 ('Victor Wembanyama','SAS',1),
+	 ('Jakob Poeltl','SAS',2),
+	 ('Scottie Barnes','TOR',1),
+	 ('RJ Barrett','TOR',2),
+	 ('Lauri Markkanen','UTA',1),
+	 ('Collin Sexton','UTA',2),
+	 ('Jordan Poole','WAS',1),
+	 ('Kyle Kuzma','WAS',2);

@@ -34,7 +34,7 @@ docker-build-local:
 
 .PHONY: start-postgres
 start-postgres:
-	@docker compose -f docker/docker-compose-test.yml up -d postgres
+	@docker compose -f docker/docker-compose-postgres.yml up -d postgres
 
 .PHONY: ci-test
 ci-test:
@@ -42,7 +42,8 @@ ci-test:
 	@docker compose -f docker/docker-compose-test.yml up --exit-code-from dbt_runner
 
 .PHONY: test
-test: start-postgres run_dbt down
+test: 
+	@docker compose -f docker/docker-compose-test.yml up -d postgres
 
 run_dbt:
 	@docker compose -f docker/docker-compose-test.yml run dbt_runner dbt build --profiles-dir profiles/ --profile dbt_ci

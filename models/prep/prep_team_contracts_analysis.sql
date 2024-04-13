@@ -2,7 +2,7 @@ with my_cte as (
     select
         player,
         salary
-    from {{ ref('staging_aws_contracts_table') }}
+    from {{ ref('players') }}
 ),
 
 player_gp as (

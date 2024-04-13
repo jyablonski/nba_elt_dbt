@@ -4,7 +4,7 @@ with odds as (
         spread,
         moneyline,
         date
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('odds_data') }}
 ),
 
 team_outcomes as (

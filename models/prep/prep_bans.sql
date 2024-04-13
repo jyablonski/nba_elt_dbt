@@ -1,7 +1,6 @@
 -- only tracking regular season metrics as of now
 with boxscores as (
     select distinct
-        game_id,
         location,
         outcome,
         season_type,
@@ -10,7 +9,7 @@ with boxscores as (
             when outcome = 'W' then 1
             else 0
         end as outcome_int
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
 ),
 
@@ -43,7 +42,7 @@ upcoming_game_date as (
     select
         'join' as join_col,
         coalesce(min(proper_date), current_date + 1) as min_date
-    from {{ ref('staging_aws_schedule_table') }}
+    from {{ ref('schedule_data') }}
     where proper_date >= current_date
 ),
 
@@ -51,7 +50,7 @@ upcoming_games as (
     select
         date::date as date,
         'join' as join_col
-    from {{ ref('staging_aws_schedule_table') }}
+    from {{ ref('schedule_data') }}
 ),
 
 upcoming_games_count as (
@@ -62,24 +61,26 @@ upcoming_games_count as (
     from upcoming_games
         left join upcoming_game_date using (join_col)
     where date = min_date
-    group by min_date, join_col
+    group by
+        min_date,
+        join_col
 ),
 
 league_average_ppg_teams as (
     select
         team,
-        game_id,
         sum(pts) as sum_pts
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
-    group by team, game_id
+    group by
+        team
 ),
 
 recent_game_date as (
     select
         'join' as join_col,
         max(game_date) as most_recent_game
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
 ),
 
 league_average_ppg as (
@@ -93,7 +94,7 @@ latest_update as (
     select
         'join' as join_col,
         max(scrape_time) as scrape_time
-    from {{ ref('staging_aws_reddit_data_table') }}
+    from {{ ref('reddit_posts') }}
 ),
 
 league_ts as (
@@ -101,7 +102,7 @@ league_ts as (
         sum(pts) as sum_pts,
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
 
 ),

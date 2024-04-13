@@ -23,14 +23,16 @@ with shooting_stats as (
         heaves_att::numeric as heaves_att,
         heaves_makes::numeric as heaves_makes,
         scrape_date::date as scrape_date,
-        scrape_ts::timestamp as scrape_ts
+        scrape_ts::timestamp as scrape_ts,
+        created_at,
+        modified_at
 
     from {{ source('nba_source', 'aws_shooting_stats_source') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where scrape_date > (select max(scrape_date) from {{ this }})
+        where modified_at > (select max(modified_at) from {{ this }})
 
     {% endif %}
 )

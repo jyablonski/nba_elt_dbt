@@ -9,22 +9,22 @@ with games_cte as (
         games.team,
         attributes.conference,
         location,
-        date,
+        game_date,
         outcome,
         case when outcome = 'W' then 1 else 0 end as outcome_int
-    from {{ ref('staging_aws_boxscores_incremental_table') }} as games
-        inner join {{ ref('staging_seed_team_attributes' ) }} as attributes on games.team = attributes.team_acronym
+    from {{ ref('boxscores') }} as games
+        inner join {{ ref('teams' ) }} as attributes on games.team = attributes.team_acronym
 ),
 
 -- create 30 records for every team for fkn day a game is played in the nba.
 date_cross_join as (
     select distinct
         games_cte.team,
-        v2.date,
+        v2.game_date,
         games_cte.conference
     from games_cte
         cross join games_cte as v2
-    where v2.date < '2023-04-10'
+    where v2.game_date < '2024-04-15'
 ),
 
 -- turn W, L outcome into integers (0s and 1s that we can count by)
@@ -33,10 +33,10 @@ running_total as (
         team,
         conference,
         location,
-        date,
+        game_date,
         outcome,
-        sum(outcome_int) over (partition by team order by date rows between unbounded preceding and current row) as running_total_wins,
-        sum(1) over (partition by team order by date rows between unbounded preceding and current row) as running_total_games_played
+        sum(outcome_int) over (partition by team order by game_date rows between unbounded preceding and current row) as running_total_wins,
+        sum(1) over (partition by team order by game_date rows between unbounded preceding and current row) as running_total_games_played
     from games_cte
 ),
 
@@ -62,28 +62,28 @@ ranked_table as (
 combo_table as (
     select
         date_cross_join.team,
-        date_cross_join.date,
+        date_cross_join.game_date,
         date_cross_join.conference,
         ranked_table.running_total_games_played,
         ranked_table.running_total_wins,
         ranked_table.running_total_losses,
         ranked_table.running_win_pct,
         ranked_table.record_as_of_date,
-        array_remove((array_agg(running_total_games_played) over (partition by team order by date)), null) as running_total_games_played_arr,
-        array_remove((array_agg(running_total_wins) over (partition by team order by date)), null) as running_total_wins_arr,
-        array_remove((array_agg(running_total_losses) over (partition by team order by date)), null) as running_total_losses_arr,
-        array_remove((array_agg(running_win_pct) over (partition by team order by date)), null) as running_win_pct_arr,
-        array_remove((array_agg(record_as_of_date) over (partition by team order by date)), null) as record_as_of_date_arr
+        array_remove((array_agg(running_total_games_played) over (partition by team order by game_date)), null) as running_total_games_played_arr,
+        array_remove((array_agg(running_total_wins) over (partition by team order by game_date)), null) as running_total_wins_arr,
+        array_remove((array_agg(running_total_losses) over (partition by team order by game_date)), null) as running_total_losses_arr,
+        array_remove((array_agg(running_win_pct) over (partition by team order by game_date)), null) as running_win_pct_arr,
+        array_remove((array_agg(record_as_of_date) over (partition by team order by game_date)), null) as record_as_of_date_arr
     from date_cross_join
-        left join ranked_table using (team, date)
-    order by date_cross_join.date
+        left join ranked_table using (team, game_date)
+    order by date_cross_join.game_date
 ),
 
 -- this cte filters the fk out of that shit to return only the most recent value
 filtered_arr as (
     select
         team,
-        date,
+        game_date,
         conference,
         running_total_games_played_arr[array_upper(running_total_games_played_arr, 1)] as running_total_games_played,
         running_total_wins_arr[array_upper(running_total_wins_arr, 1)] as running_total_wins,
@@ -97,7 +97,7 @@ filtered_arr as (
 final as (
     select
         *,
-        row_number() over (partition by conference, date order by round(
+        row_number() over (partition by conference, game_date order by round(
             (running_total_wins::numeric / running_total_games_played::numeric), 3
         )::numeric desc) as rank_raw
     from filtered_arr
@@ -108,7 +108,7 @@ final as (
 final2 as (
     select
         team,
-        date,
+        game_date,
         conference,
         running_total_games_played,
         running_total_wins,
@@ -116,13 +116,13 @@ final2 as (
         running_total_win_pct,
         record_as_of_date,
         case
-            when date = '2023-04-09' and conference = 'Eastern' and rank_raw = 7 then 8
-            when date = '2023-04-09' and conference = 'Eastern' and rank_raw = 8 then 9
-            when date = '2023-04-09' and conference = 'Eastern' and rank_raw = 9 then 7
-            when date = '2023-04-09' and conference = 'Western' and rank_raw = 5 then 6
-            when date = '2023-04-09' and conference = 'Western' and rank_raw = 6 then 5
-            when date = '2023-04-09' and conference = 'Western' and rank_raw = 8 then 9
-            when date = '2023-04-09' and conference = 'Western' and rank_raw = 9 then 8
+            when game_date = '2023-04-09' and conference = 'Eastern' and rank_raw = 7 then 8
+            when game_date = '2023-04-09' and conference = 'Eastern' and rank_raw = 8 then 9
+            when game_date = '2023-04-09' and conference = 'Eastern' and rank_raw = 9 then 7
+            when game_date = '2023-04-09' and conference = 'Western' and rank_raw = 5 then 6
+            when game_date = '2023-04-09' and conference = 'Western' and rank_raw = 6 then 5
+            when game_date = '2023-04-09' and conference = 'Western' and rank_raw = 8 then 9
+            when game_date = '2023-04-09' and conference = 'Western' and rank_raw = 9 then 8
             else rank_raw
         end as rank_raw
     from final

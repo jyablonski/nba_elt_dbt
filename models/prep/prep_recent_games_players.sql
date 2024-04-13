@@ -4,43 +4,31 @@ with player_season_high as (
         player,
         max(pts) as max_pts,
         max(game_ts_percent) as max_ts
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     -- where type = 'Regular Season'
     group by player
 ),
 
 -- yesterday could mean literally yesterday, but just grab the most recent games.
 boxscores_yesterday as (
-    select max(date) as game_date
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    select max(game_date) as game_date
+    from {{ ref('boxscores') }}
 ),
-
-player_contracts as (
-    select
-        player,
-        salary
-    from {{ ref('staging_aws_contracts_table') }}
-),
-
-player_logo as (
-    select
-        player,
-        headshot as player_logo
-    from {{ source('nba_source', 'player_attributes') }}
-),
-
 
 -- grab (most recent) team from above cte
 boxscores_cte as (
     select *
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
 ),
 
 player_aggs as (
     select distinct
-        player,
-        avg_ppg
+        prep_player_stats.player,
+        avg_ppg,
+        salary,
+        headshot as player_logo
     from {{ ref('prep_player_stats') }}
+        left join {{ ref('players') }} using (player)
     where season_type = 'Regular Season'
 ),
 
@@ -64,8 +52,6 @@ final_table as (
         inner join boxscores_yesterday using (game_date)
         left join player_season_high using (player)
         left join player_aggs using (player)
-        left join player_contracts using (player)
-        left join player_logo using (player)
     order by pts desc
 )
 

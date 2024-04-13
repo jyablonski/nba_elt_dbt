@@ -1,4 +1,3 @@
-/*         COALESCE("3p%"::text::numeric) as three_p_percent, */
 with my_cte as (
     select
         player::text,
@@ -37,13 +36,8 @@ with my_cte as (
 most_recent_date as (
     select max(scrape_date) as scrape_date
     from {{ source('nba_source', 'aws_stats_source') }}
-),
-
-final as (
-    select *
-    from my_cte
-        inner join most_recent_date using (scrape_date)
 )
 
 select *
-from final
+from my_cte
+    inner join most_recent_date using (scrape_date)

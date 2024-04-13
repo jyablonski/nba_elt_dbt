@@ -1,6 +1,5 @@
 with mov_data as (
     select
-        game_id,
         mov::integer,
         season_type,
         game_type
@@ -21,7 +20,9 @@ mov_counts as (
             else 'more than 20 points'
         end as explanation
     from mov_data
-    group by game_type, season_type
+    group by 
+        game_type,
+        season_type
 )
 
 select *

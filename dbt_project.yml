@@ -84,13 +84,13 @@ models:
         +schema: fact
         +tags:
           - "DAILY"
+          - "FACT"
       dim:
         +materialized: table
         +schema: dim
         +tags:
           - "DAILY"
+          - "DIM"
 seeds:
   nba_elt_project:
-    +schema: nba_source
-    +tags:
-      - "NBA_PRODUCTION_STAGING"
+    schema: nba_source

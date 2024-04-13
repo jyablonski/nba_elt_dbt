@@ -1,9 +1,11 @@
 with my_cte as (
     select distinct
         team,
-        date
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
-    order by team, date
+        game_date
+    from {{ ref('boxscores') }}
+    order by 
+        team, 
+        game_date
 ),
 
 -- you play on 2022-10-25 and 2022-10-27, you have 1 day of rest, even tho there's 2 days between those dates.  so do -1.
@@ -12,14 +14,15 @@ with my_cte as (
 final as (
     select
         a.team,
-        c.date,
+        game_date,
         case
-            when coalesce(date - lag(date) over (partition by a.team order by date), 5)::numeric - 1 > 4 then 4
-            else coalesce(date - lag(date) over (partition by a.team order by date), 5)::numeric - 1
+            when coalesce(game_date - lag(game_date) over (partition by a.team order by game_date), 5)::numeric - 1 > 4 then 4
+            else coalesce(game_date - lag(game_date) over (partition by a.team order by game_date), 5)::numeric - 1
         end as days_rest,
-        rank() over (partition by a.team order by c.date desc) as rank
+        rank() over (partition by a.team order by game_date desc) as rank
     from my_cte as c
-        left join {{ ref('staging_seed_team_attributes') }} as a on c.team = a.team_acronym
+        left join {{ ref('staging_seed_team_attributes') }} as a
+            on c.team = a.team_acronym
 )
 
 select *

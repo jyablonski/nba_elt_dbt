@@ -8,7 +8,7 @@ with game_dates as (
         outcome,
         game_date as potential_game_date,
         1 as game_date
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
 ),
 
 -- REVIEW THIS MACRO EVERY COUPLE OF MONTHS
@@ -16,7 +16,7 @@ new_comments as (
     select
         *,
         {{ convert_team_names_flairs('flair_final') }} as team
-    from {{ ref('prep_reddit_comments') }}
+    from {{ ref('reddit_comment_data') }}
 ),
 
 aggs as (

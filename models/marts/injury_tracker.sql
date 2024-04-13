@@ -2,7 +2,7 @@ with injury_data as (
     select
         player_logo,
         player,
-        status,
+        injury_status,
         continuous_games_missed,
         games_played,
         avg_ppg,
