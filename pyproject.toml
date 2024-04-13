@@ -4,6 +4,7 @@ version = "2.5.7"
 description = "dbt Transformations for NBA ELT Project"
 authors = ["jyablonski9 <jyablonski9@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"

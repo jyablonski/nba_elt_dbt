@@ -4,6 +4,27 @@ Version: 2.5.7
 
 ## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
+## Running The App
+Clone the Repo & run `make up` which will spin up a Postgres Container w/ bootstrapped data to test the project with.
+
+From there you can use Poetry to setup a local Environment w/ the appropriate dbt Packages by running `poetry install`.
+
+You must also have a `~/.dbt/profiles.yml` setup with the following Config:
+``` yml
+default:
+  outputs:
+    default:
+      type: postgres
+      host: localhost
+      port: 5432
+      dbname: jacob_db
+      schema: public
+      user: postgres
+      password: postgres
+```
+
+When finished run `make down` to spin the Postgres Container down.
+
 ## Tests
 To run tests locally, run `make test`
 

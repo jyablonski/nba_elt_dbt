@@ -43,7 +43,7 @@ jobs:
       # bc it builds fast as fuck anyways boi
       - name: Build dbt Models
         run: |
-          make ci-test
+          make test
 
       - name: Upload Manifest to S3
         run: |
