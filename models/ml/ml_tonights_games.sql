@@ -16,7 +16,7 @@ with games as (
 outcomes as (
     select distinct
         a.team as home_team,
-        b.date as game_date,
+        b.game_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
     from {{ ref('boxscores') }} as b
         left join {{ ref('teams') }} as a on b.team = a.team_acronym
@@ -69,12 +69,11 @@ away_team_win_pct as (
 team_top_players as (
     select
         p.player as player,
-        p.team_acronym as team_acronym,
         p.team as team,
         t.rank as player_rank
     from {{ ref('injury_data') }} as p
-        left join {{ ref('staging_seed_top_players') }} as t using (player)
-    where t.rank is not null and p.status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
+        left join {{ ref('players') }} as t using (player)
+    where t.rank is not null and p.injury_status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
     -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),
 
@@ -99,7 +98,7 @@ away_team_top_players_aggs as (
 home_days_rest as (
     select
         team as home_team,
-        date as home_last_played_date
+        game_date as home_last_played_date
     from {{ ref('prep_team_days_rest') }}
     where rank = 1
 ),
@@ -107,7 +106,7 @@ home_days_rest as (
 away_days_rest as (
     select
         team as away_team,
-        date as away_last_played_date
+        game_date as away_last_played_date
     from {{ ref('prep_team_days_rest') }}
     where rank = 1
 ),

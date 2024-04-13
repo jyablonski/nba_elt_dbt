@@ -68,7 +68,7 @@ away_team_rank as (
 home_days_rest as (
     select
         team as home_team,
-        date as proper_date,
+        game_date as proper_date,
         days_rest as home_days_rest
     from {{ ref('prep_team_days_rest') }}
 ),
@@ -76,7 +76,7 @@ home_days_rest as (
 away_days_rest as (
     select
         team as away_team,
-        date as proper_date,
+        game_date as proper_date,
         days_rest as away_days_rest
     from {{ ref('prep_team_days_rest') }}
 ),

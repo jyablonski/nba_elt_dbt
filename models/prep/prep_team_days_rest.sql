@@ -21,7 +21,7 @@ final as (
         end as days_rest,
         rank() over (partition by a.team order by game_date desc) as rank
     from my_cte as c
-        left join {{ ref('staging_seed_team_attributes') }} as a
+        left join {{ ref('teams') }} as a
             on c.team = a.team_acronym
 )
 

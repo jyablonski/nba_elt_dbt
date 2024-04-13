@@ -1,12 +1,14 @@
-{{ config(materialized='incremental') }}
+with most_recent_date as (
+    select max(scrape_date) as max_scrape_date
+    from {{ source('nba_source', 'aws_injury_data_source') }}
+),
 
-
-with injury_data as (
+injury_data as (
     select
         player,
         team,
         date,
-        scrape_date,
+        aws_injury_data_source.scrape_date,
         -- grabbing injury + status with the parantheses included still - ex `Out (Knee)`
         {{ split_part('description', " ' - ' ", 1) }} as injury_combined,
         {{ split_part('description', " ' - ' ", 2) }} as injury_description,
@@ -29,13 +31,7 @@ with injury_data as (
         created_at,
         modified_at
     from {{ source('nba_source', 'aws_injury_data_source') }}
-    {% if is_incremental() %}
-
-        -- this filter will only be applied on an incremental run
-        -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where modified_at > (select max(modified_at) from {{ this }})
-
-    {% endif %}
+        inner join most_recent_date on aws_injury_data_source.scrape_date = most_recent_date.max_scrape_date
 )
 
 select *

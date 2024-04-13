@@ -17,12 +17,12 @@ with games as (
 
 outcomes as (
     select distinct
-        a.team as home_team,
-        b.date as game_date,
-        case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('boxscores') }} as b
-        left join {{ ref('teams') }} as a on b.team = a.team_acronym
-    where b.location = 'H'
+        teams.team as home_team,
+        boxscores.game_date,
+        case when boxscores.outcome = 'W' then 1 else 0 end as outcome
+    from {{ ref('boxscores') }}
+        left join {{ ref('teams') }} on boxscores.team = teams.team_acronym
+    where boxscores.location = 'H'
 ),
 
 home_team_avg as (
@@ -31,7 +31,7 @@ home_team_avg as (
         round(avg(pts_scored), 1)::numeric as home_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as home_team_avg_pts_scored_opp
     from {{ ref('prep_recent_games_teams') }}
-    group by 1
+    group by full_team
 
 ),
 
@@ -41,7 +41,7 @@ away_team_avg as (
         round(avg(pts_scored), 1)::numeric as away_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as away_team_avg_pts_scored_opp
     from {{ ref('prep_recent_games_teams') }}
-    group by 1
+    group by full_team
 
 ),
 

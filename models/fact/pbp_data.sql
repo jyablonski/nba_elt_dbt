@@ -36,7 +36,7 @@ with pbp_raw as (
     from {{ source('nba_source', 'aws_pbp_data_source') }}
     where
         substr(timequarter, 1, length(timequarter) - 2)::text like '%:%' -- needed in case bbref fucks up again and includes faulty time values
-        {% if is_incremental() %}
+    {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
@@ -68,7 +68,7 @@ time_remaining_calcs as (
 ),
 
 pbp_adjusted as (
-    select
+    select distinct
         pbp_raw.*,
         round((time_remaining_adj / 60), 2)::numeric as time_remaining_final,
         coalesce(lag(round((time_remaining_adj / 60), 2)::numeric, 1) over (), 0) as before_time,
@@ -153,7 +153,7 @@ lead_measures as (
 
 )
 
-select
+select distinct
     pbp_adjusted.game_date,
     season_type,
     home_team_full,

@@ -8,7 +8,7 @@ with aws_adv_stats_table as (
 team_attributes as (
 
     select *
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 prod_adv_stats_table as (

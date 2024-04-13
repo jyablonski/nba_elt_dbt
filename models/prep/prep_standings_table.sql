@@ -20,9 +20,8 @@ active_injuries as (
     select
         team as team,
         team_active_injuries,
-        team_active_protocols,
-        total_injuries
-    from {{ ref('injury_data') }}
+        team_active_protocols
+    from {{ ref('team_injury_count_aggs') }}
 
 ),
 
@@ -39,26 +38,26 @@ team_counts as (
 team_attributes as (
     select
         team_acronym as team,
-        team as team_full
+        team as team_full,
+        conference
     from {{ ref('teams') }}
 ),
 
 pre_final as (
     select distinct
-        a.team_full,
-        t.conference,
-        c.games_played,
-        c.wins,
-        c.losses,
-        (t.team),
-        coalesce(i.total_injuries, 0) as total_injuries,
-        coalesce(i.team_active_injuries, 0) as active_injuries,
-        coalesce(i.team_active_protocols, 0) as active_protocols,
-        (c.wins::numeric / games_played::numeric) as win_percentage
-    from team_wins as t
-        left join team_counts as c using (team)
-        left join active_injuries as i on team_wins.team_full = active_injuries.team
-        left join team_attributes as a using (team)
+        team_attributes.team_full,
+        team_attributes.conference,
+        team_counts.games_played,
+        team_counts.wins,
+        team_counts.losses,
+        (team_wins.team),
+        coalesce(active_injuries.team_active_injuries, 0) as active_injuries,
+        coalesce(active_injuries.team_active_protocols, 0) as active_protocols,
+        (team_counts.wins::numeric / games_played::numeric) as win_percentage
+    from team_wins
+        left join team_counts on team_wins.team = team_counts.team
+        left join team_attributes on team_wins.team = team_attributes.team
+        left join active_injuries on team_attributes.team_full = active_injuries.team
 
 ),
 
@@ -133,7 +132,6 @@ select
     games_played,
     wins,
     losses,
-    total_injuries,
     active_injuries,
     active_protocols,
     round(win_percentage, 3)::numeric as win_percentage,

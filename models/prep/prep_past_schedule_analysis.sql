@@ -1,9 +1,9 @@
 with my_cte as (
     select
-        game_date as game_date,
+        date as game_date,
         away_team_acronym as away_team,
         home_team_acronym as home_team
-    from {{ ref('schedule_data') }}
+    from {{ ref('prep_schedule_table') }}
     where season_type = 'Regular Season'
 ),
 
@@ -60,7 +60,7 @@ final2 as (
         t.wins,
         f.opp,
         o.wins_opp,
-        f.game_date,
+        f.game_date::date,
         f.location_new,
         t.team_status,
         t.games_played,
@@ -71,10 +71,11 @@ final2 as (
         left join opp_status as o using (opp)
 ),
 
+
 win_loss as (
     select distinct
         team,
-        date as game_date,
+        game_date as date,
         location,
         outcome
     from {{ ref('boxscores') }}
@@ -82,7 +83,9 @@ win_loss as (
 
 combo as (
     select
-        *,
+        final2.*,
+        win_loss.location,
+        win_loss.outcome,
         case when game_date >= current_date then 'future' else 'past' end as game_status,
         case
             when outcome = 'W' then 1
@@ -105,7 +108,11 @@ combo as (
             else 0
         end as below_games_played
     from final2
-        left join win_loss using (team, game_date)
+        left join win_loss
+            on
+                final2.team = win_loss.team
+                and final2.game_date::date = win_loss.date::date
+
     order by game_date
 ),
 

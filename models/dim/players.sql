@@ -48,9 +48,9 @@ select
     yrs_exp,
     headshot,
     coalesce(salary, 1000000) as salary,
-    rank,
+    coalesce(rank, 0) as rank,
     players.created_at,
     players.modified_at
 from players
-    inner join contracts on players.player = contracts.player
-    inner join is_top_players on players.player = is_top_players.player
+    left join contracts on players.player = contracts.player
+    left join is_top_players on players.player = is_top_players.player
