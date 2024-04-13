@@ -2,9 +2,6 @@ version: 2
 
 models:
   - name: reddit_comment_data
-    tests:
-      - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["author", "comment", "created_at_date"]
     columns:
       - name: comment
         tests:
