@@ -40,10 +40,11 @@ up:
 down:
 	@docker compose -f docker/docker-compose-postgres.yml down
 
+# exit immediately after dbt runner finishes, and only show dbt runner logs
 .PHONY: test
 test:
 	@docker compose -f docker/docker-compose-test.yml down
-	@docker compose -f docker/docker-compose-test.yml up --exit-code-from dbt_runner
+	@docker compose -f docker/docker-compose-test.yml up --exit-code-from dbt_runner --attach dbt_runner
 
 run_dbt:
 	@docker compose -f docker/docker-compose-test.yml run dbt_runner dbt build --profiles-dir profiles/ --profile dbt_ci
