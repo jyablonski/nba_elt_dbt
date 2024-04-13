@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: opp_stats_data
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          value: 30
+    columns:
+      - name: team
+        tests:
+          - not_null
+          - unique

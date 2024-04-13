@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: pbp_data
+    tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["game_date", "home_team", "time_remaining_final", "quarter", "play"]
+    columns:
+      - name: play
+        tests:
+          - not_null
+      - name: score_home
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 180
+      - name: score_away
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 180

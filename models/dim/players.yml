@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: players
+    tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          min_value: 400
+          max_value: 800
+    columns:
+      - name: player
+        tests:
+          - not_null
+          - unique
+      - name: salary
+        tests:
+          - not_null

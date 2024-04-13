@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: twitter_tweets
+    tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["username", "tweet", "scrape_ts"]
+    columns:
+      - name: tweet
+        tests:
+          - not_null

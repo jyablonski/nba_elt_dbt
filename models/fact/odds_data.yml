@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: odds_data
+    tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["team", "date"]
+    columns:
+      - name: team
+        tests:
+          - not_null
+      - name: moneyline
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: -2000
+              max_value: 2000
+      - name: spread
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: -25
+              max_value: 25

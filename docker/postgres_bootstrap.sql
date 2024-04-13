@@ -822,7 +822,6 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Keon Johnson','PHX',2808720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Omer Yurtseven','UTA',2800000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
 INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
-	 ('Dewayne Dedmon','DET',7072674.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Olivier-Maxence Prosper','DAL',2733720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('David Roddy','MEM',2718240.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Isaiah Jackson','IND',2696280.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),

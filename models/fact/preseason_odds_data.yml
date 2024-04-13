@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: preseason_odds_data
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          value: 30
+    columns:
+      - name: team
+        tests:
+          - unique
+          - not_null
+      - name: predicted_wins
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 10
+              max_value: 65
