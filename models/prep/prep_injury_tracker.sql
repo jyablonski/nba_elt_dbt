@@ -1,11 +1,17 @@
+-- have to de-dupe them - these 2 can exist at the same time
+-- Out (Knee) - The Pelicans announced that Ingram will be re-evaluated in two weeks after sustaining a bone contusion in his left knee, per Senior NBA Insider Chris Haynes.
+-- Day To Day (Knee) - Ingram is questionable for Sunday's (Apr. 14) game against Houston.
+
 with injury_data as (
     select
         player,
         injury_status,
-        injury
+        injury,
+        row_number() over (partition by player order by modified_at desc) as row_num
     from {{ ref('injury_data') }}
 
 ),
+
 
 player_stats as (
     select
@@ -94,6 +100,7 @@ final as (
         left join team_gp_continuous on (player_stats.team = team_gp_continuous.team and player_last_game_played.player_latest_game = team_gp_continuous.game_date)
         left join team_gp_counts on (player_stats.team = team_gp_counts.team)
         left join player_logo using (player)
+    where injury_data.row_num = 1
 )
 
 select *

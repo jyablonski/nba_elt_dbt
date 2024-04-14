@@ -13,7 +13,9 @@ player_gp as (
         season_type,
         count(*) as games_played
     from {{ ref('boxscores') }}
-    group by player, season_type
+    group by
+        player,
+        season_type
 ),
 
 shooter_aggs as (
