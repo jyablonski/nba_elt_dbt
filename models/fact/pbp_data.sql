@@ -31,12 +31,18 @@ with pbp_raw as (
             when coalesce(numberperiod::text, '1st Quarter')::text = '4th OT' then -15
             else -20
         end as quarter_time,
+        case
+            when descriptionplayhome::text like descriptionplayvisitor::text then descriptionplayhome
+            when descriptionplayhome::text is null then descriptionplayvisitor::text
+            when descriptionplayvisitor::text is null then descriptionplayhome::text
+            else scorehome::text
+        end as play,
         created_at,
         modified_at
     from {{ source('nba_source', 'aws_pbp_data_source') }}
     where
         substr(timequarter, 1, length(timequarter) - 2)::text like '%:%' -- needed in case bbref fucks up again and includes faulty time values
-        {% if is_incremental() %}
+    {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
@@ -46,9 +52,10 @@ with pbp_raw as (
 
 ),
 
+
 time_remaining_calcs as (
     select
-        description_play_visitor,
+        play,
         game_date,
         quarter,
         time_quarter,
@@ -77,12 +84,6 @@ pbp_adjusted as (
             when score_home < score_away then away_team
             else 'TIE'
         end as leading_team,
-        case
-            when description_play_home like pbp_raw.description_play_visitor then description_play_home
-            when description_play_home is null then pbp_raw.description_play_visitor
-            when pbp_raw.description_play_visitor is null then description_play_home
-            else home_score
-        end as play,
         coalesce(
             (
                 coalesce(lag(round((time_remaining_adj / 60), 2)::numeric, 1) over (), 0)
@@ -109,7 +110,7 @@ pbp_adjusted as (
     from pbp_raw
         inner join time_remaining_calcs
             on
-                pbp_raw.description_play_visitor = time_remaining_calcs.description_play_visitor
+                pbp_raw.play = time_remaining_calcs.play
                 and pbp_raw.game_date = time_remaining_calcs.game_date
                 and pbp_raw.quarter = time_remaining_calcs.quarter
                 and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
