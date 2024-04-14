@@ -1,6 +1,6 @@
 with my_cte as (
     select *
-    from {{ ref('staging_aws_shooting_stats_table') }}
+    from {{ ref('shooting_stats_data') }}
 ),
 
 max_date as (

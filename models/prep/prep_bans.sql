@@ -1,23 +1,21 @@
 -- only tracking regular season metrics as of now
 with boxscores as (
     select distinct
-        game_id,
+        game_date,
         location,
         outcome,
         season_type,
-        (team),
+        team,
         case
             when outcome = 'W' then 1
             else 0
         end as outcome_int
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
 ),
 
 tot_games_played as (
-    select
-        'join' as join_col,
-        sum(outcome_int) as games_played
+    select sum(outcome_int) as games_played
     from boxscores
     where season_type = 'Regular Season'
 ),
@@ -34,66 +32,57 @@ league_bans as (
 league_bans_2 as (
     select
         location,
-        tot_wins,
-        'join' as join_col
+        tot_wins
     from league_bans
 ),
 
 upcoming_game_date as (
-    select
-        'join' as join_col,
-        coalesce(min(proper_date), current_date + 1) as min_date
-    from {{ ref('staging_aws_schedule_table') }}
+    select coalesce(min(proper_date), current_date + 1) as min_date
+    from {{ ref('schedule_data') }}
     where proper_date >= current_date
 ),
 
 upcoming_games as (
-    select
-        date::date as date,
-        'join' as join_col
-    from {{ ref('staging_aws_schedule_table') }}
+    select date::date as date
+    from {{ ref('schedule_data') }}
 ),
 
 upcoming_games_count as (
     select
         min_date,
-        count(*) as upcoming_games,
-        'join' as join_col
+        count(*) as upcoming_games
     from upcoming_games
-        left join upcoming_game_date using (join_col)
+        left join upcoming_game_date on 1 = 1
     where date = min_date
-    group by min_date, join_col
+    group by
+        min_date
 ),
 
-league_average_ppg_teams as (
+team_sum_pts_per_game as (
     select
         team,
-        game_id,
+        game_date,
         sum(pts) as sum_pts
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
-    group by team, game_id
+    group by
+        team,
+        game_date
 ),
 
 recent_game_date as (
-    select
-        'join' as join_col,
-        max(game_date) as most_recent_game
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    select max(game_date) as most_recent_game
+    from {{ ref('boxscores') }}
 ),
 
 league_average_ppg as (
-    select
-        'join' as join_col,
-        round(avg(sum_pts), 2) as avg_pts
-    from league_average_ppg_teams
+    select round(avg(sum_pts), 2) as avg_pts
+    from team_sum_pts_per_game
 ),
 
 latest_update as (
-    select
-        'join' as join_col,
-        max(scrape_time) as scrape_time
-    from {{ ref('staging_aws_reddit_data_table') }}
+    select max(scrape_time) as scrape_time
+    from {{ ref('reddit_posts') }}
 ),
 
 league_ts as (
@@ -101,39 +90,38 @@ league_ts as (
         sum(pts) as sum_pts,
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
 
 ),
 
 league_ts_2 as (
     select
-        {{ generate_ts_percent('sum_pts', 'sum_fga', 'sum_fta') }} as league_ts_percent,
-        'join' as join_col
+        {{ generate_ts_percent('sum_pts', 'sum_fga', 'sum_fta') }} as league_ts_percent
     from league_ts
 ),
 
 final as (
     select
-        d.min_date as upcoming_game_date,
-        b.location,
-        b.tot_wins,
-        tg.games_played,
-        p.avg_pts,
-        round((b.tot_wins::numeric / tg.games_played::numeric), 3)::numeric as win_pct,
-        u.scrape_time as scrape_time,
-        '114.7'::numeric as last_yr_ppg,
+        upcoming_game_date.min_date as upcoming_game_date,
+        league_bans_2.location,
+        league_bans_2.tot_wins,
+        tot_games_played.games_played,
+        league_average_ppg.avg_pts,
+        round((league_bans_2.tot_wins::numeric / tot_games_played.games_played::numeric), 3)::numeric as win_pct,
+        latest_update.scrape_time as scrape_time,
+        '114.2'::numeric as last_yr_ppg,
         league_ts_2.league_ts_percent as league_ts_percent,
         most_recent_game,
-        coalesce(g.upcoming_games, 0) as upcoming_games
-    from league_bans_2 as b
-        left join league_average_ppg as p using (join_col)
-        left join tot_games_played as tg using (join_col)
-        left join latest_update as u using (join_col)
-        left join upcoming_games_count as g using (join_col)
-        left join upcoming_game_date as d using (join_col)
-        left join league_ts_2 using (join_col)
-        left join recent_game_date using (join_col)
+        coalesce(upcoming_games_count.upcoming_games, 0) as upcoming_games
+    from league_bans_2
+        left join league_average_ppg on 1 = 1
+        left join tot_games_played on 1 = 1
+        left join latest_update on 1 = 1
+        left join upcoming_games_count on 1 = 1
+        left join upcoming_game_date on 1 = 1
+        left join league_ts_2 on 1 = 1
+        left join recent_game_date on 1 = 1
 
 )
 

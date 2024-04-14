@@ -1,20 +1,14 @@
 with team_ratings as (
 
     select *
-    from {{ ref('staging_aws_adv_stats_table') }}
+    from {{ ref('team_adv_stats') }}
 
-),
-
-team_attributes as (
-
-    select *
-    from {{ ref('staging_seed_team_attributes') }}
 ),
 
 final_team_ratings as (
     select
         team_ratings.team,
-        team_attributes.team_acronym,
+        teams.team_acronym,
         team_ratings.w as wins,
         team_ratings.l as losses,
         team_ratings.ortg,
@@ -23,9 +17,9 @@ final_team_ratings as (
         row_number() over (order by nrtg desc)::integer as nrtg_rank,
         row_number() over (order by drtg)::integer as drtg_rank,
         row_number() over (order by ortg desc)::integer as ortg_rank,
-        concat('logos/', lower(team_acronym), '.png') as team_logo
+        concat('logos/', lower(teams.team_acronym), '.png') as team_logo
     from team_ratings
-        left join team_attributes on team_ratings.team = team_attributes.team
+        left join {{ ref('teams') }} on team_ratings.team = teams.team
 ),
 
 final as (

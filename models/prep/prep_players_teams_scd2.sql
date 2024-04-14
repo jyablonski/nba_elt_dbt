@@ -10,14 +10,14 @@ with player_records as (
     select
         player,
         team,
-        date,
+        game_date,
         {{ dbt_utils.generate_surrogate_key(["player", "team"]) }} as scd_id
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where date > (select max(valid_to) from {{ this }})
+        where game_date > (select max(valid_to) from {{ this }})
 
     {% endif %}
 ),
@@ -25,7 +25,7 @@ with player_records as (
 max_dates as (
     select
         player,
-        max(date) as max_date
+        max(game_date) as max_date
     from player_records
     group by player
 ),
@@ -36,8 +36,8 @@ player_team_effective_dates as (
         player,
         team,
         count(*) as games_played_for_team,
-        min(date) as valid_from,
-        max(date) as max_game_date
+        min(game_date) as valid_from,
+        max(game_date) as max_game_date
     from player_records
     group by scd_id, player, team
 ),

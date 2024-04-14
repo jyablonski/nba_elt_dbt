@@ -1,9 +1,0 @@
-version: 2
-
-models:
-    - name: staging_aws_reddit_comment_data_table
-      description: Staging table for reddit comments
-      columns:
-        - name: comment
-          tests:
-            - not_null

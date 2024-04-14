@@ -1,7 +1,7 @@
 with my_cte as (
     select
         team,
-        date,
+        game_date,
         conference,
         running_total_games_played,
         running_total_wins,

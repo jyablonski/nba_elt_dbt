@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: teams
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          value: 30
+    columns:
+      - name: team
+        tests:
+          - not_null
+          - unique
+      - name: team_acronym
+        tests:
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 3

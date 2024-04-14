@@ -4,7 +4,7 @@
 with my_cte as (
     select distinct
         *
-    from {{ ref('staging_aws_reddit_comment_data_table') }}
+    from {{ ref('reddit_comment_data') }}
 ),
 
 aggs as (
@@ -17,7 +17,7 @@ aggs as (
         round(avg(neu), 3) as avg_neu,
         'join' as join_col
     from my_cte
-    group by 1
+    group by scrape_date
 ),
 
 tot_aggs as (

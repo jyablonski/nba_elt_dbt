@@ -51,6 +51,21 @@ sources:
           - name: team
             tests:
               - not_null
+      - name: team_top_players
+        columns:
+          - name: player
+            tests:
+              - not_null
+      - name: aws_player_attributes_source
+        columns:
+          - name: player
+            tests:
+              - not_null
+      - name: aws_team_attributes_source
+        columns:
+          - name: team
+            tests:
+              - not_null
       - name: aws_reddit_data_source
         description: Raw reddit data 
         loaded_at_field: scrape_time
@@ -141,12 +156,14 @@ sources:
           - name: player
             tests:
               - not_null
+      - name: inactive_dates
+        description: Inactive Dates table to manually override Schedule Tests
   - name: ml_models
     database: jacob_db
     schema: ml_models
     description: Landing Zone for NBA ML Data
     tables:
-      - name: tonights_games_ml
+      - name: ml_game_predictions
         columns:
           - name: game_date
             tests:

@@ -1,12 +1,14 @@
 cd:
 - .github/workflows/deploy.yml
-- docker/*
 
 dependencies:
-- Pipfile
+- pyproject.toml
 
 data_models:
 - models/**
+
+data_products:
+- models/marts/**
 
 sources:
 - models/sources.yml

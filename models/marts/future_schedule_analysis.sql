@@ -14,7 +14,9 @@ team_home_counts as (
         count(*) as home_games_left_count
     from my_cte
     where location_new = 'home'
-    group by 1, 2
+    group by
+        team,
+        location_new
 
 ),
 
@@ -25,7 +27,9 @@ team_road_counts as (
         count(*) as road_games_left_count
     from my_cte
     where location_new = 'road'
-    group by 1, 2
+    group by
+        team,
+        location_new
 
 ),
 
@@ -36,7 +40,9 @@ team_above_500_counts as (
         count(*) as above_500_games_left_count
     from my_cte
     where team_status_opp = 'Above .500'
-    group by 1, 2
+    group by
+        team,
+        team_status_opp
 ),
 
 team_below_500_counts as (
@@ -46,7 +52,9 @@ team_below_500_counts as (
         count(*) as below_500_games_left_count
     from my_cte
     where team_status_opp = 'Below .500'
-    group by 1, 2
+    group by
+        team,
+        team_status_opp
 ),
 
 team_opp_remaining_win_pct as (
@@ -54,7 +62,7 @@ team_opp_remaining_win_pct as (
         team,
         round(avg(win_pct_opp), 3)::numeric as avg_win_pct_opp
     from my_cte
-    group by 1
+    group by team
 
 ),
 

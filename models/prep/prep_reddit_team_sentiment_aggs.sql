@@ -7,8 +7,12 @@ with team_aggs as (
         round(avg(avg_compound), 3) as avg_compound_agg
     from {{ ref('prep_reddit_team_sentiment') }}
     where team not in ('RANDOM FLAIR', 'NBA')
-    group by team, game_outcome
-    order by team, 4 desc
+    group by
+        team,
+        game_outcome
+    order by
+        team,
+        round(avg(avg_score), 3) desc
 ),
 
 team_aggs_addon1 as (

@@ -30,7 +30,7 @@ with my_cte as (
         away_is_top_players,
         home_team_predicted_win_pct,
         away_team_predicted_win_pct
-    from {{ source('ml_models', 'tonights_games_ml') }}
+    from {{ source('ml_models', 'ml_game_predictions') }}
     where game_date::date < date({{ dbt.current_timestamp() }} - interval '6 hour')
 ),
 
@@ -40,7 +40,7 @@ schedule_wins as (
         s.game_date,
         s.outcome as outcome
     from {{ ref('prep_schedule_analysis') }} as s
-        left join {{ ref('staging_seed_team_attributes') }} as a on s.team = a.team_acronym
+        left join {{ ref('teams') }} as a on s.team = a.team_acronym
     where location = 'H'
 ),
 
@@ -70,8 +70,8 @@ home_odds as (
         a.team as home_team,
         date as game_date,
         moneyline as home_moneyline
-    from {{ ref('staging_aws_odds_table') }}
-        left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
+    from {{ ref('odds_data') }}
+        left join {{ ref('teams') }} as a using (team_acronym)
 ),
 
 away_odds as (
@@ -79,8 +79,8 @@ away_odds as (
         a.team as away_team,
         date as game_date,
         moneyline as away_moneyline
-    from {{ ref('staging_aws_odds_table') }}
-        left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
+    from {{ ref('odds_data') }}
+        left join {{ ref('teams') }} as a using (team_acronym)
 ),
 
 final_table as (

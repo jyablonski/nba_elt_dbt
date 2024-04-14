@@ -4,14 +4,12 @@ with mov_table as (
     select
         team,
         full_team,
-        game_id,
         game_date,
         outcome,
         opponent,
         pts_scored,
         pts_scored_opp,
         mov
-
     from {{ ref('prep_recent_games_teams') }}
 ),
 

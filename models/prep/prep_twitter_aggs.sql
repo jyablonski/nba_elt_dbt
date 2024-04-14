@@ -2,7 +2,7 @@
 
 with my_cte as (
     select distinct *
-    from {{ ref('staging_aws_twitter_data_table') }}
+    from {{ ref('twitter_tweets') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

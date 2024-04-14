@@ -2,8 +2,6 @@
 
 with team_wins as (
     select distinct
-
-        b.game_id,
         b.game_date,
         b.outcome,
         a.conference,
@@ -12,28 +10,27 @@ with team_wins as (
             when outcome = 'W' then 1
             else 0
         end as outcome_int
-    from {{ ref('prep_boxscores_mvp_calc') }} as b
-        left join {{ ref('staging_seed_team_attributes') }} as a on b.team = a.team_acronym
+    from {{ ref('boxscores') }} as b
+        left join {{ ref('teams') }} as a on b.team = a.team_acronym
     where season_type = 'Regular Season'
 
 ),
 
 active_injuries as (
     select
-        team_acronym as team,
+        team as team,
         team_active_injuries,
-        team_active_protocols,
-        total_injuries
-    from {{ ref('staging_aws_injury_data_table') }}
+        team_active_protocols
+    from {{ ref('team_injury_count_aggs') }}
 
 ),
 
 team_counts as (
     select
         team,
-        count(distinct game_id) as games_played,
+        count(*) as games_played,
         sum(outcome_int) as wins,
-        (count(distinct game_id) - sum(outcome_int)) as losses
+        (count(*) - sum(outcome_int)) as losses
     from team_wins
     group by team
 ),
@@ -41,26 +38,26 @@ team_counts as (
 team_attributes as (
     select
         team_acronym as team,
-        team as team_full
-    from {{ ref('staging_seed_team_attributes') }}
+        team as team_full,
+        conference
+    from {{ ref('teams') }}
 ),
 
 pre_final as (
     select distinct
-        a.team_full,
-        t.conference,
-        c.games_played,
-        c.wins,
-        c.losses,
-        (t.team),
-        coalesce(i.total_injuries, 0) as total_injuries,
-        coalesce(i.team_active_injuries, 0) as active_injuries,
-        coalesce(i.team_active_protocols, 0) as active_protocols,
-        (c.wins::numeric / games_played::numeric) as win_percentage
-    from team_wins as t
-        left join team_counts as c using (team)
-        left join active_injuries as i using (team)
-        left join team_attributes as a using (team)
+        team_attributes.team_full,
+        team_attributes.conference,
+        team_counts.games_played,
+        team_counts.wins,
+        team_counts.losses,
+        (team_wins.team),
+        coalesce(active_injuries.team_active_injuries, 0) as active_injuries,
+        coalesce(active_injuries.team_active_protocols, 0) as active_protocols,
+        (team_counts.wins::numeric / games_played::numeric) as win_percentage
+    from team_wins
+        left join team_counts on team_wins.team = team_counts.team
+        left join team_attributes on team_wins.team = team_attributes.team
+        left join active_injuries on team_attributes.team_full = active_injuries.team
 
 ),
 
@@ -110,7 +107,7 @@ preseason as (
         championship_odds,
         predicted_wins,
         predicted_losses
-    from {{ ref('staging_aws_preseason_odds_table') }}
+    from {{ ref('preseason_odds_data') }}
 ),
 
 final as (
@@ -135,7 +132,6 @@ select
     games_played,
     wins,
     losses,
-    total_injuries,
     active_injuries,
     active_protocols,
     round(win_percentage, 3)::numeric as win_percentage,

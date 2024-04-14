@@ -1,6 +1,6 @@
 select *
-from {{ ref('prep_boxscores_mvp_calc') }}
-    left join {{ ref('staging_seed_top_players') }}
-        on prep_boxscores_mvp_calc.team = staging_seed_top_players.team
+from {{ ref('boxscores') }}
+    left join {{ source('nba_source', 'team_top_players') }}
+        on boxscores.team = team_top_players.team
 where
-    prep_boxscores_mvp_calc.team != staging_seed_top_players.team
+    boxscores.team != team_top_players.team

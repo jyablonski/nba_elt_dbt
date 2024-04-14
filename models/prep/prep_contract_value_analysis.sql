@@ -13,7 +13,7 @@ my_cte as (
         avg_mvp_score,
         coalesce(salary, 1000000) as salary
     from {{ ref('prep_player_stats') }}
-        left join {{ ref('staging_aws_contracts_table') }} using (player)
+        left join {{ ref('players') }} using (player)
         inner join player_teams using (player)
 ),
 

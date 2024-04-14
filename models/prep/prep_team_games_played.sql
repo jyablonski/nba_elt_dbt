@@ -1,9 +1,8 @@
 with my_cte as (
     select distinct
         team,
-        game_date,
-        game_id
-    from {{ ref('prep_boxscores_mvp_calc') }}
+        game_date
+    from {{ ref('boxscores') }}
     where season_type = 'Regular Season'
 ),
 

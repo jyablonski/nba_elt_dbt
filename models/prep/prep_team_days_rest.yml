@@ -5,7 +5,7 @@ models:
     description: Prep table for team days rest data
     tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "date"]
+          column_list: ["team", "game_date"]
     columns:
       - name: days_rest
         tests:

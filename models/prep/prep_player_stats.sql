@@ -8,12 +8,12 @@ with agg_stats as (
         sum(fga::numeric) as sum_fga,
         sum(fta::numeric) as sum_fta,
         sum(pts::numeric) as sum_pts,
-        avg(plusminus::numeric) as avg_plus_minus,
+        avg(plus_minus::numeric) as avg_plus_minus,
         round(
             avg(
                 pts::numeric
             ) + (
-                0.5 * avg(plusminus::numeric)
+                0.5 * avg(plus_minus::numeric)
             ) + (
                 2 * avg(stl::numeric + blk::numeric)
             ) + (
@@ -22,9 +22,11 @@ with agg_stats as (
             1
         ) as avg_mvp_score,
         count(*) as games_played
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+    from {{ ref('boxscores') }}
     where player is not null and season_type = 'Regular Season'
-    group by player, season_type
+    group by
+        player,
+        season_type
 ),
 
 player_most_recent_team as (

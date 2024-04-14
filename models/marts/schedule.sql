@@ -27,14 +27,14 @@ team_logo_home as (
     select
         team as home_team,
         team_logo as home_team_logo
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 team_logo_away as (
     select
         team as away_team,
         team_logo as away_team_logo
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 

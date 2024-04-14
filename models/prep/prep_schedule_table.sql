@@ -15,14 +15,14 @@ with schedule_data as (
             /* this was for empty values - im setting a default here bc fk it */
             else start_time
         end as start_time2
-    from {{ ref('staging_aws_schedule_table') }}
+    from {{ ref('schedule_data') }}
 ),
 
 home_team_attributes as (
     select
         team as home_team,
         team_acronym as home_team_acronym
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 home_team_rank as (
@@ -38,7 +38,7 @@ home_team_odds as (
         team_acronym as home_team_acronym,
         moneyline as home_moneyline,
         date as proper_date
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('odds_data') }}
 ),
 
 
@@ -46,7 +46,7 @@ away_team_attributes as (
     select
         team as away_team,
         team_acronym as away_team_acronym
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 away_team_odds as (
@@ -54,7 +54,7 @@ away_team_odds as (
         team_acronym as away_team_acronym,
         moneyline as away_moneyline,
         date as proper_date
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('odds_data') }}
 ),
 
 away_team_rank as (
@@ -68,7 +68,7 @@ away_team_rank as (
 home_days_rest as (
     select
         team as home_team,
-        date as proper_date,
+        game_date as proper_date,
         days_rest as home_days_rest
     from {{ ref('prep_team_days_rest') }}
 ),
@@ -76,7 +76,7 @@ home_days_rest as (
 away_days_rest as (
     select
         team as away_team,
-        date as proper_date,
+        game_date as proper_date,
         days_rest as away_days_rest
     from {{ ref('prep_team_days_rest') }}
 ),
@@ -113,17 +113,21 @@ final_table as (
         left join
             home_team_odds
             on
-                home_team_attributes.home_team_acronym
-                = home_team_odds.home_team_acronym and schedule_data.proper_date
-                = home_team_odds.proper_date
+                home_team_attributes.home_team_acronym = home_team_odds.home_team_acronym
+                and schedule_data.proper_date = home_team_odds.proper_date
         left join
             away_team_odds
             on
-                away_team_attributes.away_team_acronym
-                = away_team_odds.away_team_acronym and schedule_data.proper_date
-                = away_team_odds.proper_date
-        left join home_days_rest on schedule_data.home_team = home_days_rest.home_team and schedule_data.proper_date = home_days_rest.proper_date
-        left join away_days_rest on schedule_data.away_team = away_days_rest.away_team and schedule_data.proper_date = away_days_rest.proper_date
+                away_team_attributes.away_team_acronym = away_team_odds.away_team_acronym
+                and schedule_data.proper_date = away_team_odds.proper_date
+        left join home_days_rest
+            on
+                schedule_data.home_team = home_days_rest.home_team
+                and schedule_data.proper_date = home_days_rest.proper_date
+        left join away_days_rest
+            on
+                schedule_data.away_team = away_days_rest.away_team
+                and schedule_data.proper_date = away_days_rest.proper_date
     order by schedule_data.proper_date asc
 )
 

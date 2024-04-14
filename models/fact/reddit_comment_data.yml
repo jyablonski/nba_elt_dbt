@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: reddit_comment_data
+    columns:
+      - name: comment
+        tests:
+          - not_null
+      - name: score
+        tests:
+          - not_null
+      - name: compound
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: -1
+              max_value: 1

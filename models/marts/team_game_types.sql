@@ -2,7 +2,6 @@ with mov_data as (
     select
         team,
         game_date,
-        game_id,
         outcome,
         mov::integer,
         game_type

@@ -1,8 +1,8 @@
 with player_most_recent_date as (
     select
         player,
-        max(date)::date as date
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+        max(game_date)::date as game_date
+    from {{ ref('boxscores') }}
     group by player
 ),
 
@@ -10,8 +10,8 @@ player_data as (
     select
         player,
         team,
-        date
-    from {{ ref('staging_aws_boxscores_incremental_table') }}
+        game_date
+    from {{ ref('boxscores') }}
 ),
 
 -- this gives the most recent team
@@ -20,7 +20,7 @@ player_most_recent_team as (
         player,
         team as most_recent_team
     from player_data
-        inner join player_most_recent_date using (player, date)
+        inner join player_most_recent_date using (player, game_date)
 ),
 
 -- this and the _agg cte give the NUMBER of teams the player played on this year
@@ -44,10 +44,12 @@ player_team_dates as (
     select
         player,
         team,
-        min(date) as first_appeared_date,
-        max(date) as last_appeared_date
+        min(game_date) as first_appeared_date,
+        max(game_date) as last_appeared_date
     from player_data
-    group by player, team
+    group by
+        player,
+        team
 
 ),
 

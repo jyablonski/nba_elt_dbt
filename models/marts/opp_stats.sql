@@ -1,7 +1,18 @@
 with my_cte as (
-    select *
-    from {{ ref('staging_aws_opp_stats_table') }}
-        left join {{ ref('staging_seed_team_attributes') }} using (team)
+    select
+        opp_stats_data.team,
+        conference,
+        scrape_date,
+        fg_percent_opp,
+        threep_percent_opp,
+        threep_made_opp,
+        ppg_opp,
+        fg_percent_rank,
+        three_percent_rank,
+        three_pm_rank,
+        ppg_opp_rank
+    from {{ ref('opp_stats_data') }}
+        left join {{ ref('teams') }} on opp_stats_data.team = teams.team
 )
 
 select

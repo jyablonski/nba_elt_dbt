@@ -1,7 +1,6 @@
 with my_data as (
     select distinct
         team,
-        game_id,
         game_date,
         location,
         outcome,
@@ -10,7 +9,7 @@ with my_data as (
             when outcome = 'W' then 1
             else 0
         end as outcome_win
-    from {{ ref('prep_boxscores_mvp_calc') }}
+    from {{ ref('boxscores') }}
 ),
 
 team_ranks as (

@@ -3,7 +3,7 @@
 -- this model grabs all ml predictions from entire season and runs aggregations to find correct prediction %.
 -- it excludes tonight's games because we don't know whether the ml model is correct or incorrect on those predictions yet.
 
--- tonights_games_ml has to be a source bc im making that table externally in an ecs python script
+-- ml_game_predictions has to be a source bc im making that table externally in an ecs python script
 
 with my_cte as (
     select
@@ -26,7 +26,7 @@ with my_cte as (
         away_is_top_players,
         home_team_predicted_win_pct,
         away_team_predicted_win_pct
-    from {{ source('ml_models', 'tonights_games_ml') }}
+    from {{ source('ml_models', 'ml_game_predictions') }}
     where game_date::date < date({{ dbt.current_timestamp() }} - interval '6 hour')
 ),
 

@@ -5,7 +5,7 @@ models:
       description: Prod Team Margin of Victory Table
       tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["team", "game_id"]
+            column_list: ["team", "game_date"]
       columns:
       - name: mov
         tests:

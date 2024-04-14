@@ -1,4 +1,10 @@
-with my_cte as (
+with max_date as (
+    select max(scrape_date) as scrape_date
+    from {{ ref('reddit_comment_data') }}
+
+),
+
+comments as (
     select
         author,
         comment,
@@ -9,24 +15,15 @@ with my_cte as (
         pos,
         neu,
         neg,
-        scrape_date
-    from {{ ref('prep_reddit_comments') }}
-),
-
-max_date as (
-    select max(scrape_date) as scrape_date
-    from my_cte
-
-),
-
-final as (
-    select *
-    from my_cte
+        scrape_date,
+        row_number() over (partition by author, comment order by score desc) as row_num
+    from {{ ref('reddit_comment_data') }}
         inner join max_date using (scrape_date)
-    order by score desc
     limit 2000
-
 )
 
+
 select *
-from final
+from comments
+where row_num = 1
+order by score desc

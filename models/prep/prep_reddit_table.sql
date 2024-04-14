@@ -7,7 +7,7 @@ with my_cte as (
             when url like '%reddit%' then 'Reddit Text Post'
             else 'Unclassified'
         end as post_type
-    from {{ ref('staging_aws_reddit_data_table') }}
+    from {{ ref('reddit_posts') }}
 ),
 
 aggs as (

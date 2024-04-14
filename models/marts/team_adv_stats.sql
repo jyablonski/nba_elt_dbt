@@ -1,14 +1,14 @@
 with aws_adv_stats_table as (
 
     select *
-    from {{ ref('staging_aws_adv_stats_table') }}
+    from {{ ref('team_adv_stats_data') }}
 
 ),
 
 team_attributes as (
 
     select *
-    from {{ ref('staging_seed_team_attributes') }}
+    from {{ ref('teams') }}
 ),
 
 prod_adv_stats_table as (

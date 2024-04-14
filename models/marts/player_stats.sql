@@ -1,7 +1,7 @@
 with my_cte as (
     select
         prep_player_stats.player,
-        player_attributes.headshot as player_logo,
+        players.headshot as player_logo,
         prep_player_stats.season_type,
         prep_player_stats.team,
         staging_seed_team_attributes.team as full_team,
@@ -18,10 +18,10 @@ with my_cte as (
         prep_contract_value_analysis.mvp_rank
     from {{ ref('prep_player_stats') }} as prep_player_stats
         left join {{ ref('prep_contract_value_analysis') }} on prep_player_stats.player = prep_contract_value_analysis.player
-        left join {{ ref('staging_seed_team_attributes') }} as staging_seed_team_attributes
+        left join {{ ref('teams') }} as staging_seed_team_attributes
             on prep_player_stats.team = staging_seed_team_attributes.team_acronym
-        left join {{ source('nba_source', 'player_attributes') }}
-            on prep_player_stats.player = player_attributes.player
+        left join {{ ref('players') }}
+            on prep_player_stats.player = players.player
     order by avg_mvp_score desc
 )
 

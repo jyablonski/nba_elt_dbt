@@ -82,16 +82,9 @@ mvp_calc as (
             ) + (1.5 * avg(ast::numeric)) - (1.5 * avg(tov::numeric)),
             1
         ) as player_mvp_calc
-    from {{ ref('staging_aws_boxscores_table')}}
+    from {{ ref('boxscores')}}
     group by player, type
 
-),
-
-contract_df as (
-    select
-        player,
-        salary
-    from {{ ref('staging_aws_contracts_table')}}
 ),
 
 combined_table as (
@@ -102,14 +95,14 @@ combined_table as (
         total_player_stats.tot_games_played,
         team_games.tot_team_games_played,
         mvp_calc.player_mvp_calc,
-        contract_df.salary::numeric,
+        players.salary::numeric,
         tot_team_games_played - tot_games_played as games_missed
 
     from total_player_stats
     left join
         mvp_calc on
             mvp_calc.player = total_player_stats.player and mvp_calc.type = total_player_stats.type
-    left join contract_df on total_player_stats.player = contract_df.player
+    left join {{ ref('players') }} on total_player_stats.player = players.player
     left join player_teams on total_player_stats.player = player_teams.player
     left join team_games on player_teams.team = team_games.team
 )

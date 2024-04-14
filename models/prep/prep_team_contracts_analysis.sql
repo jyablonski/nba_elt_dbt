@@ -2,7 +2,7 @@ with my_cte as (
     select
         player,
         salary
-    from {{ ref('staging_aws_contracts_table') }}
+    from {{ ref('players') }}
 ),
 
 player_gp as (
@@ -32,9 +32,10 @@ combo as (
         salary * games_played as salary_earned,
         salary * team_games_played as salary_earned_max
     from my_cte
-        left join player_gp using (player)
-        left join team_gp using (team)
+        inner join player_gp using (player)
+        inner join team_gp using (team)
 ),
+
 
 team_max_date as (
     select distinct
@@ -60,7 +61,9 @@ team_counts as (
         sum(salary_earned_max) as sum_salary_earned_max,
         round((sum(salary_earned) / sum(salary_earned_max)), 3) as team_pct_salary_earned
     from combo
-    group by team, win_percentage
+    group by
+        team,
+        win_percentage
     order by team_pct_salary_earned desc
 ),
 

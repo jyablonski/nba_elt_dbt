@@ -1,5 +1,5 @@
 select *
-from {{ ref('staging_aws_boxscores_incremental_table') }}
+from {{ ref('boxscores') }}
 where
     team not in (
         'ATL', 'BOS', 'BKN', 'CHA', 'CHI', 'CLE', 'DAL', 'DEN', 'DET', 'GSW',
