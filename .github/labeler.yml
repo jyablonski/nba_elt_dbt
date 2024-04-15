@@ -2,7 +2,7 @@ cd:
 - .github/workflows/deploy.yml
 
 dependencies:
-- pyproject.toml
+- poetry.lock
 
 data_models:
 - models/**
