@@ -10,7 +10,7 @@ with transactions as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where modified_at > (select max(modified_at) from {{ this }})
+        where created_at > (select max(created_at) from {{ this }})
 
     {% endif %}
 )
