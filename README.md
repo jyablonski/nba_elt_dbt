@@ -1,6 +1,6 @@
 ![Deployment](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/deploy.yml/badge.svg) ![Tests](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/test.yml/badge.svg)
 
-Version: 3.0.0
+Version: 3.0.1
 
 ## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
 
@@ -35,7 +35,7 @@ The same test suite runs on every commit to a PR via GitHub Actions
 
 1. Links to other Repos providing infrastructure for this Project
     * [Dash Server](https://github.com/jyablonski/nba_elt_dashboard)
-    * [Ingestion Script](https://github.com/jyablonski/python_docker)
+    * [Ingestion Script](https://github.com/jyablonski/nba_elt_ingestion)
     * [Terraform](https://github.com/jyablonski/aws_terraform)
     * [ML Pipeline](https://github.com/jyablonski/nba_elt_mlflow)
     * [REST API](https://github.com/jyablonski/nba_elt_rest_api)
