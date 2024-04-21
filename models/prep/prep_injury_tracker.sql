@@ -23,6 +23,7 @@ player_stats as (
         avg_ts_percent,
         avg_plus_minus
     from {{ ref('prep_player_stats') }}
+    where season_type = 'Regular Season'
 ),
 
 player_last_game_played as (
