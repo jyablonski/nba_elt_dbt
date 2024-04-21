@@ -13,6 +13,7 @@ player_recent_games as (
         c.avg_mvp_score
     from {{ ref('prep_contract_value_analysis') }} as c
         left join {{ ref('prep_player_stats') }} as s using (player)
+    where s.season_type = 'Regular Season'
 ),
 
 final as (

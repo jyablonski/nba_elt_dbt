@@ -1,5 +1,7 @@
 {{ config(materialized='incremental') }}
 
+-- to do: cleanup all of this into 1 data sourcew script.  right now it's 3 different ones pulling
+-- separate info
 with players as (
     select
         {{ clean_player_names_bbref('player') }}::text as player,
@@ -27,7 +29,6 @@ contracts as (
         'Wendell Carter Jr.', 'Wendell Carter'), 'Kenyon Martin Jr.', 'Kenyon Martin'), 'Gary Trent Jr.', 'Gary Trent'),
         'Trey Murphy III', 'Trey Murphy'), 'Larry Nance Jr.', 'Larry Nance'), 'Gary Payton II', 'Gary Payton'),
         'Troy Brown Jr.', 'Troy Brown'), 'Kevin Porter Jr.', 'Kevin Porter'), 'Enes Kanter', 'Enes Freedom') as player,
-        team::text as team,
         coalesce(season_salary, 1000000)::numeric as salary
     from {{ source('nba_source', 'aws_contracts_source') }}
 
@@ -42,7 +43,7 @@ is_top_players as (
 )
 
 
-select
+select distinct
     players.player,
     is_rookie,
     yrs_exp,

@@ -2,13 +2,17 @@ with agg_stats as (
     select
         player as player,
         season_type,
-        avg(fga::numeric) as avg_fga,
-        avg(fta::numeric) as avg_fta,
-        avg(pts::numeric) as avg_ppg,
+        round(avg(fga::numeric), 2) as avg_fga,
+        round(avg(fta::numeric), 2) as avg_fta,
+        round(avg(pts::numeric), 2) as avg_ppg,
         sum(fga::numeric) as sum_fga,
         sum(fta::numeric) as sum_fta,
         sum(pts::numeric) as sum_pts,
         avg(plus_minus::numeric) as avg_plus_minus,
+        case
+            when sum(pts::numeric) = 0 and sum(fga::numeric) = 0 and sum(fta::numeric) = 0 then null
+            else round(sum(pts::numeric) / (2 * (sum(fga::numeric) + (sum(fta::numeric) * 0.44))), 3)
+        end as avg_ts_percent,
         round(
             avg(
                 pts::numeric
@@ -23,7 +27,10 @@ with agg_stats as (
         ) as avg_mvp_score,
         count(*) as games_played
     from {{ ref('boxscores') }}
-    where player is not null and season_type = 'Regular Season'
+    where
+        player is not null
+        and season_type in ('Regular Season', 'Playoffs')
+        -- skip play-in games
     group by
         player,
         season_type
@@ -36,6 +43,15 @@ player_most_recent_team as (
     from {{ ref('prep_player_most_recent_team') }}
 ),
 
+ranks as (
+    select
+        player,
+        row_number() over (order by avg_ppg desc) as ppg_rank,
+        row_number() over (order by avg_mvp_score desc) as mvp_rank
+    from agg_stats
+    where season_type = 'Regular Season'
+),
+
 final as (
     select
         agg_stats.player,
@@ -46,10 +62,10 @@ final as (
         round(avg_ppg, 1) as avg_ppg,
         round(avg_plus_minus, 1) as avg_plus_minus,
         avg_mvp_score,
-        {{ generate_ts_percent('sum_pts', 'sum_fga', 'sum_fta::numeric') }} as avg_ts_percent,
+        avg_ts_percent,
         games_played,
-        row_number() over (order by avg_ppg desc) as ppg_rank,
-        row_number() over (order by avg_mvp_score desc) as mvp_rank,
+        ranks.ppg_rank,
+        ranks.mvp_rank,
         case
             when row_number() over (order by avg_ppg desc) <= 20
                 then 'Top 20 Scorers'
@@ -57,6 +73,7 @@ final as (
         end as scoring_category
     from agg_stats
         inner join player_most_recent_team on agg_stats.player = player_most_recent_team.player
+        inner join ranks on agg_stats.player = ranks.player
 )
 
 select *

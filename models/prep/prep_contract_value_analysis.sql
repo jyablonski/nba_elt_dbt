@@ -15,6 +15,7 @@ my_cte as (
     from {{ ref('prep_player_stats') }}
         left join {{ ref('players') }} using (player)
         inner join player_teams using (player)
+    where season_type = 'Regular Season'
 ),
 
 team_gp as (
