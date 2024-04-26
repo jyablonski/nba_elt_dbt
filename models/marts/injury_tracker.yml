@@ -6,9 +6,12 @@ models:
       columns:
       - name: continuous_games_missed
         tests:
+        # 2024 season ty jerome broke ankle and had surgery
+        # played 2 games in october, ended up missing 80+ afterwards into
+        # the postseason
         - dbt_expectations.expect_column_values_to_be_between:
             min_value: 0
-            max_value: 82
+            max_value: 102
       - name: player
         tests:
             - unique

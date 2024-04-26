@@ -4,10 +4,10 @@ models:
     - name: team_blown_leads
       description: Prod Team Blown Leads + Team Comebacks Table - 30 rows for reg season + 16 for playoffs
       tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
-            value: 30
-            config:
-              severity: warn
+        # 30 nba teams, 16 in postseason = 46 total possible
+        - dbt_expectations.expect_table_row_count_to_be_between:
+            min_value: 30 # (Optional)
+            max_value: 46
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["team", "season_type"]
       columns:
