@@ -9,3 +9,5 @@ dbt_packages
 .env
 profiles/.user.yml
 edr_target/
+jacobs_notes.md
+docker/db-data

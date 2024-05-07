@@ -10,3 +10,35 @@ services:
       - POSTGRES_DB=jacob_db
     volumes:
       - ${PWD}/docker/postgres_bootstrap.sql:/docker-entrypoint-initdb.d/postgres_bootstrap.sql
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - metanet
+
+  # metabase:
+  #   image: metabase/metabase:latest
+  #   container_name: metabase
+  #   hostname: metabase
+  #   volumes:
+  #     - /dev/urandom:/dev/random:ro
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     MB_DB_TYPE: postgres
+  #     MB_DB_DBNAME: jacob_db
+  #     MB_DB_PORT: 5432
+  #     MB_DB_USER: postgres
+  #     MB_DB_PASS: postgres
+  #     MB_DB_HOST: postgres
+  #   networks:
+  #     - metanet
+  #   healthcheck:
+  #     test: curl --fail -I http://localhost:3000/api/health || exit 1
+  #     interval: 15s
+  #     timeout: 5s
+  #     retries: 5
+
+networks:
+  metanet:
+    driver: bridge

@@ -3,7 +3,7 @@
 -- add fg, 3p% as 2 more ?  
 {% set rolling_avg_parameter = 9 %}
 
-with my_cte as (
+with player_boxscores as (
     select
         player,
         game_date,
@@ -21,7 +21,7 @@ with my_cte as (
 -- if it's the 6th game of the season, it will pull at 6 games and aggregate those stats.
 -- if it's the 11th game, it will pull games 2-11 for a total of 10 games.
 
-cte_aggs as (
+player_rolling_avg as (
     select
         player,
         game_date,
@@ -29,41 +29,39 @@ cte_aggs as (
         round(avg(game_ts_percent) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as rolling_avg_ts_percent,
         round(avg(game_mvp_score) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_mvp_score,
         round(avg(plus_minus) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_plus_minus
-    from my_cte
+    from player_boxscores
 ),
 
-max_date as (
+max_player_game_date as (
     select
         player,
-        max(game_date) as game_date
-    from cte_aggs
+        max(game_date) as max_game_date
+    from player_boxscores
     group by player
 ),
 
-player_logo as (
-    select
-        player,
-        headshot as player_logo
-    from {{ ref('players') }}
-),
-
 final as (
-    select *
-    from cte_aggs
-        inner join max_date using (player, game_date)
-),
-
-final2 as (
     select
-        final.player,
-        player_logo,
-        rolling_avg_pts,
-        rolling_avg_ts_percent,
-        rolling_avg_mvp_score,
-        rolling_avg_plus_minus
-    from final
-        inner join player_logo on final.player = player_logo.player
+        player_rolling_avg.player,
+        player_rolling_avg.game_date,
+        player_rolling_avg.rolling_avg_pts,
+        player_rolling_avg.rolling_avg_ts_percent,
+        player_rolling_avg.rolling_avg_mvp_score,
+        player_rolling_avg.rolling_avg_plus_minus,
+        prep_player_stats.avg_ppg,
+        prep_player_stats.avg_ts_percent,
+        prep_player_stats.avg_mvp_score,
+        prep_player_stats.avg_plus_minus,
+        player_rolling_avg.rolling_avg_pts - prep_player_stats.avg_ppg as ppg_diff,
+        player_rolling_avg.rolling_avg_ts_percent - prep_player_stats.avg_ts_percent as ts_percent_diff,
+        player_rolling_avg.rolling_avg_mvp_score - prep_player_stats.avg_mvp_score as mvp_score_diff,
+        player_rolling_avg.rolling_avg_plus_minus - prep_player_stats.avg_plus_minus as plus_minus_diff,
+        max_player_game_date.max_game_date
+    from player_rolling_avg
+        inner join {{ ref('prep_player_stats') }} on player_rolling_avg.player = prep_player_stats.player
+        inner join max_player_game_date on player_rolling_avg.player = max_player_game_date.player
+    where prep_player_stats.season_type = 'Regular Season'
 )
 
 select *
-from final2
+from final
