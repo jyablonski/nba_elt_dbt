@@ -31,12 +31,13 @@ build-backend = "poetry.core.masonry.api"
 # L032 - no `using` keyword for joins - this is fine imo so fuqqit
 # L034 - really fucked up my shit tbhh
 # L057 - mad that i had '%' characters in my source table column name.  bad practice but whatever
+# L067 - casting style, so `select col1::text` would become `select cast(col1 as string)`.  fk that
 
 
 [tool.sqlfluff.core]
 templater = "dbt"
 dialect = "postgres"
-exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L057"
+exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L057,L067"
 large_file_skip_byte_limit = 100000
 
 [tool.sqlfluff.indentation]

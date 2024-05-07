@@ -1,7 +1,13 @@
-{{ config(materialized='incremental') }}
+{{ 
+    config(
+        materialized='incremental',
+        unique_key='id'
+    ) 
+}}
 
 with schedule_data as (
-    select distinct
+    select
+        {{ dbt_utils.generate_surrogate_key(["away_team::text", "home_team::text", "proper_date::date"]) }} as id,
         away_team::text as away_team,
         away_team_attributes.team_acronym as away_team_acronym,
         home_team::text as home_team,
@@ -18,15 +24,14 @@ with schedule_data as (
         left join {{ source('nba_source', 'aws_team_attributes_source') }} as away_team_attributes
             on aws_schedule_source.away_team = away_team_attributes.team
     where
-        start_time like '%:%' -- hack to only get records that have a start time (7:00)
-        and start_time != '11:00' -- bug, thx bbref
+        -- in the playoffs bbref creates all potential playoff game records even if the series never games to
+        -- games 5, 6, or 7.  if these games never get played, they have an empty start_time
+        start_time != ''
+        and start_time != '11:00' -- historical bug, i think invalid games were being given start times of 11:00
     {% if is_incremental() %}
+        and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
 
-        -- this filter will only be applied on an incremental run
-        -- only grab records where date is greater than the max date of the existing records in the tablegm
-            and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
-
-        {% endif %}
+    {% endif %}
 )
 
 select *
