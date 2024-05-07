@@ -24,7 +24,7 @@ with schedule_data as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-            and aws_schedule_source.created_at > (select max(created_at) from {{ this }})
+            and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
 
         {% endif %}
 )

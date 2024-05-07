@@ -34,7 +34,7 @@ docker-build-local:
 
 .PHONY: up
 up:
-	@docker compose -f docker/docker-compose-postgres.yml up -d postgres
+	@docker compose -f docker/docker-compose-postgres.yml up -d
 
 .PHONY: down
 down:

@@ -39,7 +39,10 @@ player_team_effective_dates as (
         min(game_date) as valid_from,
         max(game_date) as max_game_date
     from player_records
-    group by scd_id, player, team
+    group by
+        scd_id,
+        player,
+        team
 ),
 
 final as (
