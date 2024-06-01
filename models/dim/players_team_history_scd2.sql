@@ -1,25 +1,10 @@
--- goal is to recreate `prep/prep_player_most_recent_team.sql`
--- easier way to do with snowflake syntax and partition by / group bys in same cte
--- https://github.com/dbt-labs/dbt-core/issues/3878
-{{ config(
-    materialized = 'incremental',
-    unique_key = 'scd_id',
-) }}
-
 with player_records as (
     select
         player,
         team,
-        game_date,
+        date as game_date,
         {{ dbt_utils.generate_surrogate_key(["player", "team"]) }} as scd_id
-    from {{ ref('boxscores') }}
-    {% if is_incremental() %}
-
-        -- this filter will only be applied on an incremental run
-        -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where game_date > (select max(valid_to) from {{ this }})
-
-    {% endif %}
+    from {{ source('nba_source', 'aws_boxscores_source') }}
 ),
 
 max_dates as (
@@ -30,12 +15,13 @@ max_dates as (
     group by player
 ),
 
+-- idea here is im recalcuating the effective dates for each player
+-- whenever they have a new record pop up in the source data
 player_team_effective_dates as (
     select
         scd_id,
         player,
         team,
-        count(*) as games_played_for_team,
         min(game_date) as valid_from,
         max(game_date) as max_game_date
     from player_records
@@ -50,12 +36,12 @@ final as (
         scd_id,
         player_team_effective_dates.player,
         player_team_effective_dates.team,
-        games_played_for_team,
         valid_from,
         case when max_game_date = max_date then '9999-12-31' else max_game_date end as valid_to,
-        case when max_game_date = max_date then 1 else 0 end as is_current_team
+        case when max_game_date = max_date then 1 else 0 end as is_current_team,
+        current_timestamp as modified_at
     from player_team_effective_dates
-        inner join max_dates using (player)
+        inner join max_dates on player_team_effective_dates.player = max_dates.player
 )
 
 select *
