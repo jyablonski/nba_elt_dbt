@@ -1,8 +1,11 @@
 version: 2
 
 models:
-  - name: prep_players_teams_scd2
-    description: Prep Table for SCD2 w/ players + teams effective dates
+  - name: players_team_history_scd2
+    description: SCD Type 2 Table for Player Team History Historical Data
+    tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          max_value: 1000
     columns:
       - name: scd_id
         tests:

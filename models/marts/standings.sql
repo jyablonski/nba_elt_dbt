@@ -18,15 +18,17 @@ with standings as (
 
 standings2 as (
     select
-        /*
-        case when (rank = 7) and (conference = 'Eastern') then 9  -- this is changing around the seeds for the play-in teams
-           when (rank = 8) and (conference = 'Eastern') then 7
-           when (rank = 9) and (conference = 'Eastern') then 8
-           when (rank = 8) and (conference = 'Western') then 9
-           when (rank = 9) and (conference = 'Western') then 8
-           else rank end as rank,
-        */
-        rank,
+        case
+            when (rank = 1) and conference = 'Western' then 2  -- this is changing around the seeds for the play-in teams
+            when (rank = 2) and conference = 'Western' then 1
+            when (rank = 6) and conference = 'Western' then 8
+            when (rank = 7) and conference = 'Western' then 6
+            when (rank = 8) and conference = 'Western' then 7
+            when (rank = 5) and conference = 'Eastern' then 6
+            when (rank = 6) and conference = 'Eastern' then 5
+            -- when (rank = 9) and (conference = 'Western') then 8
+            else rank
+        end as rank,
         team,
         team_full,
         conference,
