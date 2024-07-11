@@ -3,7 +3,7 @@ version: 2
 models:
     - name: game_types
       description: Prod Game Types Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["game_type", "season_type"]
         - dbt_expectations.expect_table_row_count_to_be_between:

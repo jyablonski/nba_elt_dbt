@@ -4,6 +4,6 @@ models:
   - name: shooting_stats_data
     columns:
       - name: player
-        tests:
+        data_tests:
           - not_null
           - unique

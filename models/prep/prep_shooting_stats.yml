@@ -5,11 +5,11 @@ models:
     description: Prep table for player shooting stats data
     columns:
       - name: player
-        tests:
+        data_data_tests:
           - not_null
           - unique
       - name: scrape_date
         description: Only grab the latest date, should only ever be 1 unless a player's name changes ?????
-        tests:
+        data_data_tests:
           - dbt_expectations.expect_column_distinct_count_to_equal:
               value: 1

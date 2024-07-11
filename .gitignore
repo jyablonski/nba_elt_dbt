@@ -11,3 +11,5 @@ profiles/.user.yml
 edr_target/
 jacobs_notes.md
 docker/db-data
+.vscode/
+dbt_output/

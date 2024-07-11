@@ -3,6 +3,6 @@ version: 2
 models:
     - name: bans
       description: Prod Big ASS numbers table
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 2

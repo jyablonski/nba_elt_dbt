@@ -5,12 +5,12 @@ models:
     description: Prep table for schedule + odds data
     columns:
       - name: away_team
-        tests:
+        data_tests:
           - not_null
       - name: home_team
-        tests:
+        data_tests:
           - not_null
       - name: game_pk
-        tests:
+        data_tests:
           - unique
           - not_null

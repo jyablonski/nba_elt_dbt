@@ -4,6 +4,6 @@ models:
   - name: prep_team_top_player_stats
     columns:
       - name: team
-        tests:
+        data_tests:
           - not_null
           - unique

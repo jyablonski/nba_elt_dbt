@@ -30,6 +30,8 @@ services:
 
     # command: dbt build --profiles-dir profiles/ --profile dbt_ci --select +state:modified+ --state ./target/
     command: dbt build --profiles-dir profiles/ --profile dbt_ci
+    volumes:
+      - ${PWD}/dbt_output:/home/appuser/target
 
 networks:
   api_network:

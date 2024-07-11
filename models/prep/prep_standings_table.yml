@@ -5,22 +5,22 @@ models:
     description: Prep table for standings table
     columns:
       - name: wins_last_10
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 10
       - name: losses_last_10
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 10
       - name: projected_wins
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 82
       - name: projected_losses
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 82

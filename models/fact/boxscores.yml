@@ -2,20 +2,20 @@ version: 2
 
 models:
   - name: boxscores
-    tests:
+    data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["player", "game_date"]
     columns:
       - name: player
-        tests:
+        data_tests:
           - not_null
       - name: game_mvp_score
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: -50
               max_value: 150
       - name: pts
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 100

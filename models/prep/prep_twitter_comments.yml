@@ -4,5 +4,5 @@ models:
   - name: prep_twitter_comments
     columns:
       - name: tweet
-        tests:
+        data_tests:
           - not_null

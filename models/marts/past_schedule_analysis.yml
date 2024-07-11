@@ -3,13 +3,13 @@ version: 2
 models:
     - name: past_schedule_analysis
       description: Prod Past Games Schedule Analysis Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
             config:
               severity: warn
       columns:
           - name: team
-            tests:
+            data_tests:
                 - unique
                 - not_null

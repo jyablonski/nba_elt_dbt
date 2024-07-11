@@ -5,13 +5,13 @@ models:
       description: Prod Injuries Table
       columns:
           - name: player
-            tests:
+            data_tests:
                 - not_null
           - name: team_acronym
-            tests:
+            data_tests:
               - dbt_expectations.expect_column_values_to_match_regex:
                   regex: "[A-Z]{3}"
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["player", "injury", "injury_description"]
         - dbt_expectations.expect_table_row_count_to_be_between:

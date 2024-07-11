@@ -2,13 +2,13 @@ version: 2
 
 models:
   - name: schedule_data
-    tests:
+    data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["home_team", "away_team", "proper_date"]
     columns:
       - name: away_team
-        tests:
+        data_tests:
           - not_null
       - name: home_team
-        tests:
+        data_tests:
           - not_null

@@ -3,16 +3,16 @@ version: 2
 models:
   - name: players_team_history_scd2
     description: SCD Type 2 Table for Player Team History Historical Data
-    tests:
+    data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           max_value: 1000
     columns:
       - name: scd_id
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: is_current_team
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 1

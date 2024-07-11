@@ -4,6 +4,6 @@ models:
   - name: prep_reddit_aggs
     columns:
       - name: date
-        tests:
+        data_tests:
           - not_null
           - unique

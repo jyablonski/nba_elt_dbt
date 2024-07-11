@@ -4,5 +4,5 @@ models:
   - name: prep_reddit_table
     columns:
       - name: post_type
-        tests:
+        data_tests:
           - not_null

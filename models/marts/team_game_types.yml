@@ -4,21 +4,21 @@ models:
     - name: team_game_types
       columns:
           - name: team
-            tests:
+            data_tests:
               - unique
               - not_null
           # - name: tenpt_win_pct
-          #   tests:
+          #   data_tests:
           #     - dbt_expectations.expect_column_values_to_be_between:
           #         min_value: 0
           #         max_value: 1
           # - name: clutch_win_pct
-          #   tests:
+          #   data_tests:
           #     - dbt_expectations.expect_column_values_to_be_between:
           #         min_value: 0
           #         max_value: 1
           # - name: blowout_win_pct
-          #   tests:
+          #   data_tests:
           #     - dbt_expectations.expect_column_values_to_be_between:
           #         min_value: 0
           #         max_value: 1

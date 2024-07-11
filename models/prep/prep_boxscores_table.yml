@@ -5,5 +5,5 @@ models:
     description: Prep table for boxscores data
     columns:
       - name: team
-        tests:
+        data_tests:
           - not_null

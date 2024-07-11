@@ -7,18 +7,18 @@ on:
 
 env:
   IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
-  AWS_REGION : "us-east-1"
+  AWS_REGION: "us-east-1"
   DBT_HOST: ${{ secrets.DBT_HOST }}
   DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
   DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
   DBT_USER: ${{ secrets.DBT_USER }}
-  DBT_PW: ${{ secrets.DBT_PW }}
+  DBT_DOCS_BUCKET: ${{ secrets.DBT_DOCS_BUCKET }}
+  
 
-
-# permission can be added at job level or workflow level    
+# permission can be added at job level or workflow level
 permissions:
-      id-token: write
-      contents: read    # This is required for actions/checkout
+  id-token: write
+  contents: read # This is required for actions/checkout
 
 jobs:
   build_image:
@@ -26,28 +26,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-      if: github.ref == 'refs/heads/master'
+      - name: Check out code
+        uses: actions/checkout@v2
+        if: github.ref == 'refs/heads/master'
 
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: ${{ env.IAM_ROLE }}            # use full arn
-        role-session-name: nba-elt-dbt-cicd
-        aws-region: ${{ env.AWS_REGION }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }} # use full arn
+          role-session-name: nba-elt-dbt-cicd
+          aws-region: ${{ env.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-      if: github.ref == 'refs/heads/master'
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        if: github.ref == 'refs/heads/master'
 
-    - name: Build, tag, and push image to Amazon ECR
-      if: github.ref == 'refs/heads/master'
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: jacobs_repo
-        IMAGE_TAG: nba_elt_pipeline_dbt
-      run: |
-        docker-compose -f docker/docker-compose.yml build
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Build, tag, and push image to Amazon ECR
+        if: github.ref == 'refs/heads/master'
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: jacobs_repo
+          IMAGE_TAG: nba_elt_pipeline_dbt
+        run: |
+          docker-compose -f docker/docker-compose.yml build
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Generate & Deploy dbt Docs
+        env:
+          aws_bucket: ${{ secrets.DBT_DOCS_BUCKET }}
+        run: |
+          make cd-generate-docs
+          aws s3 cp dbt_output/ s3://$aws_bucket/ --recursive --exclude "*" --include "catalog.json" --include "run_results.json" --include "index.html" --include "manifest.json"
+
+  deploy-alert:
+    needs: build_image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "dbt Deployed to Production"
+          SLACK_TITLE: Deploy Pipeline
+          SLACK_USERNAME: GitHub Actions
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}

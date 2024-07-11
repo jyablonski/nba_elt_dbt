@@ -2,16 +2,16 @@ version: 2
 
 models:
   - name: reddit_posts
-    tests:
+    data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["reddit_url", "scrape_date"]
     columns:
       - name: reddit_url
-        tests:
+        data_tests:
           - not_null
       - name: score
-        tests:
+        data_tests:
           - not_null
       - name: url
-        tests:
+        data_tests:
           - not_null

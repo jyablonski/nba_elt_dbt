@@ -3,12 +3,12 @@ version: 2
 models:
     - name: team_adv_stats
       description: Prod Team Advanced Stats Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
       columns:
           - name: Team
             description: Team Acronym
-            tests:
+            data_tests:
                 - unique
                 - not_null
