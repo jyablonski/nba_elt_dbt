@@ -53,7 +53,7 @@ jobs:
         env:
           aws_bucket: ${{ secrets.DBT_DOCS_BUCKET }}
         run: |
-          make cd-generate-docs
+          make cd-docs-generate
           aws s3 cp dbt_output/ s3://$aws_bucket/ --recursive --exclude "*" --include "catalog.json" --include "run_results.json" --include "index.html" --include "manifest.json"
 
   deploy-alert:
