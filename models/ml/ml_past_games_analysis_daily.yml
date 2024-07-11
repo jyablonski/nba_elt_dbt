@@ -5,20 +5,20 @@ models:
       description: Table showing a daily table of ML Prediction accuracy
       columns:
         - name: game_date
-          tests:
+          data_tests:
             - unique
             - not_null
         - name: tot_correct_predictions
-          tests:
+          data_tests:
             - not_null
         - name: tot_incorrect_predictions
-          tests:
+          data_tests:
             - not_null
         - name: tot_games
-          tests:
+          data_tests:
             - not_null
         - name: ml_prediction_pct_ma
-          tests:
+          data_tests:
             - not_null
             - dbt_expectations.expect_column_values_to_be_between:
                 min_value: 0

@@ -4,5 +4,5 @@ models:
   - name: prep_reddit_team_sentiment
     columns:
       - name: team
-        tests:
+        data_tests:
           - not_null

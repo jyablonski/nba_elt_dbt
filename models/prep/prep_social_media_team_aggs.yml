@@ -5,5 +5,5 @@ models:
     description: Prep table for reddit social media aggregation stats
     columns:
         - name: flair
-          tests:
+          data_data_tests:
               - unique

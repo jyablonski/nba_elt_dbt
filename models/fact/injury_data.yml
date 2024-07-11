@@ -2,16 +2,16 @@ version: 2
 
 models:
   - name: injury_data
-    tests:
+    data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["player", "team", "injury_combined"]
     columns:
       - name: player
-        tests:
+        data_tests:
           - not_null
       - name: injury_status
-        tests:
+        data_tests:
           - not_null
       - name: injury
-        tests:
+        data_tests:
           - not_null

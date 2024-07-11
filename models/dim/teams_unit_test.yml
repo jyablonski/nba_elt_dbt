@@ -1,0 +1,46 @@
+unit_tests:
+  - name: test_teams
+    model: teams
+    given:
+      - input: source('nba_source', 'aws_team_attributes_source')
+        format: sql
+        fixture: teams_source_fixture
+    overrides:
+      macros:
+        # unit test this model in "full refresh" mode
+        is_incremental: false
+    expect:
+      rows:
+        - {
+            team: "Milwaukee Bucks",
+            team_acronym: "MIL",
+            conference: "Eastern",
+            primary_color: "#00471b",
+            secondary_color: "#f0ebd2",
+            third_color: "NA",
+            previous_season_wins: 46,
+            previous_season_rank: 7,
+            team_logo: "https://stats.nba.com/media/img/teams/logos/MIL_logo.svg"
+          }
+        - {
+            team: "Toronto Raptors",
+            team_acronym: "TOR",
+            conference: "Eastern",
+            primary_color: "#ce1141",
+            secondary_color: "#061922",
+            third_color: "NA",
+            previous_season_wins: 27,
+            previous_season_rank: 24,
+            team_logo: "https://stats.nba.com/media/img/teams/logos/TOR_logo.svg"
+          }
+        - {
+            team: "Boston Celtics",
+            team_acronym: "BOS",
+            conference: "Eastern",
+            primary_color: "#008348",
+            secondary_color: "#061922",
+            third_color: "#bb9753",
+            previous_season_wins: 36,
+            previous_season_rank: 16,
+            team_logo: "https://stats.nba.com/media/img/teams/logos/BOS_logo.svg"
+          }

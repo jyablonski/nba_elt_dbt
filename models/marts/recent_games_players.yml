@@ -3,26 +3,26 @@ version: 2
 models:
     - name: recent_games_players
       description: Prod Recent Games for Players Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_be_between:
             min_value: 12
             max_value: 30
       columns:
           - name: player
-            tests:
+            data_tests:
                 - unique
                 - not_null
           - name: plus_minus
-            tests:
+            data_tests:
                 - not_null
           - name: pts
-            tests:
+            data_tests:
                 - not_null
           - name: pts_color
-            tests:
+            data_tests:
             - dbt_expectations.expect_column_values_to_be_in_set:
                 value_set: [0, 1, 2, 3]
           - name: ts_color
-            tests:
+            data_tests:
             - dbt_expectations.expect_column_values_to_be_in_set:
                 value_set: [0, 1, 2, 3]

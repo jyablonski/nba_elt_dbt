@@ -5,6 +5,6 @@ models:
       description: Matrix Table of ML Moneyline Bins to identify where to bet
       columns:
         - name: moneyline_parameter_lower
-          tests:
+          data_tests:
             - unique
             - not_null

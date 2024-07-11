@@ -3,21 +3,21 @@ version: 2
 models:
     - name: opp_stats
       description: Prod Opponent Shooting Stats Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 30
             config:
               severity: warn
       columns:
           - name: fg_percent_opp
-            tests:
+            data_tests:
                 - not_null
           - name: threep_percent_opp
-            tests:
+            data_tests:
                 - not_null
           - name: threep_made_opp
-            tests:
+            data_tests:
                 - not_null
           - name: ppg_opp
-            tests:
+            data_tests:
                 - not_null

@@ -10,7 +10,6 @@ services:
       - POSTGRES_DB=jacob_db
     volumes:
       - ${PWD}/docker/postgres_bootstrap.sql:/docker-entrypoint-initdb.d/postgres_bootstrap.sql
-      - ./db-data:/var/lib/postgresql/data
     networks:
       - metanet
 

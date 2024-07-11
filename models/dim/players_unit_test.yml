@@ -1,0 +1,78 @@
+unit_tests:
+  - name: players_unit_test
+    description: "Test the players model in full refresh mode."
+    model: players
+    overrides:
+      macros:
+        # unit test this model in "full refresh" mode
+        is_incremental: false
+    given:
+      - input: source('nba_source', 'aws_player_attributes_source')
+        rows:
+          - {
+              player: "Stephen Curry",
+              is_rookie: false,
+              yrs_exp: 16,
+              headshot: "https://headshot.dev",
+              created_at: "2021-01-01 01:00:00",
+              modified_at: "2021-01-01 01:00:00",
+            }
+          - {
+              player: "Kevin Durant",
+              is_rookie: false,
+              yrs_exp: 17,
+              headshot: "https://headshot.dev",
+              created_at: "2021-01-01 01:00:00",
+              modified_at: "2021-01-01 01:00:00",
+            }
+          - {
+              player: "Paul George",
+              is_rookie: false,
+              yrs_exp: 15,
+              headshot: "https://headshot.dev",
+              created_at: "2021-01-01 01:00:00",
+              modified_at: "2021-01-01 01:00:00",
+            }
+      - input: source('nba_source', 'team_top_players')
+        rows:
+          - { player: "Stephen Curry", team: "GSW", rank: 1 }
+          - { player: "Kevin Durant", team: "PHX", rank: 1 }
+          - { player: "Paul George", team: "PHI", rank: 2 }
+      - input: source('nba_source', 'aws_contracts_source')
+        rows:
+          - { player: "Stephen Curry", season_salary: 53500000 }
+          - { player: "Kevin Durant", season_salary: 47500000 }
+          - { player: "Paul George", season_salary: 47500000 }
+
+    expect:
+      rows:
+        - {
+            player: "Stephen Curry",
+            is_rookie: false,
+            yrs_exp: 16,
+            headshot: "https://headshot.dev",
+            salary: 53500000,
+            rank: 1,
+            created_at: "2021-01-01 01:00:00",
+            modified_at: "2021-01-01 01:00:00",
+          }
+        - {
+            player: "Kevin Durant",
+            is_rookie: false,
+            yrs_exp: 17,
+            headshot: "https://headshot.dev",
+            salary: 47500000,
+            rank: 1,
+            created_at: "2021-01-01 01:00:00",
+            modified_at: "2021-01-01 01:00:00",
+          }
+        - {
+            player: "Paul George",
+            is_rookie: false,
+            yrs_exp: 15,
+            headshot: "https://headshot.dev",
+            salary: 47500000,
+            rank: 2,
+            created_at: "2021-01-01 01:00:00",
+            modified_at: "2021-01-01 01:00:00",
+          }

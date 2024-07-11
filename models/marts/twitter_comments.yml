@@ -3,24 +3,24 @@ version: 2
 models:
     - name: twitter_comments
       description: Prod Twitter Comment Data
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["username", "tweet", "created_at"]
       columns:
           - name: created_at
             description: Only grab the latest available date of data
           - name: url
-            tests:
+            data_tests:
                 - not_null
           - name: compound
-            tests:
+            data_tests:
                 - not_null
           - name: neg
-            tests:
+            data_tests:
                 - not_null
           - name: neu
-            tests:
+            data_tests:
                 - not_null
           - name: pos
-            tests:
+            data_tests:
                 - not_null

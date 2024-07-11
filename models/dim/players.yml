@@ -2,15 +2,20 @@ version: 2
 
 models:
   - name: players
-    tests:
+    description: hello world
+    meta:
+      owner: "@jacob"
+      model_maturity: work in progress  # testing meta
+      contains_pii: true
+    data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           min_value: 400
           max_value: 800
     columns:
       - name: player
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: salary
-        tests:
+        data_tests:
           - not_null

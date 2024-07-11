@@ -19,52 +19,52 @@ sources:
         description: Raw player boxscores
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
           - name: team
-            tests:
+            data_tests:
               - not_null
       - name: aws_injury_data_source
         description: Raw player injury data
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
           - name: team
-            tests:
+            data_tests:
               - not_null
           - name: description
-            tests:
+            data_tests:
               - not_null
       - name: aws_transactions_source
         description: Raw player & team trades + transactions
         columns:
           - name: date
-            tests:
+            data_tests:
               - not_null
           - name: transaction
-            tests:
+            data_tests:
               - not_null
       - name: aws_adv_stats_source
         description: Raw team advanced stats
         columns:
           - name: team
-            tests:
+            data_tests:
               - not_null
       - name: team_top_players
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
       - name: aws_player_attributes_source
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
       - name: aws_team_attributes_source
         columns:
           - name: team
-            tests:
+            data_tests:
               - not_null
       - name: aws_reddit_data_source
         description: Raw reddit data 
@@ -80,31 +80,31 @@ sources:
           error_after: {count: 72, period: hour}
         columns:
           - name: url
-            tests:
+            data_tests:
               - not_null
       - name: aws_schedule_source
         description: Raw Schedule table
         columns:
           - name: away_team
-            tests:
+            data_tests:
               - not_null
           - name: home_team
-            tests:
+            data_tests:
               - not_null
           - name: proper_date
-            tests:
+            data_tests:
               - not_null
       - name: aws_odds_source
         description: Raw Odds table
         columns:
           - name: team
-            tests:
+            data_tests:
               - not_null
           - name: date
-            tests:
+            data_tests:
               - not_null
           - name: datetime1
-            tests:
+            data_tests:
               - not_null
         loaded_at_field: datetime1
         freshness:
@@ -114,47 +114,47 @@ sources:
         description: Raw contracts table
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
       - name: aws_pbp_data_source
         description: Raw pbp table
         columns:
           - name: hometeam
-            tests:
+            data_tests:
               - not_null
           - name: awayteam
-            tests:
+            data_tests:
               - not_null
           - name: timequarter
-            tests:
+            data_tests:
               - not_null
       - name: aws_preseason_odds_source
         description: Raw preseason odds table
-        tests:
+        data_tests:
           - dbt_expectations.expect_table_row_count_to_equal:
               value: 30
         columns:
           - name: team
-            tests:
+            data_tests:
               - unique
               - not_null
       - name: aws_opp_stats_source
         description: Raw Team Opponent Stats Table
         columns:
           - name: team
-            tests:
+            data_tests:
               - not_null
       - name: aws_shooting_stats_source
         description: Raw Player Shooting Stats table
         columns:
           - name: player
-            tests:
+            data_tests:
               - not_null
       - name: player_attributes
         description: Player Attributes v2 Table
         columns:
           - name: player
-            tests:
+            data_data_tests:
               - not_null
       - name: inactive_dates
         description: Inactive Dates table to manually override Schedule Tests
@@ -166,7 +166,7 @@ sources:
       - name: ml_game_predictions
         columns:
           - name: game_date
-            tests:
+            data_tests:
               - not_null
   - name: nba_prod
     database: jacob_db

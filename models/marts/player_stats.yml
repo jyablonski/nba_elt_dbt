@@ -3,17 +3,17 @@ version: 2
 models:
     - name: player_stats
       description: Prod Scoring Stats Table
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["player", "season_type"]
       columns:
         - name: avg_ppg
-          tests:
+          data_tests:
             - dbt_expectations.expect_column_values_to_be_between:
                 min_value: 0
                 max_value: 55
         - name: avg_mvp_score
-          tests:
+          data_tests:
             - dbt_expectations.expect_column_values_to_be_between:
                 min_value: -20
                 max_value: 65

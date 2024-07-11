@@ -3,22 +3,22 @@ version: 2
 models:
   - name: prep_bans
     description: '{{ doc("prep_bans")}}'
-    tests:
+    data_tests:
     - dbt_expectations.expect_table_row_count_to_equal:
         value: 2
     columns:
       - name: win_pct
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 1
       - name: games_played
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 1
               max_value: 1230
       - name: tot_wins
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
               max_value: 800

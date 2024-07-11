@@ -4,6 +4,6 @@ models:
   - name: prep_odds_analysis
     columns:
       - name: g_type
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_in_set:
               value_set: ['Underdog','Favored']

@@ -2,18 +2,18 @@ version: 2
 
 models:
   - name: team_adv_stats_data
-    tests:
+    data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           value: 30
     columns:
       - name: team
-        tests:
+        data_tests:
           - not_null
       - name: nrtg
-        tests:
+        data_tests:
           - not_null
       - name: nrtg
-        tests:
+        data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: -40
               max_value: 40

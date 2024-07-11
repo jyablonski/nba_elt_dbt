@@ -3,7 +3,7 @@ version: 2
 models:
     - name: ml_tonights_games
       description: Table showing Tonight's Games that will get fed into ML Models
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["home_team", "away_team", "game_date"]
         - dbt_expectations.expect_table_row_count_to_be_between:
@@ -11,14 +11,14 @@ models:
             max_value: 15
       columns:
         - name: away_is_top_players
-          tests:
+          data_tests:
             - not_null
         - name: home_is_top_players
-          tests:
+          data_tests:
             - not_null
         - name: home_days_rest
-          tests:
+          data_tests:
             - not_null
         - name: away_days_rest
-          tests:
+          data_tests:
             - not_null

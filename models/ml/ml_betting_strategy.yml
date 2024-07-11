@@ -5,13 +5,13 @@ models:
       description: Table of ML Profit based on Betting Strategy
       columns:
         - name: tot_profit_per_bet
-          tests:
+          data_tests:
             - dbt_expectations.expect_column_values_to_be_between:
                 min_value: 0
                 max_value: 1000
                 config:
                   severity: warn
-      tests:
+      data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
             value: 16
             config:

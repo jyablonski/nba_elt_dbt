@@ -4,6 +4,6 @@ models:
   - name: prep_recent_games_players
     columns:
       - name: player
-        tests:
+        data_tests:
           - unique
           - not_null

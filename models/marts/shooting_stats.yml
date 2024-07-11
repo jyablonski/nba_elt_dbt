@@ -5,12 +5,12 @@ models:
       description: Prod Shooting Stats Table
       columns:
       - name: player
-        tests:
+        data_tests:
         - unique
         - not_null
       - name: dunks
         description: Test Dunks for Null incase the join gets screwed up
-        tests:
+        data_tests:
         - not_null:
             config:
               severity: warn

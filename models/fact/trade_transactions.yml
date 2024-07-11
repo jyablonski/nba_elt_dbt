@@ -2,11 +2,11 @@ version: 2
 
 models:
   - name: trade_transactions
-    tests:
+    data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["date", "transaction"]
     columns:
       - name: transaction
-        tests:
+        data_tests:
           - not_null
 

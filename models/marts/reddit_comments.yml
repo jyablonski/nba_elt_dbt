@@ -3,27 +3,27 @@ version: 2
 models:
     - name: reddit_comments
       description: Prod Reddit Comments (Social Media)
-      tests:
+      data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
             column_list: ["scrape_date", "author", "comment"]
       columns:
           - name: scrape_date
             description: Only grab the latest available date of data
-            tests:
+            data_tests:
               - dbt_expectations.expect_column_distinct_count_to_equal:
                   value: 1
           - name: url
-            tests:
+            data_tests:
                 - not_null
           - name: compound
-            tests:
+            data_tests:
                 - not_null
           - name: neg
-            tests:
+            data_tests:
                 - not_null
           - name: neu
-            tests:
+            data_tests:
                 - not_null
           - name: pos
-            tests:
+            data_tests:
                 - not_null
