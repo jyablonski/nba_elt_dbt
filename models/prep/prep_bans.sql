@@ -109,9 +109,9 @@ final as (
         tot_games_played.games_played,
         league_average_ppg.avg_pts,
         round((league_bans_2.tot_wins::numeric / tot_games_played.games_played::numeric), 3)::numeric as win_pct,
-        latest_update.scrape_time as scrape_time,
+        latest_update.scrape_time,
         '114.2'::numeric as last_yr_ppg,
-        league_ts_2.league_ts_percent as league_ts_percent,
+        league_ts_2.league_ts_percent,
         most_recent_game,
         coalesce(upcoming_games_count.upcoming_games, 0) as upcoming_games
     from league_bans_2

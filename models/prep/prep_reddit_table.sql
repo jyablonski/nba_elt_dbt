@@ -16,7 +16,7 @@ aggs as (
         round(avg(score), 1)::numeric as avg_score,
         round(avg(num_comments), 1)::numeric as avg_num_comments
     from my_cte
-    group by 1
+    group by post_type
 )
 
 select *

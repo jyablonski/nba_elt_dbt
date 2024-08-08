@@ -1,6 +1,6 @@
 with agg_stats as (
     select
-        player as player,
+        player,
         season_type,
         round(avg(fga::numeric), 2) as avg_fga,
         round(avg(fta::numeric), 2) as avg_fta,

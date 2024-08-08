@@ -88,7 +88,7 @@ select_final_games as (
         m.team_max_score,
         s.opp_max_score,
         l.team_logo,
-        opponent_logo.opp_logo as opp_logo,
+        opponent_logo.opp_logo,
         (pts_scored - pts_scored_opp)::numeric as mov,
         round(m.team_avg_score, 1) as team_avg_score,
         round(s.opp_avg_score, 1) as opp_avg_score,
