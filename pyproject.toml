@@ -16,8 +16,8 @@ pytz = "2023.3.post1"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-sqlfluff = "2.3.5"
-sqlfluff-templater-dbt = "2.3.5"
+sqlfluff = "3.1.0"
+sqlfluff-templater-dbt = "3.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -30,6 +30,7 @@ build-backend = "poetry.core.masonry.api"
 # L029 - no sql-reserved keywords as aliases - bad habit but excluding for now	
 # L032 - no `using` keyword for joins - this is fine imo so fuqqit
 # L034 - really fucked up my shit tbhh
+# L054 - ambiguous.column_references - something with groupby / orderby ordering. i dont care
 # L057 - mad that i had '%' characters in my source table column name.  bad practice but whatever
 # L067 - casting style, so `select col1::text` would become `select cast(col1 as string)`.  fk that
 
@@ -37,7 +38,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.sqlfluff.core]
 templater = "dbt"
 dialect = "postgres"
-exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L057,L067"
+exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L054,L057,L067"
 large_file_skip_byte_limit = 100000
 
 [tool.sqlfluff.indentation]

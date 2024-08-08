@@ -19,7 +19,7 @@
 #       - uses: "actions/checkout@v2"
 #       - uses: "actions/setup-python@v2"
 #         with:
-#             python-version: "3.8"
+#           python-version: "3.8"
 #       - name: Install SQLFluff
 #         run: "pip install sqlfluff==0.10.1 markupsafe==2.0.1 sqlfluff-templater-dbt==0.10.1 dbt-core==1.0.1 dbt-postgres==1.0.1"
 

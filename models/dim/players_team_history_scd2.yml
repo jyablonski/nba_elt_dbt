@@ -3,6 +3,17 @@ version: 2
 models:
   - name: players_team_history_scd2
     description: SCD Type 2 Table for Player Team History Historical Data
+    meta:
+      owner: "@data_platform"
+      model_maturity: WIP - Expected Launch Q2 2025
+      contains_pii: true
+    config:
+      tags:
+        - scd2
+        - second_tag
+      contract:
+        # enforced: true # if you set this, have to define all columns
+          enforced: false
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           max_value: 1000

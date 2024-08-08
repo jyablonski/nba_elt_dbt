@@ -11,7 +11,10 @@ aggs as (
         is_top_players,
         count(outcome) as outcome_count
     from my_cte
-    group by 1, 2, 3
+    group by
+        team,
+        outcome,
+        is_top_players
     order by team
 ),
 
@@ -106,10 +109,9 @@ final3 as (
             when aggs_wins_0 > 0 then round(aggs_wins_0::numeric / (aggs_wins_0::numeric + aggs_losses_0::numeric), 3)::numeric
             else 0
         end as aggs_win_0_pct,
-        aggs_wins_2 + aggs_losses_2 as tot_games_2_players,
+        aggs_wins_0 + aggs_losses_0 as tot_games_0_players,
         aggs_wins_1 + aggs_losses_1 as tot_games_1_players,
-        aggs_wins_0 + aggs_losses_0 as tot_games_0_players
-
+        aggs_wins_2 + aggs_losses_2 as tot_games_2_players
     from final2
     order by aggs_win_2_pct desc
 )

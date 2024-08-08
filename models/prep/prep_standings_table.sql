@@ -18,7 +18,7 @@ with team_wins as (
 
 active_injuries as (
     select
-        team as team,
+        team,
         team_active_injuries,
         team_active_protocols
     from {{ ref('team_injury_count_aggs') }}

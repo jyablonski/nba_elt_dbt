@@ -59,3 +59,8 @@ run-unit-tests:
 cd-docs-generate:
 	@docker compose -f docker/docker-compose-test.yml run dbt_runner dbt docs generate --profiles-dir profiles/ --profile dbt_ci
 	@make down
+
+.PHONY: lint
+lint:
+	@docker compose -f docker/docker-compose-test.yml run dbt_runner dbt run-operation lint --profiles-dir profiles/ --profile dbt_ci
+	@make down

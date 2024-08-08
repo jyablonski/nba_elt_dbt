@@ -38,7 +38,7 @@ schedule_wins as (
     select
         a.team as home_team,
         s.game_date,
-        s.outcome as outcome
+        s.outcome
     from {{ ref('prep_schedule_analysis') }} as s
         left join {{ ref('teams') }} as a on s.team = a.team_acronym
     where location = 'H'

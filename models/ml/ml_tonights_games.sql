@@ -68,8 +68,8 @@ away_team_win_pct as (
 -- these 2 have to be different for tonights games - pull from injury report
 team_top_players as (
     select
-        p.player as player,
-        p.team as team,
+        p.player,
+        p.team,
         t.rank as player_rank
     from {{ ref('injury_data') }} as p
         left join {{ ref('players') }} as t using (player)

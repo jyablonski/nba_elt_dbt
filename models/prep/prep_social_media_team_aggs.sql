@@ -20,7 +20,7 @@ aggs as (
         round(avg(neu), 3) as avg_neu,
         round(avg(pos), 3) as avg_pos
     from my_cte
-    group by 1
+    group by flair
     order by avg_compound desc
 )
 
