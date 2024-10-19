@@ -48,7 +48,7 @@ my_cte as (
             when outcome = 'W' then 'Home Win'
             else 'Road Win'
         end as actual_outcome
-    from {{ source('ml_models', 'ml_game_predictions') }} as ml
+    from {{ source('ml', 'ml_game_predictions') }} as ml
         left join schedule_wins as w on ml.home_team = w.home_team and ml.game_date::date = w.game_date
     where ml.game_date::date < date({{ dbt.current_timestamp() }} - interval '6 hour')
 ),
