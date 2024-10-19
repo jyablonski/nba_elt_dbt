@@ -4,7 +4,7 @@ default:
     dev:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
-      port: 5432
+      port: "{{ env_var('DBT_PORT', 5432) }}"
       dbname: "{{ env_var('DBT_DBNAME') }}"
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
@@ -14,7 +14,7 @@ default:
     prod:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
-      port: 5432
+      port: "{{ env_var('DBT_PORT', 5432) }}"
       dbname: "{{ env_var('DBT_DBNAME') }}"
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
