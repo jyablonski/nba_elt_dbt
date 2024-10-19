@@ -27,7 +27,7 @@ combo as (
             when outcome = 'L' then away_team
             else 'TBD'
         end as actual_winner
-    from {{ source('nba_prod', 'user_predictions') }}
+    from {{ source('marts', 'user_predictions') }}
         left join home_wins using (home_team, game_date)
 
 ),

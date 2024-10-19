@@ -8,5 +8,5 @@ select
     away_team,
     away_moneyline as away_team_odds,
     away_team_predicted_win_pct
-from {{ source('ml_models', 'ml_game_predictions') }}
+from {{ source('ml', 'ml_game_predictions') }}
 where game_date = current_date
