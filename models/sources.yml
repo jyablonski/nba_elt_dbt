@@ -158,9 +158,9 @@ sources:
               - not_null
       - name: inactive_dates
         description: Inactive Dates table to manually override Schedule Tests
-  - name: ml
+  - name: ml_models
     database: jacob_db
-    schema: ml
+    schema: ml_models
     description: Landing Zone for NBA ML Data
     tables:
       - name: ml_game_predictions
@@ -168,8 +168,8 @@ sources:
           - name: game_date
             data_tests:
               - not_null
-  - name: marts
+  - name: nba_prod
     database: jacob_db
-    schema: marts
+    schema: nba_prod
     tables:
       - name: user_predictions

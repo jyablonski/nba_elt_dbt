@@ -29,7 +29,7 @@ select
         else 0
     end as away_is_great_value
 from {{ ref('schedule') }}
-    inner join {{ source('ml', 'ml_game_predictions') }}
+    inner join {{ source('ml_models', 'ml_game_predictions') }}
         on
             schedule.home_team = ml_game_predictions.home_team
             and schedule.away_team = ml_game_predictions.away_team

@@ -4,23 +4,21 @@ default:
     dev:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
-      port: "{{ env_var('DBT_PORT', 5432) | int }}"
+      port: 5432
       dbname: "{{ env_var('DBT_DBNAME') }}"
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASS') }}"
-      threads: 8
   target: prod
   outputs:
     prod:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
-      port: "{{ env_var('DBT_PORT', 5432) | int }}"
+      port: 5432
       dbname: "{{ env_var('DBT_DBNAME') }}"
       schema: "{{ env_var('DBT_SCHEMA') }}"
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASS') }}"
-      threads: 8
 
 dbt_ci:
   target: dev

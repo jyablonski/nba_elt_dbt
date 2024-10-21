@@ -39,7 +39,7 @@ models:
       # Applies to all files under models/example/
       marts:
         +materialized: table
-        +schema: marts
+        +schema: nba_prod
         +tags:
           - "NBA_PRODUCTION_MARTS"
           - "DAILY"

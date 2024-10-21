@@ -13,8 +13,8 @@ env:
   DBT_PASS: ${{ secrets.DBT_PASS }}
   DBT_PRAC_KEY: ci
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
-  PYTHON_VERSION: "3.12"
-  POETRY_VERSION: "1.8.3"
+  PYTHON_VERSION: "3.11"
+  POETRY_VERSION: "1.6.1"
  
 permissions:
       id-token: write
@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   test_pipeline:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout the Repo

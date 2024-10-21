@@ -15,7 +15,7 @@
         case when ml_money_col > 0 then ml_money_col - 10
             else ml_money_col end as ml_money_col2,
         {{ lower_param }} as bet_parameter_lower_neg_{{lower_param * -1}}
-    from jacob_db.ml.ml_past_games_odds_analysis
+    from jacob_db.ml_models.ml_past_games_odds_analysis
     where (
         (home_moneyline between {{ lower_param }} and {{ higher_param }}
             AND home_team_predicted_win_pct >= 0.55)
