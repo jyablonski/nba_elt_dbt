@@ -50,7 +50,7 @@ models:
           - "REPORTING"
       prep:
         +materialized: table
-        +schema: nba_prep
+        +schema: prep
         +tags:
           - "NBA_PRODUCTION_PREP"
           - "DAILY"
@@ -62,7 +62,7 @@ models:
           - "DAILY"
       ml:
         +materialized: table
-        +schema: ml_models
+        +schema: ml
         +tags:
           - "NBA_PRODUCTION_ML_MODELS"
           - "DAILY"

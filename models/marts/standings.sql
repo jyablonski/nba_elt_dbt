@@ -6,18 +6,23 @@ with standings as (
         wins,
         losses,
         games_played,
-        round((wins::numeric / games_played::numeric), 3)::numeric as win_pct,
+        round(wins::numeric / nullif(games_played::numeric, 0), 3)::numeric as win_pct,
         active_injuries,
         active_protocols,
         wins_last_10,
         losses_last_10,
-        row_number() over (partition by conference order by round((wins::numeric / games_played::numeric), 3)::numeric desc) as rank
+        row_number() over (
+            partition by conference
+            order by round((wins::numeric / nullif(games_played::numeric, 0)), 3) desc
+        ) as rank
+
     from {{ ref('prep_standings_table') }}
 
 ),
 
 standings2 as (
     select
+    /*
         case
             when (rank = 1) and conference = 'Western' then 2  -- this is changing around the seeds for the play-in teams
             when (rank = 2) and conference = 'Western' then 1
@@ -29,6 +34,8 @@ standings2 as (
             -- when (rank = 9) and (conference = 'Western') then 8
             else rank
         end as rank,
+        */
+        rank,
         team,
         team_full,
         conference,

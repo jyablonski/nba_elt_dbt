@@ -48,15 +48,15 @@ pre_final as (
         team_attributes.team_full,
         team_attributes.conference,
         team_counts.games_played,
-        team_counts.wins,
-        team_counts.losses,
-        (team_wins.team),
+        coalesce(team_counts.wins, 0) as wins,
+        coalesce(team_counts.losses, 0) as losses,
+        (team_attributes.team) as team,
         coalesce(active_injuries.team_active_injuries, 0) as active_injuries,
         coalesce(active_injuries.team_active_protocols, 0) as active_protocols,
         (team_counts.wins::numeric / games_played::numeric) as win_percentage
-    from team_wins
+    from team_attributes
+        left join team_wins on team_attributes.team = team_wins.team
         left join team_counts on team_wins.team = team_counts.team
-        left join team_attributes on team_wins.team = team_attributes.team
         left join active_injuries on team_attributes.team_full = active_injuries.team
 
 ),
@@ -129,9 +129,9 @@ select
     team,
     team_full,
     conference,
-    games_played,
-    wins,
-    losses,
+    coalesce(games_played, 0) as games_played,
+    coalesce(wins, 0) as wins,
+    coalesce(losses, 0) as losses,
     active_injuries,
     active_protocols,
     round(win_percentage, 3)::numeric as win_percentage,
