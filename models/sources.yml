@@ -150,12 +150,6 @@ sources:
           - name: player
             data_tests:
               - not_null
-      - name: player_attributes
-        description: Player Attributes v2 Table
-        columns:
-          - name: player
-            data_data_tests:
-              - not_null
       - name: inactive_dates
         description: Inactive Dates table to manually override Schedule Tests
   - name: ml
