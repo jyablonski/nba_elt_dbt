@@ -7,7 +7,7 @@ select
     player::text,
     pos::text,
     age::integer,
-    tm::text,
+    team::text,
     g::integer,
     gs::integer,
     mp::text,
