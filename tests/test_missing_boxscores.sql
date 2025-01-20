@@ -4,15 +4,15 @@ then this test will return an error */
 
 with boxscores_data as (
     select distinct
-        {{ dbt_utils.generate_surrogate_key(['home_team_df.team', 'away_team_df.team', 'boxscores.game_date']) }} as game_pk,
+        {{ dbt_utils.generate_surrogate_key(['home_team_df.team', 'away_team_df.team', 'fact_boxscores.game_date']) }} as game_pk,
         home_team_df.team as home_team,
         away_team_df.team as away_team,
-        boxscores.game_date
-    from {{ ref('boxscores') }}
-        inner join {{ ref('teams') }} as home_team_df
-            on boxscores.team = home_team_df.team_acronym
-        inner join {{ ref('teams') }} as away_team_df
-            on boxscores.opponent = away_team_df.team_acronym
+        fact_boxscores.game_date
+    from {{ ref('fact_boxscores') }}
+        inner join {{ ref('dim_teams') }} as home_team_df
+            on fact_boxscores.team = home_team_df.team_acronym
+        inner join {{ ref('dim_teams') }} as away_team_df
+            on fact_boxscores.opponent = away_team_df.team_acronym
     where
         location = 'H'
         -- this is needed so we don't double up on records & games played

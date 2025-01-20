@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: reddit_comment_data
+  - name: fact_reddit_comment_data
     columns:
       - name: comment
         data_tests:

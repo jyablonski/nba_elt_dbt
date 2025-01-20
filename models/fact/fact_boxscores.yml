@@ -1,21 +1,21 @@
 version: 2
 
 models:
-  - name: odds_data
+  - name: fact_boxscores
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "date"]
+          column_list: ["player", "game_date"]
     columns:
-      - name: team
+      - name: player
         data_tests:
           - not_null
-      - name: moneyline
+      - name: game_mvp_score
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -5000
-              max_value: 5000
-      - name: spread
+              min_value: -50
+              max_value: 150
+      - name: pts
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -25
-              max_value: 25
+              min_value: 0
+              max_value: 100

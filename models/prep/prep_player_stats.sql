@@ -26,7 +26,7 @@ with agg_stats as (
             1
         ) as avg_mvp_score,
         count(*) as games_played
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where
         player is not null
         and season_type in ('Regular Season', 'Playoffs')

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: prep_team_players_twenty_pt_games
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["player", "team"]
+    columns:
+      - name: num_games_over_twenty_pts
+        data_tests:
+          - not_null

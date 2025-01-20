@@ -3,7 +3,7 @@
 -- simpsons paradox - steph curry has less 3pt % in these games which makes him look "worse" but he has way more of these games than the other players. 
 with my_cte as (
     select *
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where threepfgmade >= {{ three_pt_parameter }}
 ),
 
@@ -12,7 +12,7 @@ player_gp as (
         player,
         season_type,
         count(*) as games_played
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by
         player,
         season_type

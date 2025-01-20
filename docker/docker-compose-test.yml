@@ -32,6 +32,8 @@ services:
     command: dbt build --profiles-dir profiles/ --profile dbt_ci
     volumes:
       - ${PWD}/dbt_output:/home/appuser/target
+      - ${PWD}/models:/home/appuser/models
+
 
 networks:
   api_network:

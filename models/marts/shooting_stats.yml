@@ -8,9 +8,3 @@ models:
         data_tests:
         - unique
         - not_null
-      - name: dunks
-        description: Test Dunks for Null incase the join gets screwed up
-        data_tests:
-        - not_null:
-            config:
-              severity: warn

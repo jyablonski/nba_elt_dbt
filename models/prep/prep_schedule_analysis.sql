@@ -9,7 +9,7 @@ with my_data as (
             when outcome = 'W' then 1
             else 0
         end as outcome_win
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 team_ranks as (

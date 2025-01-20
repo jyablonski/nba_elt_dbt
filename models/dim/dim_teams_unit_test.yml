@@ -1,6 +1,6 @@
 unit_tests:
-  - name: test_teams
-    model: teams
+  - name: test_dim_teams
+    model: dim_teams
     given:
       - input: source('nba_source', 'aws_team_attributes_source')
         format: sql

@@ -78,7 +78,7 @@ win_loss as (
         game_date as date,
         location,
         outcome
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 combo as (

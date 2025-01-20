@@ -28,10 +28,10 @@ with schedule_data as (
         -- games 5, 6, or 7.  if these games never get played, they have an empty start_time
         start_time != ''
         and start_time != '11:00' -- historical bug, i think invalid games were being given start times of 11:00
-    {% if is_incremental() %}
-        and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
+        {% if is_incremental() %}
+            and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
 
-    {% endif %}
+        {% endif %}
 )
 
 select *

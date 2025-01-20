@@ -2,7 +2,7 @@ with my_cte as (
     select distinct
         team,
         game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where season_type = 'Regular Season'
 ),
 

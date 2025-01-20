@@ -67,7 +67,7 @@ home_odds as (
         a.team as home_team,
         date as game_date,
         moneyline as home_moneyline
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('fact_odds_data') }}
         left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
 ),
 
@@ -76,7 +76,7 @@ away_odds as (
         a.team as away_team,
         date as game_date,
         moneyline as away_moneyline
-    from {{ ref('staging_aws_odds_table') }}
+    from {{ ref('fact_odds_data') }}
         left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
 ),
 

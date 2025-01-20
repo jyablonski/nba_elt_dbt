@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: teams
+  - name: fact_opp_stats_data
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           value: 30
@@ -10,7 +10,3 @@ models:
         data_tests:
           - not_null
           - unique
-      - name: team_acronym
-        data_tests:
-          - dbt_expectations.expect_column_value_lengths_to_equal:
-              value: 3

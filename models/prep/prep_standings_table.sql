@@ -10,8 +10,8 @@ with team_wins as (
             when outcome = 'W' then 1
             else 0
         end as outcome_int
-    from {{ ref('boxscores') }} as b
-        left join {{ ref('teams') }} as a on b.team = a.team_acronym
+    from {{ ref('fact_boxscores') }} as b
+        left join {{ ref('dim_teams') }} as a on b.team = a.team_acronym
     where season_type = 'Regular Season'
 
 ),
@@ -21,7 +21,7 @@ active_injuries as (
         team,
         team_active_injuries,
         team_active_protocols
-    from {{ ref('team_injury_count_aggs') }}
+    from {{ ref('prep_team_injury_count_aggs') }}
 
 ),
 
@@ -40,7 +40,7 @@ team_attributes as (
         team_acronym as team,
         team as team_full,
         conference
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 pre_final as (
@@ -107,7 +107,7 @@ preseason as (
         championship_odds,
         predicted_wins,
         predicted_losses
-    from {{ ref('preseason_odds_data') }}
+    from {{ ref('fact_preseason_odds_data') }}
 ),
 
 final as (

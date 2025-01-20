@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: pbp_data
+  - name: fact_pbp_data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           column_list: ["game_date", "home_team", "time_remaining_final", "quarter", "play", "score"]

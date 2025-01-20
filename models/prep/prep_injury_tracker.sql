@@ -8,7 +8,7 @@ with injury_data as (
         injury_status,
         injury,
         row_number() over (partition by player order by modified_at desc) as row_num
-    from {{ ref('injury_data') }}
+    from {{ ref('fact_injury_data') }}
 
 ),
 
@@ -30,7 +30,7 @@ player_last_game_played as (
     select
         player,
         max(game_date) as player_latest_game
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by player
 
 ),
@@ -39,7 +39,7 @@ team_last_game_played as (
     select
         team,
         max(game_date) as team_latest_game
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by team
 ),
 
@@ -48,7 +48,7 @@ team_gp as (
     select distinct
         team,
         game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 -- CTE using a windows function to make a continuous gp column for every game played by team
@@ -73,7 +73,7 @@ player_logo as (
     select
         player,
         headshot as player_logo
-    from {{ ref('players') }}
+    from {{ ref('dim_players') }}
 ),
 
 final as (

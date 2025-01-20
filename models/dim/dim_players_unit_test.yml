@@ -1,7 +1,7 @@
 unit_tests:
-  - name: players_unit_test
+  - name: dim_players_unit_test
     description: "Test the players model in full refresh mode."
-    model: players
+    model: dim_players
     overrides:
       macros:
         # unit test this model in "full refresh" mode
