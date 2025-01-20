@@ -17,12 +17,12 @@ with games as (
 
 outcomes as (
     select distinct
-        teams.team as home_team,
-        boxscores.game_date,
-        case when boxscores.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('boxscores') }}
-        left join {{ ref('teams') }} on boxscores.team = teams.team_acronym
-    where boxscores.location = 'H'
+        dim_teams.team as home_team,
+        fact_boxscores.game_date,
+        case when fact_boxscores.outcome = 'W' then 1 else 0 end as outcome
+    from {{ ref('fact_boxscores') }}
+        left join {{ ref('dim_teams') }} on fact_boxscores.team = dim_teams.team_acronym
+    where fact_boxscores.location = 'H'
 ),
 
 home_team_avg as (

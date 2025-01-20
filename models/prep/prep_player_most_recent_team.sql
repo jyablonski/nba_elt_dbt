@@ -2,7 +2,7 @@ with player_most_recent_date as (
     select
         player,
         max(game_date)::date as game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by player
 ),
 
@@ -11,7 +11,7 @@ player_data as (
         player,
         team,
         game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 -- this gives the most recent team

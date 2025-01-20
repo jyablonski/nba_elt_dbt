@@ -10,7 +10,7 @@ with boxscores as (
             when outcome = 'W' then 1
             else 0
         end as outcome_int
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where season_type = 'Regular Season'
 ),
 
@@ -38,13 +38,13 @@ league_bans_2 as (
 
 upcoming_game_date as (
     select coalesce(min(proper_date), current_date + 1) as min_date
-    from {{ ref('schedule_data') }}
+    from {{ ref('fact_schedule_data') }}
     where proper_date >= current_date
 ),
 
 upcoming_games as (
     select date::date as date
-    from {{ ref('schedule_data') }}
+    from {{ ref('fact_schedule_data') }}
 ),
 
 upcoming_games_count as (
@@ -63,7 +63,7 @@ team_sum_pts_per_game as (
         team,
         game_date,
         sum(pts) as sum_pts
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where season_type = 'Regular Season'
     group by
         team,
@@ -72,7 +72,7 @@ team_sum_pts_per_game as (
 
 recent_game_date as (
     select max(game_date) as most_recent_game
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 league_average_ppg as (
@@ -82,7 +82,7 @@ league_average_ppg as (
 
 latest_update as (
     select max(scrape_time) as scrape_time
-    from {{ ref('reddit_posts') }}
+    from {{ ref('fact_reddit_posts') }}
 ),
 
 league_ts as (
@@ -90,7 +90,7 @@ league_ts as (
         sum(pts) as sum_pts,
         sum(fga) as sum_fga,
         sum(fta::numeric) as sum_fta
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     where season_type = 'Regular Season'
 
 ),

@@ -1,5 +1,5 @@
 select
     date,
     transaction
-from {{ ref('trade_transactions') }}
+from {{ ref('fact_trade_transactions') }}
 order by date

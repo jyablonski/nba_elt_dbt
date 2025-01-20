@@ -27,14 +27,14 @@ team_logo_home as (
     select
         team as home_team,
         team_logo as home_team_logo
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 team_logo_away as (
     select
         team as away_team,
         team_logo as away_team_logo
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 

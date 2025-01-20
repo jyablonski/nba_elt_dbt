@@ -12,8 +12,8 @@ with games_cte as (
         game_date,
         outcome,
         case when outcome = 'W' then 1 else 0 end as outcome_int
-    from {{ ref('boxscores') }} as games
-        inner join {{ ref('teams' ) }} as attributes on games.team = attributes.team_acronym
+    from {{ ref('fact_boxscores') }} as games
+        inner join {{ ref('dim_teams' ) }} as attributes on games.team = attributes.team_acronym
 ),
 
 -- create 30 records for every team for fkn day a game is played in the nba.

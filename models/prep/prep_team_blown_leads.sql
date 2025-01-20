@@ -15,7 +15,7 @@ with home_teams as (
             when winning_team = home_team then 'Home'
             else 'Road'
         end as winning_team_loc
-    from {{ ref('pbp_data') }}
+    from {{ ref('fact_pbp_data') }}
     order by game_date
 ),
 
@@ -36,7 +36,7 @@ road_teams as (
             when winning_team = home_team then 'Home'
             else 'Road'
         end as winning_team_loc
-    from {{ ref('pbp_data') }}
+    from {{ ref('fact_pbp_data') }}
     order by game_date
 ),
 

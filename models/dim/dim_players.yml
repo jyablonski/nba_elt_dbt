@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: players
+  - name: dim_players
     description: hello world
     meta:
       owner: "@jacob"

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: team_adv_stats_data
+  - name: fact_team_adv_stats_data
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           value: 30

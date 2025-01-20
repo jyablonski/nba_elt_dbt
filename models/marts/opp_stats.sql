@@ -1,6 +1,6 @@
 with my_cte as (
     select
-        opp_stats_data.team,
+        fact_opp_stats_data.team,
         conference,
         scrape_date,
         fg_percent_opp,
@@ -11,8 +11,8 @@ with my_cte as (
         three_percent_rank,
         three_pm_rank,
         ppg_opp_rank
-    from {{ ref('opp_stats_data') }}
-        left join {{ ref('teams') }} on opp_stats_data.team = teams.team
+    from {{ ref('fact_opp_stats_data') }}
+        left join {{ ref('dim_teams') }} on fact_opp_stats_data.team = dim_teams.team
 )
 
 select

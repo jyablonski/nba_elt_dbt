@@ -1,17 +1,17 @@
 version: 2
 
 models:
-  - name: reddit_posts
+  - name: fact_injury_data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["reddit_url", "scrape_date"]
+          column_list: ["player", "team", "injury_combined"]
     columns:
-      - name: reddit_url
+      - name: player
         data_tests:
           - not_null
-      - name: score
+      - name: injury_status
         data_tests:
           - not_null
-      - name: url
+      - name: injury
         data_tests:
           - not_null

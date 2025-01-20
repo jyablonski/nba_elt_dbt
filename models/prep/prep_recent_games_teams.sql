@@ -4,7 +4,7 @@ with teams_scores as (
         game_date,
         season_type,
         sum(pts) as pts_game
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by
         team,
         game_date,
@@ -38,14 +38,14 @@ team_logo as (
         team,
         team_acronym,
         team_logo
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 opponent_logo as (
     select
         team_acronym as opponent,
         team_logo as opp_logo
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 -- this is the table that grabs the most recent games and grabs the pts scored from them
@@ -57,7 +57,7 @@ team_pts_scored as (
         outcome,
         season_type,
         sum(pts) as pts_scored
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     group by
         team,
         game_date,

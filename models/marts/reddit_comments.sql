@@ -1,6 +1,6 @@
 with max_date as (
     select max(scrape_date) as scrape_date
-    from {{ ref('reddit_comment_data') }}
+    from {{ ref('fact_reddit_comment_data') }}
 
 ),
 
@@ -17,7 +17,7 @@ comments as (
         neg,
         scrape_date,
         row_number() over (partition by author, comment order by score desc) as row_num
-    from {{ ref('reddit_comment_data') }}
+    from {{ ref('fact_reddit_comment_data') }}
         inner join max_date using (scrape_date)
     limit 2000
 )

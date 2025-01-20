@@ -15,14 +15,14 @@ with schedule_data as (
             /* this was for empty values - im setting a default here bc fk it */
             else start_time
         end as start_time2
-    from {{ ref('schedule_data') }}
+    from {{ ref('fact_schedule_data') }}
 ),
 
 home_team_attributes as (
     select
         team as home_team,
         team_acronym as home_team_acronym
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 home_team_rank as (
@@ -38,7 +38,7 @@ home_team_odds as (
         team_acronym as home_team_acronym,
         moneyline as home_moneyline,
         date as proper_date
-    from {{ ref('odds_data') }}
+    from {{ ref('fact_odds_data') }}
 ),
 
 
@@ -46,7 +46,7 @@ away_team_attributes as (
     select
         team as away_team,
         team_acronym as away_team_acronym
-    from {{ ref('teams') }}
+    from {{ ref('dim_teams') }}
 ),
 
 away_team_odds as (
@@ -54,7 +54,7 @@ away_team_odds as (
         team_acronym as away_team_acronym,
         moneyline as away_moneyline,
         date as proper_date
-    from {{ ref('odds_data') }}
+    from {{ ref('fact_odds_data') }}
 ),
 
 away_team_rank as (

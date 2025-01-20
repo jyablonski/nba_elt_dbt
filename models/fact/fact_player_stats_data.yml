@@ -1,9 +1,8 @@
 version: 2
 
 models:
-  - name: shooting_stats_data
+  - name: fact_player_stats_data
     columns:
       - name: player
         data_tests:
           - not_null
-          - unique

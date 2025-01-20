@@ -11,7 +11,7 @@ with player_boxscores as (
         game_ts_percent::numeric,
         game_mvp_score::numeric,
         plus_minus::numeric
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     order by
         player,
         game_date

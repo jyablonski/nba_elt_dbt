@@ -18,8 +18,8 @@ outcomes as (
         a.team as home_team,
         b.game_date,
         case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('boxscores') }} as b
-        left join {{ ref('teams') }} as a on b.team = a.team_acronym
+    from {{ ref('fact_boxscores') }} as b
+        left join {{ ref('dim_teams') }} as a on b.team = a.team_acronym
     where b.location = 'H'
 ),
 
@@ -71,8 +71,8 @@ team_top_players as (
         p.player,
         p.team,
         t.rank as player_rank
-    from {{ ref('injury_data') }} as p
-        left join {{ ref('players') }} as t using (player)
+    from {{ ref('fact_injury_data') }} as p
+        left join {{ ref('dim_players') }} as t using (player)
     where t.rank is not null and p.injury_status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
     -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),

@@ -4,7 +4,7 @@ with player_season_high as (
         player,
         max(pts) as max_pts,
         max(game_ts_percent) as max_ts
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     -- where type = 'Regular Season'
     group by player
 ),
@@ -12,13 +12,13 @@ with player_season_high as (
 -- yesterday could mean literally yesterday, but just grab the most recent games.
 boxscores_yesterday as (
     select max(game_date) as game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 -- grab (most recent) team from above cte
 boxscores_cte as (
     select *
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 player_aggs as (
@@ -28,7 +28,7 @@ player_aggs as (
         salary,
         headshot as player_logo
     from {{ ref('prep_player_stats') }}
-        left join {{ ref('players') }} using (player)
+        left join {{ ref('dim_players') }} using (player)
     where season_type = 'Regular Season'
 ),
 

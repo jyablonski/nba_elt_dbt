@@ -3,7 +3,7 @@ with injury_counts as (
         team,
         count(*) as team_active_injuries,
         0 as team_active_protocols
-    from {{ ref('injury_data') }}
+    from {{ ref('fact_injury_data') }}
     group by team
 )
 

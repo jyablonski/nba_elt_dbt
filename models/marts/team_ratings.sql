@@ -8,7 +8,7 @@ with team_ratings as (
 final_team_ratings as (
     select
         team_ratings.team,
-        teams.team_acronym,
+        dim_teams.team_acronym,
         team_ratings.w as wins,
         team_ratings.l as losses,
         team_ratings.ortg,
@@ -17,9 +17,9 @@ final_team_ratings as (
         row_number() over (order by nrtg desc)::integer as nrtg_rank,
         row_number() over (order by drtg)::integer as drtg_rank,
         row_number() over (order by ortg desc)::integer as ortg_rank,
-        concat('logos/', lower(teams.team_acronym), '.png') as team_logo
+        concat('logos/', lower(dim_teams.team_acronym), '.png') as team_logo
     from team_ratings
-        left join {{ ref('teams') }} on team_ratings.team = teams.team
+        left join {{ ref('dim_teams') }} on team_ratings.team = dim_teams.team
 ),
 
 final as (

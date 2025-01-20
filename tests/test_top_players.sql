@@ -1,6 +1,6 @@
 select *
-from {{ ref('boxscores') }}
+from {{ ref('fact_boxscores') }}
     left join {{ source('nba_source', 'team_top_players') }}
-        on boxscores.team = team_top_players.team
+        on fact_boxscores.team = team_top_players.team
 where
-    boxscores.team != team_top_players.team
+    fact_boxscores.team != team_top_players.team

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: players_team_history_scd2
+  - name: dim_players_team_history_scd2
     description: SCD Type 2 Table for Player Team History Historical Data
     meta:
       owner: "@data_platform"

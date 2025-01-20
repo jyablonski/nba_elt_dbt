@@ -2,7 +2,7 @@ with my_cte as (
     select
         player,
         salary
-    from {{ ref('players') }}
+    from {{ ref('dim_players') }}
 ),
 
 player_gp as (

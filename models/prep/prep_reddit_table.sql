@@ -7,7 +7,7 @@ with my_cte as (
             when url like '%reddit%' then 'Reddit Text Post'
             else 'Unclassified'
         end as post_type
-    from {{ ref('reddit_posts') }}
+    from {{ ref('fact_reddit_posts') }}
 ),
 
 aggs as (

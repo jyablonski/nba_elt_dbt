@@ -2,7 +2,7 @@ with my_cte as (
     select distinct
         team,
         game_date
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
     order by
         team,
         game_date
@@ -21,7 +21,7 @@ final as (
         end as days_rest,
         rank() over (partition by a.team order by game_date desc) as rank
     from my_cte as c
-        left join {{ ref('teams') }} as a
+        left join {{ ref('dim_teams') }} as a
             on c.team = a.team_acronym
 )
 

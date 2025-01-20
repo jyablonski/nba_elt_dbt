@@ -2,7 +2,7 @@
 
 with my_cte as (
     select distinct *
-    from {{ ref('twitter_tweets') }}
+    from {{ ref('fact_twitter_tweets') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

@@ -8,7 +8,7 @@ with my_cte as (
             when moneyline > 0 then 'Underdog'
             else 'fuqqq'
         end as g_type
-    from {{ ref('odds_data') }}
+    from {{ ref('fact_odds_data') }}
 ),
 
 game_outcomes as (
@@ -16,7 +16,7 @@ game_outcomes as (
         team,
         game_date,
         outcome
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 final as (

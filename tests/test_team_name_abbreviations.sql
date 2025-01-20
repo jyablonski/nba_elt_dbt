@@ -1,5 +1,5 @@
 select *
-from {{ ref('boxscores') }}
+from {{ ref('fact_boxscores') }}
 where
     team not in (
         'ATL', 'BOS', 'BKN', 'CHA', 'CHI', 'CLE', 'DAL', 'DEN', 'DET', 'GSW',

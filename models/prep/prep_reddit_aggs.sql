@@ -3,7 +3,7 @@
 
 with my_cte as (
     select distinct *
-    from {{ ref('reddit_comment_data') }}
+    from {{ ref('fact_reddit_comment_data') }}
 ),
 
 aggs as (

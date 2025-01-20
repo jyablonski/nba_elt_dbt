@@ -40,7 +40,7 @@ schedule_wins as (
         s.game_date,
         s.outcome
     from {{ ref('prep_schedule_analysis') }} as s
-        left join {{ ref('teams') }} as a on s.team = a.team_acronym
+        left join {{ ref('dim_teams') }} as a on s.team = a.team_acronym
     where location = 'H'
 ),
 
@@ -70,8 +70,8 @@ home_odds as (
         a.team as home_team,
         date as game_date,
         moneyline as home_moneyline
-    from {{ ref('odds_data') }}
-        left join {{ ref('teams') }} as a using (team_acronym)
+    from {{ ref('fact_odds_data') }}
+        left join {{ ref('dim_teams') }} as a using (team_acronym)
 ),
 
 away_odds as (
@@ -79,8 +79,8 @@ away_odds as (
         a.team as away_team,
         date as game_date,
         moneyline as away_moneyline
-    from {{ ref('odds_data') }}
-        left join {{ ref('teams') }} as a using (team_acronym)
+    from {{ ref('fact_odds_data') }}
+        left join {{ ref('dim_teams') }} as a using (team_acronym)
 ),
 
 final_table as (

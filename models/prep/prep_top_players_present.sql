@@ -6,14 +6,14 @@ with my_cte as (
         location,
         outcome,
         opponent
-    from {{ ref('boxscores') }}
+    from {{ ref('fact_boxscores') }}
 ),
 
 top_players as (
     select
         player,
         rank as player_rank
-    from {{ ref('players') }}
+    from {{ ref('dim_players') }}
 ),
 
 final as (
