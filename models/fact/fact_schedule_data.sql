@@ -7,7 +7,7 @@
 
 with schedule_data as (
     select
-        {{ dbt_utils.generate_surrogate_key(["away_team::text", "home_team::text", "proper_date::date"]) }} as id,
+        {{ dbt_utils.generate_surrogate_key(["home_team::text", "proper_date::date"]) }} as id,
         away_team::text as away_team,
         away_team_attributes.team_acronym as away_team_acronym,
         home_team::text as home_team,
@@ -28,7 +28,7 @@ with schedule_data as (
         -- games 5, 6, or 7.  if these games never get played, they have an empty start_time
         start_time != ''
         and start_time != '11:00' -- historical bug, i think invalid games were being given start times of 11:00
-        {% if is_incremental() %}
+    {% if is_incremental() %}
             and aws_schedule_source.modified_at > (select max(modified_at) from {{ this }})
 
         {% endif %}

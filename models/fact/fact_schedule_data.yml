@@ -2,10 +2,10 @@ version: 2
 
 models:
   - name: fact_schedule_data
-    data_tests:
-      - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["home_team", "away_team", "proper_date"]
     columns:
+      - name: id
+        data_tests:
+          - unique
       - name: away_team
         data_tests:
           - not_null
