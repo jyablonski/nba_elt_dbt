@@ -1651,6 +1651,40 @@ dev = ["build", "hatch"]
 doc = ["sphinx"]
 
 [[package]]
+name = "sqruff"
+version = "0.25.16"
+description = "A SQL linter written in rust."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sqruff-0.25.16-cp310-cp310-macosx_10_12_x86_64.whl", hash = "sha256:f2bb6b9648e44119ba07a2675ecbcaafdbf9915ab9908946ac621cacdb662a3e"},
+    {file = "sqruff-0.25.16-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:db3e0a2dedef83ce26d6bbc3ffe82049b53be2a681afcc6a0f3521f223cefa22"},
+    {file = "sqruff-0.25.16-cp310-cp310-manylinux_2_39_x86_64.whl", hash = "sha256:fd05f9475a9f7fe7c0f3f39fccd3ce652cbdb8e420a4e94a83d7912fb92c9d78"},
+    {file = "sqruff-0.25.16-cp310-cp310-win32.whl", hash = "sha256:5802654c269691d96f5f875caf57c5dcd0369d16b7941e2ebe86fd7419c6b5c7"},
+    {file = "sqruff-0.25.16-cp310-cp310-win_amd64.whl", hash = "sha256:45aa16d503ab87b317e9756a1666a2a92e59c2d41d8c63c9d362d9eb912af15a"},
+    {file = "sqruff-0.25.16-cp311-cp311-macosx_10_12_x86_64.whl", hash = "sha256:76f946d00c72b57f40c4b5a5545f4510914e494e185453e5fb70970abf830910"},
+    {file = "sqruff-0.25.16-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:ec7b13bc73bf66a78af87d798c067ea8dac7fe3e1ba57a317987880e05ea782e"},
+    {file = "sqruff-0.25.16-cp311-cp311-manylinux_2_39_x86_64.whl", hash = "sha256:d63cd09953b985290729e203d71361fc17dfd6d8ea374f9e824b6599bbaf9d33"},
+    {file = "sqruff-0.25.16-cp311-cp311-win32.whl", hash = "sha256:61021a13fcb92b659d2097f001fcbbf765cf3c99295de7f012b0a916b9b15a3e"},
+    {file = "sqruff-0.25.16-cp311-cp311-win_amd64.whl", hash = "sha256:463f8e62f8782ff4b773003d8ec23c081cbe1b579d4dca73325cc05cc11ef296"},
+    {file = "sqruff-0.25.16-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:b4525a0bc34f43de576968422fd949f471f57eba7a3223b84eb727b2f77c5c8e"},
+    {file = "sqruff-0.25.16-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:6898d95b6715f2764c16d7b074f72477da732375d00982b1a44edfb8bc78ad92"},
+    {file = "sqruff-0.25.16-cp312-cp312-manylinux_2_39_x86_64.whl", hash = "sha256:7b373123dae8919279cac43ed2cd09d35ad1b3214c11bb526adbf0d36d3e5fde"},
+    {file = "sqruff-0.25.16-cp312-cp312-win32.whl", hash = "sha256:da93fa6d743995efe651aca12f42af9b510062f843a512a4b3c8f76f1592aa67"},
+    {file = "sqruff-0.25.16-cp312-cp312-win_amd64.whl", hash = "sha256:00ff3df064992ccbbb20e1b9c9bffa5a3a258fea61f7812395217830fefc4bd5"},
+    {file = "sqruff-0.25.16-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:f943cbdd155ff9a5c44354023ed7ac0ca7d843a87855dbad8c39cae38d5ed65a"},
+    {file = "sqruff-0.25.16-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:4f723e731c6d10df75076bab30844e1ca2fafdabaf2c7208a6e15a5fa6410c53"},
+    {file = "sqruff-0.25.16-cp313-cp313-manylinux_2_39_x86_64.whl", hash = "sha256:3ca1b6cce73f0a9abaa5ca26500474b36a43ebf4585a9f7aa51b7a1b30fd312b"},
+    {file = "sqruff-0.25.16-cp313-cp313-win32.whl", hash = "sha256:8ed37392fcf9c1a4ac980407585ad3385f7c737bd9ed5833bf1f7bcc3c54ea0b"},
+    {file = "sqruff-0.25.16-cp313-cp313-win_amd64.whl", hash = "sha256:576b86325e8b89f9f61444096c6bc7c12dda04b548fc034b5d574a290cf1c467"},
+    {file = "sqruff-0.25.16.tar.gz", hash = "sha256:c33369d48c24c640a8001d1a809b5a39c91bc33e25f102546af61c31f618c516"},
+]
+
+[package.extras]
+dbt = ["dbt-core (>=1.4.1)", "jinja2 (>=3.0.0)", "jinja2-simple-tags (>=0.3.1)", "regex"]
+jinja = ["jinja2 (>=3.0.0)", "jinja2-simple-tags (>=0.3.1)", "regex"]
+
+[[package]]
 name = "tblib"
 version = "3.0.0"
 description = "Traceback serialization library."
@@ -1768,4 +1802,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "e42d29e48d846803d4b76aa206923924b857a633f10860fd6e8ed29407a9975e"
+content-hash = "8b2a433939c638f69b62a46b4f2a8076c69fc575b330280898318916136d9340"

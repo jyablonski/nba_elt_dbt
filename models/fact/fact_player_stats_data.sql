@@ -21,6 +21,8 @@ select
     coalesce(nullif("2pa", '')::numeric, 0) as two_p_attempted,
     coalesce(nullif("2p%", '')::numeric, 0) as two_p_percent,
     coalesce(nullif("efg%", '')::numeric, 0) as efg_percent,
+    coalesce(nullif("ft", '')::numeric, 0) as ft,
+    coalesce(nullif("fta", '')::numeric, 0) as ft_attempted,
     coalesce(nullif("ft%", '')::numeric, 0) as ft_percent,
     coalesce(nullif(orb, '')::numeric, 0) as orb,
     coalesce(nullif(drb, '')::numeric, 0) as drb,

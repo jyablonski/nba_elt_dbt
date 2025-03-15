@@ -2,12 +2,10 @@
 
 Version: 3.2.0
 
-## dbt Resources for [NBA Project](https://github.com/jyablonski/NBA-Dashboard)
-
 ## Running The App
-Clone the Repo & run `make up` which will spin up a Postgres Container w/ bootstrapped data to test the project with.
+Clone the Repo & run `make up` which will spin up a Postgres Database w/ bootstrapped data to test the project with.
 
-From there you can use Poetry to setup a local Environment w/ the appropriate dbt Packages by running `poetry install`.
+From there you can use Poetry to setup a local Environment w/ the appropriate dbt Packages by running `poetry install --with dev`.
 
 You must also have a `~/.dbt/profiles.yml` setup with the following Config:
 ``` yml
@@ -26,9 +24,9 @@ default:
 When finished run `make down` to spin the Postgres Container down.
 
 ## Tests
-To run tests locally, run `make test`
+To run tests locally, run `make test`. This spins up a Postgres Database w/ bootstrapped data and runs `dbt build` to build & test every model in the project.
 
-The same test suite runs on every commit to a PR via GitHub Actions
+- The same test suite runs on every commit to a PR via GitHub Actions
 
 ## NBA Project
 ![nba_pipeline_diagram](https://github.com/jyablonski/nba_elt_dbt/assets/16946556/044dbb79-ce33-4d4b-8262-357c531e7ce7)
