@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: team_odds_outcomes
+    data_tests:
+    - dbt_expectations.expect_compound_columns_to_be_unique:
+        column_list: ["team", "season_type"]
