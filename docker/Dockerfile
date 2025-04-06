@@ -8,10 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 # install OS-level deps once in base (so we don't repeat in each stage)
 RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends \
-        curl \
-        ca-certificates && \
+    apt-get install -y --no-install-recommends ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 # -------------------------------
