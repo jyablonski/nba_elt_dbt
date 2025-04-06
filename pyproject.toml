@@ -1,40 +1,29 @@
-[tool.poetry]
+[project]
 name = "nba-elt-dbt"
 version = "3.2.2"
 description = "dbt Transformations for NBA ELT Project"
-authors = ["jyablonski9 <jyablonski9@gmail.com>"]
+authors = [{ name = "jyablonski9", email = "jyablonski9@gmail.com" }]
+requires-python = "~=3.12"
 readme = "README.md"
-package-mode = false
+dependencies = [
+    "dbt-core>=1.9.1,<2",
+    "dbt-postgres>=1.9.0,<2",
+    "pytz==2023.3.post1",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-dbt-core = "^1.9.1"
-dbt-postgres = "^1.9.0"
-pytz = "2023.3.post1"
+[dependency-groups]
+dev = [
+    "sqlfluff==3.1.0",
+    "sqlfluff-templater-dbt==3.1.0",
+    "sqruff>=0.25.16,<0.26",
+]
 
-[tool.poetry.group.dev]
-optional = true
-
-[tool.poetry.group.dev.dependencies]
-sqlfluff = "3.1.0"
-sqlfluff-templater-dbt = "3.1.0"
-sqruff = "^0.25.16"
+[tool.uv]
+package = false
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-# L016 - line too long gahbage
-# L016 - didnt like distinct w/ group by but im a lazy
-# L026 - was having issues w/ jinja syntax
-# L027 - i do select a, b instead of foo.a, vee.b - bad habit but excluding for now	
-# L029 - no sql-reserved keywords as aliases - bad habit but excluding for now	
-# L032 - no `using` keyword for joins - this is fine imo so fuqqit
-# L034 - really fucked up my shit tbhh
-# L054 - ambiguous.column_references - something with groupby / orderby ordering. i dont care
-# L057 - mad that i had '%' characters in my source table column name.  bad practice but whatever
-# L067 - casting style, so `select col1::text` would become `select cast(col1 as string)`.  fk that
-
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.sqlfluff.core]
 templater = "dbt"
