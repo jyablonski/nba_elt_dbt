@@ -33,6 +33,7 @@ services:
     volumes:
       - ${PWD}/dbt_output:/home/appuser/target
       - ${PWD}/models:/home/appuser/models
+      - ${PWD}/tests:/home/appuser/tests
 
 
 networks:

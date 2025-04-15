@@ -7641,3 +7641,26 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Collin Sexton','UTA',2),
 	 ('Jordan Poole','WAS',1),
 	 ('Kyle Kuzma','WAS',2);
+
+DROP TABLE IF EXISTS nba_source.play_in_details;
+
+CREATE TABLE IF NOT EXISTS nba_source.play_in_details (
+	id serial4 NOT NULL,
+	"name" varchar NULL,
+	start_date date NULL,
+	end_date date NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	modified_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	CONSTRAINT play_in_details_pkey PRIMARY KEY (id)
+);
+
+
+-- the dates will dynamically change year to year, but for testing
+-- we're hardcoding the dates to apr 15 - 19
+INSERT INTO nba_source.play_in_details
+("name", start_date, end_date)
+VALUES (
+	'Play-In',
+	(make_date(EXTRACT(YEAR FROM CURRENT_DATE)::int, 4, 15)),
+	(make_date(EXTRACT(YEAR FROM CURRENT_DATE)::int, 4, 19))
+);
