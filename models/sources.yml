@@ -152,6 +152,7 @@ sources:
               - not_null
       - name: inactive_dates
         description: Inactive Dates table to manually override Schedule Tests
+      - name: play_in_details
   - name: ml
     database: jacob_db
     schema: ml
