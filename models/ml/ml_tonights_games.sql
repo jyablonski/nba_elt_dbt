@@ -72,9 +72,11 @@ team_top_players as (
         p.team,
         t.rank as player_rank
     from {{ ref('fact_injury_data') }} as p
-        left join {{ ref('dim_players') }} as t using (player)
-    where t.rank is not null and p.injury_status != 'Day To Day' -- have to use t.rank here and not the renamed player_rank bc postgres YEET BABY
-    -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
+        inner join {{ ref('dim_players') }} as t using (player)
+    where
+        p.injury_status != 'Day To Day'
+        and t.rank != 0 -- don't care players who are not in the top 2
+-- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),
 
 home_team_top_players_aggs as (
