@@ -13,9 +13,15 @@ models:
         - name: away_is_top_players
           data_tests:
             - not_null
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: 0
+                max_value: 2
         - name: home_is_top_players
           data_tests:
             - not_null
+            - dbt_expectations.expect_column_values_to_be_between:
+                min_value: 0
+                max_value: 2
         - name: home_days_rest
           data_tests:
             - not_null
