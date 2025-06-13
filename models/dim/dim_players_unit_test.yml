@@ -7,7 +7,7 @@ unit_tests:
         # unit test this model in "full refresh" mode
         is_incremental: false
     given:
-      - input: source('nba_source', 'aws_player_attributes_source')
+      - input: source('nba_source', 'internal_player_attributes')
         rows:
           - {
               player: "Stephen Curry",
@@ -33,12 +33,12 @@ unit_tests:
               created_at: "2021-01-01 01:00:00",
               modified_at: "2021-01-01 01:00:00",
             }
-      - input: source('nba_source', 'team_top_players')
+      - input: source('nba_source', 'internal_team_top_players')
         rows:
           - { player: "Stephen Curry", team: "GSW", rank: 1 }
           - { player: "Kevin Durant", team: "PHX", rank: 1 }
           - { player: "Paul George", team: "PHI", rank: 2 }
-      - input: source('nba_source', 'aws_contracts_source')
+      - input: source('nba_source', 'bbref_player_contracts')
         rows:
           - { player: "Stephen Curry", season_salary: 53500000 }
           - { player: "Kevin Durant", season_salary: 47500000 }

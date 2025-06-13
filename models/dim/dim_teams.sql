@@ -13,7 +13,7 @@ with teams as (
         team_logo,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_team_attributes_source') }}
+    from {{ source('nba_source', 'internal_team_attributes') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

@@ -1,6 +1,6 @@
 with most_recent_date as (
     select max(scrape_date) as max_scrape_date
-    from {{ source('nba_source', 'aws_stats_source') }}
+    from {{ source('nba_source', 'bbref_player_stats_snapshot') }}
 )
 
 select
@@ -35,6 +35,6 @@ select
     coalesce(pts, 0) as pts,
     scrape_date::date
 
-from {{ source('nba_source', 'aws_stats_source') }}
-    inner join most_recent_date on aws_stats_source.scrape_date = most_recent_date.max_scrape_date
+from {{ source('nba_source', 'bbref_player_stats_snapshot') }}
+    inner join most_recent_date on bbref_player_stats_snapshot.scrape_date = most_recent_date.max_scrape_date
 where player is not null

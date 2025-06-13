@@ -11,7 +11,7 @@ with odds_cte as (
         replace(team, ' ', '') as team_acronym,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_odds_source') }}
+    from {{ source('nba_source', 'draftkings_game_odds') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

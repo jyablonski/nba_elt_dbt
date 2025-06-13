@@ -5,7 +5,7 @@ with transactions as (
         scrape_date::date as scrape_date,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_transactions_source') }}
+    from {{ source('nba_source', 'bbref_league_transactions') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

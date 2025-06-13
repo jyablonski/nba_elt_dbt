@@ -39,7 +39,7 @@ with pbp_raw as (
         end as play,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_pbp_data_source') }}
+    from {{ source('nba_source', 'bbref_player_pbp') }}
     where
         substr(timequarter, 1, length(timequarter) - 2)::text like '%:%' -- needed in case bbref fucks up again and includes faulty time values
         {% if is_incremental() %}
@@ -114,9 +114,9 @@ pbp_adjusted as (
                 and pbp_raw.game_date = time_remaining_calcs.game_date
                 and pbp_raw.quarter = time_remaining_calcs.quarter
                 and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
-        left join {{ source('nba_source', 'aws_team_attributes_source') }} as home_team_attributes
+        left join {{ source('nba_source', 'internal_team_attributes') }} as home_team_attributes
             on pbp_raw.home_team = home_team_attributes.team_acronym
-        left join {{ source('nba_source', 'aws_team_attributes_source') }} as away_team_attributes
+        left join {{ source('nba_source', 'internal_team_attributes') }} as away_team_attributes
             on pbp_raw.away_team = away_team_attributes.team_acronym
 ),
 

@@ -10,7 +10,7 @@ with players as (
         headshot,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_player_attributes_source') }}
+    from {{ source('nba_source', 'internal_player_attributes') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
@@ -30,7 +30,7 @@ contracts as (
         'Trey Murphy III', 'Trey Murphy'), 'Larry Nance Jr.', 'Larry Nance'), 'Gary Payton II', 'Gary Payton'),
         'Troy Brown Jr.', 'Troy Brown'), 'Kevin Porter Jr.', 'Kevin Porter'), 'Enes Kanter', 'Enes Freedom') as player,
         coalesce(season_salary, 1000000)::numeric as salary
-    from {{ source('nba_source', 'aws_contracts_source') }}
+    from {{ source('nba_source', 'bbref_player_contracts') }}
 
 ),
 
@@ -39,7 +39,7 @@ is_top_players as (
         player,
         team,
         rank
-    from {{ source('nba_source', 'team_top_players') }}
+    from {{ source('nba_source', 'internal_team_top_players') }}
 )
 
 

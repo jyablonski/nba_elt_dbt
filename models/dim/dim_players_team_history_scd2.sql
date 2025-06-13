@@ -4,7 +4,7 @@ with player_records as (
         team,
         date as game_date,
         {{ dbt_utils.generate_surrogate_key(["player", "team"]) }} as scd_id
-    from {{ source('nba_source', 'aws_boxscores_source') }}
+    from {{ source('nba_source', 'bbref_player_boxscores') }}
 ),
 
 max_dates as (
