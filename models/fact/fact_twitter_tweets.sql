@@ -20,7 +20,7 @@ with old_twitter_data as (
         sentiment,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_twitter_data_source') }}
+    from {{ source('nba_source', 'twitter_tweets') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
@@ -48,7 +48,7 @@ new_twitter_data as (
         sentiment,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_twitter_tweepy_data_source') }}
+    from {{ source('nba_source', 'twitter_tweepy_legacy') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

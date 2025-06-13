@@ -8,8 +8,8 @@ SET search_path TO nba_source;
 CREATE ROLE dbt_role_dev LOGIN;
 
 -- tbd :-)
-DROP TABLE IF EXISTS aws_boxscores_source;
-CREATE TABLE IF NOT EXISTS aws_boxscores_source (
+DROP TABLE IF EXISTS bbref_player_boxscores;
+CREATE TABLE IF NOT EXISTS bbref_player_boxscores (
 	player text NULL,
 	team text NULL,
 	"location" text NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS aws_boxscores_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Nikola Jokic','DEN','H','LAL','W','36:16',12.0,22.0,0.545,3.0,5.0,0.6,'2','4','.500',3.0,10.0,13.0,11.0,1.0,1.0,2.0,2.0,29.0,15.0,29.3,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Devin Booker','PHX','A','GSW','W','36:58',13.0,21.0,0.619,3.0,8.0,0.375,'3','3','1.000',1.0,5.0,6.0,8.0,1.0,0.0,6.0,4.0,32.0,5.0,23.7,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('LeBron James','LAL','A','DEN','L','29:00',10.0,16.0,0.625,1.0,4.0,0.25,'0','1','.000',1.0,7.0,8.0,5.0,1.0,0.0,0.0,1.0,21.0,7.0,20.3,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
@@ -55,7 +55,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jusuf Nurkic','PHX','A','GSW','W','27:52',5.0,8.0,0.625,1.0,2.0,0.5,'3','3','1.000',3.0,11.0,14.0,3.0,0.0,1.0,1.0,5.0,14.0,2.0,15.6,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Josh Okogie','PHX','A','GSW','W','31:38',7.0,9.0,0.778,1.0,1.0,1.0,'2','2','1.000',4.0,1.0,5.0,1.0,1.0,0.0,2.0,2.0,17.0,2.0,15.5,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Kentavious Caldwell-Pope','DEN','H','LAL','W','36:15',8.0,12.0,0.667,2.0,3.0,0.667,'2','2','1.000',1.0,1.0,2.0,1.0,3.0,1.0,3.0,5.0,20.0,10.0,15.2,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Chris Paul','GSW','H','PHX','L','34:13',4.0,15.0,0.267,0.0,6.0,0.0,'6','7','.857',1.0,5.0,6.0,9.0,2.0,0.0,1.0,0.0,14.0,5.0,14.2,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Austin Reaves','LAL','A','DEN','L','31:20',4.0,11.0,0.364,1.0,2.0,0.5,'5','7','.714',4.0,4.0,8.0,4.0,2.0,0.0,2.0,2.0,14.0,-14.0,13.1,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Michael Porter','DEN','H','LAL','W','30:08',5.0,13.0,0.385,2.0,9.0,0.222,'0','0','',2.0,10.0,12.0,2.0,2.0,0.0,0.0,1.0,12.0,12.0,12.3,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
@@ -66,7 +66,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Kevon Looney','GSW','H','PHX','L','27:58',3.0,6.0,0.5,0.0,0.0,NULL,'1','1','1.000',5.0,6.0,11.0,1.0,0.0,0.0,2.0,2.0,7.0,-11.0,7.2,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Cam Reddish','LAL','A','DEN','L','17:38',2.0,4.0,0.5,1.0,2.0,0.5,'2','2','1.000',2.0,2.0,4.0,0.0,0.0,1.0,0.0,2.0,7.0,7.0,6.9,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('D''Angelo Russell','LAL','A','DEN','L','36:11',4.0,12.0,0.333,2.0,5.0,0.4,'1','2','.500',0.0,4.0,4.0,7.0,1.0,0.0,3.0,3.0,11.0,1.0,6.7,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Klay Thompson','GSW','H','PHX','L','36:16',6.0,18.0,0.333,3.0,11.0,0.273,'0','0','',1.0,6.0,7.0,3.0,0.0,1.0,3.0,3.0,15.0,9.0,5.9,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Yuta Watanabe','PHX','A','GSW','W','17:53',3.0,5.0,0.6,2.0,4.0,0.5,'0','0','',0.0,4.0,4.0,0.0,0.0,1.0,1.0,2.0,8.0,7.0,5.8,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Christian Wood','LAL','A','DEN','L','15:28',3.0,4.0,0.75,0.0,1.0,0.0,'1','2','.500',1.0,3.0,4.0,0.0,0.0,0.0,1.0,1.0,7.0,2.0,5.2,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
@@ -77,7 +77,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Nassir Little','PHX','A','GSW','W','2:53',1.0,1.0,1.0,1.0,1.0,1.0,'0','0','',0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,3.0,-3.0,3.6,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Andrew Wiggins','GSW','H','PHX','L','27:17',4.0,12.0,0.333,0.0,3.0,0.0,'2','3','.667',1.0,0.0,1.0,0.0,0.0,1.0,0.0,3.0,10.0,-22.0,3.0,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Eric Gordon','PHX','A','GSW','W','31:39',4.0,16.0,0.25,2.0,9.0,0.222,'0','0','',1.0,3.0,4.0,1.0,1.0,1.0,1.0,2.0,10.0,6.0,2.6,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jordan Goodwin','PHX','A','GSW','W','14:11',1.0,4.0,0.25,0.0,1.0,0.0,'0','0','',1.0,3.0,4.0,3.0,1.0,0.0,2.0,0.0,2.0,7.0,2.3,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Gary Payton','GSW','H','PHX','L','21:40',0.0,5.0,0.0,0.0,2.0,0.0,'1','2','.500',0.0,2.0,2.0,2.0,3.0,0.0,0.0,1.0,1.0,15.0,1.7,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Jalen Pickett','DEN','H','LAL','W','0:43',1.0,1.0,1.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,1.7,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
@@ -88,7 +88,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Peyton Watson','DEN','H','LAL','W','10:50',1.0,3.0,0.333,1.0,3.0,0.333,'0','0','',0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,3.0,1.0,0.6,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Max Christie','LAL','A','DEN','L','1:15',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Collin Gillespie','DEN','H','LAL','W','0:43',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Braxton Key','DEN','H','LAL','W','0:43',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Maxwell Lewis','LAL','A','DEN','L','1:15',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
 	 ('Jaxson Hayes','LAL','A','DEN','L','6:54',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,-7.0,-0.1,'2023-10-24 00:00:00.000','Regular Season',2022,'2023-10-25'),
@@ -99,7 +99,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Cam Thomas','BKN','H','CLE','L','25:08',13.0,21.0,0.619,2.0,5.0,0.4,'8','11','.727',0.0,3.0,3.0,2.0,1.0,0.0,1.0,0.0,36.0,5.0,27.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Donovan Mitchell','CLE','A','BKN','W','35:44',11.0,21.0,0.524,4.0,10.0,0.4,'1','1','1.000',2.0,3.0,5.0,6.0,4.0,1.0,0.0,1.0,27.0,7.0,27.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jayson Tatum','BOS','A','NYK','W','38:39',13.0,22.0,0.591,3.0,8.0,0.375,'5','6','.833',0.0,11.0,11.0,4.0,2.0,1.0,4.0,3.0,34.0,0.0,27.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Kristaps Porzingis','BOS','A','NYK','W','37:53',8.0,15.0,0.533,5.0,9.0,0.556,'9','10','.900',1.0,7.0,8.0,0.0,0.0,4.0,1.0,4.0,30.0,13.0,25.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Desmond Bane','MEM','H','NOP','L','36:08',11.0,22.0,0.5,5.0,10.0,0.5,'4','5','.800',0.0,5.0,5.0,5.0,2.0,1.0,2.0,1.0,31.0,6.0,24.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Max Strus','CLE','A','BKN','W','38:58',9.0,17.0,0.529,7.0,13.0,0.538,'2','2','1.000',0.0,12.0,12.0,2.0,1.0,1.0,0.0,4.0,27.0,13.0,23.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -110,7 +110,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Ivica Zubac','LAC','H','POR','W','25:36',8.0,10.0,0.8,0.0,0.0,NULL,'4','5','.800',5.0,7.0,12.0,0.0,0.0,4.0,2.0,3.0,20.0,25.0,21.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jalen Johnson','ATL','A','CHA','L','29:24',9.0,13.0,0.692,1.0,3.0,0.333,'2','4','.500',0.0,7.0,7.0,2.0,2.0,1.0,0.0,1.0,21.0,8.0,20.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Bruce Brown','IND','H','WAS','W','27:12',8.0,11.0,0.727,6.0,8.0,0.75,'2','2','1.000',1.0,2.0,3.0,1.0,1.0,0.0,1.0,3.0,24.0,15.0,20.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Cade Cunningham','DET','A','MIA','L','35:46',13.0,27.0,0.481,4.0,9.0,0.444,'0','0','',0.0,3.0,3.0,9.0,1.0,1.0,3.0,5.0,30.0,-2.0,20.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Tyrese Haliburton','IND','H','WAS','W','26:53',9.0,16.0,0.563,2.0,6.0,0.333,'0','0','',0.0,3.0,3.0,11.0,1.0,2.0,3.0,1.0,20.0,6.0,20.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jimmy Butler','MIA','H','DET','W','34:28',6.0,18.0,0.333,0.0,0.0,NULL,'7','9','.778',8.0,5.0,13.0,4.0,2.0,0.0,0.0,0.0,19.0,-3.0,19.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -121,7 +121,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jalen Duren','DET','A','MIA','L','31:49',8.0,11.0,0.727,0.0,0.0,NULL,'1','3','.333',6.0,8.0,14.0,4.0,0.0,4.0,4.0,4.0,17.0,-4.0,18.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Cole Anthony','ORL','H','HOU','W','24:05',8.0,12.0,0.667,1.0,2.0,0.5,'3','3','1.000',1.0,7.0,8.0,2.0,0.0,0.0,0.0,2.0,20.0,17.0,18.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Tre Jones','SAS','H','DAL','L','25:06',5.0,7.0,0.714,2.0,3.0,0.667,'4','4','1.000',1.0,4.0,5.0,6.0,0.0,0.0,1.0,0.0,16.0,1.0,18.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('P.J. Washington','CHA','H','ATL','W','31:48',12.0,18.0,0.667,1.0,6.0,0.167,'0','0','',1.0,4.0,5.0,2.0,0.0,0.0,1.0,4.0,25.0,5.0,17.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jordan Clarkson','UTA','H','SAC','L','30:44',8.0,16.0,0.5,2.0,5.0,0.4,'6','8','.750',2.0,2.0,4.0,6.0,0.0,0.0,2.0,4.0,24.0,-4.0,17.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kawhi Leonard','LAC','H','POR','W','28:43',9.0,17.0,0.529,5.0,5.0,1.0,'0','0','',1.0,4.0,5.0,6.0,1.0,1.0,4.0,2.0,23.0,25.0,17.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -132,7 +132,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Mikal Bridges','BKN','H','CLE','L','35:11',6.0,12.0,0.5,0.0,2.0,0.0,'8','9','.889',2.0,4.0,6.0,4.0,3.0,0.0,3.0,4.0,20.0,-3.0,17.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dennis Schroder','TOR','H','MIN','W','32:33',8.0,17.0,0.471,4.0,8.0,0.5,'2','2','1.000',1.0,2.0,3.0,7.0,0.0,0.0,2.0,1.0,22.0,10.0,17.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Rudy Gobert','MIN','A','TOR','L','32:00',6.0,12.0,0.5,0.0,0.0,NULL,'3','5','.600',5.0,8.0,13.0,1.0,2.0,4.0,2.0,3.0,15.0,-11.0,16.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Terry Rozier','CHA','H','ATL','W','34:21',7.0,16.0,0.438,2.0,7.0,0.286,'8','12','.667',1.0,4.0,5.0,6.0,0.0,0.0,3.0,2.0,24.0,14.0,16.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Zion Williamson','NOP','A','MEM','W','31:43',9.0,17.0,0.529,0.0,0.0,NULL,'5','7','.714',4.0,3.0,7.0,3.0,0.0,0.0,3.0,1.0,23.0,-8.0,16.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Lauri Markkanen','UTA','H','SAC','L','31:36',6.0,15.0,0.4,2.0,6.0,0.333,'5','6','.833',2.0,8.0,10.0,1.0,2.0,0.0,1.0,1.0,19.0,-7.0,15.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -143,7 +143,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Scottie Barnes','TOR','H','MIN','W','37:03',6.0,16.0,0.375,1.0,4.0,0.25,'4','6','.667',1.0,7.0,8.0,5.0,2.0,5.0,4.0,1.0,17.0,2.0,14.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Anthony Edwards','MIN','A','TOR','L','38:18',8.0,27.0,0.296,4.0,7.0,0.571,'6','6','1.000',5.0,9.0,14.0,1.0,0.0,0.0,2.0,1.0,26.0,0.0,14.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Tyus Jones','WAS','A','IND','L','28:20',7.0,12.0,0.583,2.0,4.0,0.5,'0','1','.000',1.0,2.0,3.0,6.0,1.0,1.0,2.0,1.0,16.0,-17.0,14.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Tim Hardaway','DAL','A','SAS','W','27:55',5.0,14.0,0.357,3.0,10.0,0.3,'4','4','1.000',2.0,4.0,6.0,4.0,1.0,0.0,1.0,0.0,17.0,9.0,14.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Russell Westbrook','LAC','H','POR','W','28:48',5.0,8.0,0.625,1.0,2.0,0.5,'0','0','',2.0,3.0,5.0,13.0,0.0,0.0,3.0,3.0,11.0,30.0,14.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('RJ Barrett','NYK','H','BOS','L','36:19',8.0,20.0,0.4,2.0,5.0,0.4,'6','7','.857',1.0,2.0,3.0,2.0,1.0,0.0,2.0,0.0,24.0,6.0,14.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -154,7 +154,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Danilo Gallinari','WAS','A','IND','L','17:10',4.0,7.0,0.571,2.0,2.0,1.0,'6','6','1.000',2.0,1.0,3.0,0.0,0.0,0.0,0.0,1.0,16.0,5.0,14.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Franz Wagner','ORL','H','HOU','W','27:03',5.0,12.0,0.417,3.0,7.0,0.429,'6','6','1.000',3.0,1.0,4.0,2.0,1.0,0.0,3.0,1.0,19.0,10.0,14.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('DeMar DeRozan','CHI','H','OKC','L','32:53',9.0,20.0,0.45,1.0,3.0,0.333,'1','3','.333',2.0,3.0,5.0,2.0,1.0,1.0,0.0,1.0,20.0,-29.0,13.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jalen Smith','IND','H','WAS','W','13:25',5.0,6.0,0.833,2.0,2.0,1.0,'1','1','1.000',3.0,5.0,8.0,0.0,1.0,0.0,0.0,4.0,13.0,6.0,13.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Andrew Nembhard','IND','H','WAS','W','21:36',6.0,9.0,0.667,0.0,1.0,0.0,'0','0','',1.0,3.0,4.0,10.0,0.0,0.0,2.0,4.0,12.0,12.0,13.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Nikola Vucevic','CHI','H','OKC','L','31:57',5.0,8.0,0.625,0.0,2.0,0.0,'1','1','1.000',1.0,8.0,9.0,4.0,3.0,2.0,4.0,2.0,11.0,-19.0,12.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -165,7 +165,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Keegan Murray','SAC','A','UTA','W','29:41',5.0,13.0,0.385,4.0,9.0,0.444,'1','1','1.000',2.0,6.0,8.0,1.0,1.0,2.0,0.0,4.0,15.0,12.0,12.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Delon Wright','WAS','A','IND','L','25:19',3.0,8.0,0.375,1.0,1.0,1.0,'1','1','1.000',1.0,5.0,6.0,6.0,3.0,0.0,0.0,1.0,8.0,-15.0,12.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jalen Williams','OKC','A','CHI','W','31:48',5.0,11.0,0.455,2.0,6.0,0.333,'4','4','1.000',0.0,3.0,3.0,5.0,1.0,0.0,2.0,3.0,16.0,8.0,12.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Trae Young','ATL','A','CHA','L','36:01',4.0,19.0,0.211,1.0,9.0,0.111,'14','15','.933',0.0,1.0,1.0,9.0,1.0,0.0,5.0,3.0,23.0,-11.0,12.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Josh Giddey','OKC','A','CHI','W','31:47',7.0,14.0,0.5,2.0,3.0,0.667,'0','0','',1.0,5.0,6.0,6.0,0.0,0.0,3.0,1.0,16.0,19.0,12.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kyrie Irving','DAL','A','SAS','W','36:15',10.0,24.0,0.417,1.0,8.0,0.125,'1','1','1.000',0.0,2.0,2.0,6.0,1.0,0.0,2.0,3.0,22.0,1.0,11.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -176,7 +176,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Shaedon Sharpe','POR','A','LAC','L','28:29',6.0,14.0,0.429,1.0,6.0,0.167,'1','1','1.000',4.0,2.0,6.0,3.0,1.0,0.0,0.0,4.0,14.0,10.0,11.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Herbert Jones','NOP','A','MEM','W','38:06',4.0,8.0,0.5,2.0,3.0,0.667,'3','5','.600',3.0,5.0,8.0,3.0,1.0,1.0,3.0,3.0,13.0,2.0,11.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jakob Poeltl','TOR','H','MIN','W','23:43',3.0,3.0,1.0,0.0,0.0,NULL,'1','4','.250',3.0,8.0,11.0,1.0,1.0,1.0,0.0,1.0,7.0,8.0,11.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Cason Wallace','OKC','A','CHI','W','19:02',5.0,5.0,1.0,3.0,3.0,1.0,'0','0','',0.0,2.0,2.0,1.0,0.0,1.0,1.0,3.0,13.0,9.0,11.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Zach Collins','SAS','H','DAL','L','31:55',6.0,10.0,0.6,0.0,4.0,0.0,'2','2','1.000',1.0,4.0,5.0,3.0,1.0,2.0,3.0,4.0,14.0,-4.0,11.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dillon Brooks','HOU','A','ORL','L','26:08',5.0,7.0,0.714,4.0,6.0,0.667,'0','0','',0.0,4.0,4.0,2.0,1.0,0.0,2.0,4.0,14.0,-15.0,11.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -187,7 +187,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Gary Harris','ORL','H','HOU','W','16:57',5.0,8.0,0.625,1.0,4.0,0.25,'0','0','',3.0,2.0,5.0,0.0,0.0,1.0,0.0,0.0,11.0,8.0,10.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Cameron Johnson','BKN','H','CLE','L','26:07',5.0,10.0,0.5,1.0,4.0,0.25,'1','2','.500',2.0,3.0,5.0,3.0,2.0,0.0,2.0,1.0,12.0,-1.0,10.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kevin Love','MIA','H','DET','W','27:43',4.0,9.0,0.444,3.0,6.0,0.5,'2','2','1.000',2.0,8.0,10.0,2.0,0.0,0.0,1.0,5.0,13.0,5.0,10.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Mike Conley','MIN','A','TOR','L','30:30',4.0,9.0,0.444,1.0,4.0,0.25,'2','2','1.000',1.0,3.0,4.0,3.0,1.0,1.0,1.0,1.0,11.0,-6.0,10.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jonas Valanciunas','NOP','A','MEM','W','29:12',4.0,7.0,0.571,2.0,4.0,0.5,'2','2','1.000',0.0,12.0,12.0,1.0,0.0,1.0,3.0,1.0,12.0,16.0,10.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Bones Hyland','LAC','H','POR','W','21:45',6.0,11.0,0.545,3.0,8.0,0.375,'2','2','1.000',0.0,0.0,0.0,3.0,0.0,0.0,2.0,4.0,17.0,-4.0,10.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -198,7 +198,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Thomas Bryant','MIA','H','DET','W','15:50',2.0,5.0,0.4,0.0,0.0,NULL,'4','5','.800',2.0,4.0,6.0,3.0,1.0,0.0,1.0,0.0,8.0,5.0,9.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Julius Randle','NYK','H','BOS','L','34:01',5.0,22.0,0.227,3.0,8.0,0.375,'1','5','.200',4.0,7.0,11.0,7.0,2.0,0.0,0.0,3.0,14.0,-13.0,9.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Pascal Siakam','TOR','H','MIN','W','34:06',5.0,17.0,0.294,3.0,5.0,0.6,'2','2','1.000',0.0,7.0,7.0,6.0,1.0,0.0,2.0,2.0,15.0,7.0,9.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Obi Toppin','IND','H','WAS','W','19:14',4.0,9.0,0.444,2.0,5.0,0.4,'1','1','1.000',1.0,3.0,4.0,1.0,1.0,0.0,0.0,0.0,11.0,7.0,9.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Coby White','CHI','H','OKC','L','30:35',4.0,14.0,0.286,2.0,7.0,0.286,'5','6','.833',1.0,3.0,4.0,4.0,0.0,0.0,0.0,3.0,15.0,-8.0,9.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kyle Anderson','MIN','A','TOR','L','30:19',3.0,9.0,0.333,0.0,1.0,0.0,'1','2','.500',2.0,7.0,9.0,5.0,2.0,0.0,1.0,0.0,7.0,15.0,9.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -209,7 +209,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jordan Poole','WAS','A','IND','L','26:19',7.0,18.0,0.389,0.0,6.0,0.0,'4','5','.800',0.0,2.0,2.0,5.0,1.0,1.0,4.0,1.0,18.0,-12.0,9.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Chet Holmgren','OKC','A','CHI','W','25:07',4.0,7.0,0.571,2.0,3.0,0.667,'1','3','.333',0.0,4.0,4.0,3.0,1.0,0.0,1.0,3.0,11.0,14.0,9.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Brandon Miller','CHA','H','ATL','W','24:36',5.0,9.0,0.556,3.0,7.0,0.429,'0','0','',0.0,3.0,3.0,2.0,0.0,0.0,1.0,3.0,13.0,-13.0,8.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Darius Garland','CLE','A','BKN','W','32:19',6.0,12.0,0.5,1.0,5.0,0.2,'2','2','1.000',1.0,1.0,2.0,5.0,2.0,0.0,6.0,2.0,15.0,6.0,8.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Fred VanVleet','HOU','A','ORL','L','33:32',5.0,13.0,0.385,4.0,6.0,0.667,'0','0','',0.0,1.0,1.0,5.0,1.0,0.0,3.0,0.0,14.0,-3.0,8.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Walker Kessler','UTA','H','SAC','L','22:10',4.0,5.0,0.8,0.0,0.0,NULL,'0','0','',4.0,4.0,8.0,0.0,0.0,1.0,1.0,3.0,8.0,-14.0,8.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -220,7 +220,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jeremy Sochan','SAS','H','DAL','L','28:41',4.0,12.0,0.333,2.0,4.0,0.5,'3','6','.500',3.0,5.0,8.0,5.0,1.0,0.0,3.0,4.0,13.0,-10.0,8.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Marcus Smart','MEM','H','NOP','L','32:06',6.0,11.0,0.545,2.0,6.0,0.333,'3','6','.500',0.0,0.0,0.0,3.0,2.0,0.0,5.0,3.0,17.0,3.0,8.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kelly Olynyk','UTA','H','SAC','L','16:39',2.0,3.0,0.667,0.0,0.0,NULL,'1','1','1.000',3.0,3.0,6.0,4.0,1.0,0.0,1.0,3.0,5.0,-5.0,8.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Cedi Osman','SAS','H','DAL','L','22:16',5.0,10.0,0.5,2.0,6.0,0.333,'0','0','',0.0,0.0,0.0,2.0,0.0,1.0,0.0,2.0,12.0,-11.0,8.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Robert Covington','LAC','H','POR','W','23:10',2.0,5.0,0.4,1.0,4.0,0.25,'0','0','',1.0,3.0,4.0,2.0,3.0,1.0,0.0,2.0,5.0,26.0,8.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Mason Plumlee','LAC','H','POR','W','17:31',2.0,4.0,0.5,0.0,0.0,NULL,'2','4','.500',3.0,5.0,8.0,2.0,0.0,0.0,0.0,0.0,6.0,-6.0,8.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -231,7 +231,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jalen Brunson','NYK','H','BOS','L','32:35',6.0,21.0,0.286,3.0,8.0,0.375,'0','1','.000',1.0,2.0,3.0,6.0,3.0,0.0,2.0,3.0,15.0,-9.0,7.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Aleksandar Vezenkov','SAC','A','UTA','W','15:37',3.0,6.0,0.5,2.0,5.0,0.4,'0','0','',1.0,1.0,2.0,0.0,2.0,0.0,0.0,1.0,8.0,9.0,7.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jonathan Isaac','ORL','H','HOU','W','14:09',4.0,6.0,0.667,1.0,3.0,0.333,'2','3','.667',1.0,3.0,4.0,0.0,0.0,1.0,2.0,2.0,11.0,10.0,7.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Luguentz Dort','OKC','A','CHI','W','32:35',3.0,8.0,0.375,2.0,5.0,0.4,'0','0','',0.0,7.0,7.0,2.0,2.0,1.0,2.0,1.0,8.0,13.0,7.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Andre Drummond','CHI','H','OKC','L','15:58',3.0,4.0,0.75,0.0,0.0,NULL,'0','0','',3.0,2.0,5.0,1.0,1.0,0.0,1.0,1.0,6.0,-1.0,7.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Evan Mobley','CLE','A','BKN','W','33:37',5.0,11.0,0.455,0.0,0.0,NULL,'0','0','',1.0,5.0,6.0,1.0,0.0,2.0,0.0,3.0,10.0,3.0,7.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -242,7 +242,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('T.J. McConnell','IND','H','WAS','W','6:00',2.0,2.0,1.0,0.0,0.0,NULL,'0','0','',0.0,1.0,1.0,2.0,2.0,0.0,0.0,0.0,4.0,1.0,7.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Goga Bitadze','ORL','H','HOU','W','4:48',2.0,2.0,1.0,0.0,0.0,NULL,'3','4','.750',1.0,2.0,3.0,0.0,1.0,0.0,1.0,1.0,7.0,9.0,6.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Naz Reid','MIN','A','TOR','L','23:46',3.0,8.0,0.375,0.0,2.0,0.0,'4','4','1.000',1.0,3.0,4.0,1.0,0.0,0.0,1.0,0.0,10.0,1.0,6.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jaylen Brown','BOS','A','NYK','W','38:08',4.0,11.0,0.364,0.0,4.0,0.0,'3','4','.750',0.0,6.0,6.0,5.0,1.0,0.0,2.0,5.0,11.0,8.0,6.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Quentin Grimes','NYK','H','BOS','L','23:20',4.0,7.0,0.571,3.0,6.0,0.5,'0','1','.000',0.0,1.0,1.0,0.0,0.0,0.0,0.0,2.0,11.0,-1.0,6.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Keyonte George','UTA','H','SAC','L','18:53',3.0,5.0,0.6,1.0,3.0,0.333,'1','1','1.000',0.0,2.0,2.0,2.0,0.0,0.0,1.0,0.0,8.0,-9.0,6.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -253,7 +253,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Caris LeVert','CLE','A','BKN','W','31:22',4.0,17.0,0.235,3.0,8.0,0.375,'0','0','',0.0,3.0,3.0,5.0,1.0,1.0,0.0,1.0,11.0,-6.0,6.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Ousmane Dieng','OKC','A','CHI','W','14:14',3.0,5.0,0.6,3.0,5.0,0.6,'0','0','',1.0,1.0,2.0,0.0,0.0,0.0,1.0,1.0,9.0,2.0,6.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jae''Sean Tate','HOU','A','ORL','L','15:08',2.0,2.0,1.0,1.0,1.0,1.0,'0','0','',0.0,2.0,2.0,0.0,1.0,1.0,0.0,1.0,5.0,-11.0,6.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Deandre Ayton','POR','A','LAC','L','23:05',2.0,4.0,0.5,0.0,0.0,NULL,'0','0','',3.0,9.0,12.0,1.0,3.0,1.0,3.0,5.0,4.0,-5.0,6.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Alex Caruso','CHI','H','OKC','L','19:37',2.0,5.0,0.4,1.0,4.0,0.25,'1','2','.500',0.0,2.0,2.0,3.0,2.0,0.0,1.0,1.0,6.0,-19.0,6.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Matt Ryan','NOP','A','MEM','W','13:51',3.0,6.0,0.5,3.0,6.0,0.5,'0','0','',0.0,1.0,1.0,1.0,0.0,0.0,0.0,2.0,9.0,20.0,6.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -264,7 +264,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jrue Holiday','BOS','A','NYK','W','34:47',4.0,10.0,0.4,1.0,5.0,0.2,'0','0','',2.0,2.0,4.0,2.0,0.0,3.0,2.0,3.0,9.0,3.0,5.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dejounte Murray','ATL','A','CHA','L','32:44',3.0,14.0,0.214,0.0,3.0,0.0,'5','6','.833',0.0,2.0,2.0,6.0,0.0,0.0,1.0,0.0,11.0,-15.0,5.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Nick Richards','CHA','H','ATL','W','18:03',2.0,2.0,1.0,0.0,0.0,NULL,'3','4','.750',1.0,3.0,4.0,1.0,0.0,1.0,2.0,3.0,7.0,-14.0,5.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Maxi Kleber','DAL','A','SAS','W','23:03',2.0,7.0,0.286,2.0,5.0,0.4,'0','0','',2.0,5.0,7.0,2.0,0.0,1.0,0.0,3.0,6.0,-12.0,5.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dorian Finney-Smith','BKN','H','CLE','L','27:48',4.0,8.0,0.5,2.0,6.0,0.333,'0','1','.000',1.0,4.0,5.0,2.0,0.0,0.0,3.0,1.0,10.0,7.0,5.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Josh Hart','NYK','H','BOS','L','22:29',2.0,4.0,0.5,2.0,4.0,0.5,'1','2','.500',1.0,5.0,6.0,0.0,0.0,0.0,1.0,1.0,7.0,-1.0,5.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -275,7 +275,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Toumani Camara','POR','A','LAC','L','15:51',2.0,5.0,0.4,2.0,2.0,1.0,'1','2','.500',0.0,2.0,2.0,1.0,0.0,1.0,0.0,2.0,7.0,13.0,5.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Ziaire Williams','MEM','H','NOP','L','29:16',4.0,7.0,0.571,1.0,3.0,0.333,'0','0','',0.0,4.0,4.0,0.0,0.0,0.0,1.0,2.0,9.0,-8.0,5.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Charles Bassey','SAS','H','DAL','L','13:03',1.0,1.0,1.0,0.0,0.0,NULL,'0','0','',1.0,4.0,5.0,2.0,1.0,0.0,1.0,0.0,2.0,-6.0,5.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jaren Jackson','MEM','H','NOP','L','35:43',2.0,9.0,0.222,0.0,5.0,0.0,'4','4','1.000',1.0,4.0,5.0,3.0,0.0,5.0,3.0,5.0,8.0,-1.0,5.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Malaki Branham','SAS','H','DAL','L','17:45',3.0,7.0,0.429,0.0,3.0,0.0,'1','1','1.000',0.0,2.0,2.0,2.0,1.0,0.0,1.0,1.0,7.0,-2.0,4.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Onyeka Okongwu','ATL','A','CHA','L','19:20',3.0,5.0,0.6,0.0,0.0,NULL,'1','1','1.000',1.0,3.0,4.0,2.0,0.0,0.0,1.0,5.0,7.0,14.0,4.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -286,7 +286,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Zach LaVine','CHI','H','OKC','L','24:43',4.0,16.0,0.25,2.0,9.0,0.222,'6','6','1.000',0.0,4.0,4.0,3.0,0.0,0.0,4.0,3.0,16.0,1.0,4.5,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dyson Daniels','NOP','A','MEM','W','18:53',3.0,6.0,0.5,0.0,1.0,0.0,'0','0','',2.0,3.0,5.0,0.0,2.0,1.0,2.0,4.0,6.0,-2.0,4.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Reggie Bullock','HOU','A','ORL','L','11:14',1.0,1.0,1.0,1.0,1.0,1.0,'0','0','',0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,3.0,-5.0,4.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('De''Andre Hunter','ATL','A','CHA','L','30:59',4.0,9.0,0.444,1.0,4.0,0.25,'0','1','.000',2.0,2.0,4.0,1.0,0.0,0.0,0.0,6.0,9.0,-13.0,4.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Norman Powell','LAC','H','POR','W','22:54',2.0,6.0,0.333,2.0,5.0,0.4,'2','2','1.000',0.0,3.0,3.0,1.0,0.0,0.0,2.0,0.0,8.0,-4.0,4.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Spencer Dinwiddie','BKN','H','CLE','L','23:57',1.0,3.0,0.333,1.0,3.0,0.333,'2','2','1.000',0.0,1.0,1.0,3.0,0.0,0.0,1.0,2.0,5.0,-10.0,3.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -297,7 +297,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Nicolas Batum','LAC','H','POR','W','9:08',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,3.0,3.0,1.0,1.0,1.0,0.0,0.0,0.0,-2.0,3.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Bilal Coulibaly','WAS','A','IND','L','23:08',1.0,3.0,0.333,1.0,1.0,1.0,'0','0','',0.0,4.0,4.0,3.0,0.0,3.0,3.0,1.0,3.0,-13.0,3.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Royce O''Neale','BKN','H','CLE','L','22:48',2.0,6.0,0.333,1.0,4.0,0.25,'0','0','',0.0,7.0,7.0,2.0,0.0,0.0,1.0,2.0,5.0,8.0,3.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Olivier Sarr','OKC','A','CHI','W','10:30',1.0,1.0,1.0,0.0,0.0,NULL,'2','2','1.000',1.0,3.0,4.0,0.0,0.0,0.0,1.0,3.0,4.0,6.0,3.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Moussa Diabate','LAC','H','POR','W','4:02',1.0,3.0,0.333,0.0,0.0,NULL,'0','0','',1.0,0.0,1.0,0.0,2.0,0.0,0.0,0.0,2.0,-10.0,3.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jordan Nwora','IND','H','WAS','W','5:41',2.0,7.0,0.286,1.0,2.0,0.5,'0','0','',1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,5.0,3.0,3.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -308,7 +308,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jeenathan Williams','HOU','A','ORL','L','4:48',2.0,3.0,0.667,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,-9.0,2.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jeff Green','HOU','A','ORL','L','13:52',2.0,4.0,0.5,0.0,1.0,0.0,'0','1','.000',3.0,0.0,3.0,1.0,0.0,0.0,1.0,2.0,4.0,-11.0,2.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jordan Hawkins','NOP','A','MEM','W','9:13',1.0,2.0,0.5,1.0,2.0,0.5,'0','0','',0.0,0.0,0.0,2.0,0.0,0.0,0.0,2.0,3.0,14.0,2.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Shake Milton','MIN','A','TOR','L','21:16',1.0,5.0,0.2,1.0,4.0,0.25,'1','2','.500',0.0,3.0,3.0,4.0,2.0,0.0,2.0,4.0,4.0,3.0,2.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('JT Thor','CHA','H','ATL','W','20:07',2.0,7.0,0.286,1.0,3.0,0.333,'0','0','',1.0,1.0,2.0,1.0,0.0,0.0,0.0,0.0,5.0,2.0,2.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Simone Fontecchio','UTA','H','SAC','L','2:25',1.0,2.0,0.5,0.0,1.0,0.0,'0','0','',1.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,2.0,2.0,2.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -319,7 +319,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Payton Pritchard','BOS','A','NYK','W','11:02',1.0,4.0,0.25,0.0,3.0,0.0,'2','2','1.000',0.0,1.0,1.0,1.0,0.0,0.0,0.0,1.0,4.0,-8.0,2.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Luke Kornet','BOS','A','NYK','W','7:59',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',1.0,0.0,1.0,2.0,0.0,1.0,0.0,0.0,0.0,-1.0,2.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jared Butler','WAS','A','IND','L','3:23',1.0,2.0,0.5,1.0,1.0,1.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,2.0,2.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Amir Coffey','LAC','H','POR','W','3:56',0.0,1.0,0.0,0.0,0.0,NULL,'2','2','1.000',0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,2.0,-7.0,2.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jock Landale','HOU','A','ORL','L','8:37',1.0,2.0,0.5,1.0,2.0,0.5,'0','0','',0.0,0.0,0.0,2.0,0.0,0.0,1.0,1.0,3.0,-9.0,2.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Dante Exum','DAL','A','SAS','W','7:35',1.0,2.0,0.5,0.0,1.0,0.0,'1','1','1.000',0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,3.0,4.0,1.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -330,7 +330,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jalen Suggs','ORL','H','HOU','W','20:51',3.0,12.0,0.25,2.0,7.0,0.286,'0','0','',1.0,3.0,4.0,0.0,0.0,0.0,0.0,2.0,8.0,5.0,1.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Ty Jerome','CLE','A','BKN','W','5:30',1.0,1.0,1.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0,-7.0,1.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Day''Ron Sharpe','BKN','H','CLE','L','11:54',2.0,3.0,0.667,0.0,0.0,NULL,'0','0','',1.0,1.0,2.0,0.0,0.0,2.0,3.0,2.0,4.0,2.0,1.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Dru Smith','MIA','H','DET','W','8:40',1.0,2.0,0.5,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,2.0,-4.0,1.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jake LaRavia','MEM','H','NOP','L','14:38',1.0,3.0,0.333,0.0,2.0,0.0,'0','0','',0.0,2.0,2.0,1.0,1.0,0.0,0.0,4.0,2.0,-11.0,1.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Luka Samanic','UTA','H','SAC','L','2:25',1.0,2.0,0.5,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0,1.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -341,7 +341,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Tre Mann','OKC','A','CHI','W','1:54',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jalen Green','HOU','A','ORL','L','29:49',2.0,10.0,0.2,0.0,1.0,0.0,'6','7','.857',0.0,1.0,1.0,0.0,1.0,1.0,4.0,2.0,10.0,-12.0,0.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Doug McDermott','SAS','H','DAL','L','10:56',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,1.0,1.0,1.0,0.0,1.0,0.0,1.0,0.0,-7.0,0.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jordan Miller','LAC','H','POR','W','3:56',1.0,2.0,0.5,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0,-7.0,0.6,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Joe Ingles','ORL','H','HOU','W','18:14',0.0,3.0,0.0,0.0,3.0,0.0,'0','0','',0.0,4.0,4.0,5.0,0.0,0.0,1.0,3.0,0.0,9.0,0.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Nickeil Alexander-Walker','MIN','A','TOR','L','22:38',1.0,5.0,0.2,0.0,3.0,0.0,'0','0','',0.0,4.0,4.0,2.0,1.0,0.0,1.0,3.0,2.0,-17.0,0.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -352,7 +352,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Omer Yurtseven','UTA','H','SAC','L','2:25',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('AJ Griffin','ATL','A','CHA','L','9:36',1.0,2.0,0.5,0.0,1.0,0.0,'0','0','',0.0,2.0,2.0,0.0,0.0,0.0,1.0,1.0,2.0,2.0,0.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Chuma Okeke','ORL','H','HOU','W','4:48',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,3.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0,0.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Malachi Flynn','TOR','H','MIN','W','9:33',1.0,3.0,0.333,1.0,1.0,1.0,'0','0','',0.0,0.0,0.0,2.0,1.0,0.0,2.0,4.0,3.0,-14.0,0.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Caleb Martin','MIA','H','DET','W','19:30',1.0,7.0,0.143,0.0,3.0,0.0,'0','0','',1.0,2.0,3.0,1.0,1.0,0.0,0.0,1.0,2.0,-5.0,0.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Seth Curry','DAL','A','SAS','W','3:46',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -363,7 +363,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Rayan Rupert','POR','A','LAC','L','1:50',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Nick Smith','CHA','H','ATL','W','0:43',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Aleksej Pokusevski','OKC','A','CHI','W','1:54',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,2.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-0.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Dalen Terry','CHI','H','OKC','L','3:40',0.0,2.0,0.0,0.0,1.0,0.0,'0','0','',0.0,2.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,-0.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Aaron Wiggins','OKC','A','CHI','W','10:48',1.0,3.0,0.333,0.0,1.0,0.0,'0','0','',1.0,2.0,3.0,0.0,0.0,0.0,1.0,2.0,2.0,-4.0,-0.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Gradey Dick','TOR','H','MIN','W','2:07',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,-0.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -374,7 +374,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Patrick Baldwin','WAS','A','IND','L','3:23',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,-0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kessler Edwards','SAC','A','UTA','W','1:16',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-2.0,-0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Jordan Ford','SAC','A','UTA','W','1:16',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-2.0,-0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Ben Sheppard','IND','H','WAS','W','5:41',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,-0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Lindy Waters','OKC','A','CHI','W','2:42',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-0.7,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Donte DiVincenzo','NYK','H','BOS','L','15:25',0.0,4.0,0.0,0.0,3.0,0.0,'0','0','',0.0,3.0,3.0,2.0,0.0,0.0,0.0,1.0,0.0,5.0,-0.9,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -385,7 +385,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Jarace Walker','IND','H','WAS','W','5:41',0.0,5.0,0.0,0.0,1.0,0.0,'0','0','',1.0,3.0,4.0,0.0,1.0,0.0,0.0,1.0,0.0,3.0,-1.3,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Moritz Wagner','ORL','H','HOU','W','15:21',0.0,1.0,0.0,0.0,1.0,0.0,'2','2','1.000',0.0,4.0,4.0,0.0,0.0,1.0,3.0,4.0,2.0,13.0,-1.4,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Kobe Brown','LAC','H','POR','W','5:18',0.0,2.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,-12.0,-1.8,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Aaron Holiday','HOU','A','ORL','L','4:48',0.0,3.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-9.0,-2.1,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Joe Harris','DET','A','MIA','L','11:46',0.0,2.0,0.0,0.0,2.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,-5.0,-2.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
 	 ('Derrick Jones','DAL','A','SAS','W','11:30',0.0,3.0,0.0,0.0,2.0,0.0,'1','2','.500',0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,-1.0,-2.2,'2023-10-25 00:00:00.000','Regular Season',2022,'2023-10-26'),
@@ -396,7 +396,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Anthony Davis','LAL','H','PHX','W','39:15',10.0,17.0,0.588,1.0,2.0,0.5,'9','10','.900',3.0,9.0,12.0,2.0,3.0,3.0,2.0,2.0,30.0,7.0,30.2,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Tyrese Maxey','PHI','A','MIL','L','40:13',10.0,22.0,0.455,3.0,8.0,0.375,'8','10','.800',0.0,4.0,4.0,8.0,2.0,0.0,0.0,3.0,31.0,0.0,26.4,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Kevin Durant','PHX','A','LAL','L','39:23',14.0,28.0,0.5,1.0,5.0,0.2,'10','13','.769',0.0,11.0,11.0,2.0,1.0,1.0,8.0,2.0,39.0,18.0,21.4,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Kelly Oubre','PHI','A','MIL','L','32:28',9.0,11.0,0.818,5.0,6.0,0.833,'4','4','1.000',1.0,3.0,4.0,0.0,1.0,0.0,3.0,4.0,27.0,14.0,20.9,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('LeBron James','LAL','H','PHX','W','35:00',7.0,14.0,0.5,1.0,5.0,0.2,'6','8','.750',1.0,7.0,8.0,9.0,2.0,2.0,5.0,1.0,21.0,22.0,20.3,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Tobias Harris','PHI','A','MIL','L','37:03',8.0,9.0,0.889,3.0,3.0,1.0,'1','2','.500',0.0,7.0,7.0,2.0,0.0,0.0,2.0,2.0,20.0,-14.0,17.2,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
@@ -407,7 +407,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Gabe Vincent','LAL','H','PHX','W','35:01',3.0,10.0,0.3,0.0,5.0,0.0,'1','2','.500',1.0,2.0,3.0,6.0,3.0,0.0,0.0,1.0,7.0,13.0,8.9,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('D''Angelo Russell','LAL','H','PHX','W','33:05',6.0,16.0,0.375,1.0,7.0,0.143,'1','1','1.000',0.0,4.0,4.0,5.0,2.0,1.0,3.0,2.0,14.0,8.0,8.8,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Jordan Goodwin','PHX','A','LAL','L','29:58',6.0,15.0,0.4,1.0,5.0,0.2,'1','3','.333',0.0,6.0,6.0,2.0,2.0,0.0,1.0,2.0,14.0,8.0,8.5,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Bobby Portis','MIL','H','PHI','W','19:04',5.0,8.0,0.625,0.0,0.0,NULL,'0','4','.000',2.0,4.0,6.0,2.0,0.0,1.0,0.0,3.0,10.0,-10.0,8.3,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('De''Anthony Melton','PHI','A','MIL','L','24:53',3.0,10.0,0.3,2.0,6.0,0.333,'2','2','1.000',1.0,1.0,2.0,4.0,2.0,0.0,1.0,2.0,10.0,-4.0,8.2,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Brook Lopez','MIL','H','PHI','W','28:56',5.0,7.0,0.714,3.0,4.0,0.75,'0','0','',1.0,1.0,2.0,0.0,0.0,0.0,2.0,4.0,13.0,11.0,7.5,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
@@ -418,7 +418,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Malik Beasley','MIL','H','PHI','W','31:03',2.0,4.0,0.5,1.0,1.0,1.0,'0','0','',0.0,4.0,4.0,3.0,2.0,0.0,2.0,1.0,5.0,-5.0,5.9,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Rui Hachimura','LAL','H','PHX','W','12:29',2.0,3.0,0.667,1.0,2.0,0.5,'2','2','1.000',0.0,0.0,0.0,0.0,1.0,1.0,1.0,2.0,7.0,-13.0,5.6,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Christian Wood','LAL','H','PHX','W','21:24',2.0,7.0,0.286,0.0,2.0,0.0,'3','4','.750',2.0,8.0,10.0,1.0,0.0,0.0,1.0,2.0,7.0,23.0,5.2,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Eric Gordon','PHX','A','LAL','L','30:17',6.0,16.0,0.375,2.0,8.0,0.25,'1','1','1.000',1.0,1.0,2.0,0.0,0.0,0.0,2.0,2.0,15.0,-27.0,4.4,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Jusuf Nurkic','PHX','A','LAL','L','28:02',1.0,5.0,0.2,0.0,2.0,0.0,'2','2','1.000',3.0,6.0,9.0,3.0,3.0,0.0,4.0,5.0,4.0,-5.0,3.9,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Patrick Beverley','PHI','A','MIL','L','13:33',1.0,1.0,1.0,0.0,0.0,NULL,'0','0','',0.0,2.0,2.0,2.0,0.0,0.0,0.0,2.0,2.0,6.0,2.9,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
@@ -429,14 +429,14 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('P.J. Tucker','PHI','A','MIL','L','25:35',0.0,2.0,0.0,0.0,2.0,0.0,'0','0','',1.0,6.0,7.0,0.0,2.0,0.0,0.0,5.0,0.0,2.0,1.1,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Drew Eubanks','PHX','A','LAL','L','17:07',1.0,2.0,0.5,0.0,0.0,NULL,'0','0','',1.0,3.0,4.0,2.0,0.0,0.0,2.0,3.0,2.0,1.0,0.8,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Yuta Watanabe','PHX','A','LAL','L','14:50',1.0,2.0,0.5,1.0,1.0,1.0,'0','0','',0.0,1.0,1.0,0.0,0.0,0.0,1.0,2.0,3.0,-14.0,0.5,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date) VALUES
 	 ('Jaden Springer','PHI','A','MIL','L','4:34',0.0,1.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0,-10.0,0.3,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Cameron Payne','MIL','H','PHI','W','8:56',1.0,3.0,0.333,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,1.0,0.0,0.0,3.0,2.0,-7.0,0.1,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Cam Reddish','LAL','H','PHX','W','11:45',2.0,5.0,0.4,0.0,3.0,0.0,'0','0','',0.0,1.0,1.0,0.0,0.0,0.0,1.0,2.0,4.0,-12.0,-0.2,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Jaxson Hayes','LAL','H','PHX','W','5:57',0.0,0.0,NULL,0.0,0.0,NULL,'0','0','',0.0,2.0,2.0,0.0,1.0,0.0,2.0,3.0,0.0,3.0,-1.6,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27'),
 	 ('Taurean Prince','LAL','H','PHX','W','18:10',0.0,5.0,0.0,0.0,1.0,0.0,'0','0','',0.0,0.0,0.0,0.0,1.0,0.0,0.0,3.0,0.0,-15.0,-3.7,'2023-10-26 00:00:00.000','Regular Season',2022,'2023-10-27');
 
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date,created_at,modified_at) VALUES
 	 ('Jamal Murray','DEN','A','SAS','L','29:02',14.0,26.0,0.538,5.0,11.0,0.455,'2','2','1.000',0.0,5.0,5.0,4.0,1.0,0.0,1.0,1.0,35.0,-4.0,26.3,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Nikola Jokic','DEN','A','SAS','L','38:33',9.0,13.0,0.692,1.0,2.0,0.5,'3','3','1.000',2.0,5.0,7.0,12.0,2.0,1.0,3.0,5.0,22.0,-1.0,25.5,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Victor Wembanyama','SAS','H','DEN','W','36:49',12.0,27.0,0.444,5.0,12.0,0.417,'5','7','.714',1.0,11.0,12.0,5.0,1.0,2.0,7.0,1.0,34.0,-11.0,21.6,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
@@ -447,7 +447,7 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Tre Jones','SAS','H','DEN','W','38:33',6.0,11.0,0.545,1.0,2.0,0.5,'1','3','.333',0.0,6.0,6.0,10.0,0.0,0.0,3.0,1.0,14.0,17.0,13.3,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Christian Braun','DEN','A','SAS','L','22:46',4.0,7.0,0.571,2.0,4.0,0.5,'1','2','.500',0.0,3.0,3.0,3.0,0.0,2.0,1.0,2.0,11.0,9.0,9.9,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Devonte'' Graham','SAS','H','DEN','W','31:33',4.0,11.0,0.364,2.0,7.0,0.286,'1','2','.500',2.0,2.0,4.0,5.0,0.0,0.0,2.0,0.0,11.0,6.0,8.0,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796');
-INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_boxscores (player,team,"location",opponent,outcome,mp,fgm,fga,fgpercent,threepfgmade,threepattempted,threepointpercent,ft,fta,ftpercent,oreb,dreb,trb,ast,stl,blk,tov,pf,pts,plusminus,gmsc,"date","type",season,scrape_date,created_at,modified_at) VALUES
 	 ('Justin Holiday','DEN','A','SAS','L','15:18',3.0,7.0,0.429,2.0,6.0,0.333,'0','0','',0.0,1.0,1.0,2.0,1.0,0.0,0.0,1.0,8.0,3.0,6.6,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Sidy Cissoko','SAS','H','DEN','W','16:35',4.0,5.0,0.8,0.0,1.0,0.0,'0','0','',2.0,1.0,3.0,0.0,0.0,0.0,0.0,5.0,8.0,14.0,5.8,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
 	 ('Michael Porter','DEN','A','SAS','L','29:14',5.0,14.0,0.357,1.0,5.0,0.2,'3','3','1.000',0.0,3.0,3.0,0.0,0.0,0.0,1.0,2.0,14.0,-7.0,5.3,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796'),
@@ -459,8 +459,8 @@ INSERT INTO aws_boxscores_source (player,team,"location",opponent,outcome,mp,fgm
 	 ('Zeke Nnaji','DEN','A','SAS','L','9:27',0.0,1.0,0.0,0.0,0.0,NULL,'0','0','',0.0,1.0,1.0,1.0,0.0,0.0,0.0,3.0,0.0,0.0,-0.9,'2024-04-12 00:00:00','Regular Season',2022,'2024-04-13','2024-04-13 12:02:37.974796','2024-04-13 12:02:37.974796');
 
 
-DROP TABLE IF EXISTS aws_contracts_source;
-CREATE TABLE IF NOT EXISTS aws_contracts_source (
+DROP TABLE IF EXISTS bbref_player_contracts;
+CREATE TABLE IF NOT EXISTS bbref_player_contracts (
 	id serial4 NOT NULL,
 	player text NULL,
 	team text NULL,
@@ -469,7 +469,7 @@ CREATE TABLE IF NOT EXISTS aws_contracts_source (
 	modified_at timestamp NULL DEFAULT now()
 );
 
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Stephen Curry','GSW',51915615,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kevin Durant','PHX',47649433,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Nikola Jokic','DEN',47607350,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -480,7 +480,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Giannis Antetokounmpo','MIL',45640084,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kawhi Leonard','LAC',45640084,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Paul George','LAC',45640084,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jimmy Butler','MIA',45183960,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Klay Thompson','GSW',43219440,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Rudy Gobert','MIN',41000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -491,7 +491,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Zach LaVine','CHI',40064220,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Tobias Harris','PHI',39270150,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ben Simmons','BKN',37893408,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Pascal Siakam','TOR',37893408,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kyrie Irving','DAL',37037037,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jrue Holiday','BOS',36861707,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -502,7 +502,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('James Harden','PHI',35640000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Zion Williamson','NOP',34005250,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ja Morant','MEM',34005250,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Darius Garland','CLE',34005250,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Brandon Ingram','NOP',33833400,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jamal Murray','DEN',33833400,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -513,7 +513,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Bam Adebayo','MIA',32600060,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jayson Tatum','BOS',32600060,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Deandre Ayton','POR',32459438,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jaylen Brown','BOS',31830357,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Gordon Hayward','CHA',31500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chris Paul','GSW',30800000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -524,7 +524,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Julius Randle','NYK',28226880,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jerami Grant','POR',27586207,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jordan Poole','WAS',27455357,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jaren Jackson','MEM',27102202,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Tyler Herro','MIA',27000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jalen Brunson','NYK',26346666,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -535,7 +535,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Mike Conley','MIN',24360000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Andrew Wiggins','GSW',24330357,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Anfernee Simons','POR',24107143,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('RJ Barrett','NYK',23883929,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jordan Clarkson','UTA',23487629,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Terry Rozier','CHA',23205221,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -546,7 +546,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Bruce Brown','IND',22000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Mikal Bridges','BKN',21700000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Myles Turner','IND',20975000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Clint Capela','ATL',20616000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Lonzo Ball','CHI',20465117,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Spencer Dinwiddie','BKN',20357143,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -557,7 +557,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Joe Harris','DET',19928571,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jakob Poeltl','TOR',19500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Buddy Hield','IND',19279841,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Evan Fournier','NYK',18857143,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Marcus Smart','MEM',18833713,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Bogdan Bogdanovic','ATL',18700000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -568,7 +568,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Dejounte Murray','ATL',18214000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Duncan Robinson','MIA',18154000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Norman Powell','LAC',18000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Tim Hardaway','DAL',17897728,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jonathan Isaac','ORL',17400000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Collin Sexton','UTA',17325000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -579,7 +579,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Davis Bertans','OKC',17000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Markelle Fultz','ORL',17000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jusuf Nurkic','PHX',16875000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Kevin Porter','OKC',15860000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Rui Hachimura','LAL',15740741,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Mitchell Robinson','NYK',15681818,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -590,7 +590,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Luke Kennard','MEM',14763636,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kentavious Caldwell-Pope','DEN',14704938,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Max Strus','CLE',14487684,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Tyus Jones','WAS',14000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dorian Finney-Smith','BKN',13932008,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Doug McDermott','SAS',13750000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -601,7 +601,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Naz Reid','MIN',12950400,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Steven Adams','MEM',12600000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Brandon Clarke','MEM',12500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Marvin Bagley','DET',12500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Grant Williams','DAL',12405000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dennis Schroder','TOR',12405000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -612,7 +612,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Devonte'' Graham','SAS',12100000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Richaun Holmes','DAL',12046020,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Herbert Jones','NOP',12015150,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Austin Reaves','LAL',12015150,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chris Boucher','TOR',11750000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Bobby Portis','MIL',11710818,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -623,7 +623,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Coby White','CHI',11111111,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Cade Cunningham','DET',11055360,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Talen Horton-Tucker','UTA',11020000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('P.J. Tucker','PHI',11014500,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Reggie Bullock','SAS',11014080,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Maxi Kleber','DAL',11000000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -634,7 +634,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Brandon Miller','CHA',10880400,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Terance Mann','LAC',10576923,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Gabe Vincent','LAL',10500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Matisse Thybulle','POR',10500000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Alec Burks','DET',10489600,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chet Holmgren','OKC',10386000,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -645,7 +645,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Tre Jones','SAS',9895833.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jalen Green','HOU',9891480.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Patrick Williams','CHI',9835881.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Monte Morris','DET',9800926.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Scoot Henderson','POR',9770880.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Nic Claxton','BKN',9625000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -656,7 +656,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Pat Connaughton','MIL',9423869.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jabari Smith','HOU',9326520.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Isaiah Hartenstein','NYK',9245121.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Kyle Anderson','MIN',9219512.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Daniel Theis','IND',9108387.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Grayson Allen','PHX',8925000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -667,7 +667,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Gary Payton','GSW',8715000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('T.J. McConnell','IND',8700000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Keegan Murray','SAC',8409000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Delon Wright','WAS',8195122.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Onyeka Okongwu','ATL',8109063.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Scottie Barnes','TOR',8008680.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -678,7 +678,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Thaddeus Young','TOR',8000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ausar Thompson','DET',7977480.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Miles Bridges','CHA',7921300.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Vasilije Micic','OKC',7723000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Paul Reed','PHI',7723000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Zach Collins','SAS',7700000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -689,7 +689,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Jalen Suggs','ORL',7252080.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Anthony Black','ORL',7245480.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Khem Birch','SAS',6985000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Bennedict Mathurin','IND',6916080.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Obi Toppin','IND',6803012.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Caleb Martin','MIA',6802950.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -700,7 +700,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Bilal Coulibaly','WAS',6614280.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Josh Giddey','OKC',6587040.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Cameron Payne','SAS',6500000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jae''Sean Tate','HOU',6500000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ayo Dosunmu','CHI',6481482.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Rudy Gay','OKC',6479000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -711,7 +711,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Nassir Little','PHX',6250000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jevon Carter','CHI',6190476.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kenrich Williams','OKC',6175000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Ricky Rubio','CLE',6146342.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jarace Walker','IND',6059520.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jonathan Kuminga','GSW',6012840.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -722,7 +722,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Kira Lewis','NOP',5722116.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dean Wade','CLE',5709877.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Aaron Nesmith','IND',5634257.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Taylor Hendricks','UTA',5569920.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Cole Anthony','ORL',5539771.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Franz Wagner','ORL',5508720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -733,7 +733,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Isaiah Stewart','DET',5266713.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chuma Okeke','ORL',5266713.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Davion Mitchell','SAC',5063640.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Johnny Davis','WAS',5050800.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jalen Smith','IND',5043773.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jett Howard','ORL',5026800.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -744,7 +744,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Reggie Jackson','DEN',5000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ziaire Williams','MEM',4810200.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ousmane Dieng','OKC',4798440.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Dereck Lively','DAL',4775640.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Josh Green','DAL',4765339.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jarred Vanderbilt','LAL',4698000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -755,7 +755,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Gradey Dick','TOR',4536720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jalen McDaniels','TOR',4516000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Taurean Prince','LAL',4516000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Precious Achiuwa','TOR',4379527.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Tyrese Maxey','PHI',4343920.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Joshua Primo','SAS',4341600.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -766,7 +766,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Zeke Nnaji','DEN',4306281.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Immanuel Quickley','NYK',4171548.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chris Duarte','SAC',4124400.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Ochai Agbaji','UTA',4114200.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kobe Bufkin','ATL',4094280.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Payton Pritchard','BOS',4037277.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -777,7 +777,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Mark Williams','CHA',3908160.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jaden McDaniels','MIN',3901399.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Keyonte George','UTA',3889800.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Malachi Flynn','TOR',3873025.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Desmond Bane','MEM',3845083.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Russell Westbrook','LAC',3835738.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -788,7 +788,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Amir Coffey','LAC',3666667.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Alperen Sengun','HOU',3536280.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Tari Eason','HOU',3527160.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jaime Jaquez','MIA',3510600.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Mike Muscala','WAS',3500000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Andre Drummond','CHI',3360000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -799,7 +799,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Cam Whitmore','HOU',3218160.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jake LaRavia','MEM',3199920.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Derrick Rose','MEM',3196448.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Eric Gordon','PHX',3196448.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Tre Mann','OKC',3191400.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Noah Clowney','BKN',3089520.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -810,7 +810,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Jordan Nwora','IND',3000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dante Exum','DAL',3000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kevin Knox','POR',3000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Dariq Whitehead','BKN',2966040.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Christian Braun','DEN',2949120.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jalen Johnson','ATL',2925360.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -821,7 +821,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Josh Okogie','PHX',2815937.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Keon Johnson','PHX',2808720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Omer Yurtseven','UTA',2800000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Olivier-Maxence Prosper','DAL',2733720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('David Roddy','MEM',2718240.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Isaiah Jackson','IND',2696280.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -831,7 +831,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Usman Garuba','OKC',2588400.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Damian Jones','CLE',2586665.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kris Dunn','UTA',2586665.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Bruno Fernando','ATL',2581522.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Willy Hernangomez','NOP',2559942.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ben Sheppard','IND',2537160.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -842,7 +842,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Josh Christopher','MEM',2485200.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Nick Smith','CHA',2463960.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Brice Sensabaugh','UTA',2448600.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Ty Jerome','CLE',2439025.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Julian Strawther','DEN',2431080.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Wendell Moore','MIN',2421720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -853,7 +853,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Nikola Jovic','MIA',2352000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Drew Eubanks','PHX',2346614.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Keita Bates-Diop','PHX',2346614.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Yuta Watanabe','PHX',2346614.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Patrick Baldwin','WAS',2337720.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('TyTy Washington','OKC',2320440.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -864,7 +864,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Vlatko Cancar','DEN',2234359.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jaden Springer','PHI',2226240.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Day''Ron Sharpe','BKN',2210040.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Santi Aldama','MEM',2194200.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jaxson Hayes','LAL',2165000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Cam Reddish','LAL',2165000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -875,7 +875,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('DaQuan Jeffries','NYK',2066585.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dalano Banton','BOS',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Colby Jones','SAC',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jeff Dowtin','TOR',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Alex Len','SAC',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Chimezie Metu','PHX',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -886,7 +886,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Cody Zeller','NOP',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jae Crowder','MIL',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Malik Beasley','MIL',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Robin Lopez','MIL',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Dario Saric','GSW',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Cory Joseph','GSW',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -897,7 +897,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Dennis Smith','BKN',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Wesley Matthews','ATL',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Aaron Holiday','HOU',2019706.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Caleb Houstan','ORL',2000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jaylin Williams','OKC',2000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Garrison Mathews','ATL',2000000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -908,7 +908,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Xavier Tillman','MEM',1930681.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kenyon Martin','LAC',1930681.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Sam Hauser','BOS',1927896.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Kessler Edwards','SAC',1927896.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ish Wainright','PHX',1927896.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jericho Sims','NYK',1927896.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -919,7 +919,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Jeremiah Robinson-Earl','HOU',1900000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Trendon Watford','POR',1836096.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Miles McBride','NYK',1836096.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Isaiah Todd','MEM',1836096.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Brandon Boston','LAC',1836096.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Isaiah Livers','DET',1836096.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -930,7 +930,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('E.J. Liddell','NOP',1801769.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Orlando Robinson','MIA',1801769.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Kennedy Chandler','MEM',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Jaden Hardy','DAL',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Xavier Cooks','WAS',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Ryan Rollins','WAS',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -941,7 +941,7 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Bryce McGowens','CHA',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jabari Walker','POR',1719864.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Julian Phillips','CHI',1600000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Eric Bledsoe','POR',1300000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Jordan Walsh','BOS',1119563.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Rayan Rupert','POR',1119563.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
@@ -952,12 +952,12 @@ INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_
 	 ('Lamar Stevens','SAS',400000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Nerlens Noel','SAC',300000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Didi Louzada','POR',268032.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
-INSERT INTO aws_contracts_source (player,team,season_salary,created_at,modified_at) VALUES
+INSERT INTO bbref_player_contracts (player,team,season_salary,created_at,modified_at) VALUES
 	 ('Neemias Queta','SAC',250000.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085'),
 	 ('Demetrius Jackson','BOS',92857.0,'2023-10-19 23:16:15.085','2023-10-19 23:16:15.085');
 
-DROP TABLE IF EXISTS aws_injury_data_source;
-CREATE TABLE IF NOT EXISTS aws_injury_data_source (
+DROP TABLE IF EXISTS bbref_player_injuries;
+CREATE TABLE IF NOT EXISTS bbref_player_injuries (
 	player text NULL,
 	team text NULL,
 	description text NULL,
@@ -967,7 +967,7 @@ CREATE TABLE IF NOT EXISTS aws_injury_data_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Victor Oladipo','Houston Rockets','Out (Knee) - Oladipo is out while recovering from a left patellar tendon repair.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Nic Claxton','Brooklyn Nets','Out (Ankle) - Claxton is OUT for Friday''s (Oct.27) game against Dallas.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Naji Marshall','New Orleans Pelicans','Out (Knee) - The Pelicans announced that Marshall has been diagnosed with a bone bruise and will be re-evaluated in two weeks.','Tue, Oct 24, 2023','2023-10-27'),
@@ -978,7 +978,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Jarrett Allen','Cleveland Cavaliers','Out (Ankle) - The Cavaliers announced that Allen is dealing with a left ankle bone bruise. He will be re-evaluated in two weeks.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Lonzo Ball','Chicago Bulls','Out For Season (Knee) - Ball will miss the 2023-24 season while recovering from surgery.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Frank Ntilikina','Charlotte Hornets','Out (Leg) - The Hornets announced that Ntilikina suffered a non-displaced fracture of his left Tibia.','Sat, Oct 21, 2023','2023-10-27');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('James Bouknight','Charlotte Hornets','Out (Knee) - The Hornets announced that Bouknight had surgery and will be re-evaluated in four weeks.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Kenrich Williams','Oklahoma City Thunder','Out (Back) - Williams is OUT for Friday''s (Oct.27) game against Cleveland.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Kevon Harris','Orlando Magic','Out (Knee) - Harris is OUT for Friday''s (Oct.27) game against Portland.','Thu, Oct 26, 2023','2023-10-27'),
@@ -989,7 +989,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Brandon Clarke','Memphis Grizzlies','Out (Achilles) - Clarke has no timetable for return after suffering a torn Achilles in March, according to Adrian Wojnarowski of ESPN.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Luke Kennard','Memphis Grizzlies','Out (Concussion Protocol) - Kennard is OUT for Friday''s (Oct.27) game against Denver.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Anfernee Simons','Portland Trail Blazers','Day To Day (Thumb) - Simons is Probable for Friday''s (Oct.27) game against Orlando.','Thu, Oct 26, 2023','2023-10-27');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Ish Wainright','Portland Trail Blazers','Out (Calf) - Wainright is OUT for Friday''s (Oct.27) game against Orlando.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Trey Lyles','Sacramento Kings','Out (Calf) - Lyles is out for Friday''s (Oct. 27) game against Golden State.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Johnny Davis','Washington Wizards','Out (Elbow) - Davis did not play in Wednesday''s (Oct.24) game against Indiana.','Thu, Oct 26, 2023','2023-10-27'),
@@ -1000,7 +1000,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Monte Morris','Detroit Pistons','Out (Quad) - The Pistons announced that Morris suffered a right quad strain and will be re-evaluated in three weeks.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Isaiah Livers','Detroit Pistons','Out (Ankle) - The Pistons announced that Livers sustained a left ankle sprain and will be out for approximately 6-8 weeks.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Bojan Bogdanovic','Detroit Pistons','Out (Calf) - The Pistons announced that Bogdanovic has a right calf strain and will be re-evaluated in four weeks.','Tue, Oct 24, 2023','2023-10-27');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Wesley Matthews','Atlanta Hawks','Out (Calf) - The Hawks announced that Matthews has a mild right calf strain and will be re-evaluated in two weeks.','Wed, Oct 25, 2023','2023-10-27'),
 	 ('Jay Huff','Denver Nuggets','Out (Rib) - Huff is OUT for Friday''s (Oct.27) game against Memphis.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Jock Landale','Houston Rockets','Out (Concussion Protocol) - Landale is OUT for Friday''s (Oct.27) game against San Antonio.','Thu, Oct 26, 2023','2023-10-27'),
@@ -1011,7 +1011,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Jaden McDaniels','Minnesota Timberwolves','Day To Day (Calf) - McDaniels did not play in Wednesday''s (Oct. 25) game against Toronto.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Brandon Boston','Los Angeles Clippers','Out (Quad/Tendinopathy) - Boston Jr. is OUT for Friday''s (Oct.27) game against Utah.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Jaylen Clark','Minnesota Timberwolves','Out (Achilles) - Clark is idle due to a right Achilles issue, and is not expected to make his season debut until sometime in February.','Tue, Oct 24, 2023','2023-10-27');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Trey Murphy','New Orleans Pelicans','Out (Knee) - The Pelicans announced that Murphy III will return to basketball activities in approximately 10-12 weeks.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Duncan Robinson','Miami Heat','Day To Day (Foot) - Robinson is Probable for Friday''s (Oct.27) game against Boston.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Josh Richardson','Miami Heat','Out (Foot) - Richardson is OUT for Friday''s (Oct.27) game against Boston.','Thu, Oct 26, 2023','2023-10-27'),
@@ -1022,7 +1022,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Steven Adams','Memphis Grizzlies','Out For Season (Knee) - The Grizzlies announced that Adams will undergo season-ending surgery on his right knee.','Tue, Oct 24, 2023','2023-10-27'),
 	 ('Caleb Martin','Miami Heat','Day To Day (Knee) - Martin is Probable for Friday''s (Oct.27) game against Boston.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Santi Aldama','Memphis Grizzlies','Out (Ankle) - Aldama is OUT for Friday''s (Oct.27) game against Denver.','Thu, Oct 26, 2023','2023-10-27');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Landry Shamet','Washington Wizards','Day To Day (Toe) - Shamet did not play in Wednesday''s (Oct.24) game against Indiana.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Jaime Jaquez','Miami Heat','Day To Day (Groin) - Jaquez Jr. is Probable for Friday''s (Oct.27) game against Boston.','Thu, Oct 26, 2023','2023-10-27'),
 	 ('Haywood Highsmith','Miami Heat','Out (Knee) - Highsmith is OUT for Friday''s (Oct.27) game against Boston.','Thu, Oct 26, 2023','2023-10-27'),
@@ -1033,7 +1033,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Jay Huff','Denver Nuggets','Day To Day (Rib) - Huff did not play in Tuesday''s (Oct. 24) game against the LA Lakers.','Wed, Oct 25, 2023','2023-10-26'),
 	 ('Christian Koloko','Toronto Raptors','Out (Respiratory) - The Raptors announced that Koloko will be held out of training camp.','Tue, Oct 24, 2023','2023-10-26'),
 	 ('Dean Wade','Cleveland Cavaliers','Out (Illness) - Wade is out for Wednesday''s (Oct. 25) game against Brooklyn.','Tue, Oct 24, 2023','2023-10-26');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Jalen Slawson','Sacramento Kings','Out (Illness) - Slawson is OUT for Wednesday''s (Oct. 25) game against Utah.','Wed, Oct 25, 2023','2023-10-26'),
 	 ('Trey Lyles','Sacramento Kings','Out (Calf) - Lyles is OUT for Wednesday''s (Oct. 25) game against Utah.','Tue, Oct 24, 2023','2023-10-26'),
 	 ('Ish Wainright','Portland Trail Blazers','Out (Calf) - Wainright is OUT for Wednesday''s (Oct. 25) game against the LA Clippers.','Wed, Oct 25, 2023','2023-10-26'),
@@ -1044,7 +1044,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Jaylin Williams','Oklahoma City Thunder','Out (Hamstring) - Williams is OUT for Wednesday''s (Oct. 25) game against Chicago.','Tue, Oct 24, 2023','2023-10-26'),
 	 ('Jaden McDaniels','Minnesota Timberwolves','Out (Calf) - McDaniels is OUT for Wednesday''s (Oct. 25) game against Toronto.','Tue, Oct 24, 2023','2023-10-26'),
 	 ('Bryce McGowens','Charlotte Hornets','Out (Ankle) - McGowen is OUT for Wednesday''s (Oct. 25) game against Atlanta.','Wed, Oct 25, 2023','2023-10-26');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Dariq Whitehead','Brooklyn Nets','Out (Foot) - Whitehead is out for Wednesday''s (Oct. 25) game against Cleveland.','Tue, Oct 24, 2023','2023-10-26'),
 	 ('Terance Mann','Los Angeles Clippers','Out (Ankle) - Hyland is OUT for Wednesday''s (Oct. 25) game against Portland.','Wed, Oct 25, 2023','2023-10-26'),
 	 ('Josh Richardson','Miami Heat','Out (Foot) - Richardson is OUT for Wednesday''s (Oct. 25) game against Detroit.','Tue, Oct 24, 2023','2023-10-26'),
@@ -1055,7 +1055,7 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Darius Garland','Cleveland Cavaliers','Day To Day (Hamstring) - Garland is QUESTIONABLE for Wednesday''s (Oct.25) game against Brooklyn.','Tue, Oct 24, 2023','2023-10-25'),
 	 ('Devonte'' Graham','San Antonio Spurs','Out (League Suspension) - Graham is out due to league suspension.','Tue, Oct 24, 2023','2023-10-25'),
 	 ('Zach Collins','San Antonio Spurs','Day To Day (Illness) - Collins is QUESTIONABLE for Wednesday''s (Oct. 25) game against Dallas.','Tue, Oct 24, 2023','2023-10-25');
-INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) VALUES
+INSERT INTO bbref_player_injuries (player,team,description,"date",scrape_date) VALUES
 	 ('Chris Duarte','Sacramento Kings','Day To Day (Knee) - Duarte is QUESTIONABLE for Wednesday''s (Oct. 25) game against Utah.','Tue, Oct 24, 2023','2023-10-25'),
 	 ('Bradley Beal','Phoenix Suns','Out (Back) - Beal is OUT for Tuesday''s (Oct. 24) game against Golden State.','Tue, Oct 24, 2023','2023-10-25'),
 	 ('Gary Harris','Orlando Magic','Day To Day (Thigh) - Harris is QUESTIONABLE for Wednesday''s (Oct.24) against Houston','Tue, Oct 24, 2023','2023-10-25'),
@@ -1063,8 +1063,8 @@ INSERT INTO aws_injury_data_source (player,team,description,"date",scrape_date) 
 	 ('Brandon Clarke','Memphis Grizzlies','Out (Achilles) - Clarke is OUT for Wednesday''s (Oct. 25) game against New Orleans.','Tue, Oct 24, 2023','2023-10-25'),
 	 ('Santi Aldama','Memphis Grizzlies','Out (Ankle) - Aldama is OUT for Wednesday''s (Oct.25) game against New Orleans.','Tue, Oct 24, 2023','2023-10-25');
 
-DROP TABLE IF EXISTS aws_odds_source;
-CREATE TABLE IF NOT EXISTS aws_odds_source (
+DROP TABLE IF EXISTS draftkings_game_odds;
+CREATE TABLE IF NOT EXISTS draftkings_game_odds (
 	team text NULL,
 	spread text NULL,
 	total text NULL,
@@ -1075,7 +1075,7 @@ CREATE TABLE IF NOT EXISTS aws_odds_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' POR','3.0','200',115.0,current_date,current_timestamp),
 	 ('ORL','-3.0','200',-140.0,current_date,current_timestamp),
 	 (' SAC','-3.0','200',-160.0,current_date,current_timestamp),
@@ -1086,7 +1086,7 @@ INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUE
 	 ('BKN','+6.0','200',190.0,'2023-10-27','2023-10-27 20:30:00.000'),
 	 ('HOU','+2.5','200',110.0,'2023-10-27','2023-10-27 20:00:00.000'),
 	 ('TOR','+2.5','200',115.0,'2023-10-27','2023-10-27 20:00:00.000');
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' SA','-2.5','200',-130.0,'2023-10-27','2023-10-27 20:00:00.000'),
 	 (' CHI','-2.5','200',-140.0,'2023-10-27','2023-10-27 20:00:00.000'),
 	 ('NY','+2.0','200',105.0,'2023-10-27','2023-10-27 19:30:00.000'),
@@ -1097,7 +1097,7 @@ INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUE
 	 (' CLE','-3.5','200',-160.0,'2023-10-27','2023-10-27 19:30:00.000'),
 	 ('DEN','-5.0','200',-200.0,'2023-10-27','2023-10-27 19:00:00.000'),
 	 (' CHA','-4.0','200',-170.0,'2023-10-27','2023-10-27 19:00:00.000');
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' MEM','5.0','200',165.0,'2023-10-27','2023-10-27 19:00:00.000'),
 	 ('DET','+4.0','200',140.0,'2023-10-27','2023-10-27 19:00:00.000'),
 	 (' LAL','-6.0','200',-225.0,'2023-10-26','2023-10-26 22:00:00.000'),
@@ -1108,7 +1108,7 @@ INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUE
 	 ('POR','+9.0','200',330.0,'2023-10-25','2023-10-25 22:30:00.000'),
 	 (' SA','4.5','200',140.0,'2023-10-25','2023-10-25 21:30:00.000'),
 	 ('DAL','-4.5','200',-170.0,'2023-10-25','2023-10-25 21:30:00.000');
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' UTA','2.0','200',105.0,'2023-10-25','2023-10-25 21:00:00.000'),
 	 ('SAC','-2.0','200',-125.0,'2023-10-25','2023-10-25 21:00:00.000'),
 	 (' CHI','-1.0','200',-110.0,'2023-10-25','2023-10-25 20:00:00.000'),
@@ -1119,7 +1119,7 @@ INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUE
 	 (' TOR','1.5','200',100.0,'2023-10-25','2023-10-25 19:30:00.000'),
 	 ('MIN','-1.5','200',-120.0,'2023-10-25','2023-10-25 19:30:00.000'),
 	 (' MIA','-9.0','200',-425.0,'2023-10-25','2023-10-25 19:30:00.000');
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' BKN','1.0','200',-105.0,'2023-10-25','2023-10-25 19:30:00.000'),
 	 ('CLE','-1.0','200',-115.0,'2023-10-25','2023-10-25 19:30:00.000'),
 	 ('ATL','-3.5','200',-170.0,'2023-10-25','2023-10-25 19:00:00.000'),
@@ -1130,14 +1130,14 @@ INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUE
 	 (' IND','-7.0','200',-290.0,'2023-10-25','2023-10-25 19:00:00.000'),
 	 ('WAS','+7.0','200',230.0,'2023-10-25','2023-10-25 19:00:00.000'),
 	 (' CHA','3.5','200',140.0,'2023-10-25','2023-10-25 19:00:00.000');
-INSERT INTO aws_odds_source (team,spread,total,moneyline,"date",datetime1) VALUES
+INSERT INTO draftkings_game_odds (team,spread,total,moneyline,"date",datetime1) VALUES
 	 (' GS','-3.0','200',-160.0,'2023-10-24','2023-10-24 22:00:00.000'),
 	 ('PHO','+3.0','200',130.0,'2023-10-24','2023-10-24 22:00:00.000'),
 	 (' DEN','-5.0','200',-200.0,'2023-10-24','2023-10-24 19:30:00.000'),
 	 ('LAL','+5.0','200',165.0,'2023-10-24','2023-10-24 19:30:00.000');
 
-DROP TABLE IF EXISTS aws_opp_stats_source;
-CREATE TABLE IF NOT EXISTS aws_opp_stats_source (
+DROP TABLE IF EXISTS bbref_team_opponent_shooting_stats;
+CREATE TABLE IF NOT EXISTS bbref_team_opponent_shooting_stats (
 	team text NULL,
 	fg_percent_opp float8 NULL,
 	threep_percent_opp float8 NULL,
@@ -1148,7 +1148,7 @@ CREATE TABLE IF NOT EXISTS aws_opp_stats_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
+INSERT INTO bbref_team_opponent_shooting_stats (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
 	 ('Charlotte Hornets',0.419,0.172,5.0,110.0,'2023-10-27'),
 	 ('Los Angeles Clippers',0.473,0.313,10.0,111.0,'2023-10-27'),
 	 ('Memphis Grizzlies',0.471,0.438,14.0,111.0,'2023-10-27'),
@@ -1159,7 +1159,7 @@ INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_
 	 ('Atlanta Hawks',0.5,0.297,11.0,116.0,'2023-10-27'),
 	 ('Milwaukee Bucks',0.513,0.457,16.0,117.0,'2023-10-27'),
 	 ('Philadelphia 76ers',0.5,0.367,11.0,118.0,'2023-10-27');
-INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
+INSERT INTO bbref_team_opponent_shooting_stats (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
 	 ('Dallas Mavericks',0.517,0.314,11.0,119.0,'2023-10-27'),
 	 ('Indiana Pacers',0.458,0.375,9.0,120.0,'2023-10-27'),
 	 ('Portland Trail Blazers',0.522,0.471,16.0,123.0,'2023-10-27'),
@@ -1170,7 +1170,7 @@ INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_
 	 ('Orlando Magic',0.405,0.353,12.0,86.0,'2023-10-27'),
 	 ('Toronto Raptors',0.34,0.258,8.0,94.0,'2023-10-27'),
 	 ('Minnesota Timberwolves',0.4,0.4,14.0,97.0,'2023-10-27');
-INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
+INSERT INTO bbref_team_opponent_shooting_stats (team,fg_percent_opp,threep_percent_opp,threep_made_opp,ppg_opp,scrape_date) VALUES
 	 ('Phoenix Suns',0.389,0.208,7.5,102.0,'2023-10-27'),
 	 ('Miami Heat',0.446,0.344,11.0,102.0,'2023-10-27'),
 	 ('Detroit Pistons',0.402,0.364,8.0,103.0,'2023-10-27'),
@@ -1182,8 +1182,8 @@ INSERT INTO aws_opp_stats_source (team,fg_percent_opp,threep_percent_opp,threep_
 	 ('Golden State Warriors',0.442,0.333,11.0,108.0,'2023-10-27'),
 	 ('New York Knicks',0.481,0.308,12.0,108.0,'2023-10-27');
 
-DROP TABLE IF EXISTS aws_pbp_data_source;
-CREATE TABLE IF NOT EXISTS aws_pbp_data_source (
+DROP TABLE IF EXISTS bbref_player_pbp;
+CREATE TABLE IF NOT EXISTS bbref_player_pbp (
 	timequarter text NULL,
 	descriptionplayvisitor text NULL,
 	awayscore text NULL,
@@ -1202,7 +1202,7 @@ CREATE TABLE IF NOT EXISTS aws_pbp_data_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Jump ball: J. Nurkić vs. K. Looney (K. Thompson gains possession)','Jump ball: J. Nurkić vs. K. Looney (K. Thompson gains possession)','Jump ball: J. Nurkić vs. K. Looney (K. Thompson gains possession)','Jump ball: J. Nurkić vs. K. Looney (K. Thompson gains possession)','Jump ball: J. Nurkić vs. K. Looney (K. Thompson gains possession)','1st Quarter','GSW','PHX',0.0,0.0,0.0,'2023-10-24','2023-10-25'),
 	 ('11:28.0','J. Nurkić makes 2-pt layup from 4 ft (assist by K. Durant)','+2','2-0',NULL,NULL,'1st Quarter','GSW','PHX',2.0,0.0,-2.0,'2023-10-24','2023-10-25'),
 	 ('11:28.0','J. Nurkić makes free throw 1 of 1','+1','3-0',NULL,NULL,'1st Quarter','GSW','PHX',3.0,0.0,-3.0,'2023-10-24','2023-10-25'),
@@ -1213,7 +1213,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:20.0','D. Booker makes 3-pt jump shot from 26 ft (assist by K. Durant)','+3','10-5',NULL,NULL,'1st Quarter','GSW','PHX',10.0,5.0,-5.0,'2023-10-24','2023-10-25'),
 	 ('8:52.0','D. Booker makes 2-pt jump shot from 16 ft','+2','12-5',NULL,NULL,'1st Quarter','GSW','PHX',12.0,5.0,-7.0,'2023-10-24','2023-10-25'),
 	 ('8:52.0','D. Booker makes free throw 1 of 1','+1','13-5',NULL,NULL,'1st Quarter','GSW','PHX',13.0,5.0,-8.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:41.0',NULL,NULL,'13-7','+2','K. Looney makes 2-pt dunk from 4 ft (assist by K. Thompson)','1st Quarter','GSW','PHX',13.0,7.0,-6.0,'2023-10-24','2023-10-25'),
 	 ('8:20.0','J. Nurkić makes free throw 1 of 2','+1','14-7',NULL,NULL,'1st Quarter','GSW','PHX',14.0,7.0,-7.0,'2023-10-24','2023-10-25'),
 	 ('8:20.0','J. Nurkić makes free throw 2 of 2','+1','15-7',NULL,NULL,'1st Quarter','GSW','PHX',15.0,7.0,-8.0,'2023-10-24','2023-10-25'),
@@ -1224,7 +1224,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:29.0','D. Booker makes free throw 1 of 2','+1','18-12',NULL,NULL,'1st Quarter','GSW','PHX',18.0,12.0,-6.0,'2023-10-24','2023-10-25'),
 	 ('6:29.0','D. Booker makes free throw 2 of 2','+1','19-12',NULL,NULL,'1st Quarter','GSW','PHX',19.0,12.0,-7.0,'2023-10-24','2023-10-25'),
 	 ('5:40.0','D. Booker makes 3-pt jump shot from 25 ft (assist by J. Nurkić)','+3','22-12',NULL,NULL,'1st Quarter','GSW','PHX',22.0,12.0,-10.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:02.0','D. Booker makes 2-pt jump shot from 20 ft','+2','24-12',NULL,NULL,'1st Quarter','GSW','PHX',24.0,12.0,-12.0,'2023-10-24','2023-10-25'),
 	 ('4:39.0',NULL,NULL,'24-14','+2','K. Looney makes 2-pt layup from 2 ft (assist by K. Thompson)','1st Quarter','GSW','PHX',24.0,14.0,-10.0,'2023-10-24','2023-10-25'),
 	 ('4:22.0',NULL,NULL,'24-17','+3','S. Curry makes 3-pt jump shot from 29 ft','1st Quarter','GSW','PHX',24.0,17.0,-7.0,'2023-10-24','2023-10-25'),
@@ -1235,7 +1235,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:02.0','Jump ball: J. Kuminga vs. Y. Watanabe (M. Moody gains possession)','Jump ball: J. Kuminga vs. Y. Watanabe (M. Moody gains possession)','Jump ball: J. Kuminga vs. Y. Watanabe (M. Moody gains possession)','Jump ball: J. Kuminga vs. Y. Watanabe (M. Moody gains possession)','Jump ball: J. Kuminga vs. Y. Watanabe (M. Moody gains possession)','1st Quarter','GSW','PHX',25.0,23.0,-2.0,'2023-10-24','2023-10-25'),
 	 ('1:16.0',NULL,NULL,'25-26','+3','M. Moody makes 3-pt jump shot from 24 ft','1st Quarter','GSW','PHX',25.0,26.0,1.0,'2023-10-24','2023-10-25'),
 	 ('1:07.0','E. Gordon makes 2-pt jump shot from 7 ft','+2','27-26',NULL,NULL,'1st Quarter','GSW','PHX',27.0,26.0,-1.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:35.0',NULL,NULL,'27-28','+2','M. Moody makes 2-pt layup from 5 ft (assist by C. Paul)','1st Quarter','GSW','PHX',27.0,28.0,1.0,'2023-10-24','2023-10-25'),
 	 ('0:26.0','D. Eubanks makes free throw 2 of 2','+1','28-28',NULL,NULL,'1st Quarter','GSW','PHX',28.0,28.0,0.0,'2023-10-24','2023-10-25'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','GSW','PHX',28.0,28.0,0.0,'2023-10-24','2023-10-25'),
@@ -1246,7 +1246,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:28.0','E. Gordon makes 2-pt layup from 5 ft (assist by D. Eubanks)','+2','30-32',NULL,NULL,'2nd Quarter','GSW','PHX',30.0,32.0,2.0,'2023-10-24','2023-10-25'),
 	 ('8:13.0',NULL,NULL,'30-35','+3','M. Moody makes 3-pt jump shot from 25 ft (assist by G. Payton)','2nd Quarter','GSW','PHX',30.0,35.0,5.0,'2023-10-24','2023-10-25'),
 	 ('7:28.0','K. Durant makes 2-pt jump shot from 18 ft (assist by D. Booker)','+2','32-35',NULL,NULL,'2nd Quarter','GSW','PHX',32.0,35.0,3.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:56.0','Y. Watanabe makes 3-pt jump shot from 27 ft (assist by J. Goodwin)','+3','35-35',NULL,NULL,'2nd Quarter','GSW','PHX',35.0,35.0,0.0,'2023-10-24','2023-10-25'),
 	 ('6:32.0','K. Durant makes free throw 2 of 2','+1','36-35',NULL,NULL,'2nd Quarter','GSW','PHX',36.0,35.0,-1.0,'2023-10-24','2023-10-25'),
 	 ('6:16.0',NULL,NULL,'36-37','+2','S. Curry makes 2-pt layup from 5 ft (assist by C. Joseph)','2nd Quarter','GSW','PHX',36.0,37.0,1.0,'2023-10-24','2023-10-25'),
@@ -1257,7 +1257,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:03.0','D. Booker makes 2-pt layup from 6 ft','+2','45-38',NULL,NULL,'2nd Quarter','GSW','PHX',45.0,38.0,-7.0,'2023-10-24','2023-10-25'),
 	 ('3:38.0','J. Nurkić makes 2-pt layup at rim','+2','47-38',NULL,NULL,'2nd Quarter','GSW','PHX',47.0,38.0,-9.0,'2023-10-24','2023-10-25'),
 	 ('2:55.0',NULL,NULL,'47-40','+2','K. Thompson makes 2-pt jump shot from 16 ft (assist by C. Paul)','2nd Quarter','GSW','PHX',47.0,40.0,-7.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:37.0','D. Booker makes 2-pt jump shot from 7 ft','+2','49-40',NULL,NULL,'2nd Quarter','GSW','PHX',49.0,40.0,-9.0,'2023-10-24','2023-10-25'),
 	 ('2:07.0','J. Okogie makes 2-pt layup from 4 ft (assist by D. Booker)','+2','51-40',NULL,NULL,'2nd Quarter','GSW','PHX',51.0,40.0,-11.0,'2023-10-24','2023-10-25'),
 	 ('2:07.0','J. Okogie makes free throw 1 of 1','+1','52-40',NULL,NULL,'2nd Quarter','GSW','PHX',52.0,40.0,-12.0,'2023-10-24','2023-10-25'),
@@ -1268,7 +1268,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:44.0','J. Okogie makes free throw 1 of 1','+1','57-46',NULL,NULL,'2nd Quarter','GSW','PHX',57.0,46.0,-11.0,'2023-10-24','2023-10-25'),
 	 ('0:05.0','K. Durant makes 3-pt jump shot from 28 ft (assist by D. Booker)','+3','60-46',NULL,NULL,'2nd Quarter','GSW','PHX',60.0,46.0,-14.0,'2023-10-24','2023-10-25'),
 	 ('0:05.0','K. Durant makes free throw 1 of 1','+1','61-46',NULL,NULL,'2nd Quarter','GSW','PHX',61.0,46.0,-15.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','GSW','PHX',61.0,46.0,-15.0,'2023-10-24','2023-10-25'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','GSW','PHX',61.0,46.0,-15.0,'2023-10-24','2023-10-25'),
 	 ('11:18.0',NULL,NULL,'61-48','+2','K. Thompson makes 2-pt layup from 4 ft','3rd Quarter','GSW','PHX',61.0,48.0,-13.0,'2023-10-24','2023-10-25'),
@@ -1279,7 +1279,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:51.0',NULL,NULL,'64-54','+2','A. Wiggins makes 2-pt dunk from 3 ft (assist by C. Paul)','3rd Quarter','GSW','PHX',64.0,54.0,-10.0,'2023-10-24','2023-10-25'),
 	 ('9:30.0',NULL,NULL,'64-55','+1','S. Curry makes free throw 1 of 2','3rd Quarter','GSW','PHX',64.0,55.0,-9.0,'2023-10-24','2023-10-25'),
 	 ('9:30.0',NULL,NULL,'64-56','+1','S. Curry makes free throw 2 of 2','3rd Quarter','GSW','PHX',64.0,56.0,-8.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:54.0',NULL,NULL,'64-59','+3','S. Curry makes 3-pt jump shot from 26 ft (assist by C. Paul)','3rd Quarter','GSW','PHX',64.0,59.0,-5.0,'2023-10-24','2023-10-25'),
 	 ('8:21.0',NULL,NULL,'64-61','+2','S. Curry makes 2-pt layup from 5 ft','3rd Quarter','GSW','PHX',64.0,61.0,-3.0,'2023-10-24','2023-10-25'),
 	 ('6:49.0',NULL,NULL,'64-63','+2','C. Paul makes 2-pt jump shot from 11 ft','3rd Quarter','GSW','PHX',64.0,63.0,-1.0,'2023-10-24','2023-10-25'),
@@ -1290,7 +1290,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:46.0',NULL,NULL,'66-68','+1','C. Paul makes free throw 1 of 1','3rd Quarter','GSW','PHX',66.0,68.0,2.0,'2023-10-24','2023-10-25'),
 	 ('5:28.0',NULL,NULL,'66-69','+1','C. Paul makes free throw 1 of 2','3rd Quarter','GSW','PHX',66.0,69.0,3.0,'2023-10-24','2023-10-25'),
 	 ('5:28.0',NULL,NULL,'66-70','+1','C. Paul makes free throw 2 of 2','3rd Quarter','GSW','PHX',66.0,70.0,4.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:03.0',NULL,NULL,'66-71','+1','G. Payton makes free throw 1 of 2','3rd Quarter','GSW','PHX',66.0,71.0,5.0,'2023-10-24','2023-10-25'),
 	 ('5:00.0',NULL,NULL,'66-73','+2','J. Kuminga makes 2-pt layup from 4 ft','3rd Quarter','GSW','PHX',66.0,73.0,7.0,'2023-10-24','2023-10-25'),
 	 ('4:37.0','J. Okogie makes 2-pt layup from 4 ft (assist by J. Nurkić)','+2','68-73',NULL,NULL,'3rd Quarter','GSW','PHX',68.0,73.0,5.0,'2023-10-24','2023-10-25'),
@@ -1301,7 +1301,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:42.0',NULL,NULL,'73-77','+1','J. Kuminga makes free throw 1 of 2','3rd Quarter','GSW','PHX',73.0,77.0,4.0,'2023-10-24','2023-10-25'),
 	 ('2:42.0',NULL,NULL,'73-78','+1','J. Kuminga makes free throw 2 of 2','3rd Quarter','GSW','PHX',73.0,78.0,5.0,'2023-10-24','2023-10-25'),
 	 ('2:28.0','N. Little makes 3-pt jump shot from 27 ft (assist by D. Booker)','+3','76-78',NULL,NULL,'3rd Quarter','GSW','PHX',76.0,78.0,2.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:18.0',NULL,NULL,'76-79','+1','S. Curry makes free throw 1 of 2','3rd Quarter','GSW','PHX',76.0,79.0,3.0,'2023-10-24','2023-10-25'),
 	 ('2:18.0',NULL,NULL,'76-80','+1','S. Curry makes free throw 2 of 2','3rd Quarter','GSW','PHX',76.0,80.0,4.0,'2023-10-24','2023-10-25'),
 	 ('1:38.0',NULL,NULL,'76-82','+2','S. Curry makes 2-pt layup from 5 ft','3rd Quarter','GSW','PHX',76.0,82.0,6.0,'2023-10-24','2023-10-25'),
@@ -1312,7 +1312,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','GSW','PHX',80.0,86.0,6.0,'2023-10-24','2023-10-25'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','GSW','PHX',80.0,86.0,6.0,'2023-10-24','2023-10-25'),
 	 ('11:42.0',NULL,NULL,'80-88','+2','J. Kuminga makes 2-pt layup from 4 ft (assist by D. Šarić)','4th Quarter','GSW','PHX',80.0,88.0,8.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:22.0','K. Durant makes 2-pt jump shot from 15 ft','+2','82-88',NULL,NULL,'4th Quarter','GSW','PHX',82.0,88.0,6.0,'2023-10-24','2023-10-25'),
 	 ('10:29.0','J. Goodwin makes 2-pt layup at rim','+2','84-88',NULL,NULL,'4th Quarter','GSW','PHX',84.0,88.0,4.0,'2023-10-24','2023-10-25'),
 	 ('10:07.0','K. Durant makes 2-pt layup from 6 ft','+2','86-88',NULL,NULL,'4th Quarter','GSW','PHX',86.0,88.0,2.0,'2023-10-24','2023-10-25'),
@@ -1323,7 +1323,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:13.0',NULL,NULL,'93-93','+2','A. Wiggins makes 2-pt layup from 4 ft','4th Quarter','GSW','PHX',93.0,93.0,0.0,'2023-10-24','2023-10-25'),
 	 ('5:23.0','D. Booker makes 2-pt layup from 5 ft (assist by K. Durant)','+2','95-93',NULL,NULL,'4th Quarter','GSW','PHX',95.0,93.0,-2.0,'2023-10-24','2023-10-25'),
 	 ('5:10.0',NULL,NULL,'95-95','+2','K. Looney makes 2-pt layup from 5 ft (assist by K. Thompson)','4th Quarter','GSW','PHX',95.0,95.0,0.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:10.0',NULL,NULL,'95-96','+1','K. Looney makes free throw 1 of 1','4th Quarter','GSW','PHX',95.0,96.0,1.0,'2023-10-24','2023-10-25'),
 	 ('4:51.0','D. Booker makes 2-pt layup from 4 ft','+2','97-96',NULL,NULL,'4th Quarter','GSW','PHX',97.0,96.0,-1.0,'2023-10-24','2023-10-25'),
 	 ('4:22.0','D. Booker makes 3-pt jump shot from 28 ft (assist by J. Okogie)','+3','100-96',NULL,NULL,'4th Quarter','GSW','PHX',100.0,96.0,-4.0,'2023-10-24','2023-10-25'),
@@ -1334,7 +1334,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:00.0',NULL,NULL,'103-101','+1','S. Curry makes free throw 2 of 2','4th Quarter','GSW','PHX',103.0,101.0,-2.0,'2023-10-24','2023-10-25'),
 	 ('0:44.0','E. Gordon makes 3-pt jump shot from 29 ft (assist by D. Booker)','+3','106-101',NULL,NULL,'4th Quarter','GSW','PHX',106.0,101.0,-5.0,'2023-10-24','2023-10-25'),
 	 ('0:31.0',NULL,NULL,'106-104','+3','S. Curry makes 3-pt jump shot from 24 ft (assist by J. Kuminga)','4th Quarter','GSW','PHX',106.0,104.0,-2.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:10.0','J. Nurkić makes 2-pt layup from 4 ft (assist by D. Booker)','+2','108-104',NULL,NULL,'4th Quarter','GSW','PHX',108.0,104.0,-4.0,'2023-10-24','2023-10-25'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','GSW','PHX',108.0,104.0,-4.0,'2023-10-24','2023-10-25'),
 	 ('12:00.0','Jump ball: A. Davis vs. N. Jokić (L. James gains possession)','Jump ball: A. Davis vs. N. Jokić (L. James gains possession)','Jump ball: A. Davis vs. N. Jokić (L. James gains possession)','Jump ball: A. Davis vs. N. Jokić (L. James gains possession)','Jump ball: A. Davis vs. N. Jokić (L. James gains possession)','1st Quarter','DEN','LAL',0.0,0.0,0.0,'2023-10-24','2023-10-25'),
@@ -1345,7 +1345,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:33.0','T. Prince makes 3-pt jump shot from 25 ft (assist by L. James)','+3','8-4',NULL,NULL,'1st Quarter','DEN','LAL',8.0,4.0,-4.0,'2023-10-24','2023-10-25'),
 	 ('10:16.0',NULL,NULL,'8-7','+3','J. Murray makes 3-pt jump shot from 26 ft','1st Quarter','DEN','LAL',8.0,7.0,-1.0,'2023-10-24','2023-10-25'),
 	 ('9:30.0','L. James makes 2-pt layup from 2 ft','+2','10-7',NULL,NULL,'1st Quarter','DEN','LAL',10.0,7.0,-3.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:16.0',NULL,NULL,'10-9','+2','N. Jokić makes 2-pt hook shot from 6 ft','1st Quarter','DEN','LAL',10.0,9.0,-1.0,'2023-10-24','2023-10-25'),
 	 ('8:54.0',NULL,NULL,'10-11','+2','A. Gordon makes 2-pt layup from 3 ft','1st Quarter','DEN','LAL',10.0,11.0,1.0,'2023-10-24','2023-10-25'),
 	 ('8:30.0',NULL,NULL,'10-14','+3','M. Porter makes 3-pt jump shot from 25 ft (assist by N. Jokić)','1st Quarter','DEN','LAL',10.0,14.0,4.0,'2023-10-24','2023-10-25'),
@@ -1356,7 +1356,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:02.0','A. Davis makes 2-pt layup from 3 ft','+2','14-18',NULL,NULL,'1st Quarter','DEN','LAL',14.0,18.0,4.0,'2023-10-24','2023-10-25'),
 	 ('6:44.0','L. James makes 2-pt layup from 2 ft','+2','16-18',NULL,NULL,'1st Quarter','DEN','LAL',16.0,18.0,2.0,'2023-10-24','2023-10-25'),
 	 ('6:27.0',NULL,NULL,'16-20','+2','N. Jokić makes 2-pt layup from 3 ft (assist by J. Murray)','1st Quarter','DEN','LAL',16.0,20.0,4.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:21.0',NULL,NULL,'16-22','+2','N. Jokić makes 2-pt hook shot from 6 ft','1st Quarter','DEN','LAL',16.0,22.0,6.0,'2023-10-24','2023-10-25'),
 	 ('4:47.0',NULL,NULL,'16-24','+2','N. Jokić makes 2-pt hook shot from 6 ft (assist by A. Gordon)','1st Quarter','DEN','LAL',16.0,24.0,8.0,'2023-10-24','2023-10-25'),
 	 ('4:20.0',NULL,NULL,'16-27','+3','K. Caldwell-Pope makes 3-pt jump shot from 23 ft (assist by A. Gordon)','1st Quarter','DEN','LAL',16.0,27.0,11.0,'2023-10-24','2023-10-25'),
@@ -1367,7 +1367,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:40.0',NULL,NULL,'20-31','+1','Z. Nnaji makes free throw 2 of 2','1st Quarter','DEN','LAL',20.0,31.0,11.0,'2023-10-24','2023-10-25'),
 	 ('0:01.0',NULL,NULL,'20-34','+3','R. Jackson makes 3-pt jump shot from 26 ft (assist by Z. Nnaji)','1st Quarter','DEN','LAL',20.0,34.0,14.0,'2023-10-24','2023-10-25'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','DEN','LAL',20.0,34.0,14.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','DEN','LAL',20.0,34.0,14.0,'2023-10-24','2023-10-25'),
 	 ('11:46.0',NULL,NULL,'20-37','+3','P. Watson makes 3-pt jump shot from 26 ft (assist by J. Murray)','2nd Quarter','DEN','LAL',20.0,37.0,17.0,'2023-10-24','2023-10-25'),
 	 ('10:44.0','C. Wood makes 2-pt jump shot from 7 ft (assist by D. Russell)','+2','22-37',NULL,NULL,'2nd Quarter','DEN','LAL',22.0,37.0,15.0,'2023-10-24','2023-10-25'),
@@ -1378,7 +1378,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:10.0','C. Reddish makes 3-pt jump shot from 25 ft (assist by D. Russell)','+3','29-42',NULL,NULL,'2nd Quarter','DEN','LAL',29.0,42.0,13.0,'2023-10-24','2023-10-25'),
 	 ('7:54.0',NULL,NULL,'29-44','+2','N. Jokić makes 2-pt layup from 3 ft','2nd Quarter','DEN','LAL',29.0,44.0,15.0,'2023-10-24','2023-10-25'),
 	 ('7:44.0','A. Davis makes 3-pt jump shot from 26 ft (assist by D. Russell)','+3','32-44',NULL,NULL,'2nd Quarter','DEN','LAL',32.0,44.0,12.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:05.0',NULL,NULL,'32-45','+1','C. Braun makes free throw 2 of 2','2nd Quarter','DEN','LAL',32.0,45.0,13.0,'2023-10-24','2023-10-25'),
 	 ('6:50.0','A. Davis makes 2-pt jump shot from 5 ft','+2','34-45',NULL,NULL,'2nd Quarter','DEN','LAL',34.0,45.0,11.0,'2023-10-24','2023-10-25'),
 	 ('6:35.0',NULL,NULL,'34-47','+2','N. Jokić makes 2-pt hook shot from 4 ft','2nd Quarter','DEN','LAL',34.0,47.0,13.0,'2023-10-24','2023-10-25'),
@@ -1389,7 +1389,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:31.0','A. Reaves makes 2-pt jump shot from 20 ft','+2','38-52',NULL,NULL,'2nd Quarter','DEN','LAL',38.0,52.0,14.0,'2023-10-24','2023-10-25'),
 	 ('5:13.0',NULL,NULL,'38-54','+2','A. Gordon makes 2-pt layup from 3 ft','2nd Quarter','DEN','LAL',38.0,54.0,16.0,'2023-10-24','2023-10-25'),
 	 ('4:40.0','C. Wood makes 2-pt dunk from 2 ft (assist by A. Reaves)','+2','40-54',NULL,NULL,'2nd Quarter','DEN','LAL',40.0,54.0,14.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:06.0','A. Davis makes free throw 1 of 2','+1','41-54',NULL,NULL,'2nd Quarter','DEN','LAL',41.0,54.0,13.0,'2023-10-24','2023-10-25'),
 	 ('4:06.0','A. Davis makes free throw 2 of 2','+1','42-54',NULL,NULL,'2nd Quarter','DEN','LAL',42.0,54.0,12.0,'2023-10-24','2023-10-25'),
 	 ('3:52.0',NULL,NULL,'42-55','+1','N. Jokić makes free throw 1 of 2','2nd Quarter','DEN','LAL',42.0,55.0,13.0,'2023-10-24','2023-10-25'),
@@ -1400,7 +1400,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:46.0','A. Davis makes 2-pt layup from 3 ft','+2','48-56',NULL,NULL,'2nd Quarter','DEN','LAL',48.0,56.0,8.0,'2023-10-24','2023-10-25'),
 	 ('2:33.0',NULL,NULL,'48-58','+2','M. Porter makes 2-pt layup at rim','2nd Quarter','DEN','LAL',48.0,58.0,10.0,'2023-10-24','2023-10-25'),
 	 ('2:07.0',NULL,NULL,'48-60','+2','J. Murray makes 2-pt layup from 4 ft (assist by M. Porter)','2nd Quarter','DEN','LAL',48.0,60.0,12.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:07.0',NULL,NULL,'48-61','+1','J. Murray makes free throw 1 of 1','2nd Quarter','DEN','LAL',48.0,61.0,13.0,'2023-10-24','2023-10-25'),
 	 ('1:12.0',NULL,NULL,'48-63','+2','K. Caldwell-Pope makes 2-pt layup from 3 ft (assist by M. Porter)','2nd Quarter','DEN','LAL',48.0,63.0,15.0,'2023-10-24','2023-10-25'),
 	 ('0:58.0','R. Hachimura makes 2-pt layup from 3 ft (assist by D. Russell)','+2','50-63',NULL,NULL,'2nd Quarter','DEN','LAL',50.0,63.0,13.0,'2023-10-24','2023-10-25'),
@@ -1411,7 +1411,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('11:46.0','A. Reaves makes 2-pt dunk at rim','+2','56-63',NULL,NULL,'3rd Quarter','DEN','LAL',56.0,63.0,7.0,'2023-10-24','2023-10-25'),
 	 ('11:03.0','T. Prince makes 2-pt layup from 4 ft (assist by L. James)','+2','58-63',NULL,NULL,'3rd Quarter','DEN','LAL',58.0,63.0,5.0,'2023-10-24','2023-10-25'),
 	 ('10:50.0',NULL,NULL,'58-65','+2','J. Murray makes 2-pt layup from 4 ft (assist by N. Jokić)','3rd Quarter','DEN','LAL',58.0,65.0,7.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:50.0',NULL,NULL,'58-66','+1','J. Murray makes free throw 1 of 1','3rd Quarter','DEN','LAL',58.0,66.0,8.0,'2023-10-24','2023-10-25'),
 	 ('10:26.0',NULL,NULL,'58-68','+2','A. Gordon makes 2-pt layup from 3 ft (assist by N. Jokić)','3rd Quarter','DEN','LAL',58.0,68.0,10.0,'2023-10-24','2023-10-25'),
 	 ('9:48.0',NULL,NULL,'58-70','+2','J. Murray makes 2-pt jump shot from 11 ft (assist by N. Jokić)','3rd Quarter','DEN','LAL',58.0,70.0,12.0,'2023-10-24','2023-10-25'),
@@ -1422,7 +1422,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:00.0',NULL,NULL,'64-73','+3','J. Murray makes 3-pt jump shot from 23 ft (assist by K. Caldwell-Pope)','3rd Quarter','DEN','LAL',64.0,73.0,9.0,'2023-10-24','2023-10-25'),
 	 ('7:41.0','D. Russell makes 3-pt jump shot from 26 ft (assist by A. Reaves)','+3','67-73',NULL,NULL,'3rd Quarter','DEN','LAL',67.0,73.0,6.0,'2023-10-24','2023-10-25'),
 	 ('7:05.0',NULL,NULL,'67-75','+2','A. Gordon makes 2-pt dunk from 1 ft (assist by J. Murray)','3rd Quarter','DEN','LAL',67.0,75.0,8.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:54.0','R. Hachimura makes 2-pt layup at rim (assist by A. Davis)','+2','69-75',NULL,NULL,'3rd Quarter','DEN','LAL',69.0,75.0,6.0,'2023-10-24','2023-10-25'),
 	 ('5:38.0',NULL,NULL,'69-78','+3','K. Caldwell-Pope makes 3-pt jump shot from 26 ft (assist by J. Murray)','3rd Quarter','DEN','LAL',69.0,78.0,9.0,'2023-10-24','2023-10-25'),
 	 ('4:52.0',NULL,NULL,'69-80','+2','A. Gordon makes 2-pt layup from 3 ft','3rd Quarter','DEN','LAL',69.0,80.0,11.0,'2023-10-24','2023-10-25'),
@@ -1433,7 +1433,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:58.0','G. Vincent makes 2-pt jump shot from 8 ft','+2','73-87',NULL,NULL,'3rd Quarter','DEN','LAL',73.0,87.0,14.0,'2023-10-24','2023-10-25'),
 	 ('1:38.0','R. Hachimura makes 2-pt dunk from 2 ft (assist by D. Russell)','+2','75-87',NULL,NULL,'3rd Quarter','DEN','LAL',75.0,87.0,12.0,'2023-10-24','2023-10-25'),
 	 ('1:03.0','L. James makes 2-pt dunk from 1 ft (assist by D. Russell)','+2','77-87',NULL,NULL,'3rd Quarter','DEN','LAL',77.0,87.0,10.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:31.0','D. Russell makes 3-pt jump shot from 28 ft (assist by L. James)','+3','80-87',NULL,NULL,'3rd Quarter','DEN','LAL',80.0,87.0,7.0,'2023-10-24','2023-10-25'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','DEN','LAL',80.0,87.0,7.0,'2023-10-24','2023-10-25'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','DEN','LAL',80.0,87.0,7.0,'2023-10-24','2023-10-25'),
@@ -1444,7 +1444,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:53.0',NULL,NULL,'86-92','+2','J. Murray makes 2-pt jump shot from 18 ft','4th Quarter','DEN','LAL',86.0,92.0,6.0,'2023-10-24','2023-10-25'),
 	 ('9:42.0','L. James makes 3-pt jump shot from 29 ft (assist by G. Vincent)','+3','89-92',NULL,NULL,'4th Quarter','DEN','LAL',89.0,92.0,3.0,'2023-10-24','2023-10-25'),
 	 ('9:08.0',NULL,NULL,'89-94','+2','C. Braun makes 2-pt layup at rim','4th Quarter','DEN','LAL',89.0,94.0,5.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:49.0','C. Wood makes free throw 1 of 2','+1','90-94',NULL,NULL,'4th Quarter','DEN','LAL',90.0,94.0,4.0,'2023-10-24','2023-10-25'),
 	 ('8:17.0',NULL,NULL,'90-97','+3','N. Jokić makes 3-pt jump shot from 25 ft (assist by C. Braun)','4th Quarter','DEN','LAL',90.0,97.0,7.0,'2023-10-24','2023-10-25'),
 	 ('7:45.0',NULL,NULL,'90-99','+2','K. Caldwell-Pope makes 2-pt jump shot from 18 ft (assist by N. Jokić)','4th Quarter','DEN','LAL',90.0,99.0,9.0,'2023-10-24','2023-10-25'),
@@ -1455,7 +1455,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:17.0','L. James makes 2-pt layup from 3 ft (assist by A. Reaves)','+2','96-103',NULL,NULL,'4th Quarter','DEN','LAL',96.0,103.0,7.0,'2023-10-24','2023-10-25'),
 	 ('5:02.0',NULL,NULL,'96-106','+3','J. Murray makes 3-pt jump shot from 26 ft (assist by N. Jokić)','4th Quarter','DEN','LAL',96.0,106.0,10.0,'2023-10-24','2023-10-25'),
 	 ('4:31.0',NULL,NULL,'96-108','+2','K. Caldwell-Pope makes 2-pt jump shot from 20 ft (assist by N. Jokić)','4th Quarter','DEN','LAL',96.0,108.0,12.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:54.0',NULL,NULL,'96-110','+2','A. Gordon makes 2-pt dunk at rim (assist by J. Murray)','4th Quarter','DEN','LAL',96.0,110.0,14.0,'2023-10-24','2023-10-25'),
 	 ('3:40.0','A. Reaves makes 3-pt jump shot from 28 ft (assist by A. Davis)','+3','99-110',NULL,NULL,'4th Quarter','DEN','LAL',99.0,110.0,11.0,'2023-10-24','2023-10-25'),
 	 ('3:19.0',NULL,NULL,'99-113','+3','M. Porter makes 3-pt jump shot from 23 ft (assist by N. Jokić)','4th Quarter','DEN','LAL',99.0,113.0,14.0,'2023-10-24','2023-10-25'),
@@ -1466,7 +1466,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:01.0',NULL,NULL,'103-117','+2','M. Porter makes 2-pt layup at rim','4th Quarter','DEN','LAL',103.0,117.0,14.0,'2023-10-24','2023-10-25'),
 	 ('0:43.0','G. Vincent makes 2-pt layup from 3 ft','+2','105-117',NULL,NULL,'4th Quarter','DEN','LAL',105.0,117.0,12.0,'2023-10-24','2023-10-25'),
 	 ('0:31.0',NULL,NULL,'105-119','+2','J. Pickett makes 2-pt jump shot from 17 ft','4th Quarter','DEN','LAL',105.0,119.0,14.0,'2023-10-24','2023-10-25');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:24.0','C. Reddish makes free throw 1 of 2','+1','106-119',NULL,NULL,'4th Quarter','DEN','LAL',106.0,119.0,13.0,'2023-10-24','2023-10-25'),
 	 ('0:24.0','C. Reddish makes free throw 2 of 2','+1','107-119',NULL,NULL,'4th Quarter','DEN','LAL',107.0,119.0,12.0,'2023-10-24','2023-10-25'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','DEN','LAL',107.0,119.0,12.0,'2023-10-24','2023-10-25'),
@@ -1477,7 +1477,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:36.0','J. Williams makes free throw 1 of 2','+1','4-4',NULL,NULL,'1st Quarter','CHI','OKC',4.0,4.0,0.0,'2023-10-25','2023-10-26'),
 	 ('10:36.0','J. Williams makes free throw 2 of 2','+1','5-4',NULL,NULL,'1st Quarter','CHI','OKC',5.0,4.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('10:01.0',NULL,NULL,'5-6','+2','D. DeRozan makes 2-pt layup from 1 ft (assist by C. White)','1st Quarter','CHI','OKC',5.0,6.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:40.0','J. Williams makes 2-pt layup from 2 ft','+2','7-6',NULL,NULL,'1st Quarter','CHI','OKC',7.0,6.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:09.0','J. Giddey makes 2-pt hook shot from 6 ft','+2','9-6',NULL,NULL,'1st Quarter','CHI','OKC',9.0,6.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('8:51.0',NULL,NULL,'9-8','+2','P. Williams makes 2-pt jump shot from 18 ft','1st Quarter','CHI','OKC',9.0,8.0,-1.0,'2023-10-25','2023-10-26'),
@@ -1488,7 +1488,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:05.0','S. Gilgeous-Alexander makes free throw 2 of 2','+1','13-10',NULL,NULL,'1st Quarter','CHI','OKC',13.0,10.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('7:55.0',NULL,NULL,'13-12','+2','D. DeRozan makes 2-pt jump shot from 15 ft','1st Quarter','CHI','OKC',13.0,12.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('7:18.0',NULL,NULL,'13-14','+2','N. Vučević makes 2-pt layup from 1 ft','1st Quarter','CHI','OKC',13.0,14.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:00.0','C. Holmgren makes 2-pt jump shot from 19 ft (assist by S. Gilgeous-Alexander)','+2','15-14',NULL,NULL,'1st Quarter','CHI','OKC',15.0,14.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('6:44.0',NULL,NULL,'15-16','+2','N. Vučević makes 2-pt dunk at rim (assist by C. White)','1st Quarter','CHI','OKC',15.0,16.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:20.0',NULL,NULL,'15-19','+3','D. DeRozan makes 3-pt jump shot from 23 ft (assist by N. Vučević)','1st Quarter','CHI','OKC',15.0,19.0,4.0,'2023-10-25','2023-10-26'),
@@ -1499,7 +1499,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:58.0',NULL,NULL,'23-21','+2','D. DeRozan makes 2-pt jump shot from 18 ft','1st Quarter','CHI','OKC',23.0,21.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('4:41.0','S. Gilgeous-Alexander makes 3-pt jump shot from 25 ft','+3','26-21',NULL,NULL,'1st Quarter','CHI','OKC',26.0,21.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('4:21.0',NULL,NULL,'26-24','+3','T. Craig makes 3-pt jump shot from 25 ft (assist by J. Carter)','1st Quarter','CHI','OKC',26.0,24.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:04.0','O. Dieng makes 3-pt jump shot from 26 ft (assist by S. Gilgeous-Alexander)','+3','29-24',NULL,NULL,'1st Quarter','CHI','OKC',29.0,24.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('3:50.0',NULL,NULL,'29-27','+3','J. Carter makes 3-pt jump shot from 26 ft (assist by D. DeRozan)','1st Quarter','CHI','OKC',29.0,27.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('3:34.0','A. Wiggins makes 2-pt layup at rim','+2','31-27',NULL,NULL,'1st Quarter','CHI','OKC',31.0,27.0,-4.0,'2023-10-25','2023-10-26'),
@@ -1510,7 +1510,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:07.0',NULL,NULL,'33-33','+1','A. Caruso makes free throw 1 of 2','1st Quarter','CHI','OKC',33.0,33.0,0.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0',NULL,NULL,'33-34','+1','Z. LaVine makes free throw 1 of 2','1st Quarter','CHI','OKC',33.0,34.0,1.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0',NULL,NULL,'33-35','+1','Z. LaVine makes free throw 2 of 2','1st Quarter','CHI','OKC',33.0,35.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','CHI','OKC',33.0,35.0,2.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','CHI','OKC',33.0,35.0,2.0,'2023-10-25','2023-10-26'),
 	 ('10:37.0','I. Joe makes free throw 2 of 3','+1','34-35',NULL,NULL,'2nd Quarter','CHI','OKC',34.0,35.0,1.0,'2023-10-25','2023-10-26'),
@@ -1521,7 +1521,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:18.0','I. Joe makes 3-pt jump shot from 25 ft (assist by C. Wallace)','+3','39-39',NULL,NULL,'2nd Quarter','CHI','OKC',39.0,39.0,0.0,'2023-10-25','2023-10-26'),
 	 ('8:48.0',NULL,NULL,'39-40','+1','C. White makes free throw 1 of 2','2nd Quarter','CHI','OKC',39.0,40.0,1.0,'2023-10-25','2023-10-26'),
 	 ('8:48.0',NULL,NULL,'39-41','+1','C. White makes free throw 2 of 2','2nd Quarter','CHI','OKC',39.0,41.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:19.0',NULL,NULL,'39-43','+2','P. Williams makes 2-pt jump shot from 8 ft (assist by T. Craig)','2nd Quarter','CHI','OKC',39.0,43.0,4.0,'2023-10-25','2023-10-26'),
 	 ('7:49.0','L. Dort makes 3-pt jump shot from 23 ft (assist by J. Giddey)','+3','42-43',NULL,NULL,'2nd Quarter','CHI','OKC',42.0,43.0,1.0,'2023-10-25','2023-10-26'),
 	 ('7:23.0','S. Gilgeous-Alexander makes 2-pt jump shot from 9 ft','+2','44-43',NULL,NULL,'2nd Quarter','CHI','OKC',44.0,43.0,-1.0,'2023-10-25','2023-10-26'),
@@ -1532,7 +1532,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:07.0','S. Gilgeous-Alexander makes free throw 2 of 2','+1','48-48',NULL,NULL,'2nd Quarter','CHI','OKC',48.0,48.0,0.0,'2023-10-25','2023-10-26'),
 	 ('3:36.0','J. Williams makes free throw 1 of 2','+1','49-48',NULL,NULL,'2nd Quarter','CHI','OKC',49.0,48.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('3:36.0','J. Williams makes free throw 2 of 2','+1','50-48',NULL,NULL,'2nd Quarter','CHI','OKC',50.0,48.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:42.0',NULL,NULL,'50-49','+1','D. DeRozan makes free throw 2 of 2','2nd Quarter','CHI','OKC',50.0,49.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('1:59.0','J. Giddey makes 2-pt layup from 1 ft','+2','52-49',NULL,NULL,'2nd Quarter','CHI','OKC',52.0,49.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('1:30.0','J. Giddey makes 3-pt jump shot from 26 ft (assist by S. Gilgeous-Alexander)','+3','55-49',NULL,NULL,'2nd Quarter','CHI','OKC',55.0,49.0,-6.0,'2023-10-25','2023-10-26'),
@@ -1543,7 +1543,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:04.0',NULL,NULL,'61-55','+2','A. Caruso makes 2-pt layup from 1 ft (assist by C. White)','2nd Quarter','CHI','OKC',61.0,55.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','CHI','OKC',61.0,55.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','CHI','OKC',61.0,55.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:41.0',NULL,NULL,'61-57','+2','D. DeRozan makes 2-pt jump shot from 18 ft','3rd Quarter','CHI','OKC',61.0,57.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('11:23.0',NULL,NULL,'61-60','+3','Z. LaVine makes 3-pt jump shot from 22 ft (assist by C. White)','3rd Quarter','CHI','OKC',61.0,60.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('10:57.0',NULL,NULL,'61-62','+2','C. White makes 2-pt layup from 2 ft','3rd Quarter','CHI','OKC',61.0,62.0,1.0,'2023-10-25','2023-10-26'),
@@ -1554,7 +1554,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:12.0','O. Dieng makes 3-pt jump shot from 25 ft (assist by J. Giddey)','+3','68-66',NULL,NULL,'3rd Quarter','CHI','OKC',68.0,66.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('8:20.0',NULL,NULL,'68-69','+3','Z. LaVine makes 3-pt jump shot from 30 ft (assist by P. Williams)','3rd Quarter','CHI','OKC',68.0,69.0,1.0,'2023-10-25','2023-10-26'),
 	 ('8:00.0','S. Gilgeous-Alexander makes 3-pt jump shot from 25 ft','+3','71-69',NULL,NULL,'3rd Quarter','CHI','OKC',71.0,69.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:04.0','J. Williams makes 2-pt layup from 1 ft (assist by J. Giddey)','+2','73-69',NULL,NULL,'3rd Quarter','CHI','OKC',73.0,69.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('5:53.0','J. Giddey makes 3-pt jump shot from 24 ft (assist by S. Gilgeous-Alexander)','+3','76-69',NULL,NULL,'3rd Quarter','CHI','OKC',76.0,69.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('5:27.0',NULL,NULL,'76-70','+1','C. White makes free throw 1 of 2','3rd Quarter','CHI','OKC',76.0,70.0,-6.0,'2023-10-25','2023-10-26'),
@@ -1565,7 +1565,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:03.0',NULL,NULL,'79-78','+2','N. Vučević makes 2-pt hook shot from 6 ft (assist by Z. LaVine)','3rd Quarter','CHI','OKC',79.0,78.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('2:47.0','S. Gilgeous-Alexander makes 2-pt layup at rim','+2','81-78',NULL,NULL,'3rd Quarter','CHI','OKC',81.0,78.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('2:47.0','S. Gilgeous-Alexander makes technical free throw','+1','82-78',NULL,NULL,'3rd Quarter','CHI','OKC',82.0,78.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:25.0','S. Gilgeous-Alexander makes 2-pt jump shot from 13 ft (assist by I. Joe)','+2','84-78',NULL,NULL,'3rd Quarter','CHI','OKC',84.0,78.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('1:51.0','C. Wallace makes 2-pt jump shot from 20 ft (assist by C. Holmgren)','+2','86-78',NULL,NULL,'3rd Quarter','CHI','OKC',86.0,78.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('1:12.0','C. Wallace makes 3-pt jump shot from 23 ft (assist by S. Gilgeous-Alexander)','+3','89-78',NULL,NULL,'3rd Quarter','CHI','OKC',89.0,78.0,-11.0,'2023-10-25','2023-10-26'),
@@ -1576,7 +1576,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','CHI','OKC',91.0,82.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('11:34.0',NULL,NULL,'91-84','+2','D. DeRozan makes 2-pt jump shot from 8 ft','4th Quarter','CHI','OKC',91.0,84.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('11:21.0','I. Joe makes 3-pt jump shot from 28 ft (assist by J. Giddey)','+3','94-84',NULL,NULL,'4th Quarter','CHI','OKC',94.0,84.0,-10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:42.0','I. Joe makes 3-pt jump shot from 26 ft (assist by J. Giddey)','+3','97-84',NULL,NULL,'4th Quarter','CHI','OKC',97.0,84.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('10:12.0','C. Wallace makes 3-pt jump shot from 23 ft (assist by I. Joe)','+3','100-84',NULL,NULL,'4th Quarter','CHI','OKC',100.0,84.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('9:54.0','I. Joe makes 2-pt layup from 1 ft','+2','102-84',NULL,NULL,'4th Quarter','CHI','OKC',102.0,84.0,-18.0,'2023-10-25','2023-10-26'),
@@ -1587,7 +1587,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:44.0','O. Sarr makes free throw 2 of 2','+1','106-88',NULL,NULL,'4th Quarter','CHI','OKC',106.0,88.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('7:25.0',NULL,NULL,'106-90','+2','N. Vučević makes 2-pt layup from 1 ft (assist by Z. LaVine)','4th Quarter','CHI','OKC',106.0,90.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('7:25.0',NULL,NULL,'106-91','+1','N. Vučević makes free throw 1 of 1','4th Quarter','CHI','OKC',106.0,91.0,-15.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:05.0','C. Wallace makes 3-pt jump shot from 23 ft (assist by S. Gilgeous-Alexander)','+3','109-91',NULL,NULL,'4th Quarter','CHI','OKC',109.0,91.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('5:36.0','S. Gilgeous-Alexander makes 2-pt jump shot from 20 ft','+2','111-91',NULL,NULL,'4th Quarter','CHI','OKC',111.0,91.0,-20.0,'2023-10-25','2023-10-26'),
 	 ('5:22.0',NULL,NULL,'111-93','+2','Z. LaVine makes 2-pt layup from 2 ft (assist by D. DeRozan)','4th Quarter','CHI','OKC',111.0,93.0,-18.0,'2023-10-25','2023-10-26'),
@@ -1598,7 +1598,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:19.0',NULL,NULL,'117-99','+3','A. Dosunmu makes 3-pt jump shot from 26 ft (assist by P. Williams)','4th Quarter','CHI','OKC',117.0,99.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('3:07.0','C. Holmgren makes 3-pt jump shot from 27 ft (assist by S. Gilgeous-Alexander)','+3','120-99',NULL,NULL,'4th Quarter','CHI','OKC',120.0,99.0,-21.0,'2023-10-25','2023-10-26'),
 	 ('2:45.0',NULL,NULL,'120-102','+3','A. Dosunmu makes 3-pt jump shot from 24 ft (assist by A. Drummond)','4th Quarter','CHI','OKC',120.0,102.0,-18.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:05.0','L. Dort makes 2-pt layup at rim (assist by J. Williams)','+2','122-102',NULL,NULL,'4th Quarter','CHI','OKC',122.0,102.0,-20.0,'2023-10-25','2023-10-26'),
 	 ('1:00.0',NULL,NULL,'122-104','+2','A. Dosunmu makes 2-pt jump shot from 7 ft (assist by D. Terry)','4th Quarter','CHI','OKC',122.0,104.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('0:41.0','C. Wallace makes 2-pt dunk from 1 ft (assist by T. Mann)','+2','124-104',NULL,NULL,'4th Quarter','CHI','OKC',124.0,104.0,-20.0,'2023-10-25','2023-10-26'),
@@ -1609,7 +1609,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:05.0',NULL,NULL,'0-6','+1','J. Poeltl makes free throw 1 of 2','1st Quarter','TOR','MIN',0.0,6.0,6.0,'2023-10-25','2023-10-26'),
 	 ('9:20.0','A. Edwards makes free throw 1 of 2','+1','1-6',NULL,NULL,'1st Quarter','TOR','MIN',1.0,6.0,5.0,'2023-10-25','2023-10-26'),
 	 ('9:20.0','A. Edwards makes free throw 2 of 2','+1','2-6',NULL,NULL,'1st Quarter','TOR','MIN',2.0,6.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:11.0',NULL,NULL,'2-8','+2','D. Schröder makes 2-pt jump shot from 16 ft','1st Quarter','TOR','MIN',2.0,8.0,6.0,'2023-10-25','2023-10-26'),
 	 ('8:58.0','A. Edwards makes 3-pt jump shot from 25 ft (assist by N. Alexander-Walker)','+3','5-8',NULL,NULL,'1st Quarter','TOR','MIN',5.0,8.0,3.0,'2023-10-25','2023-10-26'),
 	 ('7:58.0','A. Edwards makes 3-pt jump shot from 26 ft','+3','8-8',NULL,NULL,'1st Quarter','TOR','MIN',8.0,8.0,0.0,'2023-10-25','2023-10-26'),
@@ -1620,7 +1620,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:55.0','R. Gobert makes 2-pt dunk from 1 ft (assist by K. Towns)','+2','15-11',NULL,NULL,'1st Quarter','TOR','MIN',15.0,11.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('5:07.0','A. Edwards makes free throw 1 of 2','+1','16-11',NULL,NULL,'1st Quarter','TOR','MIN',16.0,11.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('5:07.0','A. Edwards makes free throw 2 of 2','+1','17-11',NULL,NULL,'1st Quarter','TOR','MIN',17.0,11.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:51.0',NULL,NULL,'17-13','+2','P. Achiuwa makes 2-pt dunk from 1 ft (assist by P. Siakam)','1st Quarter','TOR','MIN',17.0,13.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('3:59.0',NULL,NULL,'17-15','+2','P. Achiuwa makes 2-pt dunk from 2 ft (assist by P. Siakam)','1st Quarter','TOR','MIN',17.0,15.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('3:44.0','K. Towns makes 2-pt hook shot from 7 ft','+2','19-15',NULL,NULL,'1st Quarter','TOR','MIN',19.0,15.0,-4.0,'2023-10-25','2023-10-26'),
@@ -1631,7 +1631,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:31.0','K. Towns makes 3-pt jump shot from 25 ft (assist by S. Milton)','+3','24-20',NULL,NULL,'1st Quarter','TOR','MIN',24.0,20.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:39.0',NULL,NULL,'24-23','+3','D. Schröder makes 3-pt jump shot from 24 ft (assist by S. Barnes)','1st Quarter','TOR','MIN',24.0,23.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('0:22.0','S. Milton makes free throw 2 of 2','+1','25-23',NULL,NULL,'1st Quarter','TOR','MIN',25.0,23.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:07.0',NULL,NULL,'25-25','+2','P. Achiuwa makes 2-pt dunk at rim (assist by S. Barnes)','1st Quarter','TOR','MIN',25.0,25.0,0.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','TOR','MIN',25.0,25.0,0.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','TOR','MIN',25.0,25.0,0.0,'2023-10-25','2023-10-26'),
@@ -1642,7 +1642,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:09.0',NULL,NULL,'29-28','+1','S. Barnes makes free throw 1 of 1','2nd Quarter','TOR','MIN',29.0,28.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:52.0','M. Conley makes 2-pt hook shot from 7 ft','+2','31-28',NULL,NULL,'2nd Quarter','TOR','MIN',31.0,28.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('9:40.0',NULL,NULL,'31-31','+3','O. Anunoby makes 3-pt jump shot from 26 ft (assist by J. Poeltl)','2nd Quarter','TOR','MIN',31.0,31.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:05.0','N. Reid makes free throw 1 of 2','+1','32-31',NULL,NULL,'2nd Quarter','TOR','MIN',32.0,31.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:05.0','N. Reid makes free throw 2 of 2','+1','33-31',NULL,NULL,'2nd Quarter','TOR','MIN',33.0,31.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('8:35.0',NULL,NULL,'33-33','+2','O. Anunoby makes 2-pt layup from 1 ft (assist by M. Flynn)','2nd Quarter','TOR','MIN',33.0,33.0,0.0,'2023-10-25','2023-10-26'),
@@ -1653,7 +1653,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:42.0',NULL,NULL,'37-36','+3','S. Barnes makes 3-pt jump shot from 26 ft (assist by G. Dick)','2nd Quarter','TOR','MIN',37.0,36.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('6:45.0',NULL,NULL,'37-38','+2','J. Poeltl makes 2-pt layup at rim','2nd Quarter','TOR','MIN',37.0,38.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:26.0','N. Alexander-Walker makes 2-pt jump shot from 16 ft (assist by M. Conley)','+2','39-38',NULL,NULL,'2nd Quarter','TOR','MIN',39.0,38.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:42.0',NULL,NULL,'39-40','+2','O. Anunoby makes 2-pt layup from 1 ft (assist by D. Schröder)','2nd Quarter','TOR','MIN',39.0,40.0,1.0,'2023-10-25','2023-10-26'),
 	 ('5:16.0',NULL,NULL,'39-43','+3','O. Anunoby makes 3-pt jump shot from 28 ft (assist by D. Schröder)','2nd Quarter','TOR','MIN',39.0,43.0,4.0,'2023-10-25','2023-10-26'),
 	 ('4:49.0','R. Gobert makes 2-pt layup at rim','+2','41-43',NULL,NULL,'2nd Quarter','TOR','MIN',41.0,43.0,2.0,'2023-10-25','2023-10-26'),
@@ -1664,7 +1664,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:02.0',NULL,NULL,'43-49','+1','S. Barnes makes free throw 1 of 2','2nd Quarter','TOR','MIN',43.0,49.0,6.0,'2023-10-25','2023-10-26'),
 	 ('2:44.0','M. Conley makes 2-pt layup from 1 ft (assist by K. Towns)','+2','45-49',NULL,NULL,'2nd Quarter','TOR','MIN',45.0,49.0,4.0,'2023-10-25','2023-10-26'),
 	 ('2:02.0','K. Towns makes 2-pt layup at rim','+2','47-49',NULL,NULL,'2nd Quarter','TOR','MIN',47.0,49.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:51.0',NULL,NULL,'47-50','+1','S. Barnes makes free throw 1 of 2','2nd Quarter','TOR','MIN',47.0,50.0,3.0,'2023-10-25','2023-10-26'),
 	 ('1:51.0',NULL,NULL,'47-51','+1','S. Barnes makes free throw 2 of 2','2nd Quarter','TOR','MIN',47.0,51.0,4.0,'2023-10-25','2023-10-26'),
 	 ('0:44.0','A. Edwards makes 2-pt jump shot from 8 ft','+2','49-51',NULL,NULL,'2nd Quarter','TOR','MIN',49.0,51.0,2.0,'2023-10-25','2023-10-26'),
@@ -1675,7 +1675,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','TOR','MIN',51.0,53.0,2.0,'2023-10-25','2023-10-26'),
 	 ('10:36.0',NULL,NULL,'51-56','+3','D. Schröder makes 3-pt jump shot from 26 ft (assist by S. Barnes)','3rd Quarter','TOR','MIN',51.0,56.0,5.0,'2023-10-25','2023-10-26'),
 	 ('10:09.0','M. Conley makes 3-pt jump shot from 26 ft (assist by N. Alexander-Walker)','+3','54-56',NULL,NULL,'3rd Quarter','TOR','MIN',54.0,56.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:50.0',NULL,NULL,'54-58','+2','J. Poeltl makes 2-pt layup from 3 ft','3rd Quarter','TOR','MIN',54.0,58.0,4.0,'2023-10-25','2023-10-26'),
 	 ('9:28.0',NULL,NULL,'54-60','+2','P. Siakam makes 2-pt layup from 2 ft','3rd Quarter','TOR','MIN',54.0,60.0,6.0,'2023-10-25','2023-10-26'),
 	 ('9:14.0','M. Conley makes 2-pt jump shot from 20 ft','+2','56-60',NULL,NULL,'3rd Quarter','TOR','MIN',56.0,60.0,4.0,'2023-10-25','2023-10-26'),
@@ -1686,7 +1686,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:17.0','R. Gobert makes 2-pt dunk at rim (assist by M. Conley)','+2','60-66',NULL,NULL,'3rd Quarter','TOR','MIN',60.0,66.0,6.0,'2023-10-25','2023-10-26'),
 	 ('6:00.0',NULL,NULL,'60-68','+2','D. Schröder makes 2-pt layup from 1 ft','3rd Quarter','TOR','MIN',60.0,68.0,8.0,'2023-10-25','2023-10-26'),
 	 ('5:29.0',NULL,NULL,'60-70','+2','S. Barnes makes 2-pt layup from 1 ft (assist by P. Siakam)','3rd Quarter','TOR','MIN',60.0,70.0,10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:05.0','K. Anderson makes 2-pt layup at rim','+2','62-70',NULL,NULL,'3rd Quarter','TOR','MIN',62.0,70.0,8.0,'2023-10-25','2023-10-26'),
 	 ('4:20.0','R. Gobert makes 2-pt layup from 1 ft (assist by S. Milton)','+2','64-70',NULL,NULL,'3rd Quarter','TOR','MIN',64.0,70.0,6.0,'2023-10-25','2023-10-26'),
 	 ('3:45.0','N. Reid makes 2-pt hook shot from 6 ft (assist by K. Anderson)','+2','66-70',NULL,NULL,'3rd Quarter','TOR','MIN',66.0,70.0,4.0,'2023-10-25','2023-10-26'),
@@ -1697,7 +1697,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','TOR','MIN',74.0,73.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','TOR','MIN',74.0,73.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('11:35.0',NULL,NULL,'74-75','+2','S. Barnes makes 2-pt jump shot from 18 ft','4th Quarter','TOR','MIN',74.0,75.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:48.0','K. Towns makes 2-pt dunk at rim (assist by N. Reid)','+2','76-75',NULL,NULL,'4th Quarter','TOR','MIN',76.0,75.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('10:12.0',NULL,NULL,'76-77','+2','G. Trent makes 2-pt layup at rim (assist by J. McDaniels)','4th Quarter','TOR','MIN',76.0,77.0,1.0,'2023-10-25','2023-10-26'),
 	 ('9:50.0',NULL,NULL,'76-78','+1','O. Anunoby makes free throw 1 of 2','4th Quarter','TOR','MIN',76.0,78.0,2.0,'2023-10-25','2023-10-26'),
@@ -1708,7 +1708,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:15.0',NULL,NULL,'80-84','+3','O. Anunoby makes 3-pt jump shot from 22 ft (assist by D. Schröder)','4th Quarter','TOR','MIN',80.0,84.0,4.0,'2023-10-25','2023-10-26'),
 	 ('6:39.0','K. Anderson makes 2-pt layup from 6 ft (assist by S. Milton)','+2','82-84',NULL,NULL,'4th Quarter','TOR','MIN',82.0,84.0,2.0,'2023-10-25','2023-10-26'),
 	 ('6:22.0','N. Reid makes free throw 1 of 2','+1','83-84',NULL,NULL,'4th Quarter','TOR','MIN',83.0,84.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:22.0','N. Reid makes free throw 2 of 2','+1','84-84',NULL,NULL,'4th Quarter','TOR','MIN',84.0,84.0,0.0,'2023-10-25','2023-10-26'),
 	 ('6:08.0',NULL,NULL,'84-87','+3','D. Schröder makes 3-pt jump shot from 24 ft (assist by P. Siakam)','4th Quarter','TOR','MIN',84.0,87.0,3.0,'2023-10-25','2023-10-26'),
 	 ('4:58.0',NULL,NULL,'84-90','+3','P. Siakam makes 3-pt jump shot from 26 ft (assist by D. Schröder)','4th Quarter','TOR','MIN',84.0,90.0,6.0,'2023-10-25','2023-10-26'),
@@ -1719,7 +1719,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:55.0','K. Anderson makes 2-pt jump shot from 11 ft','+2','91-95',NULL,NULL,'4th Quarter','TOR','MIN',91.0,95.0,4.0,'2023-10-25','2023-10-26'),
 	 ('0:19.0',NULL,NULL,'91-97','+2','S. Barnes makes 2-pt dunk from 2 ft (assist by P. Siakam)','4th Quarter','TOR','MIN',91.0,97.0,6.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','K. Towns makes 3-pt jump shot from 26 ft (assist by R. Gobert)','+3','94-97',NULL,NULL,'4th Quarter','TOR','MIN',94.0,97.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','TOR','MIN',94.0,97.0,3.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: D. Sabonis vs. W. Kessler (J. Clarkson gains possession)','Jump ball: D. Sabonis vs. W. Kessler (J. Clarkson gains possession)','Jump ball: D. Sabonis vs. W. Kessler (J. Clarkson gains possession)','Jump ball: D. Sabonis vs. W. Kessler (J. Clarkson gains possession)','Jump ball: D. Sabonis vs. W. Kessler (J. Clarkson gains possession)','1st Quarter','UTA','SAC',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:28.0','D. Fox makes 2-pt layup from 2 ft','+2','2-0',NULL,NULL,'1st Quarter','UTA','SAC',2.0,0.0,-2.0,'2023-10-25','2023-10-26'),
@@ -1730,7 +1730,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:43.0','K. Murray makes 3-pt jump shot from 25 ft (assist by K. Huerter)','+3','10-5',NULL,NULL,'1st Quarter','UTA','SAC',10.0,5.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('8:04.0','K. Murray makes 3-pt jump shot from 26 ft (assist by D. Sabonis)','+3','13-5',NULL,NULL,'1st Quarter','UTA','SAC',13.0,5.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('7:42.0',NULL,NULL,'13-6','+1','J. Collins makes free throw 1 of 2','1st Quarter','UTA','SAC',13.0,6.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:42.0',NULL,NULL,'13-7','+1','J. Collins makes free throw 2 of 2','1st Quarter','UTA','SAC',13.0,7.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('7:24.0','D. Fox makes free throw 1 of 2','+1','14-7',NULL,NULL,'1st Quarter','UTA','SAC',14.0,7.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('7:24.0','D. Fox makes free throw 2 of 2','+1','15-7',NULL,NULL,'1st Quarter','UTA','SAC',15.0,7.0,-8.0,'2023-10-25','2023-10-26'),
@@ -1741,7 +1741,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:28.0',NULL,NULL,'17-14','+2','K. Olynyk makes 2-pt layup from 2 ft','1st Quarter','UTA','SAC',17.0,14.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('6:28.0',NULL,NULL,'17-15','+1','K. Olynyk makes free throw 1 of 1','1st Quarter','UTA','SAC',17.0,15.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('5:43.0',NULL,NULL,'17-16','+1','C. Sexton makes free throw 2 of 2','1st Quarter','UTA','SAC',17.0,16.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:31.0',NULL,NULL,'17-18','+2','C. Sexton makes 2-pt dunk from 2 ft (assist by J. Collins)','1st Quarter','UTA','SAC',17.0,18.0,1.0,'2023-10-25','2023-10-26'),
 	 ('5:18.0','A. Vezenkov makes 3-pt jump shot from 23 ft (assist by M. Monk)','+3','20-18',NULL,NULL,'1st Quarter','UTA','SAC',20.0,18.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('5:02.0',NULL,NULL,'20-20','+2','L. Markkanen makes 2-pt layup from 4 ft (assist by J. Clarkson)','1st Quarter','UTA','SAC',20.0,20.0,0.0,'2023-10-25','2023-10-26'),
@@ -1752,7 +1752,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:16.0','H. Barnes makes free throw 1 of 1','+1','27-21',NULL,NULL,'1st Quarter','UTA','SAC',27.0,21.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('1:56.0','H. Barnes makes 3-pt jump shot from 22 ft (assist by D. Fox)','+3','30-21',NULL,NULL,'1st Quarter','UTA','SAC',30.0,21.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('1:14.0','A. Vezenkov makes 2-pt layup at rim','+2','32-21',NULL,NULL,'1st Quarter','UTA','SAC',32.0,21.0,-11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:52.0',NULL,NULL,'32-23','+2','W. Kessler makes 2-pt layup from 2 ft (assist by K. Dunn)','1st Quarter','UTA','SAC',32.0,23.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('0:10.0',NULL,NULL,'32-24','+1','K. Dunn makes free throw 2 of 2','1st Quarter','UTA','SAC',32.0,24.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('11:03.0',NULL,NULL,'39-45','+2','K. Johnson makes 2-pt jump shot from 3 ft','2nd Quarter','SAS','DAL',39.0,45.0,6.0,'2023-10-25','2023-10-26'),
@@ -1763,7 +1763,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:48.0','M. Monk makes 2-pt layup from 4 ft','+2','37-27',NULL,NULL,'2nd Quarter','UTA','SAC',37.0,27.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('10:28.0',NULL,NULL,'37-29','+2','K. George makes 2-pt layup from 6 ft (assist by K. Dunn)','2nd Quarter','UTA','SAC',37.0,29.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('10:28.0',NULL,NULL,'37-30','+1','K. George makes free throw 1 of 1','2nd Quarter','UTA','SAC',37.0,30.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:15.0','C. Duarte makes 3-pt jump shot from 23 ft (assist by M. Monk)','+3','40-30',NULL,NULL,'2nd Quarter','UTA','SAC',40.0,30.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('9:57.0',NULL,NULL,'40-32','+2','K. Dunn makes 2-pt jump shot from 7 ft','2nd Quarter','UTA','SAC',40.0,32.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('9:36.0','C. Duarte makes 3-pt jump shot from 25 ft','+3','43-32',NULL,NULL,'2nd Quarter','UTA','SAC',43.0,32.0,-11.0,'2023-10-25','2023-10-26'),
@@ -1774,7 +1774,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:51.0','J. McGee makes 2-pt dunk from 3 ft (assist by M. Monk)','+2','48-38',NULL,NULL,'2nd Quarter','UTA','SAC',48.0,38.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('6:50.0','K. Murray makes 2-pt layup from 6 ft','+2','50-38',NULL,NULL,'2nd Quarter','UTA','SAC',50.0,38.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('6:50.0','K. Murray makes free throw 1 of 1','+1','51-38',NULL,NULL,'2nd Quarter','UTA','SAC',51.0,38.0,-13.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:17.0',NULL,NULL,'51-40','+2','L. Markkanen makes 2-pt layup from 5 ft','2nd Quarter','UTA','SAC',51.0,40.0,-11.0,'2023-10-25','2023-10-26'),
 	 ('6:03.0','H. Barnes makes 3-pt jump shot from 24 ft (assist by D. Mitchell)','+3','54-40',NULL,NULL,'2nd Quarter','UTA','SAC',54.0,40.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('5:43.0',NULL,NULL,'54-42','+2','J. Collins makes 2-pt layup from 4 ft (assist by T. Horton-Tucker)','2nd Quarter','UTA','SAC',54.0,42.0,-12.0,'2023-10-25','2023-10-26'),
@@ -1785,7 +1785,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:33.0',NULL,NULL,'59-45','+1','J. Clarkson makes free throw 1 of 2','2nd Quarter','UTA','SAC',59.0,45.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('4:33.0',NULL,NULL,'59-46','+1','J. Clarkson makes free throw 2 of 2','2nd Quarter','UTA','SAC',59.0,46.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('4:22.0','D. Sabonis makes 3-pt jump shot from 26 ft (assist by D. Mitchell)','+3','62-46',NULL,NULL,'2nd Quarter','UTA','SAC',62.0,46.0,-16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:02.0',NULL,NULL,'62-49','+3','J. Collins makes 3-pt jump shot from 23 ft (assist by J. Clarkson)','2nd Quarter','UTA','SAC',62.0,49.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('3:16.0','H. Barnes makes 3-pt jump shot from 25 ft (assist by D. Mitchell)','+3','65-49',NULL,NULL,'2nd Quarter','UTA','SAC',65.0,49.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('2:25.0',NULL,NULL,'65-50','+1','C. Sexton makes free throw 1 of 2','2nd Quarter','UTA','SAC',65.0,50.0,-15.0,'2023-10-25','2023-10-26'),
@@ -1796,7 +1796,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:00.0','H. Barnes makes 3-pt jump shot from 23 ft (assist by M. Monk)','+3','72-54',NULL,NULL,'2nd Quarter','UTA','SAC',72.0,54.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0',NULL,NULL,'72-55','+1','L. Markkanen makes free throw 1 of 2','2nd Quarter','UTA','SAC',72.0,55.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0',NULL,NULL,'72-56','+1','L. Markkanen makes free throw 2 of 2','2nd Quarter','UTA','SAC',72.0,56.0,-16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:08.0',NULL,NULL,'72-58','+2','J. Clarkson makes 2-pt jump shot from 10 ft','2nd Quarter','UTA','SAC',72.0,58.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','UTA','SAC',72.0,58.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','UTA','SAC',72.0,58.0,-14.0,'2023-10-25','2023-10-26'),
@@ -1807,7 +1807,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:54.0','D. Fox makes 3-pt jump shot from 26 ft (assist by D. Sabonis)','+3','77-65',NULL,NULL,'3rd Quarter','UTA','SAC',77.0,65.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('8:57.0','D. Sabonis makes 2-pt layup from 3 ft (assist by K. Huerter)','+2','79-65',NULL,NULL,'3rd Quarter','UTA','SAC',79.0,65.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('8:31.0','H. Barnes makes technical free throw','+1','80-65',NULL,NULL,'3rd Quarter','UTA','SAC',80.0,65.0,-15.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:24.0','K. Huerter makes 3-pt jump shot from 26 ft (assist by H. Barnes)','+3','83-65',NULL,NULL,'3rd Quarter','UTA','SAC',83.0,65.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('7:56.0',NULL,NULL,'83-67','+2','J. Clarkson makes 2-pt layup from 5 ft','3rd Quarter','UTA','SAC',83.0,67.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('7:40.0','D. Sabonis makes 2-pt jump shot from 8 ft (assist by D. Fox)','+2','85-67',NULL,NULL,'3rd Quarter','UTA','SAC',85.0,67.0,-18.0,'2023-10-25','2023-10-26'),
@@ -1818,7 +1818,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:30.0',NULL,NULL,'88-73','+2','J. Clarkson makes 2-pt layup from 2 ft (assist by K. Olynyk)','3rd Quarter','UTA','SAC',88.0,73.0,-15.0,'2023-10-25','2023-10-26'),
 	 ('5:19.0','D. Fox makes 2-pt layup from 11 ft','+2','90-73',NULL,NULL,'3rd Quarter','UTA','SAC',90.0,73.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('5:06.0',NULL,NULL,'90-75','+2','J. Clarkson makes 2-pt layup from 2 ft (assist by K. Olynyk)','3rd Quarter','UTA','SAC',90.0,75.0,-15.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:55.0','D. Sabonis makes free throw 1 of 2','+1','91-75',NULL,NULL,'3rd Quarter','UTA','SAC',91.0,75.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('4:55.0','D. Sabonis makes free throw 2 of 2','+1','92-75',NULL,NULL,'3rd Quarter','UTA','SAC',92.0,75.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('4:39.0',NULL,NULL,'92-76','+1','J. Clarkson makes free throw 2 of 2','3rd Quarter','UTA','SAC',92.0,76.0,-16.0,'2023-10-25','2023-10-26'),
@@ -1829,7 +1829,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:39.0','J. McGee makes 2-pt hook shot from 9 ft (assist by C. Duarte)','+2','95-80',NULL,NULL,'3rd Quarter','UTA','SAC',95.0,80.0,-15.0,'2023-10-25','2023-10-26'),
 	 ('2:24.0',NULL,NULL,'95-82','+2','K. Olynyk makes 2-pt layup from 4 ft','3rd Quarter','UTA','SAC',95.0,82.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('2:07.0','M. Monk makes 3-pt jump shot from 24 ft (assist by J. McGee)','+3','98-82',NULL,NULL,'3rd Quarter','UTA','SAC',98.0,82.0,-16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:51.0','J. McGee makes 2-pt hook shot from 6 ft','+2','100-82',NULL,NULL,'3rd Quarter','UTA','SAC',100.0,82.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('0:40.0','M. Monk makes 2-pt dunk from 3 ft (assist by D. Fox)','+2','102-82',NULL,NULL,'3rd Quarter','UTA','SAC',102.0,82.0,-20.0,'2023-10-25','2023-10-26'),
 	 ('0:28.0',NULL,NULL,'102-84','+2','W. Kessler makes 2-pt layup from 3 ft','3rd Quarter','UTA','SAC',102.0,84.0,-18.0,'2023-10-25','2023-10-26'),
@@ -1840,7 +1840,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','UTA','SAC',105.0,87.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','UTA','SAC',105.0,87.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('11:35.0','C. Duarte makes 3-pt jump shot from 26 ft (assist by M. Monk)','+3','108-87',NULL,NULL,'4th Quarter','UTA','SAC',108.0,87.0,-21.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:54.0','J. McGee makes 2-pt layup from 4 ft (assist by M. Monk)','+2','110-87',NULL,NULL,'4th Quarter','UTA','SAC',110.0,87.0,-23.0,'2023-10-25','2023-10-26'),
 	 ('9:55.0',NULL,NULL,'110-89','+2','K. Dunn makes 2-pt jump shot from 10 ft','4th Quarter','UTA','SAC',110.0,89.0,-21.0,'2023-10-25','2023-10-26'),
 	 ('9:27.0',NULL,NULL,'110-91','+2','O. Agbaji makes 2-pt dunk from 6 ft (assist by T. Horton-Tucker)','4th Quarter','UTA','SAC',110.0,91.0,-19.0,'2023-10-25','2023-10-26'),
@@ -1851,7 +1851,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:23.0',NULL,NULL,'112-99','+3','J. Clarkson makes 3-pt jump shot from 26 ft (assist by K. George)','4th Quarter','UTA','SAC',112.0,99.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('6:58.0','D. Sabonis makes 2-pt layup from 3 ft','+2','114-99',NULL,NULL,'4th Quarter','UTA','SAC',114.0,99.0,-15.0,'2023-10-25','2023-10-26'),
 	 ('6:36.0','D. Sabonis makes flagrant free throw 1 of 2','+1','115-99',NULL,NULL,'4th Quarter','UTA','SAC',115.0,99.0,-16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:36.0','D. Sabonis makes flagrant free throw 2 of 2','+1','116-99',NULL,NULL,'4th Quarter','UTA','SAC',116.0,99.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('6:14.0',NULL,NULL,'116-100','+1','L. Markkanen makes free throw 1 of 2','4th Quarter','UTA','SAC',116.0,100.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('6:14.0',NULL,NULL,'116-101','+1','L. Markkanen makes free throw 2 of 2','4th Quarter','UTA','SAC',116.0,101.0,-15.0,'2023-10-25','2023-10-26'),
@@ -1862,7 +1862,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:47.0',NULL,NULL,'121-104','+2','J. Collins makes 2-pt dunk from 3 ft (assist by J. Clarkson)','4th Quarter','UTA','SAC',121.0,104.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('4:39.0','H. Barnes makes 2-pt jump shot from 9 ft','+2','123-104',NULL,NULL,'4th Quarter','UTA','SAC',123.0,104.0,-19.0,'2023-10-25','2023-10-26'),
 	 ('4:17.0',NULL,NULL,'123-107','+3','J. Clarkson makes 3-pt jump shot from 26 ft','4th Quarter','UTA','SAC',123.0,107.0,-16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:49.0','K. Huerter makes 2-pt layup from 3 ft (assist by D. Sabonis)','+2','125-107',NULL,NULL,'4th Quarter','UTA','SAC',125.0,107.0,-18.0,'2023-10-25','2023-10-26'),
 	 ('2:42.0',NULL,NULL,'125-109','+2','J. Collins makes 2-pt layup from 2 ft','4th Quarter','UTA','SAC',125.0,109.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('2:32.0','D. Fox makes free throw 1 of 2','+1','126-109',NULL,NULL,'4th Quarter','UTA','SAC',126.0,109.0,-17.0,'2023-10-25','2023-10-26'),
@@ -1873,7 +1873,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:23.0',NULL,NULL,'130-114','+2','S. Fontecchio makes 2-pt layup from 3 ft','4th Quarter','UTA','SAC',130.0,114.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','UTA','SAC',130.0,114.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: M. Kleber vs. V. Wembanyama (K. Johnson gains possession)','Jump ball: M. Kleber vs. V. Wembanyama (K. Johnson gains possession)','Jump ball: M. Kleber vs. V. Wembanyama (K. Johnson gains possession)','Jump ball: M. Kleber vs. V. Wembanyama (K. Johnson gains possession)','Jump ball: M. Kleber vs. V. Wembanyama (K. Johnson gains possession)','1st Quarter','SAS','DAL',0.0,0.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:40.0',NULL,NULL,'0-2','+2','J. Sochan makes 2-pt layup from 1 ft (assist by K. Johnson)','1st Quarter','SAS','DAL',0.0,2.0,2.0,'2023-10-25','2023-10-26'),
 	 ('10:49.0',NULL,NULL,'0-4','+2','Z. Collins makes 2-pt jump shot from 10 ft (assist by V. Wembanyama)','1st Quarter','SAS','DAL',0.0,4.0,4.0,'2023-10-25','2023-10-26'),
 	 ('10:07.0',NULL,NULL,'0-5','+1','Z. Collins makes free throw 1 of 2','1st Quarter','SAS','DAL',0.0,5.0,5.0,'2023-10-25','2023-10-26'),
@@ -1884,7 +1884,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:50.0',NULL,NULL,'6-10','+2','D. Vassell makes 2-pt layup from 1 ft (assist by J. Sochan)','1st Quarter','SAS','DAL',6.0,10.0,4.0,'2023-10-25','2023-10-26'),
 	 ('8:38.0','D. Jones makes free throw 2 of 2','+1','7-10',NULL,NULL,'1st Quarter','SAS','DAL',7.0,10.0,3.0,'2023-10-25','2023-10-26'),
 	 ('8:24.0',NULL,NULL,'7-13','+3','V. Wembanyama makes 3-pt jump shot from 25 ft (assist by D. Vassell)','1st Quarter','SAS','DAL',7.0,13.0,6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:06.0',NULL,NULL,'7-16','+3','K. Johnson makes 3-pt jump shot from 23 ft (assist by Z. Collins)','1st Quarter','SAS','DAL',7.0,16.0,9.0,'2023-10-25','2023-10-26'),
 	 ('7:49.0','K. Irving makes 2-pt layup from 1 ft (assist by L. Dončić)','+2','9-16',NULL,NULL,'1st Quarter','SAS','DAL',9.0,16.0,7.0,'2023-10-25','2023-10-26'),
 	 ('7:41.0',NULL,NULL,'9-17','+1','J. Sochan makes free throw 1 of 2','1st Quarter','SAS','DAL',9.0,17.0,8.0,'2023-10-25','2023-10-26'),
@@ -1895,7 +1895,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:21.0','T. Hardaway makes 3-pt jump shot from 25 ft','+3','15-21',NULL,NULL,'1st Quarter','SAS','DAL',15.0,21.0,6.0,'2023-10-25','2023-10-26'),
 	 ('6:04.0','L. Dončić makes 2-pt layup from 2 ft','+2','17-21',NULL,NULL,'1st Quarter','SAS','DAL',17.0,21.0,4.0,'2023-10-25','2023-10-26'),
 	 ('5:50.0','L. Dončić makes 2-pt layup from 2 ft','+2','19-21',NULL,NULL,'1st Quarter','SAS','DAL',19.0,21.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:22.0',NULL,NULL,'19-24','+3','J. Sochan makes 3-pt jump shot from 24 ft (assist by D. Vassell)','1st Quarter','SAS','DAL',19.0,24.0,5.0,'2023-10-25','2023-10-26'),
 	 ('5:07.0',NULL,NULL,'19-26','+2','D. Vassell makes 2-pt dunk at rim (assist by K. Johnson)','1st Quarter','SAS','DAL',19.0,26.0,7.0,'2023-10-25','2023-10-26'),
 	 ('4:51.0','J. Green makes free throw 2 of 2','+1','20-26',NULL,NULL,'1st Quarter','SAS','DAL',20.0,26.0,6.0,'2023-10-25','2023-10-26'),
@@ -1906,7 +1906,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:52.0',NULL,NULL,'22-30','+2','D. Vassell makes 2-pt jump shot from 21 ft (assist by C. Bassey)','1st Quarter','SAS','DAL',22.0,30.0,8.0,'2023-10-25','2023-10-26'),
 	 ('3:30.0','D. Lively makes 2-pt dunk at rim','+2','24-30',NULL,NULL,'1st Quarter','SAS','DAL',24.0,30.0,6.0,'2023-10-25','2023-10-26'),
 	 ('3:23.0',NULL,NULL,'24-32','+2','M. Branham makes 2-pt jump shot from 15 ft','1st Quarter','SAS','DAL',24.0,32.0,8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:52.0',NULL,NULL,'24-35','+3','C. Osman makes 3-pt jump shot from 26 ft (assist by C. Bassey)','1st Quarter','SAS','DAL',24.0,35.0,11.0,'2023-10-25','2023-10-26'),
 	 ('2:39.0','T. Hardaway makes 2-pt jump shot from 5 ft (assist by D. Lively)','+2','26-35',NULL,NULL,'1st Quarter','SAS','DAL',26.0,35.0,9.0,'2023-10-25','2023-10-26'),
 	 ('2:07.0','J. Green makes 2-pt jump shot from 17 ft (assist by T. Hardaway)','+2','28-35',NULL,NULL,'1st Quarter','SAS','DAL',28.0,35.0,7.0,'2023-10-25','2023-10-26'),
@@ -1917,7 +1917,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:43.0','J. Green makes free throw 1 of 2','+1','33-40',NULL,NULL,'1st Quarter','SAS','DAL',33.0,40.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:43.0','J. Green makes free throw 2 of 2','+1','34-40',NULL,NULL,'1st Quarter','SAS','DAL',34.0,40.0,6.0,'2023-10-25','2023-10-26'),
 	 ('0:34.0',NULL,NULL,'34-43','+3','T. Jones makes 3-pt jump shot from 25 ft','1st Quarter','SAS','DAL',34.0,43.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:30.0','D. Lively makes 2-pt dunk from 2 ft (assist by L. Dončić)','+2','36-43',NULL,NULL,'1st Quarter','SAS','DAL',36.0,43.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','SAS','DAL',36.0,43.0,7.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','SAS','DAL',36.0,43.0,7.0,'2023-10-25','2023-10-26'),
@@ -1928,7 +1928,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:35.0','D. Exum makes free throw 1 of 1','+1','44-47',NULL,NULL,'2nd Quarter','SAS','DAL',44.0,47.0,3.0,'2023-10-25','2023-10-26'),
 	 ('9:01.0',NULL,NULL,'44-50','+3','J. Sochan makes 3-pt jump shot from 25 ft (assist by K. Johnson)','2nd Quarter','SAS','DAL',44.0,50.0,6.0,'2023-10-25','2023-10-26'),
 	 ('8:13.0','L. Dončić makes free throw 2 of 2','+1','45-50',NULL,NULL,'2nd Quarter','SAS','DAL',45.0,50.0,5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:46.0','L. Dončić makes 2-pt jump shot from 5 ft','+2','47-50',NULL,NULL,'2nd Quarter','SAS','DAL',47.0,50.0,3.0,'2023-10-25','2023-10-26'),
 	 ('7:08.0','L. Dončić makes 2-pt jump shot from 18 ft','+2','49-50',NULL,NULL,'2nd Quarter','SAS','DAL',49.0,50.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:26.0',NULL,NULL,'49-52','+2','M. Branham makes 2-pt jump shot from 10 ft (assist by D. McDermott)','2nd Quarter','SAS','DAL',49.0,52.0,3.0,'2023-10-25','2023-10-26'),
@@ -1939,7 +1939,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:16.0','K. Irving makes 2-pt layup from 1 ft','+2','56-56',NULL,NULL,'2nd Quarter','SAS','DAL',56.0,56.0,0.0,'2023-10-25','2023-10-26'),
 	 ('3:12.0',NULL,NULL,'56-58','+2','M. Branham makes 2-pt layup from 1 ft (assist by T. Jones)','2nd Quarter','SAS','DAL',56.0,58.0,2.0,'2023-10-25','2023-10-26'),
 	 ('3:12.0',NULL,NULL,'56-59','+1','M. Branham makes free throw 1 of 1','2nd Quarter','SAS','DAL',56.0,59.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:09.0','K. Irving makes 2-pt jump shot from 8 ft','+2','102-101',NULL,NULL,'4th Quarter','SAS','DAL',102.0,101.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('2:44.0',NULL,NULL,'56-61','+2','C. Osman makes 2-pt layup from 1 ft (assist by Z. Collins)','2nd Quarter','SAS','DAL',56.0,61.0,5.0,'2023-10-25','2023-10-26'),
 	 ('2:12.0',NULL,NULL,'56-63','+2','Z. Collins makes 2-pt jump shot from 10 ft','2nd Quarter','SAS','DAL',56.0,63.0,7.0,'2023-10-25','2023-10-26'),
@@ -1950,7 +1950,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:40.0','G. Williams makes 2-pt layup from 3 ft (assist by L. Dončić)','+2','60-68',NULL,NULL,'2nd Quarter','SAS','DAL',60.0,68.0,8.0,'2023-10-25','2023-10-26'),
 	 ('0:40.0','G. Williams makes free throw 1 of 1','+1','61-68',NULL,NULL,'2nd Quarter','SAS','DAL',61.0,68.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:21.0','G. Williams makes 3-pt jump shot from 23 ft (assist by T. Hardaway)','+3','64-68',NULL,NULL,'2nd Quarter','SAS','DAL',64.0,68.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','SAS','DAL',64.0,68.0,4.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','SAS','DAL',64.0,68.0,4.0,'2023-10-25','2023-10-26'),
 	 ('11:22.0',NULL,NULL,'64-70','+2','Z. Collins makes 2-pt hook shot from 1 ft (assist by V. Wembanyama)','3rd Quarter','SAS','DAL',64.0,70.0,6.0,'2023-10-25','2023-10-26'),
@@ -1961,7 +1961,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:23.0','K. Irving makes 2-pt jump shot from 8 ft','+2','71-72',NULL,NULL,'3rd Quarter','SAS','DAL',71.0,72.0,1.0,'2023-10-25','2023-10-26'),
 	 ('8:00.0','D. Lively makes 2-pt layup at rim','+2','73-72',NULL,NULL,'3rd Quarter','SAS','DAL',73.0,72.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('7:42.0',NULL,NULL,'73-74','+2','Z. Collins makes 2-pt jump shot from 12 ft (assist by K. Johnson)','3rd Quarter','SAS','DAL',73.0,74.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:30.0','D. Lively makes 2-pt dunk from 1 ft (assist by K. Irving)','+2','75-74',NULL,NULL,'3rd Quarter','SAS','DAL',75.0,74.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('7:11.0',NULL,NULL,'75-76','+2','D. Vassell makes 2-pt jump shot from 12 ft (assist by J. Sochan)','3rd Quarter','SAS','DAL',75.0,76.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:17.0','D. Lively makes 2-pt dunk from 1 ft (assist by L. Dončić)','+2','77-76',NULL,NULL,'3rd Quarter','SAS','DAL',77.0,76.0,-1.0,'2023-10-25','2023-10-26'),
@@ -1972,7 +1972,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:27.0','L. Dončić makes 3-pt jump shot from 27 ft','+3','83-80',NULL,NULL,'3rd Quarter','SAS','DAL',83.0,80.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('3:46.0',NULL,NULL,'83-81','+1','T. Jones makes free throw 1 of 2','3rd Quarter','SAS','DAL',83.0,81.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('3:46.0',NULL,NULL,'83-82','+1','T. Jones makes free throw 2 of 2','3rd Quarter','SAS','DAL',83.0,82.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:15.0',NULL,NULL,'83-85','+3','T. Jones makes 3-pt jump shot from 25 ft (assist by M. Branham)','3rd Quarter','SAS','DAL',83.0,85.0,2.0,'2023-10-25','2023-10-26'),
 	 ('2:58.0',NULL,NULL,'83-87','+2','C. Osman makes 2-pt layup from 2 ft (assist by T. Jones)','3rd Quarter','SAS','DAL',83.0,87.0,4.0,'2023-10-25','2023-10-26'),
 	 ('2:45.0','J. Green makes 3-pt jump shot from 22 ft (assist by K. Irving)','+3','86-87',NULL,NULL,'3rd Quarter','SAS','DAL',86.0,87.0,1.0,'2023-10-25','2023-10-26'),
@@ -1983,7 +1983,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:07.0','T. Hardaway makes free throw 1 of 2','+1','92-91',NULL,NULL,'3rd Quarter','SAS','DAL',92.0,91.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('1:07.0','T. Hardaway makes free throw 2 of 2','+1','93-91',NULL,NULL,'3rd Quarter','SAS','DAL',93.0,91.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('0:03.0','J. Green makes 3-pt jump shot from 25 ft','+3','96-91',NULL,NULL,'3rd Quarter','SAS','DAL',96.0,91.0,-5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','SAS','DAL',96.0,91.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','SAS','DAL',96.0,91.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('11:48.0',NULL,NULL,'96-93','+2','K. Johnson makes 2-pt dunk from 1 ft (assist by J. Sochan)','4th Quarter','SAS','DAL',96.0,93.0,-3.0,'2023-10-25','2023-10-26'),
@@ -1994,7 +1994,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:27.0',NULL,NULL,'100-98','+1','K. Johnson makes free throw 1 of 1','4th Quarter','SAS','DAL',100.0,98.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('8:58.0',NULL,NULL,'100-100','+2','K. Johnson makes 2-pt layup from 8 ft','4th Quarter','SAS','DAL',100.0,100.0,0.0,'2023-10-25','2023-10-26'),
 	 ('8:23.0',NULL,NULL,'100-101','+1','J. Sochan makes free throw 1 of 2','4th Quarter','SAS','DAL',100.0,101.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:09.0','K. Irving makes free throw 1 of 1','+1','103-101',NULL,NULL,'4th Quarter','SAS','DAL',103.0,101.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('7:46.0',NULL,NULL,'103-103','+2','C. Osman makes 2-pt jump shot from 13 ft (assist by Z. Collins)','4th Quarter','SAS','DAL',103.0,103.0,0.0,'2023-10-25','2023-10-26'),
 	 ('7:30.0','G. Williams makes 2-pt layup from 2 ft (assist by T. Hardaway)','+2','105-103',NULL,NULL,'4th Quarter','SAS','DAL',105.0,103.0,-2.0,'2023-10-25','2023-10-26'),
@@ -2005,7 +2005,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:41.0','D. Lively makes 2-pt dunk at rim','+2','112-108',NULL,NULL,'4th Quarter','SAS','DAL',112.0,108.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('5:29.0',NULL,NULL,'112-111','+3','C. Osman makes 3-pt jump shot from 25 ft (assist by J. Sochan)','4th Quarter','SAS','DAL',112.0,111.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('4:56.0',NULL,NULL,'112-113','+2','V. Wembanyama makes 2-pt dunk from 1 ft (assist by T. Jones)','4th Quarter','SAS','DAL',112.0,113.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:12.0','G. Williams makes 3-pt jump shot from 24 ft (assist by M. Kleber)','+3','115-113',NULL,NULL,'4th Quarter','SAS','DAL',115.0,113.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('3:55.0',NULL,NULL,'115-115','+2','V. Wembanyama makes 2-pt jump shot from 12 ft (assist by T. Jones)','4th Quarter','SAS','DAL',115.0,115.0,0.0,'2023-10-25','2023-10-26'),
 	 ('2:34.0',NULL,NULL,'115-116','+1','T. Jones makes free throw 1 of 2','4th Quarter','SAS','DAL',115.0,116.0,1.0,'2023-10-25','2023-10-26'),
@@ -2016,7 +2016,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:09.0',NULL,NULL,'118-119','+1','D. Vassell makes free throw 2 of 2','4th Quarter','SAS','DAL',118.0,119.0,1.0,'2023-10-25','2023-10-26'),
 	 ('1:51.0','K. Irving makes 3-pt jump shot from 24 ft (assist by L. Dončić)','+3','121-119',NULL,NULL,'4th Quarter','SAS','DAL',121.0,119.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('1:24.0','K. Irving makes 2-pt layup from 1 ft (assist by L. Dončić)','+2','123-119',NULL,NULL,'4th Quarter','SAS','DAL',123.0,119.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:30.0','L. Dončić makes 3-pt jump shot from 26 ft','+3','126-119',NULL,NULL,'4th Quarter','SAS','DAL',126.0,119.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','SAS','DAL',126.0,119.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: A. Şengün vs. W. Carter (P. Banchero gains possession)','Jump ball: A. Şengün vs. W. Carter (P. Banchero gains possession)','Jump ball: A. Şengün vs. W. Carter (P. Banchero gains possession)','Jump ball: A. Şengün vs. W. Carter (P. Banchero gains possession)','Jump ball: A. Şengün vs. W. Carter (P. Banchero gains possession)','1st Quarter','ORL','HOU',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
@@ -2027,7 +2027,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:26.0',NULL,NULL,'6-6','+3','F. Wagner makes 3-pt jump shot from 27 ft','1st Quarter','ORL','HOU',6.0,6.0,0.0,'2023-10-25','2023-10-26'),
 	 ('8:08.0','J. Green makes free throw 1 of 2','+1','7-6',NULL,NULL,'1st Quarter','ORL','HOU',7.0,6.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('8:08.0','J. Green makes free throw 2 of 2','+1','8-6',NULL,NULL,'1st Quarter','ORL','HOU',8.0,6.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:53.0',NULL,NULL,'8-9','+3','F. Wagner makes 3-pt jump shot from 26 ft (assist by P. Banchero)','1st Quarter','ORL','HOU',8.0,9.0,1.0,'2023-10-25','2023-10-26'),
 	 ('7:14.0',NULL,NULL,'8-12','+3','F. Wagner makes 3-pt jump shot from 26 ft (assist by P. Banchero)','1st Quarter','ORL','HOU',8.0,12.0,4.0,'2023-10-25','2023-10-26'),
 	 ('6:47.0',NULL,NULL,'8-14','+2','W. Carter makes 2-pt dunk from 3 ft','1st Quarter','ORL','HOU',8.0,14.0,6.0,'2023-10-25','2023-10-26'),
@@ -2038,7 +2038,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:41.0',NULL,NULL,'12-18','+1','P. Banchero makes free throw 2 of 2','1st Quarter','ORL','HOU',12.0,18.0,6.0,'2023-10-25','2023-10-26'),
 	 ('4:42.0',NULL,NULL,'12-20','+2','M. Fultz makes 2-pt layup at rim','1st Quarter','ORL','HOU',12.0,20.0,8.0,'2023-10-25','2023-10-26'),
 	 ('4:16.0',NULL,NULL,'12-21','+1','F. Wagner makes free throw 1 of 2','1st Quarter','ORL','HOU',12.0,21.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:16.0',NULL,NULL,'12-22','+1','F. Wagner makes free throw 2 of 2','1st Quarter','ORL','HOU',12.0,22.0,10.0,'2023-10-25','2023-10-26'),
 	 ('3:39.0','J. Tate makes 3-pt jump shot from 26 ft (assist by F. VanVleet)','+3','15-22',NULL,NULL,'1st Quarter','ORL','HOU',15.0,22.0,7.0,'2023-10-25','2023-10-26'),
 	 ('3:18.0',NULL,NULL,'15-25','+3','C. Anthony makes 3-pt jump shot from 25 ft (assist by P. Banchero)','1st Quarter','ORL','HOU',15.0,25.0,10.0,'2023-10-25','2023-10-26'),
@@ -2049,7 +2049,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:27.0',NULL,NULL,'20-29','+2','G. Harris makes 2-pt layup from 1 ft (assist by J. Ingles)','1st Quarter','ORL','HOU',20.0,29.0,9.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','ORL','HOU',20.0,29.0,9.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','ORL','HOU',20.0,29.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:37.0','A. Şengün makes 2-pt jump shot from 10 ft','+2','22-29',NULL,NULL,'2nd Quarter','ORL','HOU',22.0,29.0,7.0,'2023-10-25','2023-10-26'),
 	 ('11:19.0',NULL,NULL,'22-31','+2','C. Anthony makes 2-pt jump shot from 16 ft','2nd Quarter','ORL','HOU',22.0,31.0,9.0,'2023-10-25','2023-10-26'),
 	 ('10:17.0',NULL,NULL,'22-33','+2','G. Harris makes 2-pt layup from 2 ft','2nd Quarter','ORL','HOU',22.0,33.0,11.0,'2023-10-25','2023-10-26'),
@@ -2060,7 +2060,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:06.0',NULL,NULL,'28-38','+3','J. Isaac makes 3-pt jump shot from 26 ft (assist by C. Anthony)','2nd Quarter','ORL','HOU',28.0,38.0,10.0,'2023-10-25','2023-10-26'),
 	 ('7:30.0',NULL,NULL,'28-40','+2','G. Harris makes 2-pt jump shot from 5 ft','2nd Quarter','ORL','HOU',28.0,40.0,12.0,'2023-10-25','2023-10-26'),
 	 ('7:17.0','A. Şengün makes 2-pt jump shot from 16 ft (assist by F. VanVleet)','+2','30-40',NULL,NULL,'2nd Quarter','ORL','HOU',30.0,40.0,10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:57.0',NULL,NULL,'30-42','+2','G. Harris makes 2-pt layup from 1 ft (assist by J. Ingles)','2nd Quarter','ORL','HOU',30.0,42.0,12.0,'2023-10-25','2023-10-26'),
 	 ('6:40.0','J. Smith makes free throw 1 of 2','+1','31-42',NULL,NULL,'2nd Quarter','ORL','HOU',31.0,42.0,11.0,'2023-10-25','2023-10-26'),
 	 ('6:04.0','J. Landale makes 3-pt jump shot from 24 ft (assist by F. VanVleet)','+3','34-42',NULL,NULL,'2nd Quarter','ORL','HOU',34.0,42.0,8.0,'2023-10-25','2023-10-26'),
@@ -2071,7 +2071,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:30.0',NULL,NULL,'37-48','+2','P. Banchero makes 2-pt layup from 4 ft','2nd Quarter','ORL','HOU',37.0,48.0,11.0,'2023-10-25','2023-10-26'),
 	 ('3:30.0',NULL,NULL,'37-49','+1','P. Banchero makes free throw 1 of 1','2nd Quarter','ORL','HOU',37.0,49.0,12.0,'2023-10-25','2023-10-26'),
 	 ('3:15.0',NULL,NULL,'37-50','+1','P. Banchero makes free throw 1 of 2','2nd Quarter','ORL','HOU',37.0,50.0,13.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:15.0',NULL,NULL,'37-51','+1','P. Banchero makes free throw 2 of 2','2nd Quarter','ORL','HOU',37.0,51.0,14.0,'2023-10-25','2023-10-26'),
 	 ('2:06.0',NULL,NULL,'37-52','+1','P. Banchero makes free throw 2 of 2','2nd Quarter','ORL','HOU',37.0,52.0,15.0,'2023-10-25','2023-10-26'),
 	 ('1:47.0',NULL,NULL,'37-54','+2','J. Suggs makes 2-pt layup from 1 ft (assist by M. Fultz)','2nd Quarter','ORL','HOU',37.0,54.0,17.0,'2023-10-25','2023-10-26'),
@@ -2082,7 +2082,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('11:37.0','J. Smith makes 2-pt layup from 6 ft (assist by A. Şengün)','+2','45-54',NULL,NULL,'3rd Quarter','ORL','HOU',45.0,54.0,9.0,'2023-10-25','2023-10-26'),
 	 ('11:09.0',NULL,NULL,'45-56','+2','M. Fultz makes 2-pt layup at rim','3rd Quarter','ORL','HOU',45.0,56.0,11.0,'2023-10-25','2023-10-26'),
 	 ('10:53.0','F. VanVleet makes 3-pt jump shot from 26 ft (assist by A. Şengün)','+3','48-56',NULL,NULL,'3rd Quarter','ORL','HOU',48.0,56.0,8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:37.0',NULL,NULL,'48-58','+2','W. Carter makes 2-pt dunk from 1 ft (assist by F. Wagner)','3rd Quarter','ORL','HOU',48.0,58.0,10.0,'2023-10-25','2023-10-26'),
 	 ('10:25.0','D. Brooks makes 3-pt jump shot from 26 ft (assist by A. Şengün)','+3','51-58',NULL,NULL,'3rd Quarter','ORL','HOU',51.0,58.0,7.0,'2023-10-25','2023-10-26'),
 	 ('10:05.0',NULL,NULL,'51-60','+2','M. Fultz makes 2-pt jump shot from 12 ft','3rd Quarter','ORL','HOU',51.0,60.0,9.0,'2023-10-25','2023-10-26'),
@@ -2093,7 +2093,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:50.0','F. VanVleet makes 3-pt jump shot from 28 ft','+3','59-63',NULL,NULL,'3rd Quarter','ORL','HOU',59.0,63.0,4.0,'2023-10-25','2023-10-26'),
 	 ('7:16.0','F. VanVleet makes 3-pt jump shot from 27 ft (assist by D. Brooks)','+3','62-63',NULL,NULL,'3rd Quarter','ORL','HOU',62.0,63.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:35.0',NULL,NULL,'62-65','+2','P. Banchero makes 2-pt jump shot from 16 ft','3rd Quarter','ORL','HOU',62.0,65.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:20.0',NULL,NULL,'62-67','+2','F. Wagner makes 2-pt jump shot from 10 ft','3rd Quarter','ORL','HOU',62.0,67.0,5.0,'2023-10-25','2023-10-26'),
 	 ('5:08.0','J. Tate makes 2-pt jump shot from 6 ft','+2','64-67',NULL,NULL,'3rd Quarter','ORL','HOU',64.0,67.0,3.0,'2023-10-25','2023-10-26'),
 	 ('4:59.0',NULL,NULL,'64-69','+2','M. Fultz makes 2-pt dunk from 2 ft','3rd Quarter','ORL','HOU',64.0,69.0,5.0,'2023-10-25','2023-10-26'),
@@ -2104,7 +2104,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:28.0',NULL,NULL,'66-75','+1','F. Wagner makes free throw 2 of 2','3rd Quarter','ORL','HOU',66.0,75.0,9.0,'2023-10-25','2023-10-26'),
 	 ('2:15.0','D. Brooks makes 3-pt jump shot from 26 ft (assist by J. Landale)','+3','69-75',NULL,NULL,'3rd Quarter','ORL','HOU',69.0,75.0,6.0,'2023-10-25','2023-10-26'),
 	 ('2:01.0',NULL,NULL,'69-77','+2','C. Anthony makes 2-pt jump shot from 6 ft','3rd Quarter','ORL','HOU',69.0,77.0,8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:01.0',NULL,NULL,'69-78','+1','C. Anthony makes free throw 1 of 1','3rd Quarter','ORL','HOU',69.0,78.0,9.0,'2023-10-25','2023-10-26'),
 	 ('1:34.0',NULL,NULL,'69-80','+2','J. Isaac makes 2-pt layup from 2 ft (assist by J. Ingles)','3rd Quarter','ORL','HOU',69.0,80.0,11.0,'2023-10-25','2023-10-26'),
 	 ('1:08.0',NULL,NULL,'69-81','+1','C. Anthony makes free throw 1 of 2','3rd Quarter','ORL','HOU',69.0,81.0,12.0,'2023-10-25','2023-10-26'),
@@ -2115,7 +2115,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','ORL','HOU',69.0,87.0,18.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','ORL','HOU',69.0,87.0,18.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','J. Green makes technical free throw','+1','70-87',NULL,NULL,'4th Quarter','ORL','HOU',70.0,87.0,17.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:38.0',NULL,NULL,'70-90','+3','G. Harris makes 3-pt jump shot from 26 ft (assist by J. Ingles)','4th Quarter','ORL','HOU',70.0,90.0,20.0,'2023-10-25','2023-10-26'),
 	 ('11:12.0',NULL,NULL,'70-91','+1','J. Isaac makes free throw 1 of 2','4th Quarter','ORL','HOU',70.0,91.0,21.0,'2023-10-25','2023-10-26'),
 	 ('10:05.0','J. Smith makes 2-pt dunk from 3 ft','+2','72-91',NULL,NULL,'4th Quarter','ORL','HOU',72.0,91.0,19.0,'2023-10-25','2023-10-26'),
@@ -2126,7 +2126,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:28.0','F. VanVleet makes 2-pt layup from 2 ft','+2','77-93',NULL,NULL,'4th Quarter','ORL','HOU',77.0,93.0,16.0,'2023-10-25','2023-10-26'),
 	 ('7:05.0',NULL,NULL,'77-95','+2','C. Anthony makes 2-pt jump shot from 5 ft','4th Quarter','ORL','HOU',77.0,95.0,18.0,'2023-10-25','2023-10-26'),
 	 ('6:27.0',NULL,NULL,'77-96','+1','F. Wagner makes free throw 1 of 2','4th Quarter','ORL','HOU',77.0,96.0,19.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:27.0',NULL,NULL,'77-97','+1','F. Wagner makes free throw 2 of 2','4th Quarter','ORL','HOU',77.0,97.0,20.0,'2023-10-25','2023-10-26'),
 	 ('6:00.0',NULL,NULL,'77-99','+2','P. Banchero makes 2-pt dunk from 1 ft (assist by M. Fultz)','4th Quarter','ORL','HOU',77.0,99.0,22.0,'2023-10-25','2023-10-26'),
 	 ('5:24.0',NULL,NULL,'77-101','+2','F. Wagner makes 2-pt layup from 5 ft','4th Quarter','ORL','HOU',77.0,101.0,24.0,'2023-10-25','2023-10-26'),
@@ -2137,7 +2137,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:16.0','Jump ball: A. Thompson vs. A. Black (J. Samuels gains possession)','Jump ball: A. Thompson vs. A. Black (J. Samuels gains possession)','Jump ball: A. Thompson vs. A. Black (J. Samuels gains possession)','Jump ball: A. Thompson vs. A. Black (J. Samuels gains possession)','Jump ball: A. Thompson vs. A. Black (J. Samuels gains possession)','4th Quarter','ORL','HOU',80.0,107.0,27.0,'2023-10-25','2023-10-26'),
 	 ('3:12.0','J. Williams makes 2-pt layup from 3 ft','+2','82-107',NULL,NULL,'4th Quarter','ORL','HOU',82.0,107.0,25.0,'2023-10-25','2023-10-26'),
 	 ('3:10.0',NULL,NULL,'82-108','+1','G. Bitadze makes free throw 2 of 2','4th Quarter','ORL','HOU',82.0,108.0,26.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:57.0','A. Thompson makes 2-pt dunk from 2 ft','+2','84-108',NULL,NULL,'4th Quarter','ORL','HOU',84.0,108.0,24.0,'2023-10-25','2023-10-26'),
 	 ('2:41.0',NULL,NULL,'84-110','+2','G. Bitadze makes 2-pt layup from 2 ft','4th Quarter','ORL','HOU',84.0,110.0,26.0,'2023-10-25','2023-10-26'),
 	 ('2:22.0',NULL,NULL,'84-111','+1','G. Bitadze makes free throw 1 of 2','4th Quarter','ORL','HOU',84.0,111.0,27.0,'2023-10-25','2023-10-26'),
@@ -2148,7 +2148,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','ORL','HOU',86.0,116.0,30.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: C. Capela vs. M. Williams (P. Washington gains possession)','Jump ball: C. Capela vs. M. Williams (P. Washington gains possession)','Jump ball: C. Capela vs. M. Williams (P. Washington gains possession)','Jump ball: C. Capela vs. M. Williams (P. Washington gains possession)','Jump ball: C. Capela vs. M. Williams (P. Washington gains possession)','1st Quarter','CHA','ATL',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:35.0','T. Young makes 2-pt jump shot from 19 ft','+2','2-0',NULL,NULL,'1st Quarter','CHA','ATL',2.0,0.0,-2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:04.0',NULL,NULL,'2-2','+2','M. Williams makes 2-pt layup from 3 ft (assist by G. Hayward)','1st Quarter','CHA','ATL',2.0,2.0,0.0,'2023-10-25','2023-10-26'),
 	 ('10:50.0',NULL,NULL,'2-4','+2','M. Williams makes 2-pt layup at rim','1st Quarter','CHA','ATL',2.0,4.0,2.0,'2023-10-25','2023-10-26'),
 	 ('10:39.0','D. Murray makes 2-pt jump shot from 18 ft','+2','4-4',NULL,NULL,'1st Quarter','CHA','ATL',4.0,4.0,0.0,'2023-10-25','2023-10-26'),
@@ -2159,7 +2159,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:43.0',NULL,NULL,'8-10','+2','G. Hayward makes 2-pt jump shot from 8 ft (assist by L. Ball)','1st Quarter','CHA','ATL',8.0,10.0,2.0,'2023-10-25','2023-10-26'),
 	 ('7:28.0','S. Bey makes 2-pt layup from 1 ft (assist by T. Young)','+2','10-10',NULL,NULL,'1st Quarter','CHA','ATL',10.0,10.0,0.0,'2023-10-25','2023-10-26'),
 	 ('7:17.0',NULL,NULL,'10-12','+2','M. Williams makes 2-pt layup from 6 ft (assist by L. Ball)','1st Quarter','CHA','ATL',10.0,12.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:17.0',NULL,NULL,'10-13','+1','M. Williams makes free throw 1 of 1','1st Quarter','CHA','ATL',10.0,13.0,3.0,'2023-10-25','2023-10-26'),
 	 ('6:57.0','S. Bey makes 2-pt layup at rim','+2','12-13',NULL,NULL,'1st Quarter','CHA','ATL',12.0,13.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:44.0',NULL,NULL,'12-15','+2','P. Washington makes 2-pt jump shot from 8 ft (assist by T. Rozier)','1st Quarter','CHA','ATL',12.0,15.0,3.0,'2023-10-25','2023-10-26'),
@@ -2170,7 +2170,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:21.0','C. Capela makes 2-pt layup at rim','+2','18-17',NULL,NULL,'1st Quarter','CHA','ATL',18.0,17.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('3:33.0',NULL,NULL,'18-20','+3','B. Miller makes 3-pt jump shot from 30 ft (assist by T. Rozier)','1st Quarter','CHA','ATL',18.0,20.0,2.0,'2023-10-25','2023-10-26'),
 	 ('3:10.0','A. Griffin makes 2-pt jump shot from 3 ft','+2','20-20',NULL,NULL,'1st Quarter','CHA','ATL',20.0,20.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:53.0','J. Johnson makes 2-pt dunk from 1 ft (assist by B. Bogdanović)','+2','22-20',NULL,NULL,'1st Quarter','CHA','ATL',22.0,20.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('2:17.0',NULL,NULL,'22-21','+1','L. Ball makes free throw 2 of 2','1st Quarter','CHA','ATL',22.0,21.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('1:58.0',NULL,NULL,'22-23','+2','N. Richards makes 2-pt dunk from 2 ft (assist by B. Miller)','1st Quarter','CHA','ATL',22.0,23.0,1.0,'2023-10-25','2023-10-26'),
@@ -2181,7 +2181,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:04.0',NULL,NULL,'29-25','+2','P. Washington makes 2-pt jump shot from 10 ft (assist by L. Ball)','1st Quarter','CHA','ATL',29.0,25.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','CHA','ATL',29.0,25.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','CHA','ATL',29.0,25.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:42.0','O. Okongwu makes 2-pt dunk from 2 ft (assist by B. Bogdanović)','+2','31-25',NULL,NULL,'2nd Quarter','CHA','ATL',31.0,25.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('10:40.0','T. Young makes free throw 1 of 2','+1','32-25',NULL,NULL,'2nd Quarter','CHA','ATL',32.0,25.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('10:40.0','T. Young makes free throw 2 of 2','+1','33-25',NULL,NULL,'2nd Quarter','CHA','ATL',33.0,25.0,-8.0,'2023-10-25','2023-10-26'),
@@ -2192,7 +2192,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:06.0',NULL,NULL,'35-29','+2','P. Washington makes 2-pt jump shot from 9 ft (assist by L. Ball)','2nd Quarter','CHA','ATL',35.0,29.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('8:44.0',NULL,NULL,'35-31','+2','T. Maledon makes 2-pt layup from 2 ft (assist by P. Washington)','2nd Quarter','CHA','ATL',35.0,31.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('8:24.0','T. Young makes 2-pt jump shot from 23 ft (assist by O. Okongwu)','+2','37-31',NULL,NULL,'2nd Quarter','CHA','ATL',37.0,31.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:08.0',NULL,NULL,'37-33','+2','P. Washington makes 2-pt dunk from 3 ft (assist by N. Richards)','2nd Quarter','CHA','ATL',37.0,33.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('7:52.0','J. Johnson makes 3-pt jump shot from 25 ft (assist by T. Young)','+3','40-33',NULL,NULL,'2nd Quarter','CHA','ATL',40.0,33.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('7:31.0','T. Young makes free throw 2 of 3','+1','41-33',NULL,NULL,'2nd Quarter','CHA','ATL',41.0,33.0,-8.0,'2023-10-25','2023-10-26'),
@@ -2203,7 +2203,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:10.0',NULL,NULL,'45-38','+3','J. Thor makes 3-pt jump shot from 26 ft (assist by T. Rozier)','2nd Quarter','CHA','ATL',45.0,38.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('4:39.0','J. Johnson makes 2-pt layup from 1 ft (assist by D. Murray)','+2','47-38',NULL,NULL,'2nd Quarter','CHA','ATL',47.0,38.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('4:21.0',NULL,NULL,'47-39','+1','T. Rozier makes free throw 1 of 2','2nd Quarter','CHA','ATL',47.0,39.0,-8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:21.0',NULL,NULL,'47-40','+1','T. Rozier makes free throw 2 of 2','2nd Quarter','CHA','ATL',47.0,40.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('3:41.0','C. Capela makes 2-pt layup from 1 ft','+2','49-40',NULL,NULL,'2nd Quarter','CHA','ATL',49.0,40.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('3:36.0',NULL,NULL,'49-41','+1','T. Rozier makes free throw 2 of 2','2nd Quarter','CHA','ATL',49.0,41.0,-8.0,'2023-10-25','2023-10-26'),
@@ -2214,7 +2214,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:33.0','D. Murray makes free throw 2 of 2','+1','51-46',NULL,NULL,'2nd Quarter','CHA','ATL',51.0,46.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('1:56.0',NULL,NULL,'51-49','+3','T. Rozier makes 3-pt jump shot from 23 ft (assist by T. Maledon)','2nd Quarter','CHA','ATL',51.0,49.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('1:13.0',NULL,NULL,'51-51','+2','M. Williams makes 2-pt layup at rim','2nd Quarter','CHA','ATL',51.0,51.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:52.0','C. Capela makes free throw 1 of 2','+1','52-51',NULL,NULL,'2nd Quarter','CHA','ATL',52.0,51.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','CHA','ATL',52.0,51.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','CHA','ATL',52.0,51.0,-1.0,'2023-10-25','2023-10-26'),
@@ -2225,7 +2225,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:26.0',NULL,NULL,'58-57','+3','L. Ball makes 3-pt jump shot from 29 ft (assist by G. Hayward)','3rd Quarter','CHA','ATL',58.0,57.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:07.0','C. Capela makes 2-pt dunk from 2 ft (assist by D. Murray)','+2','60-57',NULL,NULL,'3rd Quarter','CHA','ATL',60.0,57.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('8:50.0',NULL,NULL,'60-59','+2','P. Washington makes 2-pt jump shot from 10 ft (assist by T. Rozier)','3rd Quarter','CHA','ATL',60.0,59.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:59.0',NULL,NULL,'60-61','+2','G. Hayward makes 2-pt jump shot from 13 ft','3rd Quarter','CHA','ATL',60.0,61.0,1.0,'2023-10-25','2023-10-26'),
 	 ('7:39.0','D. Hunter makes 3-pt jump shot from 26 ft (assist by T. Young)','+3','63-61',NULL,NULL,'3rd Quarter','CHA','ATL',63.0,61.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('7:28.0',NULL,NULL,'63-62','+1','G. Hayward makes free throw 1 of 2','3rd Quarter','CHA','ATL',63.0,62.0,-1.0,'2023-10-25','2023-10-26'),
@@ -2236,7 +2236,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:58.0','T. Young makes free throw 2 of 2','+1','65-67',NULL,NULL,'3rd Quarter','CHA','ATL',65.0,67.0,2.0,'2023-10-25','2023-10-26'),
 	 ('4:54.0',NULL,NULL,'65-69','+2','G. Hayward makes 2-pt layup from 2 ft (assist by B. Miller)','3rd Quarter','CHA','ATL',65.0,69.0,4.0,'2023-10-25','2023-10-26'),
 	 ('4:41.0','D. Murray makes free throw 1 of 2','+1','66-69',NULL,NULL,'3rd Quarter','CHA','ATL',66.0,69.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:41.0','D. Murray makes free throw 2 of 2','+1','67-69',NULL,NULL,'3rd Quarter','CHA','ATL',67.0,69.0,2.0,'2023-10-25','2023-10-26'),
 	 ('2:39.0',NULL,NULL,'67-71','+2','J. Thor makes 2-pt jump shot from 16 ft (assist by T. Maledon)','3rd Quarter','CHA','ATL',67.0,71.0,4.0,'2023-10-25','2023-10-26'),
 	 ('2:16.0',NULL,NULL,'67-73','+2','B. Miller makes 2-pt dunk from 2 ft (assist by L. Ball)','3rd Quarter','CHA','ATL',67.0,73.0,6.0,'2023-10-25','2023-10-26'),
@@ -2247,7 +2247,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:54.0',NULL,NULL,'71-78','+2','N. Richards makes 2-pt layup from 1 ft (assist by L. Ball)','3rd Quarter','CHA','ATL',71.0,78.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:03.0','J. Johnson makes 2-pt jump shot from 7 ft (assist by T. Young)','+2','73-78',NULL,NULL,'3rd Quarter','CHA','ATL',73.0,78.0,5.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','CHA','ATL',73.0,78.0,5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','CHA','ATL',73.0,78.0,5.0,'2023-10-25','2023-10-26'),
 	 ('11:48.0',NULL,NULL,'73-80','+2','T. Maledon makes 2-pt jump shot from 9 ft (assist by L. Ball)','4th Quarter','CHA','ATL',73.0,80.0,7.0,'2023-10-25','2023-10-26'),
 	 ('11:27.0','O. Okongwu makes 2-pt layup from 4 ft (assist by J. Johnson)','+2','75-80',NULL,NULL,'4th Quarter','CHA','ATL',75.0,80.0,5.0,'2023-10-25','2023-10-26'),
@@ -2258,7 +2258,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:17.0',NULL,NULL,'79-85','+3','L. Ball makes 3-pt jump shot from 26 ft (assist by J. Thor)','4th Quarter','CHA','ATL',79.0,85.0,6.0,'2023-10-25','2023-10-26'),
 	 ('10:02.0','J. Johnson makes 2-pt layup from 3 ft (assist by O. Okongwu)','+2','81-85',NULL,NULL,'4th Quarter','CHA','ATL',81.0,85.0,4.0,'2023-10-25','2023-10-26'),
 	 ('9:51.0',NULL,NULL,'81-86','+1','N. Richards makes free throw 1 of 2','4th Quarter','CHA','ATL',81.0,86.0,5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:51.0',NULL,NULL,'81-87','+1','N. Richards makes free throw 2 of 2','4th Quarter','CHA','ATL',81.0,87.0,6.0,'2023-10-25','2023-10-26'),
 	 ('9:38.0','O. Okongwu makes 2-pt dunk from 2 ft (assist by T. Young)','+2','83-87',NULL,NULL,'4th Quarter','CHA','ATL',83.0,87.0,4.0,'2023-10-25','2023-10-26'),
 	 ('9:08.0','S. Bey makes 3-pt jump shot from 27 ft (assist by T. Young)','+3','86-87',NULL,NULL,'4th Quarter','CHA','ATL',86.0,87.0,1.0,'2023-10-25','2023-10-26'),
@@ -2269,7 +2269,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:21.0',NULL,NULL,'91-90','+2','T. Rozier makes 2-pt layup from 4 ft','4th Quarter','CHA','ATL',91.0,90.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('6:39.0','B. Bogdanović makes 3-pt jump shot from 28 ft (assist by D. Murray)','+3','94-90',NULL,NULL,'4th Quarter','CHA','ATL',94.0,90.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('6:10.0',NULL,NULL,'94-93','+3','B. Miller makes 3-pt jump shot from 23 ft (assist by G. Hayward)','4th Quarter','CHA','ATL',94.0,93.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:49.0','D. Murray makes free throw 2 of 2','+1','95-93',NULL,NULL,'4th Quarter','CHA','ATL',95.0,93.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('5:31.0',NULL,NULL,'95-95','+2','B. Miller makes 2-pt layup from 2 ft (assist by M. Williams)','4th Quarter','CHA','ATL',95.0,95.0,0.0,'2023-10-25','2023-10-26'),
 	 ('5:06.0','J. Johnson makes 2-pt jump shot from 10 ft','+2','97-95',NULL,NULL,'4th Quarter','CHA','ATL',97.0,95.0,-2.0,'2023-10-25','2023-10-26'),
@@ -2280,7 +2280,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:24.0','T. Young makes free throw 1 of 2','+1','100-103',NULL,NULL,'4th Quarter','CHA','ATL',100.0,103.0,3.0,'2023-10-25','2023-10-26'),
 	 ('3:24.0','T. Young makes free throw 2 of 2','+1','101-103',NULL,NULL,'4th Quarter','CHA','ATL',101.0,103.0,2.0,'2023-10-25','2023-10-26'),
 	 ('3:04.0',NULL,NULL,'101-105','+2','P. Washington makes 2-pt dunk from 1 ft (assist by L. Ball)','4th Quarter','CHA','ATL',101.0,105.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:50.0','D. Murray makes 2-pt layup from 3 ft','+2','103-105',NULL,NULL,'4th Quarter','CHA','ATL',103.0,105.0,2.0,'2023-10-25','2023-10-26'),
 	 ('2:06.0',NULL,NULL,'103-107','+2','T. Rozier makes 2-pt jump shot from 7 ft (assist by L. Ball)','4th Quarter','CHA','ATL',103.0,107.0,4.0,'2023-10-25','2023-10-26'),
 	 ('1:37.0',NULL,NULL,'103-109','+2','P. Washington makes 2-pt jump shot from 6 ft (assist by G. Hayward)','4th Quarter','CHA','ATL',103.0,109.0,6.0,'2023-10-25','2023-10-26'),
@@ -2291,7 +2291,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:22.0',NULL,NULL,'108-113','+2','T. Rozier makes 2-pt jump shot from 11 ft','4th Quarter','CHA','ATL',108.0,113.0,5.0,'2023-10-25','2023-10-26'),
 	 ('0:15.0','T. Young makes free throw 1 of 2','+1','109-113',NULL,NULL,'4th Quarter','CHA','ATL',109.0,113.0,4.0,'2023-10-25','2023-10-26'),
 	 ('0:15.0','T. Young makes free throw 2 of 2','+1','110-113',NULL,NULL,'4th Quarter','CHA','ATL',110.0,113.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:13.0',NULL,NULL,'110-114','+1','T. Rozier makes free throw 2 of 2','4th Quarter','CHA','ATL',110.0,114.0,4.0,'2023-10-25','2023-10-26'),
 	 ('0:06.0',NULL,NULL,'110-115','+1','T. Rozier makes free throw 1 of 2','4th Quarter','CHA','ATL',110.0,115.0,5.0,'2023-10-25','2023-10-26'),
 	 ('0:06.0',NULL,NULL,'110-116','+1','T. Rozier makes free throw 2 of 2','4th Quarter','CHA','ATL',110.0,116.0,6.0,'2023-10-25','2023-10-26'),
@@ -2302,7 +2302,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:18.0',NULL,NULL,'4-2','+2','J. Butler makes 2-pt layup from 3 ft','1st Quarter','MIA','DET',4.0,2.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('9:57.0',NULL,NULL,'4-5','+3','K. Love makes 3-pt jump shot from 26 ft (assist by T. Herro)','1st Quarter','MIA','DET',4.0,5.0,1.0,'2023-10-25','2023-10-26'),
 	 ('9:47.0','K. Hayes makes free throw 1 of 2','+1','5-5',NULL,NULL,'1st Quarter','MIA','DET',5.0,5.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:47.0','K. Hayes makes free throw 2 of 2','+1','6-5',NULL,NULL,'1st Quarter','MIA','DET',6.0,5.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:16.0','I. Stewart makes 3-pt jump shot from 27 ft (assist by C. Cunningham)','+3','9-5',NULL,NULL,'1st Quarter','MIA','DET',9.0,5.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('8:40.0','C. Cunningham makes 3-pt jump shot from 26 ft (assist by J. Duren)','+3','12-5',NULL,NULL,'1st Quarter','MIA','DET',12.0,5.0,-7.0,'2023-10-25','2023-10-26'),
@@ -2313,7 +2313,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:23.0',NULL,NULL,'12-14','+1','B. Adebayo makes free throw 2 of 2','1st Quarter','MIA','DET',12.0,14.0,2.0,'2023-10-25','2023-10-26'),
 	 ('7:00.0',NULL,NULL,'12-15','+1','K. Love makes free throw 1 of 2','1st Quarter','MIA','DET',12.0,15.0,3.0,'2023-10-25','2023-10-26'),
 	 ('7:00.0',NULL,NULL,'12-16','+1','K. Love makes free throw 2 of 2','1st Quarter','MIA','DET',12.0,16.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:45.0','C. Cunningham makes 2-pt layup from 6 ft (assist by K. Hayes)','+2','14-16',NULL,NULL,'1st Quarter','MIA','DET',14.0,16.0,2.0,'2023-10-25','2023-10-26'),
 	 ('6:24.0',NULL,NULL,'14-18','+2','J. Butler makes 2-pt jump shot from 6 ft (assist by B. Adebayo)','1st Quarter','MIA','DET',14.0,18.0,4.0,'2023-10-25','2023-10-26'),
 	 ('6:09.0','C. Cunningham makes 2-pt jump shot from 15 ft','+2','16-18',NULL,NULL,'1st Quarter','MIA','DET',16.0,18.0,2.0,'2023-10-25','2023-10-26'),
@@ -2324,7 +2324,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:56.0','I. Stewart makes 3-pt jump shot from 24 ft (assist by M. Bagley)','+3','21-22',NULL,NULL,'1st Quarter','MIA','DET',21.0,22.0,1.0,'2023-10-25','2023-10-26'),
 	 ('3:13.0',NULL,NULL,'21-24','+2','B. Adebayo makes 2-pt dunk from 1 ft (assist by K. Love)','1st Quarter','MIA','DET',21.0,24.0,3.0,'2023-10-25','2023-10-26'),
 	 ('2:02.0','M. Bagley makes 2-pt layup at rim','+2','23-24',NULL,NULL,'1st Quarter','MIA','DET',23.0,24.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:16.0','M. Sasser makes 3-pt jump shot from 25 ft (assist by M. Bagley)','+3','26-24',NULL,NULL,'1st Quarter','MIA','DET',26.0,24.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('0:26.0',NULL,NULL,'26-26','+2','J. Jaquez makes 2-pt layup from 3 ft (assist by C. Martin)','1st Quarter','MIA','DET',26.0,26.0,0.0,'2023-10-25','2023-10-26'),
 	 ('0:05.0','A. Burks makes 3-pt jump shot from 26 ft (assist by M. Sasser)','+3','29-26',NULL,NULL,'1st Quarter','MIA','DET',29.0,26.0,-3.0,'2023-10-25','2023-10-26'),
@@ -2335,7 +2335,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:04.0',NULL,NULL,'29-33','+2','T. Herro makes 2-pt jump shot from 7 ft','2nd Quarter','MIA','DET',29.0,33.0,4.0,'2023-10-25','2023-10-26'),
 	 ('9:50.0','A. Burks makes free throw 1 of 2','+1','30-33',NULL,NULL,'2nd Quarter','MIA','DET',30.0,33.0,3.0,'2023-10-25','2023-10-26'),
 	 ('9:39.0',NULL,NULL,'30-34','+1','T. Bryant makes free throw 2 of 2','2nd Quarter','MIA','DET',30.0,34.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:05.0',NULL,NULL,'30-36','+2','D. Robinson makes 2-pt layup from 3 ft (assist by D. Smith)','2nd Quarter','MIA','DET',30.0,36.0,6.0,'2023-10-25','2023-10-26'),
 	 ('8:35.0',NULL,NULL,'30-38','+2','T. Bryant makes 2-pt jump shot from 9 ft (assist by J. Jaquez)','2nd Quarter','MIA','DET',30.0,38.0,8.0,'2023-10-25','2023-10-26'),
 	 ('8:35.0',NULL,NULL,'30-39','+1','T. Bryant makes free throw 1 of 1','2nd Quarter','MIA','DET',30.0,39.0,9.0,'2023-10-25','2023-10-26'),
@@ -2346,7 +2346,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:07.0',NULL,NULL,'35-43','+1','J. Butler makes free throw 2 of 2','2nd Quarter','MIA','DET',35.0,43.0,8.0,'2023-10-25','2023-10-26'),
 	 ('5:58.0','C. Cunningham makes 2-pt jump shot from 19 ft (assist by J. Duren)','+2','37-43',NULL,NULL,'2nd Quarter','MIA','DET',37.0,43.0,6.0,'2023-10-25','2023-10-26'),
 	 ('5:17.0','C. Cunningham makes 2-pt jump shot from 15 ft (assist by J. Ivey)','+2','39-43',NULL,NULL,'2nd Quarter','MIA','DET',39.0,43.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:58.0',NULL,NULL,'39-46','+3','D. Robinson makes 3-pt jump shot from 23 ft (assist by J. Butler)','2nd Quarter','MIA','DET',39.0,46.0,7.0,'2023-10-25','2023-10-26'),
 	 ('4:38.0','C. Cunningham makes 2-pt layup from 6 ft (assist by J. Ivey)','+2','41-46',NULL,NULL,'2nd Quarter','MIA','DET',41.0,46.0,5.0,'2023-10-25','2023-10-26'),
 	 ('4:20.0',NULL,NULL,'41-48','+2','B. Adebayo makes 2-pt jump shot from 8 ft','2nd Quarter','MIA','DET',41.0,48.0,7.0,'2023-10-25','2023-10-26'),
@@ -2357,7 +2357,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:18.0',NULL,NULL,'43-53','+1','B. Adebayo makes free throw 1 of 2','2nd Quarter','MIA','DET',43.0,53.0,10.0,'2023-10-25','2023-10-26'),
 	 ('1:32.0','C. Cunningham makes 3-pt jump shot from 26 ft (assist by A. Thompson)','+3','46-53',NULL,NULL,'2nd Quarter','MIA','DET',46.0,53.0,7.0,'2023-10-25','2023-10-26'),
 	 ('1:09.0',NULL,NULL,'46-55','+2','T. Herro makes 2-pt layup from 4 ft','2nd Quarter','MIA','DET',46.0,55.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:31.0',NULL,NULL,'46-58','+3','K. Love makes 3-pt jump shot from 26 ft (assist by J. Butler)','2nd Quarter','MIA','DET',46.0,58.0,12.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','A. Thompson makes free throw 1 of 2','+1','47-58',NULL,NULL,'2nd Quarter','MIA','DET',47.0,58.0,11.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','MIA','DET',47.0,58.0,11.0,'2023-10-25','2023-10-26'),
@@ -2368,7 +2368,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:07.0','J. Duren makes 2-pt dunk at rim (assist by A. Thompson)','+2','51-63',NULL,NULL,'3rd Quarter','MIA','DET',51.0,63.0,12.0,'2023-10-25','2023-10-26'),
 	 ('8:36.0','J. Duren makes 2-pt layup from 3 ft (assist by C. Cunningham)','+2','53-63',NULL,NULL,'3rd Quarter','MIA','DET',53.0,63.0,10.0,'2023-10-25','2023-10-26'),
 	 ('8:11.0','J. Duren makes 2-pt dunk from 1 ft (assist by A. Thompson)','+2','55-63',NULL,NULL,'3rd Quarter','MIA','DET',55.0,63.0,8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:54.0',NULL,NULL,'55-65','+2','B. Adebayo makes 2-pt jump shot from 11 ft (assist by J. Butler)','3rd Quarter','MIA','DET',55.0,65.0,10.0,'2023-10-25','2023-10-26'),
 	 ('7:23.0',NULL,NULL,'55-67','+2','T. Herro makes 2-pt jump shot from 5 ft (assist by K. Lowry)','3rd Quarter','MIA','DET',55.0,67.0,12.0,'2023-10-25','2023-10-26'),
 	 ('6:58.0',NULL,NULL,'55-70','+3','T. Herro makes 3-pt jump shot from 26 ft (assist by B. Adebayo)','3rd Quarter','MIA','DET',55.0,70.0,15.0,'2023-10-25','2023-10-26'),
@@ -2379,7 +2379,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:22.0',NULL,NULL,'60-75','+2','B. Adebayo makes 2-pt jump shot from 19 ft','3rd Quarter','MIA','DET',60.0,75.0,15.0,'2023-10-25','2023-10-26'),
 	 ('4:04.0','M. Bagley makes 2-pt layup from 3 ft (assist by C. Cunningham)','+2','62-75',NULL,NULL,'3rd Quarter','MIA','DET',62.0,75.0,13.0,'2023-10-25','2023-10-26'),
 	 ('3:53.0',NULL,NULL,'62-76','+1','B. Adebayo makes free throw 1 of 2','3rd Quarter','MIA','DET',62.0,76.0,14.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:53.0',NULL,NULL,'62-77','+1','B. Adebayo makes free throw 2 of 2','3rd Quarter','MIA','DET',62.0,77.0,15.0,'2023-10-25','2023-10-26'),
 	 ('3:34.0','M. Bagley makes 2-pt layup from 3 ft','+2','64-77',NULL,NULL,'3rd Quarter','MIA','DET',64.0,77.0,13.0,'2023-10-25','2023-10-26'),
 	 ('2:59.0','M. Bagley makes free throw 1 of 2','+1','65-77',NULL,NULL,'3rd Quarter','MIA','DET',65.0,77.0,12.0,'2023-10-25','2023-10-26'),
@@ -2390,7 +2390,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:52.0',NULL,NULL,'68-81','+2','T. Herro makes 2-pt jump shot from 16 ft (assist by T. Bryant)','3rd Quarter','MIA','DET',68.0,81.0,13.0,'2023-10-25','2023-10-26'),
 	 ('1:25.0','M. Sasser makes 2-pt jump shot from 12 ft (assist by J. Ivey)','+2','70-81',NULL,NULL,'3rd Quarter','MIA','DET',70.0,81.0,11.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0','J. Ivey makes 2-pt jump shot from 9 ft','+2','72-81',NULL,NULL,'3rd Quarter','MIA','DET',72.0,81.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:45.0','M. Sasser makes 3-pt jump shot from 25 ft','+3','75-81',NULL,NULL,'3rd Quarter','MIA','DET',75.0,81.0,6.0,'2023-10-25','2023-10-26'),
 	 ('0:31.0',NULL,NULL,'75-82','+1','T. Bryant makes free throw 1 of 2','3rd Quarter','MIA','DET',75.0,82.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:31.0',NULL,NULL,'75-83','+1','T. Bryant makes free throw 2 of 2','3rd Quarter','MIA','DET',75.0,83.0,8.0,'2023-10-25','2023-10-26'),
@@ -2401,7 +2401,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:04.0',NULL,NULL,'75-90','+2','J. Jaquez makes 2-pt jump shot from 8 ft','4th Quarter','MIA','DET',75.0,90.0,15.0,'2023-10-25','2023-10-26'),
 	 ('9:40.0',NULL,NULL,'75-92','+2','T. Bryant makes 2-pt dunk from 1 ft (assist by D. Robinson)','4th Quarter','MIA','DET',75.0,92.0,17.0,'2023-10-25','2023-10-26'),
 	 ('9:25.0',NULL,NULL,'75-94','+2','C. Martin makes 2-pt jump shot from 22 ft','4th Quarter','MIA','DET',75.0,94.0,19.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:07.0','J. Duren makes 2-pt dunk at rim (assist by C. Cunningham)','+2','77-94',NULL,NULL,'4th Quarter','MIA','DET',77.0,94.0,17.0,'2023-10-25','2023-10-26'),
 	 ('9:07.0','J. Duren makes free throw 1 of 1','+1','78-94',NULL,NULL,'4th Quarter','MIA','DET',78.0,94.0,16.0,'2023-10-25','2023-10-26'),
 	 ('8:33.0','C. Cunningham makes 2-pt jump shot from 8 ft (assist by K. Hayes)','+2','80-94',NULL,NULL,'4th Quarter','MIA','DET',80.0,94.0,14.0,'2023-10-25','2023-10-26'),
@@ -2412,7 +2412,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:04.0',NULL,NULL,'89-95','+1','J. Butler makes free throw 1 of 2','4th Quarter','MIA','DET',89.0,95.0,6.0,'2023-10-25','2023-10-26'),
 	 ('5:33.0',NULL,NULL,'89-97','+2','B. Adebayo makes 2-pt dunk at rim','4th Quarter','MIA','DET',89.0,97.0,8.0,'2023-10-25','2023-10-26'),
 	 ('5:06.0','I. Stewart makes 2-pt layup from 1 ft','+2','91-97',NULL,NULL,'4th Quarter','MIA','DET',91.0,97.0,6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:25.0','K. Hayes makes 2-pt jump shot from 13 ft','+2','93-97',NULL,NULL,'4th Quarter','MIA','DET',93.0,97.0,4.0,'2023-10-25','2023-10-26'),
 	 ('3:59.0',NULL,NULL,'93-99','+2','K. Love makes 2-pt layup from 2 ft (assist by J. Butler)','4th Quarter','MIA','DET',93.0,99.0,6.0,'2023-10-25','2023-10-26'),
 	 ('3:32.0',NULL,NULL,'93-100','+1','J. Butler makes free throw 1 of 2','4th Quarter','MIA','DET',93.0,100.0,7.0,'2023-10-25','2023-10-26'),
@@ -2423,7 +2423,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:01.0','J. Duren makes 2-pt dunk from 1 ft (assist by C. Cunningham)','+2','99-103',NULL,NULL,'4th Quarter','MIA','DET',99.0,103.0,4.0,'2023-10-25','2023-10-26'),
 	 ('1:44.0','C. Cunningham makes 3-pt jump shot from 25 ft (assist by I. Stewart)','+3','102-103',NULL,NULL,'4th Quarter','MIA','DET',102.0,103.0,1.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','MIA','DET',102.0,103.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Jump ball: D. Gafford vs. M. Turner (O. Toppin gains possession)','Jump ball: D. Gafford vs. M. Turner (O. Toppin gains possession)','Jump ball: D. Gafford vs. M. Turner (O. Toppin gains possession)','Jump ball: D. Gafford vs. M. Turner (O. Toppin gains possession)','Jump ball: D. Gafford vs. M. Turner (O. Toppin gains possession)','1st Quarter','IND','WAS',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:36.0','D. Gafford makes 2-pt dunk at rim','+2','2-0',NULL,NULL,'1st Quarter','IND','WAS',2.0,0.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('11:29.0',NULL,NULL,'2-2','+2','T. Haliburton makes 2-pt jump shot from 17 ft','1st Quarter','IND','WAS',2.0,2.0,0.0,'2023-10-25','2023-10-26'),
@@ -2434,7 +2434,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:58.0','D. Avdija makes 2-pt layup from 1 ft','+2','10-4',NULL,NULL,'1st Quarter','IND','WAS',10.0,4.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('8:29.0','J. Poole makes 2-pt jump shot from 6 ft (assist by T. Jones)','+2','12-4',NULL,NULL,'1st Quarter','IND','WAS',12.0,4.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('7:57.0',NULL,NULL,'12-7','+3','B. Brown makes 3-pt jump shot from 22 ft (assist by T. Haliburton)','1st Quarter','IND','WAS',12.0,7.0,-5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:18.0','T. Jones makes 2-pt jump shot from 11 ft (assist by J. Poole)','+2','14-7',NULL,NULL,'1st Quarter','IND','WAS',14.0,7.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('7:00.0',NULL,NULL,'14-10','+3','T. Haliburton makes 3-pt jump shot from 25 ft','1st Quarter','IND','WAS',14.0,10.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('6:50.0','K. Kuzma makes 2-pt layup from 1 ft','+2','16-10',NULL,NULL,'1st Quarter','IND','WAS',16.0,10.0,-6.0,'2023-10-25','2023-10-26'),
@@ -2445,7 +2445,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:28.0','K. Kuzma makes free throw 1 of 1','+1','19-16',NULL,NULL,'1st Quarter','IND','WAS',19.0,16.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('5:06.0','D. Gallinari makes 3-pt jump shot from 27 ft (assist by D. Wright)','+3','22-16',NULL,NULL,'1st Quarter','IND','WAS',22.0,16.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('4:37.0','D. Gallinari makes 2-pt dunk from 3 ft (assist by J. Poole)','+2','24-16',NULL,NULL,'1st Quarter','IND','WAS',24.0,16.0,-8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:31.0',NULL,NULL,'24-18','+2','J. Smith makes 2-pt dunk from 1 ft (assist by T. Haliburton)','1st Quarter','IND','WAS',24.0,18.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('4:31.0',NULL,NULL,'24-19','+1','J. Smith makes free throw 1 of 1','1st Quarter','IND','WAS',24.0,19.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('3:35.0','J. Poole makes 2-pt layup from 1 ft','+2','26-19',NULL,NULL,'1st Quarter','IND','WAS',26.0,19.0,-7.0,'2023-10-25','2023-10-26'),
@@ -2456,7 +2456,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:38.0',NULL,NULL,'31-27','+2','A. Nembhard makes 2-pt layup from 2 ft','1st Quarter','IND','WAS',31.0,27.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('1:30.0','T. Jones makes 3-pt jump shot from 27 ft (assist by D. Wright)','+3','34-27',NULL,NULL,'1st Quarter','IND','WAS',34.0,27.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('1:10.0',NULL,NULL,'34-29','+2','J. Smith makes 2-pt dunk from 1 ft (assist by B. Hield)','1st Quarter','IND','WAS',34.0,29.0,-5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:52.0','T. Jones makes 2-pt jump shot from 12 ft (assist by B. Coulibaly)','+2','36-29',NULL,NULL,'1st Quarter','IND','WAS',36.0,29.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('0:46.0',NULL,NULL,'36-32','+3','J. Smith makes 3-pt jump shot from 26 ft (assist by A. Nembhard)','1st Quarter','IND','WAS',36.0,32.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:38.0','T. Jones makes 3-pt jump shot from 28 ft','+3','39-32',NULL,NULL,'1st Quarter','IND','WAS',39.0,32.0,-7.0,'2023-10-25','2023-10-26'),
@@ -2467,7 +2467,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:15.0','D. Wright makes 3-pt jump shot from 22 ft (assist by T. Jones)','+3','42-37',NULL,NULL,'2nd Quarter','IND','WAS',42.0,37.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('10:01.0',NULL,NULL,'42-40','+3','B. Brown makes 3-pt jump shot from 23 ft (assist by A. Nembhard)','2nd Quarter','IND','WAS',42.0,40.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('9:47.0','T. Jones makes 2-pt jump shot from 13 ft','+2','44-40',NULL,NULL,'2nd Quarter','IND','WAS',44.0,40.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:37.0',NULL,NULL,'44-42','+2','A. Nembhard makes 2-pt jump shot from 9 ft','2nd Quarter','IND','WAS',44.0,42.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('8:01.0',NULL,NULL,'44-44','+2','M. Turner makes 2-pt layup from 1 ft (assist by A. Nembhard)','2nd Quarter','IND','WAS',44.0,44.0,0.0,'2023-10-25','2023-10-26'),
 	 ('7:32.0',NULL,NULL,'44-46','+2','M. Turner makes 2-pt layup from 2 ft','2nd Quarter','IND','WAS',44.0,46.0,2.0,'2023-10-25','2023-10-26'),
@@ -2478,7 +2478,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:52.0',NULL,NULL,'49-53','+3','B. Mathurin makes 3-pt jump shot from 25 ft (assist by B. Hield)','2nd Quarter','IND','WAS',49.0,53.0,4.0,'2023-10-25','2023-10-26'),
 	 ('4:49.0','K. Kuzma makes free throw 1 of 2','+1','50-53',NULL,NULL,'2nd Quarter','IND','WAS',50.0,53.0,3.0,'2023-10-25','2023-10-26'),
 	 ('4:49.0','K. Kuzma makes free throw 2 of 2','+1','51-53',NULL,NULL,'2nd Quarter','IND','WAS',51.0,53.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:39.0',NULL,NULL,'51-54','+1','B. Mathurin makes free throw 1 of 2','2nd Quarter','IND','WAS',51.0,54.0,3.0,'2023-10-25','2023-10-26'),
 	 ('4:39.0',NULL,NULL,'51-55','+1','B. Mathurin makes free throw 2 of 2','2nd Quarter','IND','WAS',51.0,55.0,4.0,'2023-10-25','2023-10-26'),
 	 ('4:22.0',NULL,NULL,'51-57','+2','B. Mathurin makes 2-pt layup from 2 ft (assist by B. Brown)','2nd Quarter','IND','WAS',51.0,57.0,6.0,'2023-10-25','2023-10-26'),
@@ -2489,7 +2489,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:10.0','J. Poole makes 2-pt layup from 2 ft (assist by T. Jones)','+2','56-62',NULL,NULL,'2nd Quarter','IND','WAS',56.0,62.0,6.0,'2023-10-25','2023-10-26'),
 	 ('3:10.0','J. Poole makes free throw 1 of 1','+1','57-62',NULL,NULL,'2nd Quarter','IND','WAS',57.0,62.0,5.0,'2023-10-25','2023-10-26'),
 	 ('2:46.0','K. Kuzma makes 2-pt layup from 1 ft (assist by D. Avdija)','+2','59-62',NULL,NULL,'2nd Quarter','IND','WAS',59.0,62.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:34.0',NULL,NULL,'59-64','+2','B. Hield makes 2-pt layup from 1 ft (assist by B. Mathurin)','2nd Quarter','IND','WAS',59.0,64.0,5.0,'2023-10-25','2023-10-26'),
 	 ('1:59.0','K. Kuzma makes 2-pt layup from 2 ft','+2','61-64',NULL,NULL,'2nd Quarter','IND','WAS',61.0,64.0,3.0,'2023-10-25','2023-10-26'),
 	 ('1:53.0',NULL,NULL,'61-67','+3','B. Hield makes 3-pt jump shot from 26 ft (assist by T. Haliburton)','2nd Quarter','IND','WAS',61.0,67.0,6.0,'2023-10-25','2023-10-26'),
@@ -2500,7 +2500,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:27.0',NULL,NULL,'65-72','+1','B. Mathurin makes free throw 1 of 2','2nd Quarter','IND','WAS',65.0,72.0,7.0,'2023-10-25','2023-10-26'),
 	 ('0:27.0',NULL,NULL,'65-73','+1','B. Mathurin makes free throw 2 of 2','2nd Quarter','IND','WAS',65.0,73.0,8.0,'2023-10-25','2023-10-26'),
 	 ('0:06.0','K. Kuzma makes 3-pt jump shot from 29 ft (assist by T. Jones)','+3','68-73',NULL,NULL,'2nd Quarter','IND','WAS',68.0,73.0,5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','IND','WAS',68.0,73.0,5.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','IND','WAS',68.0,73.0,5.0,'2023-10-25','2023-10-26'),
 	 ('11:25.0',NULL,NULL,'68-75','+2','T. Haliburton makes 2-pt layup from 1 ft (assist by M. Turner)','3rd Quarter','IND','WAS',68.0,75.0,7.0,'2023-10-25','2023-10-26'),
@@ -2511,7 +2511,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:24.0','D. Avdija makes 2-pt layup at rim','+2','72-80',NULL,NULL,'3rd Quarter','IND','WAS',72.0,80.0,8.0,'2023-10-25','2023-10-26'),
 	 ('10:11.0',NULL,NULL,'72-82','+2','O. Toppin makes 2-pt dunk from 1 ft (assist by T. Haliburton)','3rd Quarter','IND','WAS',72.0,82.0,10.0,'2023-10-25','2023-10-26'),
 	 ('9:50.0',NULL,NULL,'72-84','+2','T. Haliburton makes 2-pt jump shot from 13 ft','3rd Quarter','IND','WAS',72.0,84.0,12.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:43.0',NULL,NULL,'72-86','+2','T. Haliburton makes 2-pt jump shot from 5 ft (assist by B. Mathurin)','3rd Quarter','IND','WAS',72.0,86.0,14.0,'2023-10-25','2023-10-26'),
 	 ('8:04.0',NULL,NULL,'72-89','+3','T. Haliburton makes 3-pt jump shot from 25 ft (assist by O. Toppin)','3rd Quarter','IND','WAS',72.0,89.0,17.0,'2023-10-25','2023-10-26'),
 	 ('7:49.0','J. Poole makes free throw 2 of 2','+1','73-89',NULL,NULL,'3rd Quarter','IND','WAS',73.0,89.0,16.0,'2023-10-25','2023-10-26'),
@@ -2522,7 +2522,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:04.0',NULL,NULL,'79-93','+2','J. Smith makes 2-pt layup at rim','3rd Quarter','IND','WAS',79.0,93.0,14.0,'2023-10-25','2023-10-26'),
 	 ('5:48.0',NULL,NULL,'79-94','+1','B. Brown makes free throw 1 of 2','3rd Quarter','IND','WAS',79.0,94.0,15.0,'2023-10-25','2023-10-26'),
 	 ('5:48.0',NULL,NULL,'79-95','+1','B. Brown makes free throw 2 of 2','3rd Quarter','IND','WAS',79.0,95.0,16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:34.0','K. Kuzma makes free throw 1 of 2','+1','80-95',NULL,NULL,'3rd Quarter','IND','WAS',80.0,95.0,15.0,'2023-10-25','2023-10-26'),
 	 ('5:34.0','K. Kuzma makes free throw 2 of 2','+1','81-95',NULL,NULL,'3rd Quarter','IND','WAS',81.0,95.0,14.0,'2023-10-25','2023-10-26'),
 	 ('5:21.0',NULL,NULL,'81-97','+2','T. Haliburton makes 2-pt jump shot from 21 ft','3rd Quarter','IND','WAS',81.0,97.0,16.0,'2023-10-25','2023-10-26'),
@@ -2533,7 +2533,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:04.0','K. Kuzma makes 2-pt layup at rim','+2','88-99',NULL,NULL,'3rd Quarter','IND','WAS',88.0,99.0,11.0,'2023-10-25','2023-10-26'),
 	 ('3:57.0',NULL,NULL,'88-101','+2','I. Jackson makes 2-pt dunk from 2 ft (assist by B. Hield)','3rd Quarter','IND','WAS',88.0,101.0,13.0,'2023-10-25','2023-10-26'),
 	 ('3:37.0',NULL,NULL,'88-104','+3','B. Brown makes 3-pt jump shot from 23 ft (assist by B. Hield)','3rd Quarter','IND','WAS',88.0,104.0,16.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:57.0','C. Kispert makes 2-pt layup from 1 ft','+2','90-104',NULL,NULL,'3rd Quarter','IND','WAS',90.0,104.0,14.0,'2023-10-25','2023-10-26'),
 	 ('2:38.0',NULL,NULL,'90-106','+2','A. Nesmith makes 2-pt layup from 1 ft','3rd Quarter','IND','WAS',90.0,106.0,16.0,'2023-10-25','2023-10-26'),
 	 ('2:08.0',NULL,NULL,'90-107','+1','A. Nesmith makes free throw 1 of 2','3rd Quarter','IND','WAS',90.0,107.0,17.0,'2023-10-25','2023-10-26'),
@@ -2544,7 +2544,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:49.0','D. Gallinari makes free throw 2 of 2','+1','94-110',NULL,NULL,'3rd Quarter','IND','WAS',94.0,110.0,16.0,'2023-10-25','2023-10-26'),
 	 ('0:34.0','D. Gallinari makes free throw 1 of 2','+1','95-110',NULL,NULL,'3rd Quarter','IND','WAS',95.0,110.0,15.0,'2023-10-25','2023-10-26'),
 	 ('0:34.0','D. Gallinari makes free throw 2 of 2','+1','96-110',NULL,NULL,'3rd Quarter','IND','WAS',96.0,110.0,14.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','IND','WAS',96.0,110.0,14.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','IND','WAS',96.0,110.0,14.0,'2023-10-25','2023-10-26'),
 	 ('11:47.0',NULL,NULL,'96-113','+3','B. Hield makes 3-pt jump shot from 27 ft','4th Quarter','IND','WAS',96.0,113.0,17.0,'2023-10-25','2023-10-26'),
@@ -2555,7 +2555,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:37.0','D. Wright makes 2-pt layup from 3 ft','+2','100-117',NULL,NULL,'4th Quarter','IND','WAS',100.0,117.0,17.0,'2023-10-25','2023-10-26'),
 	 ('10:26.0',NULL,NULL,'100-119','+2','M. Turner makes 2-pt layup from 1 ft (assist by A. Nembhard)','4th Quarter','IND','WAS',100.0,119.0,19.0,'2023-10-25','2023-10-26'),
 	 ('10:16.0','D. Wright makes 2-pt layup at rim','+2','102-119',NULL,NULL,'4th Quarter','IND','WAS',102.0,119.0,17.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:16.0','D. Wright makes free throw 1 of 1','+1','103-119',NULL,NULL,'4th Quarter','IND','WAS',103.0,119.0,16.0,'2023-10-25','2023-10-26'),
 	 ('9:57.0',NULL,NULL,'103-122','+3','A. Nesmith makes 3-pt jump shot from 24 ft (assist by B. Mathurin)','4th Quarter','IND','WAS',103.0,122.0,19.0,'2023-10-25','2023-10-26'),
 	 ('9:34.0',NULL,NULL,'103-125','+3','B. Brown makes 3-pt jump shot from 27 ft (assist by A. Nembhard)','4th Quarter','IND','WAS',103.0,125.0,22.0,'2023-10-25','2023-10-26'),
@@ -2566,7 +2566,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:13.0',NULL,NULL,'107-130','+2','B. Brown makes 2-pt jump shot from 6 ft (assist by T. Haliburton)','4th Quarter','IND','WAS',107.0,130.0,23.0,'2023-10-25','2023-10-26'),
 	 ('6:49.0','C. Kispert makes 3-pt jump shot from 23 ft (assist by B. Coulibaly)','+3','110-130',NULL,NULL,'4th Quarter','IND','WAS',110.0,130.0,20.0,'2023-10-25','2023-10-26'),
 	 ('6:22.0',NULL,NULL,'110-132','+2','M. Turner makes 2-pt layup from 1 ft (assist by T. Haliburton)','4th Quarter','IND','WAS',110.0,132.0,22.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:41.0','C. Kispert makes free throw 1 of 2','+1','111-132',NULL,NULL,'4th Quarter','IND','WAS',111.0,132.0,21.0,'2023-10-25','2023-10-26'),
 	 ('5:41.0','C. Kispert makes free throw 2 of 2','+1','112-132',NULL,NULL,'4th Quarter','IND','WAS',112.0,132.0,20.0,'2023-10-25','2023-10-26'),
 	 ('5:13.0',NULL,NULL,'112-135','+3','J. Nwora makes 3-pt jump shot from 28 ft (assist by T. McConnell)','4th Quarter','IND','WAS',112.0,135.0,23.0,'2023-10-25','2023-10-26'),
@@ -2577,7 +2577,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:01.0','J. Butler makes 3-pt jump shot from 28 ft (assist by E. Omoruyi)','+3','119-139',NULL,NULL,'4th Quarter','IND','WAS',119.0,139.0,20.0,'2023-10-25','2023-10-26'),
 	 ('1:46.0',NULL,NULL,'119-141','+2','T. McConnell makes 2-pt jump shot from 13 ft','4th Quarter','IND','WAS',119.0,141.0,22.0,'2023-10-25','2023-10-26'),
 	 ('1:30.0','R. Rollins makes free throw 1 of 2','+1','120-141',NULL,NULL,'4th Quarter','IND','WAS',120.0,141.0,21.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:22.0',NULL,NULL,'120-143','+2','I. Jackson makes 2-pt dunk from 1 ft (assist by J. Nwora)','4th Quarter','IND','WAS',120.0,143.0,23.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','IND','WAS',120.0,143.0,23.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: K. Porziņģis vs. M. Robinson (D. White gains possession)','Jump ball: K. Porziņģis vs. M. Robinson (D. White gains possession)','Jump ball: K. Porziņģis vs. M. Robinson (D. White gains possession)','Jump ball: K. Porziņģis vs. M. Robinson (D. White gains possession)','Jump ball: K. Porziņģis vs. M. Robinson (D. White gains possession)','1st Quarter','NYK','BOS',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
@@ -2588,7 +2588,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:20.0',NULL,NULL,'4-4','+2','R. Barrett makes 2-pt dunk from 1 ft (assist by J. Brunson)','1st Quarter','NYK','BOS',4.0,4.0,0.0,'2023-10-25','2023-10-26'),
 	 ('8:07.0','K. Porziņģis makes 2-pt dunk from 1 ft (assist by J. Brown)','+2','6-4',NULL,NULL,'1st Quarter','NYK','BOS',6.0,4.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('7:19.0','J. Tatum makes 3-pt jump shot from 25 ft','+3','9-4',NULL,NULL,'1st Quarter','NYK','BOS',9.0,4.0,-5.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:57.0',NULL,NULL,'9-5','+1','R. Barrett makes free throw 2 of 3','1st Quarter','NYK','BOS',9.0,5.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('6:57.0',NULL,NULL,'9-6','+1','R. Barrett makes free throw 3 of 3','1st Quarter','NYK','BOS',9.0,6.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('6:37.0','J. Tatum makes 2-pt jump shot from 16 ft','+2','11-6',NULL,NULL,'1st Quarter','NYK','BOS',11.0,6.0,-5.0,'2023-10-25','2023-10-26'),
@@ -2599,7 +2599,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:57.0','J. Holiday makes 3-pt jump shot from 25 ft','+3','19-11',NULL,NULL,'1st Quarter','NYK','BOS',19.0,11.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('3:39.0',NULL,NULL,'19-13','+2','I. Quickley makes 2-pt jump shot from 16 ft (assist by J. Brunson)','1st Quarter','NYK','BOS',19.0,13.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('3:19.0','K. Porziņģis makes free throw 1 of 2','+1','20-13',NULL,NULL,'1st Quarter','NYK','BOS',20.0,13.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:19.0','K. Porziņģis makes free throw 2 of 2','+1','21-13',NULL,NULL,'1st Quarter','NYK','BOS',21.0,13.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('3:00.0','J. Tatum makes 3-pt jump shot from 23 ft','+3','24-13',NULL,NULL,'1st Quarter','NYK','BOS',24.0,13.0,-11.0,'2023-10-25','2023-10-26'),
 	 ('2:17.0',NULL,NULL,'24-15','+2','R. Barrett makes 2-pt jump shot from 10 ft (assist by I. Quickley)','1st Quarter','NYK','BOS',24.0,15.0,-9.0,'2023-10-25','2023-10-26'),
@@ -2610,7 +2610,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','NYK','BOS',30.0,18.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('11:46.0',NULL,NULL,'30-21','+3','I. Quickley makes 3-pt jump shot from 27 ft','2nd Quarter','NYK','BOS',30.0,21.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('11:29.0','D. White makes 3-pt jump shot from 26 ft (assist by L. Kornet)','+3','33-21',NULL,NULL,'2nd Quarter','NYK','BOS',33.0,21.0,-12.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:16.0',NULL,NULL,'33-23','+2','R. Barrett makes 2-pt jump shot from 6 ft (assist by I. Quickley)','2nd Quarter','NYK','BOS',33.0,23.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('11:16.0',NULL,NULL,'33-24','+1','R. Barrett makes free throw 1 of 1','2nd Quarter','NYK','BOS',33.0,24.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('10:52.0','J. Brown makes 2-pt jump shot from 12 ft','+2','35-24',NULL,NULL,'2nd Quarter','NYK','BOS',35.0,24.0,-11.0,'2023-10-25','2023-10-26'),
@@ -2621,7 +2621,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:05.0','J. Tatum makes 3-pt jump shot from 25 ft','+3','40-28',NULL,NULL,'2nd Quarter','NYK','BOS',40.0,28.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('6:42.0',NULL,NULL,'40-31','+3','I. Quickley makes 3-pt jump shot from 25 ft (assist by M. Robinson)','2nd Quarter','NYK','BOS',40.0,31.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('6:06.0',NULL,NULL,'40-33','+2','J. Brunson makes 2-pt jump shot from 18 ft (assist by J. Randle)','2nd Quarter','NYK','BOS',40.0,33.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:47.0',NULL,NULL,'40-36','+3','R. Barrett makes 3-pt jump shot from 25 ft (assist by I. Quickley)','2nd Quarter','NYK','BOS',40.0,36.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('5:25.0','J. Holiday makes 2-pt jump shot from 16 ft','+2','42-36',NULL,NULL,'2nd Quarter','NYK','BOS',42.0,36.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('3:54.0','J. Brown makes free throw 2 of 2','+1','43-36',NULL,NULL,'2nd Quarter','NYK','BOS',43.0,36.0,-7.0,'2023-10-25','2023-10-26'),
@@ -2632,7 +2632,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:20.0',NULL,NULL,'49-42','+3','J. Brunson makes 3-pt jump shot from 25 ft','2nd Quarter','NYK','BOS',49.0,42.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('0:36.0',NULL,NULL,'49-44','+2','Q. Grimes makes 2-pt layup from 2 ft (assist by J. Brunson)','2nd Quarter','NYK','BOS',49.0,44.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('0:24.0','J. Tatum makes 2-pt dunk from 1 ft (assist by A. Horford)','+2','51-44',NULL,NULL,'2nd Quarter','NYK','BOS',51.0,44.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:01.0',NULL,NULL,'51-46','+2','I. Hartenstein makes 2-pt layup at rim','2nd Quarter','NYK','BOS',51.0,46.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','NYK','BOS',51.0,46.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','NYK','BOS',51.0,46.0,-5.0,'2023-10-25','2023-10-26'),
@@ -2643,7 +2643,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:19.0','J. Tatum makes 2-pt dunk from 1 ft (assist by D. White)','+2','58-48',NULL,NULL,'3rd Quarter','NYK','BOS',58.0,48.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('10:04.0',NULL,NULL,'58-50','+2','J. Brunson makes 2-pt jump shot from 16 ft','3rd Quarter','NYK','BOS',58.0,50.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('8:21.0','J. Tatum makes 2-pt dunk at rim (assist by J. Brown)','+2','60-50',NULL,NULL,'3rd Quarter','NYK','BOS',60.0,50.0,-10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:44.0','J. Brown makes 2-pt dunk at rim','+2','62-50',NULL,NULL,'3rd Quarter','NYK','BOS',62.0,50.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('7:24.0',NULL,NULL,'62-53','+3','J. Brunson makes 3-pt jump shot from 23 ft (assist by R. Barrett)','3rd Quarter','NYK','BOS',62.0,53.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('6:57.0','D. White makes 2-pt layup from 1 ft (assist by J. Holiday)','+2','64-53',NULL,NULL,'3rd Quarter','NYK','BOS',64.0,53.0,-11.0,'2023-10-25','2023-10-26'),
@@ -2654,7 +2654,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:38.0','J. Brown makes free throw 1 of 2','+1','65-63',NULL,NULL,'3rd Quarter','NYK','BOS',65.0,63.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('5:38.0','J. Brown makes free throw 2 of 2','+1','66-63',NULL,NULL,'3rd Quarter','NYK','BOS',66.0,63.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('5:19.0',NULL,NULL,'66-66','+3','J. Brunson makes 3-pt jump shot from 27 ft (assist by J. Randle)','3rd Quarter','NYK','BOS',66.0,66.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:32.0','D. White makes free throw 2 of 2','+1','67-66',NULL,NULL,'3rd Quarter','NYK','BOS',67.0,66.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('4:05.0','K. Porziņģis makes free throw 2 of 2','+1','68-66',NULL,NULL,'3rd Quarter','NYK','BOS',68.0,66.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('3:45.0','A. Horford makes 3-pt jump shot from 25 ft (assist by J. Brown)','+3','71-66',NULL,NULL,'3rd Quarter','NYK','BOS',71.0,66.0,-5.0,'2023-10-25','2023-10-26'),
@@ -2665,7 +2665,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:51.0','D. White makes 2-pt layup from 2 ft','+2','78-68',NULL,NULL,'3rd Quarter','NYK','BOS',78.0,68.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('1:26.0',NULL,NULL,'78-69','+1','J. Hart makes free throw 2 of 2','3rd Quarter','NYK','BOS',78.0,69.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('0:49.0',NULL,NULL,'78-72','+3','I. Quickley makes 3-pt jump shot from 25 ft','3rd Quarter','NYK','BOS',78.0,72.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:30.0','J. Brown makes 2-pt jump shot from 3 ft','+2','80-72',NULL,NULL,'3rd Quarter','NYK','BOS',80.0,72.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('0:12.0',NULL,NULL,'80-73','+1','I. Quickley makes free throw 2 of 2','3rd Quarter','NYK','BOS',80.0,73.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','K. Porziņģis makes 2-pt layup from 2 ft','+2','82-73',NULL,NULL,'3rd Quarter','NYK','BOS',82.0,73.0,-9.0,'2023-10-25','2023-10-26'),
@@ -2676,7 +2676,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:59.0',NULL,NULL,'82-77','+1','R. Barrett makes free throw 2 of 2','4th Quarter','NYK','BOS',82.0,77.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('10:20.0',NULL,NULL,'82-80','+3','R. Barrett makes 3-pt jump shot from 25 ft (assist by I. Quickley)','4th Quarter','NYK','BOS',82.0,80.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('10:08.0','P. Pritchard makes 2-pt jump shot from 12 ft','+2','84-80',NULL,NULL,'4th Quarter','NYK','BOS',84.0,80.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:51.0',NULL,NULL,'84-83','+3','I. Quickley makes 3-pt jump shot from 25 ft','4th Quarter','NYK','BOS',84.0,83.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:15.0','Jump ball: P. Pritchard vs. D. DiVincenzo (A. Horford gains possession)','Jump ball: P. Pritchard vs. D. DiVincenzo (A. Horford gains possession)','Jump ball: P. Pritchard vs. D. DiVincenzo (A. Horford gains possession)','Jump ball: P. Pritchard vs. D. DiVincenzo (A. Horford gains possession)','Jump ball: P. Pritchard vs. D. DiVincenzo (A. Horford gains possession)','4th Quarter','NYK','BOS',84.0,83.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('8:56.0',NULL,NULL,'84-86','+3','J. Hart makes 3-pt jump shot from 24 ft (assist by D. DiVincenzo)','4th Quarter','NYK','BOS',84.0,86.0,2.0,'2023-10-25','2023-10-26'),
@@ -2687,7 +2687,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:40.0','J. Tatum makes free throw 1 of 2','+1','88-88',NULL,NULL,'4th Quarter','NYK','BOS',88.0,88.0,0.0,'2023-10-25','2023-10-26'),
 	 ('6:12.0',NULL,NULL,'88-90','+2','I. Quickley makes 2-pt jump shot from 13 ft (assist by J. Randle)','4th Quarter','NYK','BOS',88.0,90.0,2.0,'2023-10-25','2023-10-26'),
 	 ('5:48.0','K. Porziņģis makes 3-pt jump shot from 27 ft (assist by J. Brown)','+3','91-90',NULL,NULL,'4th Quarter','NYK','BOS',91.0,90.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:28.0',NULL,NULL,'91-93','+3','I. Quickley makes 3-pt jump shot from 25 ft','4th Quarter','NYK','BOS',91.0,93.0,2.0,'2023-10-25','2023-10-26'),
 	 ('5:11.0','J. Tatum makes free throw 1 of 2','+1','92-93',NULL,NULL,'4th Quarter','NYK','BOS',92.0,93.0,1.0,'2023-10-25','2023-10-26'),
 	 ('5:11.0','J. Tatum makes free throw 2 of 2','+1','93-93',NULL,NULL,'4th Quarter','NYK','BOS',93.0,93.0,0.0,'2023-10-25','2023-10-26'),
@@ -2698,7 +2698,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:56.0','D. White makes free throw 2 of 2','+1','95-99',NULL,NULL,'4th Quarter','NYK','BOS',95.0,99.0,4.0,'2023-10-25','2023-10-26'),
 	 ('3:39.0',NULL,NULL,'95-101','+2','J. Brunson makes 2-pt jump shot from 3 ft','4th Quarter','NYK','BOS',95.0,101.0,6.0,'2023-10-25','2023-10-26'),
 	 ('3:13.0','J. Holiday makes 2-pt layup from 1 ft (assist by J. Tatum)','+2','97-101',NULL,NULL,'4th Quarter','NYK','BOS',97.0,101.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:34.0','K. Porziņģis makes free throw 1 of 2','+1','98-101',NULL,NULL,'4th Quarter','NYK','BOS',98.0,101.0,3.0,'2023-10-25','2023-10-26'),
 	 ('2:34.0','K. Porziņģis makes free throw 2 of 2','+1','99-101',NULL,NULL,'4th Quarter','NYK','BOS',99.0,101.0,2.0,'2023-10-25','2023-10-26'),
 	 ('2:03.0','K. Porziņģis makes free throw 1 of 2','+1','100-101',NULL,NULL,'4th Quarter','NYK','BOS',100.0,101.0,1.0,'2023-10-25','2023-10-26'),
@@ -2709,7 +2709,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:29.0','K. Porziņģis makes free throw 2 of 2','+1','106-102',NULL,NULL,'4th Quarter','NYK','BOS',106.0,102.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:17.0',NULL,NULL,'106-104','+2','I. Hartenstein makes 2-pt layup at rim','4th Quarter','NYK','BOS',106.0,104.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('0:10.0','P. Pritchard makes free throw 1 of 2','+1','107-104',NULL,NULL,'4th Quarter','NYK','BOS',107.0,104.0,-3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:10.0','P. Pritchard makes free throw 2 of 2','+1','108-104',NULL,NULL,'4th Quarter','NYK','BOS',108.0,104.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','NYK','BOS',108.0,104.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Jump ball: D. Ayton vs. I. Zubac (M. Thybulle gains possession)','Jump ball: D. Ayton vs. I. Zubac (M. Thybulle gains possession)','Jump ball: D. Ayton vs. I. Zubac (M. Thybulle gains possession)','Jump ball: D. Ayton vs. I. Zubac (M. Thybulle gains possession)','Jump ball: D. Ayton vs. I. Zubac (M. Thybulle gains possession)','1st Quarter','LAC','POR',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
@@ -2720,7 +2720,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:54.0',NULL,NULL,'4-6','+2','P. George makes 2-pt dunk from 1 ft (assist by R. Westbrook)','1st Quarter','LAC','POR',4.0,6.0,2.0,'2023-10-25','2023-10-26'),
 	 ('8:00.0',NULL,NULL,'4-9','+3','K. Leonard makes 3-pt jump shot from 24 ft (assist by R. Westbrook)','1st Quarter','LAC','POR',4.0,9.0,5.0,'2023-10-25','2023-10-26'),
 	 ('7:17.0',NULL,NULL,'4-11','+2','I. Zubac makes 2-pt dunk from 1 ft (assist by R. Westbrook)','1st Quarter','LAC','POR',4.0,11.0,7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:02.0',NULL,NULL,'4-13','+2','R. Westbrook makes 2-pt dunk from 1 ft (assist by P. George)','1st Quarter','LAC','POR',4.0,13.0,9.0,'2023-10-25','2023-10-26'),
 	 ('6:42.0','J. Grant makes 2-pt jump shot from 19 ft (assist by S. Sharpe)','+2','6-13',NULL,NULL,'1st Quarter','LAC','POR',6.0,13.0,7.0,'2023-10-25','2023-10-26'),
 	 ('6:04.0',NULL,NULL,'6-15','+2','R. Covington makes 2-pt dunk from 1 ft (assist by K. Leonard)','1st Quarter','LAC','POR',6.0,15.0,9.0,'2023-10-25','2023-10-26'),
@@ -2731,7 +2731,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:07.0','S. Sharpe makes 2-pt dunk at rim','+2','10-19',NULL,NULL,'1st Quarter','LAC','POR',10.0,19.0,9.0,'2023-10-25','2023-10-26'),
 	 ('3:16.0',NULL,NULL,'10-20','+1','N. Powell makes free throw 1 of 2','1st Quarter','LAC','POR',10.0,20.0,10.0,'2023-10-25','2023-10-26'),
 	 ('3:16.0',NULL,NULL,'10-21','+1','N. Powell makes free throw 2 of 2','1st Quarter','LAC','POR',10.0,21.0,11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:37.0','S. Sharpe makes 2-pt layup at rim','+2','12-21',NULL,NULL,'1st Quarter','LAC','POR',12.0,21.0,9.0,'2023-10-25','2023-10-26'),
 	 ('2:09.0',NULL,NULL,'12-24','+3','N. Powell makes 3-pt jump shot from 27 ft (assist by N. Batum)','1st Quarter','LAC','POR',12.0,24.0,12.0,'2023-10-25','2023-10-26'),
 	 ('1:57.0','M. Brogdon makes 2-pt jump shot from 15 ft','+2','14-24',NULL,NULL,'1st Quarter','LAC','POR',14.0,24.0,10.0,'2023-10-25','2023-10-26'),
@@ -2742,7 +2742,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:01.0',NULL,NULL,'20-29','+3','B. Hyland makes 3-pt jump shot from 25 ft','1st Quarter','LAC','POR',20.0,29.0,9.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','LAC','POR',20.0,29.0,9.0,'2023-10-25','2023-10-26'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','LAC','POR',20.0,29.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:24.0','D. Ayton makes 2-pt jump shot from 7 ft (assist by M. Brogdon)','+2','22-29',NULL,NULL,'2nd Quarter','LAC','POR',22.0,29.0,7.0,'2023-10-25','2023-10-26'),
 	 ('11:11.0',NULL,NULL,'22-32','+3','R. Westbrook makes 3-pt jump shot from 28 ft (assist by N. Powell)','2nd Quarter','LAC','POR',22.0,32.0,10.0,'2023-10-25','2023-10-26'),
 	 ('10:51.0',NULL,NULL,'22-34','+2','R. Westbrook makes 2-pt dunk from 1 ft (assist by B. Hyland)','2nd Quarter','LAC','POR',22.0,34.0,12.0,'2023-10-25','2023-10-26'),
@@ -2753,7 +2753,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:24.0','S. Sharpe makes 2-pt jump shot from 13 ft','+2','29-38',NULL,NULL,'2nd Quarter','LAC','POR',29.0,38.0,9.0,'2023-10-25','2023-10-26'),
 	 ('9:05.0',NULL,NULL,'29-40','+2','M. Plumlee makes 2-pt layup from 2 ft (assist by B. Hyland)','2nd Quarter','LAC','POR',29.0,40.0,11.0,'2023-10-25','2023-10-26'),
 	 ('8:51.0','R. Williams makes 2-pt dunk from 3 ft (assist by A. Simons)','+2','31-40',NULL,NULL,'2nd Quarter','LAC','POR',31.0,40.0,9.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:28.0','A. Simons makes free throw 1 of 2','+1','32-40',NULL,NULL,'2nd Quarter','LAC','POR',32.0,40.0,8.0,'2023-10-25','2023-10-26'),
 	 ('8:28.0','A. Simons makes free throw 2 of 2','+1','33-40',NULL,NULL,'2nd Quarter','LAC','POR',33.0,40.0,7.0,'2023-10-25','2023-10-26'),
 	 ('8:13.0',NULL,NULL,'33-42','+2','P. George makes 2-pt layup from 4 ft (assist by M. Plumlee)','2nd Quarter','LAC','POR',33.0,42.0,9.0,'2023-10-25','2023-10-26'),
@@ -2764,7 +2764,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:51.0',NULL,NULL,'38-50','+2','P. George makes 2-pt jump shot from 12 ft','2nd Quarter','LAC','POR',38.0,50.0,12.0,'2023-10-25','2023-10-26'),
 	 ('6:22.0',NULL,NULL,'38-51','+1','M. Plumlee makes free throw 1 of 2','2nd Quarter','LAC','POR',38.0,51.0,13.0,'2023-10-25','2023-10-26'),
 	 ('6:11.0','A. Simons makes 2-pt dunk from 3 ft','+2','40-51',NULL,NULL,'2nd Quarter','LAC','POR',40.0,51.0,11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:03.0',NULL,NULL,'40-53','+2','P. George makes 2-pt layup from 2 ft (assist by K. Leonard)','2nd Quarter','LAC','POR',40.0,53.0,13.0,'2023-10-25','2023-10-26'),
 	 ('5:03.0',NULL,NULL,'40-54','+1','P. George makes free throw 1 of 1','2nd Quarter','LAC','POR',40.0,54.0,14.0,'2023-10-25','2023-10-26'),
 	 ('3:52.0',NULL,NULL,'40-57','+3','R. Covington makes 3-pt jump shot from 27 ft (assist by R. Westbrook)','2nd Quarter','LAC','POR',40.0,57.0,17.0,'2023-10-25','2023-10-26'),
@@ -2775,7 +2775,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:03.0',NULL,NULL,'44-63','+1','I. Zubac makes free throw 1 of 2','2nd Quarter','LAC','POR',44.0,63.0,19.0,'2023-10-25','2023-10-26'),
 	 ('1:03.0',NULL,NULL,'44-64','+1','I. Zubac makes free throw 2 of 2','2nd Quarter','LAC','POR',44.0,64.0,20.0,'2023-10-25','2023-10-26'),
 	 ('0:51.0','J. Grant makes 2-pt layup from 5 ft (assist by A. Simons)','+2','46-64',NULL,NULL,'2nd Quarter','LAC','POR',46.0,64.0,18.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:51.0','J. Grant makes free throw 1 of 1','+1','47-64',NULL,NULL,'2nd Quarter','LAC','POR',47.0,64.0,17.0,'2023-10-25','2023-10-26'),
 	 ('0:36.0',NULL,NULL,'47-67','+3','B. Hyland makes 3-pt jump shot from 26 ft (assist by R. Covington)','2nd Quarter','LAC','POR',47.0,67.0,20.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','LAC','POR',47.0,67.0,20.0,'2023-10-25','2023-10-26'),
@@ -2786,7 +2786,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:46.0','S. Henderson makes 2-pt jump shot from 10 ft','+2','52-72',NULL,NULL,'3rd Quarter','LAC','POR',52.0,72.0,20.0,'2023-10-25','2023-10-26'),
 	 ('10:22.0',NULL,NULL,'52-74','+2','K. Leonard makes 2-pt layup from 3 ft (assist by R. Westbrook)','3rd Quarter','LAC','POR',52.0,74.0,22.0,'2023-10-25','2023-10-26'),
 	 ('10:03.0','A. Simons makes free throw 1 of 2','+1','53-74',NULL,NULL,'3rd Quarter','LAC','POR',53.0,74.0,21.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:03.0','A. Simons makes free throw 2 of 2','+1','54-74',NULL,NULL,'3rd Quarter','LAC','POR',54.0,74.0,20.0,'2023-10-25','2023-10-26'),
 	 ('9:47.0',NULL,NULL,'54-77','+3','K. Leonard makes 3-pt jump shot from 26 ft','3rd Quarter','LAC','POR',54.0,77.0,23.0,'2023-10-25','2023-10-26'),
 	 ('9:36.0','J. Grant makes 2-pt layup from 3 ft (assist by M. Thybulle)','+2','56-77',NULL,NULL,'3rd Quarter','LAC','POR',56.0,77.0,21.0,'2023-10-25','2023-10-26'),
@@ -2797,7 +2797,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:29.0',NULL,NULL,'63-82','+3','P. George makes 3-pt jump shot from 28 ft (assist by K. Leonard)','3rd Quarter','LAC','POR',63.0,82.0,19.0,'2023-10-25','2023-10-26'),
 	 ('6:37.0',NULL,NULL,'63-84','+2','I. Zubac makes 2-pt layup at rim','3rd Quarter','LAC','POR',63.0,84.0,21.0,'2023-10-25','2023-10-26'),
 	 ('6:11.0',NULL,NULL,'63-86','+2','K. Leonard makes 2-pt dunk from 4 ft (assist by P. George)','3rd Quarter','LAC','POR',63.0,86.0,23.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:39.0',NULL,NULL,'63-89','+3','K. Leonard makes 3-pt jump shot from 26 ft (assist by R. Westbrook)','3rd Quarter','LAC','POR',63.0,89.0,26.0,'2023-10-25','2023-10-26'),
 	 ('5:15.0','S. Sharpe makes 3-pt jump shot from 26 ft (assist by S. Henderson)','+3','66-89',NULL,NULL,'3rd Quarter','LAC','POR',66.0,89.0,23.0,'2023-10-25','2023-10-26'),
 	 ('4:51.0',NULL,NULL,'66-90','+1','I. Zubac makes free throw 1 of 2','3rd Quarter','LAC','POR',66.0,90.0,24.0,'2023-10-25','2023-10-26'),
@@ -2808,7 +2808,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:01.0','R. Williams makes 2-pt jump shot from 17 ft (assist by M. Brogdon)','+2','70-96',NULL,NULL,'3rd Quarter','LAC','POR',70.0,96.0,26.0,'2023-10-25','2023-10-26'),
 	 ('2:40.0',NULL,NULL,'70-97','+1','B. Hyland makes free throw 1 of 2','3rd Quarter','LAC','POR',70.0,97.0,27.0,'2023-10-25','2023-10-26'),
 	 ('2:40.0',NULL,NULL,'70-98','+1','B. Hyland makes free throw 2 of 2','3rd Quarter','LAC','POR',70.0,98.0,28.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:26.0','M. Brogdon makes 2-pt jump shot from 15 ft','+2','72-98',NULL,NULL,'3rd Quarter','LAC','POR',72.0,98.0,26.0,'2023-10-25','2023-10-26'),
 	 ('2:07.0',NULL,NULL,'72-99','+1','M. Plumlee makes free throw 2 of 2','3rd Quarter','LAC','POR',72.0,99.0,27.0,'2023-10-25','2023-10-26'),
 	 ('1:56.0','T. Camara makes free throw 1 of 2','+1','73-99',NULL,NULL,'3rd Quarter','LAC','POR',73.0,99.0,26.0,'2023-10-25','2023-10-26'),
@@ -2819,7 +2819,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:00.0','M. Brogdon makes 3-pt jump shot from 27 ft (assist by T. Camara)','+3','79-102',NULL,NULL,'4th Quarter','LAC','POR',79.0,102.0,23.0,'2023-10-25','2023-10-26'),
 	 ('9:33.0','D. Ayton makes 2-pt layup from 3 ft (assist by M. Brogdon)','+2','81-102',NULL,NULL,'4th Quarter','LAC','POR',81.0,102.0,21.0,'2023-10-25','2023-10-26'),
 	 ('9:06.0',NULL,NULL,'81-104','+2','B. Hyland makes 2-pt jump shot from 4 ft','4th Quarter','LAC','POR',81.0,104.0,23.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:58.0','M. Brogdon makes 2-pt layup from 4 ft','+2','83-104',NULL,NULL,'4th Quarter','LAC','POR',83.0,104.0,21.0,'2023-10-25','2023-10-26'),
 	 ('8:58.0','M. Brogdon makes free throw 1 of 1','+1','84-104',NULL,NULL,'4th Quarter','LAC','POR',84.0,104.0,20.0,'2023-10-25','2023-10-26'),
 	 ('8:23.0',NULL,NULL,'84-106','+2','I. Zubac makes 2-pt layup from 5 ft (assist by P. George)','4th Quarter','LAC','POR',84.0,106.0,22.0,'2023-10-25','2023-10-26'),
@@ -2830,7 +2830,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:53.0','M. Brogdon makes 2-pt layup from 4 ft (assist by S. Henderson)','+2','91-110',NULL,NULL,'4th Quarter','LAC','POR',91.0,110.0,19.0,'2023-10-25','2023-10-26'),
 	 ('5:43.0',NULL,NULL,'91-113','+3','P. George makes 3-pt jump shot from 27 ft (assist by R. Westbrook)','4th Quarter','LAC','POR',91.0,113.0,22.0,'2023-10-25','2023-10-26'),
 	 ('5:18.0',NULL,NULL,'91-115','+2','I. Zubac makes 2-pt dunk from 4 ft (assist by R. Westbrook)','4th Quarter','LAC','POR',91.0,115.0,24.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:08.0','S. Henderson makes 2-pt layup from 4 ft','+2','93-115',NULL,NULL,'4th Quarter','LAC','POR',93.0,115.0,22.0,'2023-10-25','2023-10-26'),
 	 ('4:37.0',NULL,NULL,'93-117','+2','B. Hyland makes 2-pt layup from 5 ft (assist by M. Plumlee)','4th Quarter','LAC','POR',93.0,117.0,24.0,'2023-10-25','2023-10-26'),
 	 ('4:28.0','J. Walker makes 2-pt layup from 3 ft (assist by S. Henderson)','+2','95-117',NULL,NULL,'4th Quarter','LAC','POR',95.0,117.0,22.0,'2023-10-25','2023-10-26'),
@@ -2841,7 +2841,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:34.0','T. Camara makes 3-pt jump shot from 26 ft (assist by S. Henderson)','+3','103-119',NULL,NULL,'4th Quarter','LAC','POR',103.0,119.0,16.0,'2023-10-25','2023-10-26'),
 	 ('1:50.0','J. Walker makes free throw 2 of 2','+1','104-119',NULL,NULL,'4th Quarter','LAC','POR',104.0,119.0,15.0,'2023-10-25','2023-10-26'),
 	 ('1:24.0','J. Walker makes 2-pt layup at rim','+2','106-119',NULL,NULL,'4th Quarter','LAC','POR',106.0,119.0,13.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:24.0','J. Walker makes free throw 1 of 1','+1','107-119',NULL,NULL,'4th Quarter','LAC','POR',107.0,119.0,12.0,'2023-10-25','2023-10-26'),
 	 ('0:53.0','S. Henderson makes 2-pt jump shot from 10 ft','+2','109-119',NULL,NULL,'4th Quarter','LAC','POR',109.0,119.0,10.0,'2023-10-25','2023-10-26'),
 	 ('0:41.0',NULL,NULL,'109-120','+1','A. Coffey makes free throw 1 of 2','4th Quarter','LAC','POR',109.0,120.0,11.0,'2023-10-25','2023-10-26'),
@@ -2852,7 +2852,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('12:00.0','Jump ball: J. Valančiūnas vs. J. Jackson (M. Smart gains possession)','Jump ball: J. Valančiūnas vs. J. Jackson (M. Smart gains possession)','Jump ball: J. Valančiūnas vs. J. Jackson (M. Smart gains possession)','Jump ball: J. Valančiūnas vs. J. Jackson (M. Smart gains possession)','Jump ball: J. Valančiūnas vs. J. Jackson (M. Smart gains possession)','1st Quarter','MEM','NOP',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:38.0',NULL,NULL,'0-2','+2','X. Tillman makes 2-pt dunk at rim (assist by D. Bane)','1st Quarter','MEM','NOP',0.0,2.0,2.0,'2023-10-25','2023-10-26'),
 	 ('11:22.0','Z. Williamson makes free throw 1 of 2','+1','1-2',NULL,NULL,'1st Quarter','MEM','NOP',1.0,2.0,1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:22.0','Z. Williamson makes free throw 2 of 2','+1','2-2',NULL,NULL,'1st Quarter','MEM','NOP',2.0,2.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:08.0','C. McCollum makes 2-pt jump shot from 4 ft','+2','4-2',NULL,NULL,'1st Quarter','MEM','NOP',4.0,2.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('10:59.0',NULL,NULL,'4-5','+3','D. Bane makes 3-pt jump shot from 26 ft (assist by M. Smart)','1st Quarter','MEM','NOP',4.0,5.0,1.0,'2023-10-25','2023-10-26'),
@@ -2863,7 +2863,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:11.0',NULL,NULL,'8-10','+2','D. Bane makes 2-pt layup from 1 ft','1st Quarter','MEM','NOP',8.0,10.0,2.0,'2023-10-25','2023-10-26'),
 	 ('8:29.0','J. Valančiūnas makes 3-pt jump shot from 24 ft (assist by B. Ingram)','+3','11-10',NULL,NULL,'1st Quarter','MEM','NOP',11.0,10.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('8:07.0',NULL,NULL,'11-13','+3','D. Bane makes 3-pt jump shot from 26 ft (assist by X. Tillman)','1st Quarter','MEM','NOP',11.0,13.0,2.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:15.0','C. McCollum makes 3-pt jump shot from 23 ft (assist by Z. Williamson)','+3','14-13',NULL,NULL,'1st Quarter','MEM','NOP',14.0,13.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('6:51.0',NULL,NULL,'14-15','+2','X. Tillman makes 2-pt layup from 6 ft (assist by M. Smart)','1st Quarter','MEM','NOP',14.0,15.0,1.0,'2023-10-25','2023-10-26'),
 	 ('6:00.0',NULL,NULL,'14-16','+1','X. Tillman makes free throw 1 of 2','1st Quarter','MEM','NOP',14.0,16.0,2.0,'2023-10-25','2023-10-26'),
@@ -2874,7 +2874,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:15.0',NULL,NULL,'18-20','+2','M. Smart makes 2-pt jump shot from 9 ft (assist by L. Kennard)','1st Quarter','MEM','NOP',18.0,20.0,2.0,'2023-10-25','2023-10-26'),
 	 ('3:47.0',NULL,NULL,'18-23','+3','D. Roddy makes 3-pt jump shot from 23 ft (assist by D. Rose)','1st Quarter','MEM','NOP',18.0,23.0,5.0,'2023-10-25','2023-10-26'),
 	 ('3:39.0','H. Jones makes free throw 1 of 2','+1','19-23',NULL,NULL,'1st Quarter','MEM','NOP',19.0,23.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:39.0','H. Jones makes free throw 2 of 2','+1','20-23',NULL,NULL,'1st Quarter','MEM','NOP',20.0,23.0,3.0,'2023-10-25','2023-10-26'),
 	 ('2:56.0','B. Ingram makes 2-pt jump shot from 13 ft (assist by H. Jones)','+2','22-23',NULL,NULL,'1st Quarter','MEM','NOP',22.0,23.0,1.0,'2023-10-25','2023-10-26'),
 	 ('1:45.0',NULL,NULL,'22-24','+1','L. Kennard makes free throw 1 of 3','1st Quarter','MEM','NOP',22.0,24.0,2.0,'2023-10-25','2023-10-26'),
@@ -2885,7 +2885,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:28.0','C. McCollum makes free throw 2 of 2','+1','25-26',NULL,NULL,'1st Quarter','MEM','NOP',25.0,26.0,1.0,'2023-10-25','2023-10-26'),
 	 ('0:05.0',NULL,NULL,'25-28','+2','D. Bane makes 2-pt jump shot from 8 ft (assist by L. Kennard)','1st Quarter','MEM','NOP',25.0,28.0,3.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','MEM','NOP',25.0,28.0,3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','MEM','NOP',25.0,28.0,3.0,'2023-10-25','2023-10-26'),
 	 ('11:07.0',NULL,NULL,'25-31','+3','D. Rose makes 3-pt jump shot from 26 ft (assist by J. Jackson)','2nd Quarter','MEM','NOP',25.0,31.0,6.0,'2023-10-25','2023-10-26'),
 	 ('10:38.0',NULL,NULL,'25-33','+2','D. Roddy makes 2-pt layup from 2 ft (assist by D. Rose)','2nd Quarter','MEM','NOP',25.0,33.0,8.0,'2023-10-25','2023-10-26'),
@@ -2896,7 +2896,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:45.0','M. Ryan makes 3-pt jump shot from 25 ft (assist by J. Hawkins)','+3','38-33',NULL,NULL,'2nd Quarter','MEM','NOP',38.0,33.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('7:09.0','J. Valančiūnas makes 3-pt jump shot from 25 ft (assist by H. Jones)','+3','41-33',NULL,NULL,'2nd Quarter','MEM','NOP',41.0,33.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('6:56.0',NULL,NULL,'41-35','+2','M. Smart makes 2-pt jump shot from 12 ft','2nd Quarter','MEM','NOP',41.0,35.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:06.0',NULL,NULL,'41-37','+2','Z. Williams makes 2-pt dunk from 1 ft (assist by X. Tillman)','2nd Quarter','MEM','NOP',41.0,37.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('5:55.0','H. Jones makes 3-pt jump shot from 25 ft (assist by M. Ryan)','+3','44-37',NULL,NULL,'2nd Quarter','MEM','NOP',44.0,37.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('5:25.0','B. Ingram makes 2-pt jump shot from 12 ft','+2','46-37',NULL,NULL,'2nd Quarter','MEM','NOP',46.0,37.0,-9.0,'2023-10-25','2023-10-26'),
@@ -2907,7 +2907,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:14.0',NULL,NULL,'52-43','+3','D. Bane makes 3-pt jump shot from 23 ft (assist by M. Smart)','2nd Quarter','MEM','NOP',52.0,43.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('2:45.0',NULL,NULL,'52-45','+2','X. Tillman makes 2-pt layup from 1 ft (assist by D. Bane)','2nd Quarter','MEM','NOP',52.0,45.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('2:18.0','Jump ball: M. Smart vs. B. Ingram (X. Tillman gains possession)','Jump ball: M. Smart vs. B. Ingram (X. Tillman gains possession)','Jump ball: M. Smart vs. B. Ingram (X. Tillman gains possession)','Jump ball: M. Smart vs. B. Ingram (X. Tillman gains possession)','Jump ball: M. Smart vs. B. Ingram (X. Tillman gains possession)','2nd Quarter','MEM','NOP',52.0,45.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:06.0',NULL,NULL,'52-47','+2','Z. Williams makes 2-pt dunk from 1 ft (assist by X. Tillman)','2nd Quarter','MEM','NOP',52.0,47.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('1:10.0','Z. Williamson makes 2-pt dunk from 1 ft','+2','54-47',NULL,NULL,'2nd Quarter','MEM','NOP',54.0,47.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('0:57.0','Z. Williamson makes 2-pt dunk from 1 ft (assist by B. Ingram)','+2','56-47',NULL,NULL,'2nd Quarter','MEM','NOP',56.0,47.0,-9.0,'2023-10-25','2023-10-26'),
@@ -2918,7 +2918,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:10.0','Z. Williamson makes 2-pt layup from 1 ft','+2','59-49',NULL,NULL,'3rd Quarter','MEM','NOP',59.0,49.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('10:00.0',NULL,NULL,'59-51','+2','M. Smart makes 2-pt layup from 3 ft','3rd Quarter','MEM','NOP',59.0,51.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('9:13.0','C. McCollum makes 3-pt jump shot from 25 ft (assist by J. Valančiūnas)','+3','62-51',NULL,NULL,'3rd Quarter','MEM','NOP',62.0,51.0,-11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:39.0','B. Ingram makes 2-pt jump shot from 6 ft','+2','64-51',NULL,NULL,'3rd Quarter','MEM','NOP',64.0,51.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('8:25.0',NULL,NULL,'64-54','+3','Z. Williams makes 3-pt jump shot from 22 ft (assist by D. Bane)','3rd Quarter','MEM','NOP',64.0,54.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('7:53.0',NULL,NULL,'64-56','+2','J. Jackson makes 2-pt layup from 4 ft (assist by D. Bane)','3rd Quarter','MEM','NOP',64.0,56.0,-8.0,'2023-10-25','2023-10-26'),
@@ -2929,7 +2929,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:04.0',NULL,NULL,'71-60','+2','M. Smart makes 2-pt jump shot from 12 ft','3rd Quarter','MEM','NOP',71.0,60.0,-11.0,'2023-10-25','2023-10-26'),
 	 ('4:06.0','L. Nance makes 2-pt layup from 1 ft','+2','73-60',NULL,NULL,'3rd Quarter','MEM','NOP',73.0,60.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('3:44.0',NULL,NULL,'73-62','+2','D. Bane makes 2-pt jump shot from 12 ft','3rd Quarter','MEM','NOP',73.0,62.0,-11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:08.0','B. Ingram makes free throw 1 of 2','+1','74-62',NULL,NULL,'3rd Quarter','MEM','NOP',74.0,62.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('3:08.0','B. Ingram makes free throw 2 of 2','+1','75-62',NULL,NULL,'3rd Quarter','MEM','NOP',75.0,62.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('2:41.0','C. McCollum makes 3-pt jump shot from 26 ft (assist by Z. Williamson)','+3','78-62',NULL,NULL,'3rd Quarter','MEM','NOP',78.0,62.0,-16.0,'2023-10-25','2023-10-26'),
@@ -2940,7 +2940,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:33.0','C. McCollum makes 2-pt jump shot from 5 ft','+2','80-70',NULL,NULL,'3rd Quarter','MEM','NOP',80.0,70.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('0:02.0','B. Ingram makes 2-pt jump shot from 23 ft','+2','82-70',NULL,NULL,'3rd Quarter','MEM','NOP',82.0,70.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','MEM','NOP',82.0,70.0,-12.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','MEM','NOP',82.0,70.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('11:39.0',NULL,NULL,'82-72','+2','J. LaRavia makes 2-pt jump shot from 14 ft','4th Quarter','MEM','NOP',82.0,72.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('11:15.0','J. Hawkins makes 3-pt jump shot from 27 ft (assist by C. McCollum)','+3','85-72',NULL,NULL,'4th Quarter','MEM','NOP',85.0,72.0,-13.0,'2023-10-25','2023-10-26'),
@@ -2951,7 +2951,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:04.0',NULL,NULL,'87-78','+1','J. Jackson makes free throw 1 of 2','4th Quarter','MEM','NOP',87.0,78.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('10:04.0',NULL,NULL,'87-79','+1','J. Jackson makes free throw 2 of 2','4th Quarter','MEM','NOP',87.0,79.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('9:53.0','C. McCollum makes 3-pt jump shot from 26 ft','+3','90-79',NULL,NULL,'4th Quarter','MEM','NOP',90.0,79.0,-11.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:37.0',NULL,NULL,'90-80','+1','J. Jackson makes free throw 1 of 2','4th Quarter','MEM','NOP',90.0,80.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('9:37.0',NULL,NULL,'90-81','+1','J. Jackson makes free throw 2 of 2','4th Quarter','MEM','NOP',90.0,81.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('8:58.0','H. Jones makes 2-pt layup from 1 ft','+2','92-81',NULL,NULL,'4th Quarter','MEM','NOP',92.0,81.0,-11.0,'2023-10-25','2023-10-26'),
@@ -2962,7 +2962,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:42.0',NULL,NULL,'99-85','+1','D. Bane makes free throw 1 of 2','4th Quarter','MEM','NOP',99.0,85.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('6:42.0',NULL,NULL,'99-86','+1','D. Bane makes free throw 2 of 2','4th Quarter','MEM','NOP',99.0,86.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('5:57.0','Z. Williamson makes 2-pt dunk at rim (assist by B. Ingram)','+2','101-86',NULL,NULL,'4th Quarter','MEM','NOP',101.0,86.0,-15.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:24.0',NULL,NULL,'101-88','+2','Z. Williams makes 2-pt layup from 2 ft','4th Quarter','MEM','NOP',101.0,88.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('5:06.0','Z. Williamson makes free throw 2 of 2','+1','102-88',NULL,NULL,'4th Quarter','MEM','NOP',102.0,88.0,-14.0,'2023-10-25','2023-10-26'),
 	 ('4:45.0',NULL,NULL,'102-89','+1','D. Bane makes free throw 1 of 2','4th Quarter','MEM','NOP',102.0,89.0,-13.0,'2023-10-25','2023-10-26'),
@@ -2973,7 +2973,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:22.0','Z. Williamson makes 2-pt layup from 2 ft','+2','108-92',NULL,NULL,'4th Quarter','MEM','NOP',108.0,92.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('3:22.0','Z. Williamson makes free throw 1 of 1','+1','109-92',NULL,NULL,'4th Quarter','MEM','NOP',109.0,92.0,-17.0,'2023-10-25','2023-10-26'),
 	 ('3:06.0',NULL,NULL,'109-95','+3','X. Tillman makes 3-pt jump shot from 25 ft (assist by D. Roddy)','4th Quarter','MEM','NOP',109.0,95.0,-14.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:51.0','Z. Williamson makes 2-pt dunk from 1 ft (assist by B. Ingram)','+2','111-95',NULL,NULL,'4th Quarter','MEM','NOP',111.0,95.0,-16.0,'2023-10-25','2023-10-26'),
 	 ('2:45.0',NULL,NULL,'111-96','+1','M. Smart makes free throw 1 of 2','4th Quarter','MEM','NOP',111.0,96.0,-15.0,'2023-10-25','2023-10-26'),
 	 ('2:19.0',NULL,NULL,'111-99','+3','D. Bane makes 3-pt jump shot from 23 ft (assist by J. Jackson)','4th Quarter','MEM','NOP',111.0,99.0,-12.0,'2023-10-25','2023-10-26'),
@@ -2984,7 +2984,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('12:00.0','Jump ball: E. Mobley vs. N. Claxton (S. Dinwiddie gains possession)','Jump ball: E. Mobley vs. N. Claxton (S. Dinwiddie gains possession)','Jump ball: E. Mobley vs. N. Claxton (S. Dinwiddie gains possession)','Jump ball: E. Mobley vs. N. Claxton (S. Dinwiddie gains possession)','Jump ball: E. Mobley vs. N. Claxton (S. Dinwiddie gains possession)','1st Quarter','BKN','CLE',0.0,0.0,0.0,'2023-10-25','2023-10-26'),
 	 ('11:28.0','D. Mitchell makes 3-pt jump shot from 26 ft','+3','3-0',NULL,NULL,'1st Quarter','BKN','CLE',3.0,0.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('11:14.0',NULL,NULL,'3-3','+3','S. Dinwiddie makes 3-pt jump shot from 24 ft (assist by B. Simmons)','1st Quarter','BKN','CLE',3.0,3.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:59.0','D. Garland makes 2-pt jump shot from 7 ft','+2','5-3',NULL,NULL,'1st Quarter','BKN','CLE',5.0,3.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('10:07.0','M. Strus makes 3-pt jump shot from 26 ft (assist by D. Mitchell)','+3','8-3',NULL,NULL,'1st Quarter','BKN','CLE',8.0,3.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('9:39.0',NULL,NULL,'8-5','+2','N. Claxton makes 2-pt dunk from 1 ft (assist by M. Bridges)','1st Quarter','BKN','CLE',8.0,5.0,-3.0,'2023-10-25','2023-10-26'),
@@ -2995,7 +2995,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:44.0',NULL,NULL,'16-7','+2','M. Bridges makes 2-pt jump shot from 15 ft (assist by N. Claxton)','1st Quarter','BKN','CLE',16.0,7.0,-9.0,'2023-10-25','2023-10-26'),
 	 ('7:21.0','M. Strus makes 3-pt jump shot from 25 ft (assist by I. Okoro)','+3','19-7',NULL,NULL,'1st Quarter','BKN','CLE',19.0,7.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('6:58.0',NULL,NULL,'19-9','+2','C. Johnson makes 2-pt layup from 2 ft (assist by N. Claxton)','1st Quarter','BKN','CLE',19.0,9.0,-10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('6:10.0','I. Okoro makes 3-pt jump shot from 23 ft (assist by D. Mitchell)','+3','22-9',NULL,NULL,'1st Quarter','BKN','CLE',22.0,9.0,-13.0,'2023-10-25','2023-10-26'),
 	 ('5:52.0',NULL,NULL,'22-12','+3','D. Finney-Smith makes 3-pt jump shot from 23 ft (assist by C. Thomas)','1st Quarter','BKN','CLE',22.0,12.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('5:34.0','D. Mitchell makes 2-pt layup at rim','+2','24-12',NULL,NULL,'1st Quarter','BKN','CLE',24.0,12.0,-12.0,'2023-10-25','2023-10-26'),
@@ -3006,7 +3006,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:46.0','C. LeVert makes 3-pt jump shot from 25 ft','+3','29-17',NULL,NULL,'1st Quarter','BKN','CLE',29.0,17.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('3:25.0',NULL,NULL,'29-18','+1','C. Thomas makes free throw 1 of 2','1st Quarter','BKN','CLE',29.0,18.0,-11.0,'2023-10-25','2023-10-26'),
 	 ('3:25.0',NULL,NULL,'29-19','+1','C. Thomas makes free throw 2 of 2','1st Quarter','BKN','CLE',29.0,19.0,-10.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:17.0','D. Garland makes free throw 1 of 2','+1','30-19',NULL,NULL,'1st Quarter','BKN','CLE',30.0,19.0,-11.0,'2023-10-25','2023-10-26'),
 	 ('3:17.0','D. Garland makes free throw 2 of 2','+1','31-19',NULL,NULL,'1st Quarter','BKN','CLE',31.0,19.0,-12.0,'2023-10-25','2023-10-26'),
 	 ('3:01.0',NULL,NULL,'31-21','+2','D. Sharpe makes 2-pt dunk from 2 ft (assist by S. Dinwiddie)','1st Quarter','BKN','CLE',31.0,21.0,-10.0,'2023-10-25','2023-10-26'),
@@ -3017,7 +3017,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:20.0',NULL,NULL,'33-27','+2','C. Thomas makes 2-pt jump shot from 5 ft','1st Quarter','BKN','CLE',33.0,27.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('1:04.0',NULL,NULL,'33-28','+1','C. Thomas makes free throw 1 of 2','1st Quarter','BKN','CLE',33.0,28.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('0:38.0','D. Garland makes 2-pt layup from 5 ft','+2','35-28',NULL,NULL,'1st Quarter','BKN','CLE',35.0,28.0,-7.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:31.0',NULL,NULL,'35-31','+3','C. Thomas makes 3-pt jump shot from 25 ft','1st Quarter','BKN','CLE',35.0,31.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('0:11.0','E. Mobley makes 2-pt dunk from 1 ft (assist by D. Garland)','+2','37-31',NULL,NULL,'1st Quarter','BKN','CLE',37.0,31.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('0:03.0',NULL,NULL,'37-32','+1','C. Thomas makes free throw 2 of 2','1st Quarter','BKN','CLE',37.0,32.0,-5.0,'2023-10-25','2023-10-26'),
@@ -3028,7 +3028,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:46.0',NULL,NULL,'40-37','+3','D. Smith makes 3-pt jump shot from 23 ft (assist by S. Dinwiddie)','2nd Quarter','BKN','CLE',40.0,37.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('10:27.0','D. Garland makes 2-pt jump shot from 14 ft','+2','42-37',NULL,NULL,'2nd Quarter','BKN','CLE',42.0,37.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('10:14.0',NULL,NULL,'42-38','+1','M. Bridges makes free throw 1 of 2','2nd Quarter','BKN','CLE',42.0,38.0,-4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('10:14.0',NULL,NULL,'42-39','+1','M. Bridges makes free throw 2 of 2','2nd Quarter','BKN','CLE',42.0,39.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('9:59.0','E. Mobley makes 2-pt jump shot from 6 ft','+2','44-39',NULL,NULL,'2nd Quarter','BKN','CLE',44.0,39.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('8:47.0',NULL,NULL,'44-40','+1','S. Dinwiddie makes free throw 1 of 2','2nd Quarter','BKN','CLE',44.0,40.0,-4.0,'2023-10-25','2023-10-26'),
@@ -3039,7 +3039,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('6:06.0',NULL,NULL,'47-47','+1','C. Johnson makes free throw 1 of 2','2nd Quarter','BKN','CLE',47.0,47.0,0.0,'2023-10-25','2023-10-26'),
 	 ('5:42.0','M. Strus makes 3-pt jump shot from 26 ft (assist by C. LeVert)','+3','50-47',NULL,NULL,'2nd Quarter','BKN','CLE',50.0,47.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('5:17.0','M. Strus makes 3-pt jump shot from 25 ft (assist by D. Jones)','+3','53-47',NULL,NULL,'2nd Quarter','BKN','CLE',53.0,47.0,-6.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:07.0',NULL,NULL,'53-49','+2','C. Johnson makes 2-pt jump shot from 10 ft (assist by C. Thomas)','2nd Quarter','BKN','CLE',53.0,49.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('4:51.0','M. Strus makes 3-pt jump shot from 26 ft (assist by D. Mitchell)','+3','56-49',NULL,NULL,'2nd Quarter','BKN','CLE',56.0,49.0,-7.0,'2023-10-25','2023-10-26'),
 	 ('3:37.0',NULL,NULL,'56-52','+3','D. Finney-Smith makes 3-pt jump shot from 24 ft (assist by B. Simmons)','2nd Quarter','BKN','CLE',56.0,52.0,-4.0,'2023-10-25','2023-10-26'),
@@ -3050,7 +3050,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:56.0','C. LeVert makes 2-pt jump shot from 9 ft','+2','61-58',NULL,NULL,'2nd Quarter','BKN','CLE',61.0,58.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('0:38.0',NULL,NULL,'61-60','+2','C. Thomas makes 2-pt layup from 1 ft (assist by D. Finney-Smith)','2nd Quarter','BKN','CLE',61.0,60.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('0:38.0',NULL,NULL,'61-61','+1','C. Thomas makes technical free throw','2nd Quarter','BKN','CLE',61.0,61.0,0.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:30.0','E. Mobley makes 2-pt dunk at rim','+2','63-61',NULL,NULL,'2nd Quarter','BKN','CLE',63.0,61.0,-2.0,'2023-10-25','2023-10-26'),
 	 ('0:19.0',NULL,NULL,'63-63','+2','C. Thomas makes 2-pt layup from 3 ft (assist by B. Simmons)','2nd Quarter','BKN','CLE',63.0,63.0,0.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','BKN','CLE',63.0,63.0,0.0,'2023-10-25','2023-10-26'),
@@ -3061,7 +3061,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:55.0','I. Okoro makes free throw 1 of 2','+1','70-65',NULL,NULL,'3rd Quarter','BKN','CLE',70.0,65.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('9:55.0','I. Okoro makes free throw 2 of 2','+1','71-65',NULL,NULL,'3rd Quarter','BKN','CLE',71.0,65.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('9:33.0','D. Garland makes 2-pt jump shot from 10 ft','+2','73-65',NULL,NULL,'3rd Quarter','BKN','CLE',73.0,65.0,-8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:42.0',NULL,NULL,'73-67','+2','M. Bridges makes 2-pt jump shot from 16 ft (assist by N. Claxton)','3rd Quarter','BKN','CLE',73.0,67.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('8:08.0',NULL,NULL,'73-69','+2','N. Claxton makes 2-pt layup from 1 ft (assist by B. Simmons)','3rd Quarter','BKN','CLE',73.0,69.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('8:08.0',NULL,NULL,'73-70','+1','N. Claxton makes free throw 1 of 1','3rd Quarter','BKN','CLE',73.0,70.0,-3.0,'2023-10-25','2023-10-26'),
@@ -3072,7 +3072,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:30.0','I. Okoro makes 2-pt dunk from 1 ft (assist by C. LeVert)','+2','81-73',NULL,NULL,'3rd Quarter','BKN','CLE',81.0,73.0,-8.0,'2023-10-25','2023-10-26'),
 	 ('5:00.0','D. Mitchell makes 2-pt layup from 1 ft','+2','83-73',NULL,NULL,'3rd Quarter','BKN','CLE',83.0,73.0,-10.0,'2023-10-25','2023-10-26'),
 	 ('4:40.0',NULL,NULL,'83-75','+2','C. Johnson makes 2-pt layup from 5 ft','3rd Quarter','BKN','CLE',83.0,75.0,-8.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:14.0',NULL,NULL,'83-77','+2','C. Thomas makes 2-pt layup from 3 ft (assist by C. Johnson)','3rd Quarter','BKN','CLE',83.0,77.0,-6.0,'2023-10-25','2023-10-26'),
 	 ('3:39.0',NULL,NULL,'83-79','+2','C. Thomas makes 2-pt jump shot from 18 ft','3rd Quarter','BKN','CLE',83.0,79.0,-4.0,'2023-10-25','2023-10-26'),
 	 ('2:24.0','D. Jones makes 2-pt layup from 2 ft (assist by D. Garland)','+2','85-79',NULL,NULL,'3rd Quarter','BKN','CLE',85.0,79.0,-6.0,'2023-10-25','2023-10-26'),
@@ -3083,7 +3083,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:41.0',NULL,NULL,'90-85','+2','M. Bridges makes 2-pt layup from 1 ft (assist by D. Smith)','3rd Quarter','BKN','CLE',90.0,85.0,-5.0,'2023-10-25','2023-10-26'),
 	 ('0:12.0',NULL,NULL,'90-87','+2','D. Smith makes 2-pt layup from 2 ft','3rd Quarter','BKN','CLE',90.0,87.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','BKN','CLE',90.0,87.0,-3.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','BKN','CLE',90.0,87.0,-3.0,'2023-10-25','2023-10-26'),
 	 ('11:40.0',NULL,NULL,'90-89','+2','C. Thomas makes 2-pt jump shot from 13 ft','4th Quarter','BKN','CLE',90.0,89.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('11:09.0','C. LeVert makes 3-pt jump shot from 26 ft (assist by D. Mitchell)','+3','93-89',NULL,NULL,'4th Quarter','BKN','CLE',93.0,89.0,-4.0,'2023-10-25','2023-10-26'),
@@ -3094,7 +3094,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:00.0',NULL,NULL,'95-94','+2','M. Bridges makes 2-pt layup from 1 ft (assist by N. Claxton)','4th Quarter','BKN','CLE',95.0,94.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('9:20.0',NULL,NULL,'95-97','+3','D. Smith makes 3-pt jump shot from 24 ft','4th Quarter','BKN','CLE',95.0,97.0,2.0,'2023-10-25','2023-10-26'),
 	 ('8:51.0',NULL,NULL,'95-99','+2','C. Johnson makes 2-pt layup from 2 ft (assist by R. O''Neale)','4th Quarter','BKN','CLE',95.0,99.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:07.0',NULL,NULL,'95-101','+2','D. Smith makes 2-pt layup from 2 ft (assist by D. Finney-Smith)','4th Quarter','BKN','CLE',95.0,101.0,6.0,'2023-10-25','2023-10-26'),
 	 ('7:48.0','I. Okoro makes 3-pt jump shot from 24 ft (assist by D. Garland)','+3','98-101',NULL,NULL,'4th Quarter','BKN','CLE',98.0,101.0,3.0,'2023-10-25','2023-10-26'),
 	 ('7:03.0',NULL,NULL,'98-103','+2','M. Bridges makes 2-pt layup from 2 ft','4th Quarter','BKN','CLE',98.0,103.0,5.0,'2023-10-25','2023-10-26'),
@@ -3105,7 +3105,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:21.0','D. Mitchell makes 2-pt layup from 2 ft','+2','105-105',NULL,NULL,'4th Quarter','BKN','CLE',105.0,105.0,0.0,'2023-10-25','2023-10-26'),
 	 ('1:58.0',NULL,NULL,'105-108','+3','R. O''Neale makes 3-pt jump shot from 23 ft (assist by M. Bridges)','4th Quarter','BKN','CLE',105.0,108.0,3.0,'2023-10-25','2023-10-26'),
 	 ('1:36.0',NULL,NULL,'105-109','+1','C. Thomas makes free throw 2 of 2','4th Quarter','BKN','CLE',105.0,109.0,4.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:24.0',NULL,NULL,'105-110','+1','M. Bridges makes free throw 1 of 2','4th Quarter','BKN','CLE',105.0,110.0,5.0,'2023-10-25','2023-10-26'),
 	 ('1:24.0',NULL,NULL,'105-111','+1','M. Bridges makes free throw 2 of 2','4th Quarter','BKN','CLE',105.0,111.0,6.0,'2023-10-25','2023-10-26'),
 	 ('1:16.0','D. Mitchell makes 2-pt jump shot from 21 ft','+2','107-111',NULL,NULL,'4th Quarter','BKN','CLE',107.0,111.0,4.0,'2023-10-25','2023-10-26'),
@@ -3116,7 +3116,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:19.0',NULL,NULL,'111-113','+1','M. Bridges makes free throw 2 of 2','4th Quarter','BKN','CLE',111.0,113.0,2.0,'2023-10-25','2023-10-26'),
 	 ('0:12.0','D. Mitchell makes 3-pt jump shot from 26 ft','+3','114-113',NULL,NULL,'4th Quarter','BKN','CLE',114.0,113.0,-1.0,'2023-10-25','2023-10-26'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','BKN','CLE',114.0,113.0,-1.0,'2023-10-25','2023-10-26');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Jump ball: J. Nurkić vs. A. Davis (E. Gordon gains possession)','Jump ball: J. Nurkić vs. A. Davis (E. Gordon gains possession)','Jump ball: J. Nurkić vs. A. Davis (E. Gordon gains possession)','Jump ball: J. Nurkić vs. A. Davis (E. Gordon gains possession)','Jump ball: J. Nurkić vs. A. Davis (E. Gordon gains possession)','1st Quarter','LAL','PHX',0.0,0.0,0.0,'2023-10-26','2023-10-27'),
 	 ('11:37.0',NULL,NULL,'0-2','+2','A. Davis makes 2-pt layup from 3 ft (assist by D. Russell)','1st Quarter','LAL','PHX',0.0,2.0,2.0,'2023-10-26','2023-10-27'),
 	 ('11:37.0',NULL,NULL,'0-3','+1','A. Davis makes free throw 1 of 1','1st Quarter','LAL','PHX',0.0,3.0,3.0,'2023-10-26','2023-10-27'),
@@ -3127,7 +3127,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:33.0',NULL,NULL,'3-9','+2','A. Davis makes 2-pt layup from 2 ft (assist by L. James)','1st Quarter','LAL','PHX',3.0,9.0,6.0,'2023-10-26','2023-10-27'),
 	 ('9:19.0','K. Durant makes 2-pt jump shot from 15 ft (assist by G. Allen)','+2','5-9',NULL,NULL,'1st Quarter','LAL','PHX',5.0,9.0,4.0,'2023-10-26','2023-10-27'),
 	 ('9:06.0',NULL,NULL,'5-11','+2','A. Reaves makes 2-pt jump shot from 3 ft','1st Quarter','LAL','PHX',5.0,11.0,6.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:54.0','E. Gordon makes 2-pt jump shot from 10 ft','+2','7-11',NULL,NULL,'1st Quarter','LAL','PHX',7.0,11.0,4.0,'2023-10-26','2023-10-27'),
 	 ('8:10.0','G. Allen makes 3-pt jump shot from 24 ft (assist by J. Nurkić)','+3','10-11',NULL,NULL,'1st Quarter','LAL','PHX',10.0,11.0,1.0,'2023-10-26','2023-10-27'),
 	 ('7:48.0',NULL,NULL,'10-13','+2','A. Reaves makes 2-pt jump shot from 14 ft','1st Quarter','LAL','PHX',10.0,13.0,3.0,'2023-10-26','2023-10-27'),
@@ -3138,7 +3138,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:09.0','E. Gordon makes 3-pt jump shot from 27 ft (assist by J. Okogie)','+3','17-16',NULL,NULL,'1st Quarter','LAL','PHX',17.0,16.0,-1.0,'2023-10-26','2023-10-27'),
 	 ('4:37.0','J. Nurkić makes 2-pt layup from 1 ft','+2','19-16',NULL,NULL,'1st Quarter','LAL','PHX',19.0,16.0,-3.0,'2023-10-26','2023-10-27'),
 	 ('4:09.0','J. Goodwin makes 3-pt jump shot from 28 ft','+3','22-16',NULL,NULL,'1st Quarter','LAL','PHX',22.0,16.0,-6.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:45.0','K. Durant makes 2-pt layup from 4 ft (assist by J. Nurkić)','+2','24-16',NULL,NULL,'1st Quarter','LAL','PHX',24.0,16.0,-8.0,'2023-10-26','2023-10-27'),
 	 ('3:14.0','J. Goodwin makes 2-pt jump shot from 7 ft (assist by K. Durant)','+2','26-16',NULL,NULL,'1st Quarter','LAL','PHX',26.0,16.0,-10.0,'2023-10-26','2023-10-27'),
 	 ('2:16.0',NULL,NULL,'26-18','+2','G. Vincent makes 2-pt layup from 3 ft (assist by D. Russell)','1st Quarter','LAL','PHX',26.0,18.0,-8.0,'2023-10-26','2023-10-27'),
@@ -3149,7 +3149,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('11:43.0',NULL,NULL,'30-20','+2','L. James makes 2-pt layup from 2 ft','2nd Quarter','LAL','PHX',30.0,20.0,-10.0,'2023-10-26','2023-10-27'),
 	 ('10:49.0',NULL,NULL,'30-21','+1','L. James makes free throw 1 of 2','2nd Quarter','LAL','PHX',30.0,21.0,-9.0,'2023-10-26','2023-10-27'),
 	 ('10:17.0',NULL,NULL,'30-24','+3','D. Russell makes 3-pt jump shot from 26 ft (assist by L. James)','2nd Quarter','LAL','PHX',30.0,24.0,-6.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('9:37.0','E. Gordon makes 2-pt layup from 2 ft','+2','32-24',NULL,NULL,'2nd Quarter','LAL','PHX',32.0,24.0,-8.0,'2023-10-26','2023-10-27'),
 	 ('9:37.0','E. Gordon makes free throw 1 of 1','+1','33-24',NULL,NULL,'2nd Quarter','LAL','PHX',33.0,24.0,-9.0,'2023-10-26','2023-10-27'),
 	 ('8:49.0',NULL,NULL,'33-25','+1','C. Wood makes free throw 1 of 2','2nd Quarter','LAL','PHX',33.0,25.0,-8.0,'2023-10-26','2023-10-27'),
@@ -3160,7 +3160,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:34.0',NULL,NULL,'35-31','+2','L. James makes 2-pt layup from 3 ft (assist by G. Vincent)','2nd Quarter','LAL','PHX',35.0,31.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('7:03.0',NULL,NULL,'35-33','+2','D. Russell makes 2-pt layup from 1 ft (assist by L. James)','2nd Quarter','LAL','PHX',35.0,33.0,-2.0,'2023-10-26','2023-10-27'),
 	 ('6:23.0',NULL,NULL,'35-36','+3','A. Davis makes 3-pt jump shot from 27 ft (assist by G. Vincent)','2nd Quarter','LAL','PHX',35.0,36.0,1.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('5:55.0',NULL,NULL,'35-38','+2','L. James makes 2-pt dunk from 2 ft (assist by G. Vincent)','2nd Quarter','LAL','PHX',35.0,38.0,3.0,'2023-10-26','2023-10-27'),
 	 ('5:16.0',NULL,NULL,'35-39','+1','A. Davis makes free throw 1 of 2','2nd Quarter','LAL','PHX',35.0,39.0,4.0,'2023-10-26','2023-10-27'),
 	 ('4:50.0','D. Eubanks makes 2-pt layup from 4 ft (assist by J. Okogie)','+2','37-39',NULL,NULL,'2nd Quarter','LAL','PHX',37.0,39.0,2.0,'2023-10-26','2023-10-27'),
@@ -3171,7 +3171,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:42.0','K. Durant makes free throw 2 of 2','+1','42-40',NULL,NULL,'2nd Quarter','LAL','PHX',42.0,40.0,-2.0,'2023-10-26','2023-10-27'),
 	 ('3:19.0','J. Okogie makes 3-pt jump shot from 27 ft (assist by G. Allen)','+3','45-40',NULL,NULL,'2nd Quarter','LAL','PHX',45.0,40.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('2:57.0',NULL,NULL,'45-42','+2','A. Davis makes 2-pt dunk from 2 ft (assist by C. Wood)','2nd Quarter','LAL','PHX',45.0,42.0,-3.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:36.0','J. Goodwin makes 2-pt jump shot from 13 ft','+2','47-42',NULL,NULL,'2nd Quarter','LAL','PHX',47.0,42.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('2:36.0','J. Goodwin makes free throw 1 of 1','+1','48-42',NULL,NULL,'2nd Quarter','LAL','PHX',48.0,42.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('2:16.0','K. Durant makes 2-pt jump shot from 16 ft','+2','50-42',NULL,NULL,'2nd Quarter','LAL','PHX',50.0,42.0,-8.0,'2023-10-26','2023-10-27'),
@@ -3182,7 +3182,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:34.0','K. Durant makes free throw 2 of 2','+1','52-48',NULL,NULL,'2nd Quarter','LAL','PHX',52.0,48.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','LAL','PHX',52.0,48.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','LAL','PHX',52.0,48.0,-4.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:41.0','K. Durant makes free throw 2 of 2','+1','53-48',NULL,NULL,'3rd Quarter','LAL','PHX',53.0,48.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('11:06.0','K. Durant makes 2-pt jump shot from 18 ft (assist by J. Okogie)','+2','55-48',NULL,NULL,'3rd Quarter','LAL','PHX',55.0,48.0,-7.0,'2023-10-26','2023-10-27'),
 	 ('10:51.0',NULL,NULL,'55-50','+2','A. Davis makes 2-pt jump shot from 15 ft (assist by L. James)','3rd Quarter','LAL','PHX',55.0,50.0,-5.0,'2023-10-26','2023-10-27'),
@@ -3193,7 +3193,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:29.0',NULL,NULL,'60-57','+3','A. Reaves makes 3-pt jump shot from 27 ft','3rd Quarter','LAL','PHX',60.0,57.0,-3.0,'2023-10-26','2023-10-27'),
 	 ('7:55.0',NULL,NULL,'60-59','+2','A. Reaves makes 2-pt layup from 3 ft','3rd Quarter','LAL','PHX',60.0,59.0,-1.0,'2023-10-26','2023-10-27'),
 	 ('7:42.0','G. Allen makes 3-pt jump shot from 26 ft','+3','63-59',NULL,NULL,'3rd Quarter','LAL','PHX',63.0,59.0,-4.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:22.0','J. Okogie makes 2-pt layup from 1 ft','+2','65-59',NULL,NULL,'3rd Quarter','LAL','PHX',65.0,59.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('6:34.0',NULL,NULL,'65-61','+2','A. Davis makes 2-pt jump shot from 9 ft (assist by A. Reaves)','3rd Quarter','LAL','PHX',65.0,61.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('6:18.0','J. Nurkić makes free throw 1 of 2','+1','66-61',NULL,NULL,'3rd Quarter','LAL','PHX',66.0,61.0,-5.0,'2023-10-26','2023-10-27'),
@@ -3204,7 +3204,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:09.0',NULL,NULL,'69-65','+2','R. Hachimura makes 2-pt layup from 2 ft (assist by G. Vincent)','3rd Quarter','LAL','PHX',69.0,65.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('4:10.0','K. Durant makes free throw 1 of 2','+1','70-65',NULL,NULL,'3rd Quarter','LAL','PHX',70.0,65.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('4:10.0','K. Durant makes free throw 2 of 2','+1','71-65',NULL,NULL,'3rd Quarter','LAL','PHX',71.0,65.0,-6.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:27.0',NULL,NULL,'71-66','+1','G. Vincent makes free throw 1 of 2','3rd Quarter','LAL','PHX',71.0,66.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('3:27.0','N. Little makes free throw 1 of 2','+1','72-66',NULL,NULL,'3rd Quarter','LAL','PHX',72.0,66.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('3:27.0','N. Little makes free throw 2 of 2','+1','73-66',NULL,NULL,'3rd Quarter','LAL','PHX',73.0,66.0,-7.0,'2023-10-26','2023-10-27'),
@@ -3215,7 +3215,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:16.0','Y. Watanabe makes 3-pt jump shot from 26 ft (assist by J. Goodwin)','+3','78-70',NULL,NULL,'3rd Quarter','LAL','PHX',78.0,70.0,-8.0,'2023-10-26','2023-10-27'),
 	 ('2:03.0',NULL,NULL,'78-72','+2','D. Russell makes 2-pt layup from 2 ft (assist by L. James)','3rd Quarter','LAL','PHX',78.0,72.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('1:46.0','K. Durant makes 2-pt jump shot from 12 ft (assist by D. Eubanks)','+2','80-72',NULL,NULL,'3rd Quarter','LAL','PHX',80.0,72.0,-8.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:30.0','K. Durant makes 2-pt jump shot from 10 ft','+2','82-72',NULL,NULL,'3rd Quarter','LAL','PHX',82.0,72.0,-10.0,'2023-10-26','2023-10-27'),
 	 ('0:01.0','K. Durant makes 2-pt jump shot from 20 ft','+2','84-72',NULL,NULL,'3rd Quarter','LAL','PHX',84.0,72.0,-12.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','LAL','PHX',84.0,72.0,-12.0,'2023-10-26','2023-10-27'),
@@ -3226,7 +3226,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:06.0',NULL,NULL,'84-78','+2','G. Vincent makes 2-pt layup from 2 ft','4th Quarter','LAL','PHX',84.0,78.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('9:46.0',NULL,NULL,'84-80','+2','C. Wood makes 2-pt dunk from 2 ft (assist by L. James)','4th Quarter','LAL','PHX',84.0,80.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('9:10.0',NULL,NULL,'84-82','+2','A. Davis makes 2-pt dunk from 2 ft (assist by G. Vincent)','4th Quarter','LAL','PHX',84.0,82.0,-2.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:53.0','K. Durant makes 3-pt jump shot from 27 ft (assist by J. Goodwin)','+3','87-82',NULL,NULL,'4th Quarter','LAL','PHX',87.0,82.0,-5.0,'2023-10-26','2023-10-27'),
 	 ('7:57.0',NULL,NULL,'87-83','+1','L. James makes free throw 1 of 2','4th Quarter','LAL','PHX',87.0,83.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('7:57.0',NULL,NULL,'87-84','+1','L. James makes free throw 2 of 2','4th Quarter','LAL','PHX',87.0,84.0,-3.0,'2023-10-26','2023-10-27'),
@@ -3237,7 +3237,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:07.0',NULL,NULL,'87-91','+1','L. James makes free throw 2 of 2','4th Quarter','LAL','PHX',87.0,91.0,4.0,'2023-10-26','2023-10-27'),
 	 ('1:55.0','K. Durant makes 2-pt jump shot from 14 ft','+2','89-91',NULL,NULL,'4th Quarter','LAL','PHX',89.0,91.0,2.0,'2023-10-26','2023-10-27'),
 	 ('1:30.0','K. Durant makes 2-pt layup from 4 ft','+2','91-91',NULL,NULL,'4th Quarter','LAL','PHX',91.0,91.0,0.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:11.0',NULL,NULL,'91-93','+2','L. James makes 2-pt layup from 3 ft','4th Quarter','LAL','PHX',91.0,93.0,2.0,'2023-10-26','2023-10-27'),
 	 ('0:41.0',NULL,NULL,'91-95','+2','L. James makes 2-pt layup from 2 ft','4th Quarter','LAL','PHX',91.0,95.0,4.0,'2023-10-26','2023-10-27'),
 	 ('0:16.0',NULL,NULL,'91-96','+1','A. Reaves makes free throw 2 of 2','4th Quarter','LAL','PHX',91.0,96.0,5.0,'2023-10-26','2023-10-27'),
@@ -3248,7 +3248,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:01.0',NULL,NULL,'95-99','+1','A. Davis makes free throw 1 of 2','4th Quarter','LAL','PHX',95.0,99.0,4.0,'2023-10-26','2023-10-27'),
 	 ('0:01.0',NULL,NULL,'95-100','+1','A. Davis makes free throw 2 of 2','4th Quarter','LAL','PHX',95.0,100.0,5.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','LAL','PHX',95.0,100.0,5.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Jump ball: J. Embiid vs. B. Lopez (G. Antetokounmpo gains possession)','Jump ball: J. Embiid vs. B. Lopez (G. Antetokounmpo gains possession)','Jump ball: J. Embiid vs. B. Lopez (G. Antetokounmpo gains possession)','Jump ball: J. Embiid vs. B. Lopez (G. Antetokounmpo gains possession)','Jump ball: J. Embiid vs. B. Lopez (G. Antetokounmpo gains possession)','1st Quarter','MIL','PHI',0.0,0.0,0.0,'2023-10-26','2023-10-27'),
 	 ('10:56.0','T. Harris makes 2-pt jump shot from 11 ft','+2','2-0',NULL,NULL,'1st Quarter','MIL','PHI',2.0,0.0,-2.0,'2023-10-26','2023-10-27'),
 	 ('10:37.0',NULL,NULL,'2-2','+2','G. Antetokounmpo makes 2-pt layup from 3 ft (assist by D. Lillard)','1st Quarter','MIL','PHI',2.0,2.0,0.0,'2023-10-26','2023-10-27'),
@@ -3259,7 +3259,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:29.0',NULL,NULL,'5-8','+3','K. Middleton makes 3-pt jump shot from 25 ft (assist by G. Antetokounmpo)','1st Quarter','MIL','PHI',5.0,8.0,3.0,'2023-10-26','2023-10-27'),
 	 ('8:03.0',NULL,NULL,'5-10','+2','D. Lillard makes 2-pt jump shot from 4 ft (assist by K. Middleton)','1st Quarter','MIL','PHI',5.0,10.0,5.0,'2023-10-26','2023-10-27'),
 	 ('7:05.0',NULL,NULL,'5-12','+2','B. Lopez makes 2-pt layup from 3 ft (assist by D. Lillard)','1st Quarter','MIL','PHI',5.0,12.0,7.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:01.0','J. Embiid makes 2-pt layup from 4 ft (assist by D. Melton)','+2','7-12',NULL,NULL,'1st Quarter','MIL','PHI',7.0,12.0,5.0,'2023-10-26','2023-10-27'),
 	 ('6:32.0',NULL,NULL,'7-15','+3','B. Lopez makes 3-pt jump shot from 25 ft (assist by K. Middleton)','1st Quarter','MIL','PHI',7.0,15.0,8.0,'2023-10-26','2023-10-27'),
 	 ('6:10.0','K. Oubre makes 2-pt layup from 5 ft (assist by J. Embiid)','+2','9-15',NULL,NULL,'1st Quarter','MIL','PHI',9.0,15.0,6.0,'2023-10-26','2023-10-27'),
@@ -3270,7 +3270,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:30.0',NULL,NULL,'14-20','+1','D. Lillard makes free throw 1 of 2','1st Quarter','MIL','PHI',14.0,20.0,6.0,'2023-10-26','2023-10-27'),
 	 ('4:30.0',NULL,NULL,'14-21','+1','D. Lillard makes free throw 2 of 2','1st Quarter','MIL','PHI',14.0,21.0,7.0,'2023-10-26','2023-10-27'),
 	 ('4:01.0',NULL,NULL,'14-24','+3','P. Connaughton makes 3-pt jump shot from 23 ft (assist by B. Portis)','1st Quarter','MIL','PHI',14.0,24.0,10.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:38.0','T. Harris makes 2-pt layup from 2 ft','+2','16-24',NULL,NULL,'1st Quarter','MIL','PHI',16.0,24.0,8.0,'2023-10-26','2023-10-27'),
 	 ('2:50.0',NULL,NULL,'16-26','+2','C. Payne makes 2-pt jump shot from 10 ft (assist by P. Connaughton)','1st Quarter','MIL','PHI',16.0,26.0,10.0,'2023-10-26','2023-10-27'),
 	 ('2:22.0','K. Oubre makes 3-pt jump shot from 28 ft (assist by T. Harris)','+3','19-26',NULL,NULL,'1st Quarter','MIL','PHI',19.0,26.0,7.0,'2023-10-26','2023-10-27'),
@@ -3281,7 +3281,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:50.0','K. Oubre makes free throw 2 of 2','+1','23-30',NULL,NULL,'1st Quarter','MIL','PHI',23.0,30.0,7.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','MIL','PHI',23.0,30.0,7.0,'2023-10-26','2023-10-27'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','MIL','PHI',23.0,30.0,7.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:49.0','T. Maxey makes 2-pt jump shot from 17 ft','+2','25-30',NULL,NULL,'2nd Quarter','MIL','PHI',25.0,30.0,5.0,'2023-10-26','2023-10-27'),
 	 ('10:41.0','T. Maxey makes free throw 1 of 2','+1','26-30',NULL,NULL,'2nd Quarter','MIL','PHI',26.0,30.0,4.0,'2023-10-26','2023-10-27'),
 	 ('10:41.0','T. Maxey makes free throw 2 of 2','+1','27-30',NULL,NULL,'2nd Quarter','MIL','PHI',27.0,30.0,3.0,'2023-10-26','2023-10-27'),
@@ -3292,7 +3292,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:37.0',NULL,NULL,'32-36','+2','G. Antetokounmpo makes 2-pt dunk from 2 ft','2nd Quarter','MIL','PHI',32.0,36.0,4.0,'2023-10-26','2023-10-27'),
 	 ('7:53.0',NULL,NULL,'32-38','+2','B. Portis makes 2-pt layup at rim','2nd Quarter','MIL','PHI',32.0,38.0,6.0,'2023-10-26','2023-10-27'),
 	 ('7:29.0',NULL,NULL,'32-39','+1','D. Lillard makes free throw 1 of 2','2nd Quarter','MIL','PHI',32.0,39.0,7.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:29.0',NULL,NULL,'32-40','+1','D. Lillard makes free throw 2 of 2','2nd Quarter','MIL','PHI',32.0,40.0,8.0,'2023-10-26','2023-10-27'),
 	 ('6:59.0','P. Reed makes free throw 2 of 2','+1','33-40',NULL,NULL,'2nd Quarter','MIL','PHI',33.0,40.0,7.0,'2023-10-26','2023-10-27'),
 	 ('6:39.0',NULL,NULL,'33-43','+3','D. Lillard makes 3-pt jump shot from 26 ft','2nd Quarter','MIL','PHI',33.0,43.0,10.0,'2023-10-26','2023-10-27'),
@@ -3303,7 +3303,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:27.0','T. Harris makes free throw 2 of 2','+1','36-48',NULL,NULL,'2nd Quarter','MIL','PHI',36.0,48.0,12.0,'2023-10-26','2023-10-27'),
 	 ('5:16.0',NULL,NULL,'36-50','+2','D. Lillard makes 2-pt jump shot from 12 ft','2nd Quarter','MIL','PHI',36.0,50.0,14.0,'2023-10-26','2023-10-27'),
 	 ('5:03.0','J. Embiid makes free throw 1 of 2','+1','37-50',NULL,NULL,'2nd Quarter','MIL','PHI',37.0,50.0,13.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('4:55.0',NULL,NULL,'37-53','+3','D. Lillard makes 3-pt jump shot from 26 ft','2nd Quarter','MIL','PHI',37.0,53.0,16.0,'2023-10-26','2023-10-27'),
 	 ('4:26.0',NULL,NULL,'37-55','+2','M. Beauchamp makes 2-pt layup from 2 ft (assist by K. Middleton)','2nd Quarter','MIL','PHI',37.0,55.0,18.0,'2023-10-26','2023-10-27'),
 	 ('4:16.0','T. Maxey makes free throw 2 of 2','+1','38-55',NULL,NULL,'2nd Quarter','MIL','PHI',38.0,55.0,17.0,'2023-10-26','2023-10-27'),
@@ -3314,7 +3314,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('2:38.0','D. Melton makes free throw 1 of 2','+1','45-57',NULL,NULL,'2nd Quarter','MIL','PHI',45.0,57.0,12.0,'2023-10-26','2023-10-27'),
 	 ('2:38.0','D. Melton makes free throw 2 of 2','+1','46-57',NULL,NULL,'2nd Quarter','MIL','PHI',46.0,57.0,11.0,'2023-10-26','2023-10-27'),
 	 ('2:20.0','D. Melton makes 3-pt jump shot from 27 ft (assist by T. Maxey)','+3','49-57',NULL,NULL,'2nd Quarter','MIL','PHI',49.0,57.0,8.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('1:58.0',NULL,NULL,'49-60','+3','M. Beasley makes 3-pt jump shot from 26 ft (assist by G. Antetokounmpo)','2nd Quarter','MIL','PHI',49.0,60.0,11.0,'2023-10-26','2023-10-27'),
 	 ('1:36.0',NULL,NULL,'49-61','+1','G. Antetokounmpo makes free throw 2 of 2','2nd Quarter','MIL','PHI',49.0,61.0,12.0,'2023-10-26','2023-10-27'),
 	 ('1:18.0','J. Embiid makes 2-pt hook shot from 5 ft','+2','51-61',NULL,NULL,'2nd Quarter','MIL','PHI',51.0,61.0,10.0,'2023-10-26','2023-10-27'),
@@ -3325,7 +3325,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','End of 2nd quarter','2nd Quarter','MIL','PHI',54.0,63.0,9.0,'2023-10-26','2023-10-27'),
 	 ('12:00.0','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','Start of 3rd quarter','3rd Quarter','MIL','PHI',54.0,63.0,9.0,'2023-10-26','2023-10-27'),
 	 ('11:40.0','J. Embiid makes 3-pt jump shot from 25 ft (assist by T. Maxey)','+3','57-63',NULL,NULL,'3rd Quarter','MIL','PHI',57.0,63.0,6.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('11:20.0',NULL,NULL,'57-65','+2','B. Lopez makes 2-pt jump shot from 19 ft (assist by M. Beasley)','3rd Quarter','MIL','PHI',57.0,65.0,8.0,'2023-10-26','2023-10-27'),
 	 ('11:10.0','T. Harris makes 3-pt jump shot from 27 ft (assist by T. Maxey)','+3','60-65',NULL,NULL,'3rd Quarter','MIL','PHI',60.0,65.0,5.0,'2023-10-26','2023-10-27'),
 	 ('10:27.0',NULL,NULL,'60-66','+1','K. Middleton makes free throw 2 of 2','3rd Quarter','MIL','PHI',60.0,66.0,6.0,'2023-10-26','2023-10-27'),
@@ -3336,7 +3336,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:39.0','T. Harris makes 2-pt jump shot from 13 ft','+2','67-71',NULL,NULL,'3rd Quarter','MIL','PHI',67.0,71.0,4.0,'2023-10-26','2023-10-27'),
 	 ('8:07.0','T. Harris makes 2-pt layup from 2 ft','+2','69-71',NULL,NULL,'3rd Quarter','MIL','PHI',69.0,71.0,2.0,'2023-10-26','2023-10-27'),
 	 ('7:49.0',NULL,NULL,'69-73','+2','G. Antetokounmpo makes 2-pt jump shot from 17 ft (assist by D. Lillard)','3rd Quarter','MIL','PHI',69.0,73.0,4.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('7:26.0',NULL,NULL,'69-75','+2','G. Antetokounmpo makes 2-pt dunk from 3 ft','3rd Quarter','MIL','PHI',69.0,75.0,6.0,'2023-10-26','2023-10-27'),
 	 ('6:34.0',NULL,NULL,'69-77','+2','D. Lillard makes 2-pt layup from 3 ft','3rd Quarter','MIL','PHI',69.0,77.0,8.0,'2023-10-26','2023-10-27'),
 	 ('5:47.0',NULL,NULL,'69-78','+1','G. Antetokounmpo makes free throw 2 of 2','3rd Quarter','MIL','PHI',69.0,78.0,9.0,'2023-10-26','2023-10-27'),
@@ -3347,7 +3347,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('3:45.0',NULL,NULL,'72-82','+2','J. Crowder makes 2-pt jump shot from 19 ft (assist by B. Portis)','3rd Quarter','MIL','PHI',72.0,82.0,10.0,'2023-10-26','2023-10-27'),
 	 ('3:28.0','T. Maxey makes 2-pt jump shot from 8 ft (assist by J. Embiid)','+2','74-82',NULL,NULL,'3rd Quarter','MIL','PHI',74.0,82.0,8.0,'2023-10-26','2023-10-27'),
 	 ('3:08.0','K. Oubre makes 3-pt jump shot from 25 ft','+3','77-82',NULL,NULL,'3rd Quarter','MIL','PHI',77.0,82.0,5.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('2:36.0','T. Maxey makes 3-pt jump shot from 29 ft (assist by P. Beverley)','+3','80-82',NULL,NULL,'3rd Quarter','MIL','PHI',80.0,82.0,2.0,'2023-10-26','2023-10-27'),
 	 ('2:17.0',NULL,NULL,'80-83','+1','J. Crowder makes free throw 1 of 2','3rd Quarter','MIL','PHI',80.0,83.0,3.0,'2023-10-26','2023-10-27'),
 	 ('2:17.0',NULL,NULL,'80-84','+1','J. Crowder makes free throw 2 of 2','3rd Quarter','MIL','PHI',80.0,84.0,4.0,'2023-10-26','2023-10-27'),
@@ -3358,7 +3358,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:48.0',NULL,NULL,'83-88','+2','B. Portis makes 2-pt layup from 3 ft','3rd Quarter','MIL','PHI',83.0,88.0,5.0,'2023-10-26','2023-10-27'),
 	 ('0:34.0','T. Maxey makes 2-pt jump shot from 7 ft','+2','85-88',NULL,NULL,'3rd Quarter','MIL','PHI',85.0,88.0,3.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','MIL','PHI',85.0,88.0,3.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','MIL','PHI',85.0,88.0,3.0,'2023-10-26','2023-10-27'),
 	 ('10:35.0',NULL,NULL,'85-90','+2','P. Connaughton makes 2-pt layup from 2 ft','4th Quarter','MIL','PHI',85.0,90.0,5.0,'2023-10-26','2023-10-27'),
 	 ('10:17.0','K. Oubre makes 2-pt jump shot from 9 ft','+2','87-90',NULL,NULL,'4th Quarter','MIL','PHI',87.0,90.0,3.0,'2023-10-26','2023-10-27'),
@@ -3369,7 +3369,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('8:57.0','T. Harris makes 3-pt jump shot from 25 ft','+3','93-94',NULL,NULL,'4th Quarter','MIL','PHI',93.0,94.0,1.0,'2023-10-26','2023-10-27'),
 	 ('8:20.0','T. Maxey makes free throw 1 of 2','+1','94-94',NULL,NULL,'4th Quarter','MIL','PHI',94.0,94.0,0.0,'2023-10-26','2023-10-27'),
 	 ('8:20.0','T. Maxey makes free throw 2 of 2','+1','95-94',NULL,NULL,'4th Quarter','MIL','PHI',95.0,94.0,-1.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('8:02.0','K. Oubre makes 3-pt jump shot from 25 ft (assist by J. Embiid)','+3','98-94',NULL,NULL,'4th Quarter','MIL','PHI',98.0,94.0,-4.0,'2023-10-26','2023-10-27'),
 	 ('7:49.0','K. Oubre makes 2-pt dunk from 1 ft','+2','100-94',NULL,NULL,'4th Quarter','MIL','PHI',100.0,94.0,-6.0,'2023-10-26','2023-10-27'),
 	 ('6:47.0','T. Maxey makes free throw 1 of 2','+1','101-94',NULL,NULL,'4th Quarter','MIL','PHI',101.0,94.0,-7.0,'2023-10-26','2023-10-27'),
@@ -3380,7 +3380,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:16.0','T. Maxey makes 2-pt layup from 2 ft (assist by J. Embiid)','+2','104-102',NULL,NULL,'4th Quarter','MIL','PHI',104.0,102.0,-2.0,'2023-10-26','2023-10-27'),
 	 ('3:57.0',NULL,NULL,'104-105','+3','D. Lillard makes 3-pt jump shot from 28 ft (assist by G. Antetokounmpo)','4th Quarter','MIL','PHI',104.0,105.0,1.0,'2023-10-26','2023-10-27'),
 	 ('3:34.0',NULL,NULL,'104-107','+2','G. Antetokounmpo makes 2-pt layup from 4 ft','4th Quarter','MIL','PHI',104.0,107.0,3.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('3:15.0',NULL,NULL,'104-108','+1','D. Lillard makes free throw 1 of 3','4th Quarter','MIL','PHI',104.0,108.0,4.0,'2023-10-26','2023-10-27'),
 	 ('3:15.0',NULL,NULL,'104-109','+1','D. Lillard makes free throw 2 of 3','4th Quarter','MIL','PHI',104.0,109.0,5.0,'2023-10-26','2023-10-27'),
 	 ('3:15.0',NULL,NULL,'104-110','+1','D. Lillard makes free throw 3 of 3','4th Quarter','MIL','PHI',104.0,110.0,6.0,'2023-10-26','2023-10-27'),
@@ -3391,13 +3391,13 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:29.0','J. Embiid makes 2-pt jump shot from 12 ft (assist by T. Maxey)','+2','111-113',NULL,NULL,'4th Quarter','MIL','PHI',111.0,113.0,2.0,'2023-10-26','2023-10-27'),
 	 ('1:13.0',NULL,NULL,'111-116','+3','D. Lillard makes 3-pt jump shot from 30 ft','4th Quarter','MIL','PHI',111.0,116.0,5.0,'2023-10-26','2023-10-27'),
 	 ('0:30.0','T. Harris makes 3-pt jump shot from 26 ft (assist by J. Embiid)','+3','114-116',NULL,NULL,'4th Quarter','MIL','PHI',114.0,116.0,2.0,'2023-10-26','2023-10-27');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date) VALUES
 	 ('0:11.0',NULL,NULL,'114-117','+1','D. Lillard makes free throw 1 of 2','4th Quarter','MIL','PHI',114.0,117.0,3.0,'2023-10-26','2023-10-27'),
 	 ('0:11.0',NULL,NULL,'114-118','+1','D. Lillard makes free throw 2 of 2','4th Quarter','MIL','PHI',114.0,118.0,4.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','D. Melton makes 3-pt jump shot from 26 ft','+3','117-118',NULL,NULL,'4th Quarter','MIL','PHI',117.0,118.0,1.0,'2023-10-26','2023-10-27'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','MIL','PHI',117.0,118.0,1.0,'2023-10-26','2023-10-27');
 
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('12:00.0','Jump ball: N. Jokić vs. V. Wembanyama (J. Champagnie gains possession)','Jump ball: N. Jokić vs. V. Wembanyama (J. Champagnie gains possession)','Jump ball: N. Jokić vs. V. Wembanyama (J. Champagnie gains possession)','Jump ball: N. Jokić vs. V. Wembanyama (J. Champagnie gains possession)','Jump ball: N. Jokić vs. V. Wembanyama (J. Champagnie gains possession)','1st Quarter','SAS','DEN',0.0,0.0,0.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('11:12.0',NULL,NULL,'0-2','+2','V. Wembanyama makes 2-pt jump shot from 6 ft','1st Quarter','SAS','DEN',0.0,2.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('10:43.0','N. Jokić makes 2-pt layup from 1 ft (assist by J. Murray)','+2','2-2',NULL,NULL,'1st Quarter','SAS','DEN',2.0,2.0,0.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3408,7 +3408,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('9:07.0',NULL,NULL,'6-9','+2','B. Wesley makes 2-pt dunk from 1 ft (assist by T. Jones)','1st Quarter','SAS','DEN',6.0,9.0,3.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('8:46.0','N. Jokić makes 2-pt layup from 1 ft (assist by J. Murray)','+2','8-9',NULL,NULL,'1st Quarter','SAS','DEN',8.0,9.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('8:29.0',NULL,NULL,'8-10','+1','S. Mamukelashvili makes free throw 1 of 2','1st Quarter','SAS','DEN',8.0,10.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('7:43.0','N. Jokić makes 2-pt layup at rim','+2','10-10',NULL,NULL,'1st Quarter','SAS','DEN',10.0,10.0,0.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:36.0',NULL,NULL,'10-12','+2','T. Jones makes 2-pt layup from 1 ft','1st Quarter','SAS','DEN',10.0,12.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:26.0','N. Jokić makes 2-pt dunk from 2 ft (assist by K. Caldwell-Pope)','+2','12-12',NULL,NULL,'1st Quarter','SAS','DEN',12.0,12.0,0.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3419,7 +3419,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('5:50.0',NULL,NULL,'16-18','+1','S. Mamukelashvili makes free throw 1 of 2','1st Quarter','SAS','DEN',16.0,18.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('5:26.0','J. Murray makes 3-pt jump shot from 24 ft','+3','19-18',NULL,NULL,'1st Quarter','SAS','DEN',19.0,18.0,-1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('4:38.0',NULL,NULL,'19-21','+3','Z. Collins makes 3-pt jump shot from 26 ft (assist by D. Graham)','1st Quarter','SAS','DEN',19.0,21.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('4:21.0','J. Murray makes 3-pt jump shot from 25 ft','+3','22-21',NULL,NULL,'1st Quarter','SAS','DEN',22.0,21.0,-1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:50.0',NULL,NULL,'22-24','+3','Z. Collins makes 3-pt jump shot from 26 ft (assist by B. Wesley)','1st Quarter','SAS','DEN',22.0,24.0,2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:30.0','P. Watson makes 2-pt layup at rim','+2','24-24',NULL,NULL,'1st Quarter','SAS','DEN',24.0,24.0,0.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3430,7 +3430,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:38.0','N. Jokić makes 3-pt jump shot from 23 ft (assist by R. Jackson)','+3','31-28',NULL,NULL,'1st Quarter','SAS','DEN',31.0,28.0,-3.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('1:15.0',NULL,NULL,'31-30','+2','S. Cissoko makes 2-pt layup at rim','1st Quarter','SAS','DEN',31.0,30.0,-1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:47.0',NULL,NULL,'31-32','+2','V. Wembanyama makes 2-pt jump shot from 15 ft','1st Quarter','SAS','DEN',31.0,32.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('0:00.0','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','End of 1st quarter','1st Quarter','SAS','DEN',31.0,32.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('12:00.0','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','Start of 2nd quarter','2nd Quarter','SAS','DEN',31.0,32.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('11:36.0',NULL,NULL,'31-34','+2','T. Jones makes 2-pt jump shot from 9 ft','2nd Quarter','SAS','DEN',31.0,34.0,3.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3441,7 +3441,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('10:17.0','R. Jackson makes 2-pt jump shot from 11 ft (assist by J. Holiday)','+2','37-36',NULL,NULL,'2nd Quarter','SAS','DEN',37.0,36.0,-1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('9:41.0','P. Watson makes 2-pt dunk from 1 ft (assist by C. Braun)','+2','39-36',NULL,NULL,'2nd Quarter','SAS','DEN',39.0,36.0,-3.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('9:12.0',NULL,NULL,'39-37','+1','T. Jones makes free throw 1 of 2','2nd Quarter','SAS','DEN',39.0,37.0,-2.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('8:34.0','C. Braun makes 2-pt layup from 1 ft (assist by R. Jackson)','+2','41-37',NULL,NULL,'2nd Quarter','SAS','DEN',41.0,37.0,-4.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('8:00.0','R. Jackson makes 2-pt jump shot from 15 ft','+2','43-37',NULL,NULL,'2nd Quarter','SAS','DEN',43.0,37.0,-6.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:28.0',NULL,NULL,'43-38','+1','J. Champagnie makes free throw 1 of 2','2nd Quarter','SAS','DEN',43.0,38.0,-5.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3452,7 +3452,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:35.0','J. Murray makes 3-pt jump shot from 25 ft (assist by N. Jokić)','+3','51-41',NULL,NULL,'2nd Quarter','SAS','DEN',51.0,41.0,-10.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:51.0','K. Caldwell-Pope makes 2-pt dunk from 1 ft','+2','53-41',NULL,NULL,'2nd Quarter','SAS','DEN',53.0,41.0,-12.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:31.0',NULL,NULL,'53-44','+3','V. Wembanyama makes 3-pt jump shot from 23 ft (assist by Z. Collins)','2nd Quarter','SAS','DEN',53.0,44.0,-9.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('3:17.0','A. Gordon makes 2-pt dunk from 1 ft (assist by N. Jokić)','+2','55-44',NULL,NULL,'2nd Quarter','SAS','DEN',55.0,44.0,-11.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:03.0','Jump ball: Z. Collins vs. M. Porter (B. Wesley gains possession)','Jump ball: Z. Collins vs. M. Porter (B. Wesley gains possession)','Jump ball: Z. Collins vs. M. Porter (B. Wesley gains possession)','Jump ball: Z. Collins vs. M. Porter (B. Wesley gains possession)','Jump ball: Z. Collins vs. M. Porter (B. Wesley gains possession)','2nd Quarter','SAS','DEN',55.0,44.0,-11.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('2:32.0','J. Murray makes 2-pt layup from 1 ft','+2','57-44',NULL,NULL,'2nd Quarter','SAS','DEN',57.0,44.0,-13.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3463,7 +3463,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('1:10.0',NULL,NULL,'60-50','+2','S. Cissoko makes 2-pt dunk from 1 ft (assist by V. Wembanyama)','2nd Quarter','SAS','DEN',60.0,50.0,-10.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:57.0','M. Porter makes free throw 1 of 2','+1','61-50',NULL,NULL,'2nd Quarter','SAS','DEN',61.0,50.0,-11.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:57.0','M. Porter makes free throw 2 of 2','+1','62-50',NULL,NULL,'2nd Quarter','SAS','DEN',62.0,50.0,-12.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('0:46.0','J. Murray makes technical free throw','+1','63-50',NULL,NULL,'2nd Quarter','SAS','DEN',63.0,50.0,-13.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:33.0','J. Murray makes 2-pt jump shot from 12 ft','+2','65-50',NULL,NULL,'2nd Quarter','SAS','DEN',65.0,50.0,-15.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:02.0','M. Porter makes 2-pt jump shot from 8 ft (assist by A. Gordon)','+2','67-50',NULL,NULL,'2nd Quarter','SAS','DEN',67.0,50.0,-17.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3474,7 +3474,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('11:19.0',NULL,NULL,'71-53','+3','S. Mamukelashvili makes 3-pt jump shot from 23 ft (assist by B. Wesley)','3rd Quarter','SAS','DEN',71.0,53.0,-18.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('11:08.0','N. Jokić makes 2-pt layup from 1 ft (assist by A. Gordon)','+2','73-53',NULL,NULL,'3rd Quarter','SAS','DEN',73.0,53.0,-20.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('10:46.0','M. Porter makes 3-pt jump shot from 26 ft (assist by N. Jokić)','+3','76-53',NULL,NULL,'3rd Quarter','SAS','DEN',76.0,53.0,-23.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('10:19.0',NULL,NULL,'76-55','+2','S. Cissoko makes 2-pt jump shot from 9 ft (assist by T. Jones)','3rd Quarter','SAS','DEN',76.0,55.0,-21.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('9:55.0','M. Porter makes 2-pt jump shot from 10 ft (assist by A. Gordon)','+2','78-55',NULL,NULL,'3rd Quarter','SAS','DEN',78.0,55.0,-23.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('9:34.0',NULL,NULL,'78-58','+3','D. Graham makes 3-pt jump shot from 24 ft (assist by T. Jones)','3rd Quarter','SAS','DEN',78.0,58.0,-20.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3485,7 +3485,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:43.0','A. Gordon makes 2-pt layup at rim','+2','83-63',NULL,NULL,'3rd Quarter','SAS','DEN',83.0,63.0,-20.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:28.0',NULL,NULL,'83-65','+2','V. Wembanyama makes 2-pt layup from 1 ft (assist by T. Jones)','3rd Quarter','SAS','DEN',83.0,65.0,-18.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('6:57.0',NULL,NULL,'83-67','+2','V. Wembanyama makes 2-pt layup from 2 ft','3rd Quarter','SAS','DEN',83.0,67.0,-16.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('6:57.0',NULL,NULL,'83-68','+1','V. Wembanyama makes free throw 1 of 1','3rd Quarter','SAS','DEN',83.0,68.0,-15.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('6:33.0',NULL,NULL,'83-71','+3','V. Wembanyama makes 3-pt jump shot from 29 ft (assist by D. Graham)','3rd Quarter','SAS','DEN',83.0,71.0,-12.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('6:16.0','A. Gordon makes 2-pt layup from 1 ft','+2','85-71',NULL,NULL,'3rd Quarter','SAS','DEN',85.0,71.0,-14.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3496,7 +3496,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:51.0',NULL,NULL,'87-81','+2','T. Jones makes 2-pt layup from 1 ft (assist by V. Wembanyama)','3rd Quarter','SAS','DEN',87.0,81.0,-6.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:44.0','A. Gordon makes 2-pt layup from 1 ft (assist by N. Jokić)','+2','89-81',NULL,NULL,'3rd Quarter','SAS','DEN',89.0,81.0,-8.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:09.0',NULL,NULL,'89-83','+2','D. Duke makes 2-pt jump shot from 22 ft (assist by Z. Collins)','3rd Quarter','SAS','DEN',89.0,83.0,-6.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('2:45.0','C. Braun makes 2-pt jump shot from 7 ft (assist by N. Jokić)','+2','91-83',NULL,NULL,'3rd Quarter','SAS','DEN',91.0,83.0,-8.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('2:13.0','J. Holiday makes 3-pt jump shot from 25 ft (assist by N. Jokić)','+3','94-83',NULL,NULL,'3rd Quarter','SAS','DEN',94.0,83.0,-11.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('2:01.0',NULL,NULL,'94-85','+2','S. Mamukelashvili makes 2-pt layup from 1 ft','3rd Quarter','SAS','DEN',94.0,85.0,-9.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3507,7 +3507,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','End of 3rd quarter','3rd Quarter','SAS','DEN',100.0,87.0,-13.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('12:00.0','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','Start of 4th quarter','4th Quarter','SAS','DEN',100.0,87.0,-13.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('11:37.0',NULL,NULL,'100-90','+3','T. Jones makes 3-pt jump shot from 23 ft (assist by D. Graham)','4th Quarter','SAS','DEN',100.0,90.0,-10.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('11:19.0','R. Jackson makes 2-pt jump shot from 18 ft (assist by Z. Nnaji)','+2','102-90',NULL,NULL,'4th Quarter','SAS','DEN',102.0,90.0,-12.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('10:42.0','P. Watson makes 2-pt dunk from 1 ft','+2','104-90',NULL,NULL,'4th Quarter','SAS','DEN',104.0,90.0,-14.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('10:03.0','C. Braun makes 3-pt jump shot from 23 ft (assist by J. Holiday)','+3','107-90',NULL,NULL,'4th Quarter','SAS','DEN',107.0,90.0,-17.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3518,7 +3518,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('7:57.0',NULL,NULL,'107-96','+1','Z. Collins makes free throw 1 of 2','4th Quarter','SAS','DEN',107.0,96.0,-11.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:57.0',NULL,NULL,'107-97','+1','Z. Collins makes free throw 2 of 2','4th Quarter','SAS','DEN',107.0,97.0,-10.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('7:40.0',NULL,NULL,'107-99','+2','S. Mamukelashvili makes 2-pt dunk from 1 ft (assist by J. Champagnie)','4th Quarter','SAS','DEN',107.0,99.0,-8.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('7:11.0','J. Murray makes 2-pt jump shot from 19 ft','+2','109-99',NULL,NULL,'4th Quarter','SAS','DEN',109.0,99.0,-10.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('6:39.0',NULL,NULL,'109-102','+3','J. Champagnie makes 3-pt jump shot from 24 ft (assist by T. Jones)','4th Quarter','SAS','DEN',109.0,102.0,-7.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('5:59.0',NULL,NULL,'109-104','+2','S. Mamukelashvili makes 2-pt layup from 1 ft (assist by Z. Collins)','4th Quarter','SAS','DEN',109.0,104.0,-5.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3529,7 +3529,7 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('4:26.0',NULL,NULL,'114-109','+3','S. Mamukelashvili makes 3-pt jump shot from 24 ft (assist by D. Graham)','4th Quarter','SAS','DEN',114.0,109.0,-5.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:57.0','J. Murray makes 2-pt layup from 2 ft (assist by N. Jokić)','+2','116-109',NULL,NULL,'4th Quarter','SAS','DEN',116.0,109.0,-7.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:46.0',NULL,NULL,'116-110','+1','D. Graham makes free throw 2 of 2','4th Quarter','SAS','DEN',116.0,110.0,-6.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
-INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
+INSERT INTO bbref_player_pbp (timequarter,descriptionplayvisitor,awayscore,score,homescore,descriptionplayhome,numberperiod,hometeam,awayteam,scoreaway,scorehome,marginscore,"date",scrape_date,created_at,modified_at) VALUES
 	 ('3:31.0','N. Jokić makes 2-pt jump shot from 10 ft (assist by J. Murray)','+2','118-110',NULL,NULL,'4th Quarter','SAS','DEN',118.0,110.0,-8.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('3:17.0',NULL,NULL,'118-112','+2','T. Jones makes 2-pt layup from 1 ft (assist by V. Wembanyama)','4th Quarter','SAS','DEN',118.0,112.0,-6.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('2:42.0',NULL,NULL,'118-115','+3','D. Graham makes 3-pt jump shot from 27 ft (assist by J. Champagnie)','4th Quarter','SAS','DEN',118.0,115.0,-3.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
@@ -3539,8 +3539,8 @@ INSERT INTO aws_pbp_data_source (timequarter,descriptionplayvisitor,awayscore,sc
 	 ('0:00.0',NULL,NULL,'120-121','+2','D. Graham makes 2-pt jump shot from 5 ft (assist by T. Jones)','4th Quarter','SAS','DEN',120.0,121.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974'),
 	 ('0:00.0','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','End of 4th quarter','4th Quarter','SAS','DEN',120.0,121.0,1.0,'2024-04-12','2024-04-13','2024-04-13 12:02:37.974','2024-04-13 12:02:37.974');
 
-DROP TABLE IF EXISTS aws_player_attributes_source;
-CREATE TABLE IF NOT EXISTS aws_player_attributes_source (
+DROP TABLE IF EXISTS internal_player_attributes;
+CREATE TABLE IF NOT EXISTS internal_player_attributes (
 	player text NULL,
 	is_rookie bool NULL,
 	yrs_exp int8 NULL,
@@ -3549,7 +3549,7 @@ CREATE TABLE IF NOT EXISTS aws_player_attributes_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Precious Achiuwa',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630173.png'),
 	 ('Steven Adams',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203500.png'),
 	 ('Bam Adebayo',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628389.png'),
@@ -3560,7 +3560,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Jarrett Allen',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628386.png'),
 	 ('Derrick Alston Jr.',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630247.png'),
 	 ('Jose Alvarado',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630631.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Al-Farouq Aminu',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202329.png'),
 	 ('Kyle Anderson',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203937.png'),
 	 ('Giannis Antetokounmpo',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203507.png'),
@@ -3571,7 +3571,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Trevor Ariza',false,17,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2772.png'),
 	 ('D.J. Augustin',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201571.png'),
 	 ('Deni Avdija',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630166.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Joel Ayayi',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630555.png'),
 	 ('Deandre Ayton',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629028.png'),
 	 ('Udoka Azubuike',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628962.png'),
@@ -3582,7 +3582,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Mitch Ballock',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630642.png'),
 	 ('Mo Bamba',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628964.png'),
 	 ('Desmond Bane',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630217.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Dalano Banton',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630625.png'),
 	 ('Harrison Barnes',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203084.png'),
 	 ('Scottie Barnes',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630567.png'),
@@ -3593,7 +3593,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Nicolas Batum',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201587.png'),
 	 ('Kent Bazemore',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203145.png'),
 	 ('Darius Bazley',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629647.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Bradley Beal',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203078.png'),
 	 ('Malik Beasley',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627736.png'),
 	 ('Juhann Begarin',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630584.png'),
@@ -3604,7 +3604,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Khem Birch',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203920.png'),
 	 ('Goga Bitadze',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629048.png'),
 	 ('Nemanja Bjelica',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202357.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Eric Bledsoe',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202339.png'),
 	 ('Keljin Blevins',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629833.png'),
 	 ('Bogdan Bogdanovic',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203992.png'),
@@ -3615,7 +3615,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Devin Booker',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626164.png'),
 	 ('Brandon Boston Jr.',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630527.png'),
 	 ('Chris Boucher',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628449.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('James Bouknight',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630547.png'),
 	 ('Brian Bowen II',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628968.png'),
 	 ('Avery Bradley',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202340.png'),
@@ -3626,7 +3626,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Oshae Brissett',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629052.png'),
 	 ('Malcolm Brogdon',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627763.png'),
 	 ('Armoni Brooks',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629717.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Dillon Brooks',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628415.png'),
 	 ('Bruce Brown',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628971.png'),
 	 ('Chaundee Brown',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630602.png'),
@@ -3637,7 +3637,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Charlie Brown Jr.',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629718.png'),
 	 ('Troy Brown Jr.',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628972.png'),
 	 ('Jalen Brunson',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628973.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Elijah Bryant',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629091.png'),
 	 ('Thomas Bryant',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628418.png'),
 	 ('Reggie Bullock',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203493.png'),
@@ -3648,7 +3648,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Devontae Cacok',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629719.png'),
 	 ('Kentavious Caldwell-Pope',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203484.png'),
 	 ('Facundo Campazzo',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630267.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Vlatko Cancar',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628427.png'),
 	 ('Clint Capela',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203991.png'),
 	 ('Vernon Carey Jr.',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630176.png'),
@@ -3659,7 +3659,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Alex Caruso',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627936.png'),
 	 ('Willie Cauley-Stein',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626161.png'),
 	 ('Justin Champagnie',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630551.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Chris Chiozza',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629185.png'),
 	 ('Marquese Chriss',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627737.png'),
 	 ('Josh Christopher',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630528.png'),
@@ -3670,7 +3670,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Amir Coffey',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629599.png'),
 	 ('John Collins',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628381.png'),
 	 ('Zach Collins',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628380.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Mike Conley',false,14,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201144.png'),
 	 ('Pat Connaughton',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626192.png'),
 	 ('Quinn Cook',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626188.png'),
@@ -3681,7 +3681,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Robert Covington',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203496.png'),
 	 ('Torrey Craig',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628470.png'),
 	 ('Jae Crowder',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203109.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Jarrett Culver',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629633.png'),
 	 ('Cade Cunningham',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630595.png'),
 	 ('Seth Curry',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203552.png'),
@@ -3692,7 +3692,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('DeMar DeRozan',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201942.png'),
 	 ('Gabriel Deck',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630466.png'),
 	 ('Dewayne Dedmon',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203473.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Sam Dekker',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626155.png'),
 	 ('Donte DiVincenzo',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628978.png'),
 	 ('Mamadi Diakite',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629603.png'),
@@ -3703,7 +3703,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Luguentz Dort',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629652.png'),
 	 ('Ayo Dosunmu',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630245.png'),
 	 ('Devon Dotson',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629653.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Sekou Doumbouya',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629635.png'),
 	 ('Jeff Dowtin',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630288.png'),
 	 ('PJ Dozier',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628408.png'),
@@ -3714,7 +3714,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Kris Dunn',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627739.png'),
 	 ('Kevin Durant',false,14,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201142.png'),
 	 ('Jaime Echenique',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630693.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Anthony Edwards',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630162.png'),
 	 ('Carsen Edwards',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629035.png'),
 	 ('Kessler Edwards',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630556.png'),
@@ -3725,7 +3725,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Drew Eubanks',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629234.png'),
 	 ('Dante Exum',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203957.png'),
 	 ('Tacko Fall',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629605.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Derrick Favors',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202324.png'),
 	 ('Bruno Fernando',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628981.png'),
 	 ('Dorian Finney-Smith',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627827.png'),
@@ -3736,7 +3736,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Evan Fournier',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203095.png'),
 	 ('De''Aaron Fox',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628368.png'),
 	 ('Markelle Fultz',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628365.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Wenyen Gabriel',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629117.png'),
 	 ('Daniel Gafford',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629655.png'),
 	 ('Danilo Gallinari',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201568.png'),
@@ -3747,7 +3747,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Luka Garza',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630568.png'),
 	 ('Rudy Gay',false,15,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200752.png'),
 	 ('Paul George',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202331.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Taj Gibson',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201959.png'),
 	 ('Josh Giddey',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630581.png'),
 	 ('Harry Giles III',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628385.png'),
@@ -3758,7 +3758,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Brandon Goodwin',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629164.png'),
 	 ('Jordan Goodwin',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630692.png'),
 	 ('Aaron Gordon',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203932.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Eric Gordon',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201569.png'),
 	 ('Devonte'' Graham',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628984.png'),
 	 ('Jerami Grant',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203924.png'),
@@ -3769,7 +3769,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Jalen Green',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630224.png'),
 	 ('Javonte Green',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629750.png'),
 	 ('Jeff Green',false,14,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201145.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Josh Green',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630182.png'),
 	 ('Blake Griffin',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201933.png'),
 	 ('Quentin Grimes',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629656.png'),
@@ -3780,7 +3780,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('R.J. Hampton',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630181.png'),
 	 ('Tim Hardaway Jr.',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203501.png'),
 	 ('James Harden',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Maurice Harkless',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203090.png'),
 	 ('Montrezl Harrell',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626149.png'),
 	 ('Gary Harris',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203914.png'),
@@ -3791,7 +3791,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Isaiah Hartenstein',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628392.png'),
 	 ('Udonis Haslem',false,18,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2617.png'),
 	 ('Sam Hauser',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630573.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Jaxson Hayes',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629637.png'),
 	 ('Killian Hayes',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630165.png'),
 	 ('Gordon Hayward',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202330.png'),
@@ -3802,7 +3802,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Buddy Hield',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627741.png'),
 	 ('George Hill',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201588.png'),
 	 ('Solomon Hill',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203524.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Nate Hinton',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630207.png'),
 	 ('Jaylen Hoard',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629658.png'),
 	 ('Aaron Holiday',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628988.png'),
@@ -3813,7 +3813,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Daulton Hommes',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629756.png'),
 	 ('Rodney Hood',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203918.png'),
 	 ('Al Horford',false,14,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201143.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Talen Horton-Tucker',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629659.png'),
 	 ('Danuel House Jr.',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627863.png'),
 	 ('Dwight Howard',false,17,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2730.png'),
@@ -3824,7 +3824,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Feron Hunt',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630624.png'),
 	 ('De''Andre Hunter',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629631.png'),
 	 ('Matt Hurt',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630562.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Chandler Hutchison',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628990.png'),
 	 ('Nah''Shon Hyland',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630538.png'),
 	 ('Serge Ibaka',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201586.png'),
@@ -3835,7 +3835,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Kyrie Irving',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202681.png'),
 	 ('Jonathan Isaac',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628371.png'),
 	 ('Wes Iwundu',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628411.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Frank Jackson',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628402.png'),
 	 ('Isaiah Jackson',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630543.png'),
 	 ('Josh Jackson',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628367.png'),
@@ -3846,7 +3846,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('LeBron James',false,18,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png'),
 	 ('DeJon Jarreau',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630610.png'),
 	 ('Ty Jerome',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629660.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Isaiah Joe',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630198.png'),
 	 ('Alize Johnson',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628993.png'),
 	 ('Cameron Johnson',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629661.png'),
@@ -3857,7 +3857,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Keon Johnson',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630553.png'),
 	 ('Stanley Johnson',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626169.png'),
 	 ('Nikola Jokic',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203999.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Rokas Jokubaitis',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630599.png'),
 	 ('Carlik Jones',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630637.png'),
 	 ('Damian Jones',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627745.png'),
@@ -3868,7 +3868,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Derrick Jones Jr.',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627884.png'),
 	 ('DeAndre Jordan',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201599.png'),
 	 ('Cory Joseph',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202709.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Mfiondu Kabengele',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629662.png'),
 	 ('Georgios Kalaitzakis',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630686.png'),
 	 ('Frank Kaminsky',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626163.png'),
@@ -3879,7 +3879,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Corey Kispert',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630557.png'),
 	 ('Maxi Kleber',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628467.png'),
 	 ('Nathan Knight',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630233.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Kevin Knox II',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628995.png'),
 	 ('John Konchar',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629723.png'),
 	 ('Balsa Koprivica',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630638.png'),
@@ -3890,7 +3890,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Jonathan Kuminga',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630228.png'),
 	 ('Kyle Kuzma',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628398.png'),
 	 ('Zach LaVine',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203897.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Anthony Lamb',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630237.png'),
 	 ('Jeremy Lamb',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203087.png'),
 	 ('Jock Landale',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629111.png'),
@@ -3901,7 +3901,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('T.J. Leaf',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628388.png'),
 	 ('Damion Lee',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627814.png'),
 	 ('Saben Lee',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630240.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Alex Len',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203458.png'),
 	 ('Kawhi Leonard',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202695.png'),
 	 ('Matt Lewis',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630665.png'),
@@ -3912,7 +3912,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Isaiah Livers',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630587.png'),
 	 ('Kevon Looney',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626172.png'),
 	 ('Brook Lopez',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201572.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Robin Lopez',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201577.png'),
 	 ('Didi Louzada',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629712.png'),
 	 ('Kevin Love',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201567.png'),
@@ -3923,7 +3923,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Sandro Mamukelashvili',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630572.png'),
 	 ('Terance Mann',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629611.png'),
 	 ('Tre Mann',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630544.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Boban Marjanovic',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626246.png'),
 	 ('Lauri Markkanen',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628374.png'),
 	 ('Naji Marshall',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630230.png'),
@@ -3934,7 +3934,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Wesley Matthews',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202083.png'),
 	 ('Tyrese Maxey',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630178.png'),
 	 ('Skylar Mays',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630219.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Miles McBride',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630540.png'),
 	 ('Mac McClung',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630644.png'),
 	 ('CJ McCollum',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203468.png'),
@@ -3945,7 +3945,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('JaVale McGee',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201580.png'),
 	 ('Rodney McGruder',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203585.png'),
 	 ('JaQuori McLaughlin',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630605.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Jordan McLaughlin',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629162.png'),
 	 ('Ben McLemore',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203463.png'),
 	 ('Nicolo Melli',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629740.png'),
@@ -3956,7 +3956,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Isaiah Miller',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630627.png'),
 	 ('Patty Mills',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201988.png'),
 	 ('Paul Millsap',false,15,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200794.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Shake Milton',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629003.png'),
 	 ('Davion Mitchell',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630558.png'),
 	 ('Donovan Mitchell',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628378.png'),
@@ -3967,7 +3967,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Ja Morant',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629630.png'),
 	 ('Juwan Morgan',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629752.png'),
 	 ('Markieff Morris',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202693.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Monte Morris',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628420.png'),
 	 ('Marcus Morris Sr.',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202694.png'),
 	 ('Mychal Mulder',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628539.png'),
@@ -3978,7 +3978,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Svi Mykhailiuk',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629004.png'),
 	 ('Abdel Nader',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627846.png'),
 	 ('Larry Nance Jr.',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626204.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('RJ Nembhard Jr.',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630612.png'),
 	 ('Aaron Nesmith',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630174.png'),
 	 ('Raul Neto',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203526.png'),
@@ -3989,7 +3989,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Jaylen Nowell',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629669.png'),
 	 ('Frank Ntilikina',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628373.png'),
 	 ('Kendrick Nunn',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629134.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('James Nunnally',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203263.png'),
 	 ('Jusuf Nurkic',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203994.png'),
 	 ('David Nwaba',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628021.png'),
@@ -4000,7 +4000,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Chuma Okeke',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629643.png'),
 	 ('Josh Okogie',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629006.png'),
 	 ('Onyeka Okongwu',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630168.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Isaac Okoro',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630171.png'),
 	 ('KZ Okpala',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629644.png'),
 	 ('Victor Oladipo',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203506.png'),
@@ -4011,7 +4011,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Daniel Oturu',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630187.png'),
 	 ('Kelly Oubre Jr.',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626162.png'),
 	 ('Kevin Pangos',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630698.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Jabari Parker',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203953.png'),
 	 ('Eric Paschall',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629672.png'),
 	 ('Patrick Patterson',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202335.png'),
@@ -4022,7 +4022,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Reggie Perry',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629617.png'),
 	 ('Filip Petrusev',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630196.png'),
 	 ('Jamorko Pickett',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630691.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Theo Pinson',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629033.png'),
 	 ('Mason Plumlee',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203486.png'),
 	 ('Jakob Poeltl',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627751.png'),
@@ -4033,7 +4033,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Michael Porter Jr.',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629008.png'),
 	 ('Otto Porter Jr.',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203490.png'),
 	 ('Bobby Portis',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626171.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Kristaps Porzingis',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/204001.png'),
 	 ('Micah Potter',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630695.png'),
 	 ('Dwight Powell',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203939.png'),
@@ -4044,7 +4044,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Payton Pritchard',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630202.png'),
 	 ('Neemias Queta',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629674.png'),
 	 ('Immanuel Quickley',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630193.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Jahmi''us Ramsey',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630186.png'),
 	 ('Chasson Randle',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626184.png'),
 	 ('Julius Randle',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203944.png'),
@@ -4055,7 +4055,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Naz Reid',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629675.png'),
 	 ('Nick Richards',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630208.png'),
 	 ('Josh Richardson',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626196.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Grant Riller',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630203.png'),
 	 ('Austin Rivers',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203085.png'),
 	 ('Duncan Robinson',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629130.png'),
@@ -4066,7 +4066,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Rajon Rondo',false,15,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200765.png'),
 	 ('Derrick Rose',false,13,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201565.png'),
 	 ('Terrence Ross',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203082.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Terry Rozier',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626179.png'),
 	 ('Ricky Rubio',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201937.png'),
 	 ('D''Angelo Russell',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626156.png'),
@@ -4077,7 +4077,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Tomas Satoransky',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203107.png'),
 	 ('Jordan Schakel',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630648.png'),
 	 ('Admiral Schofield',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629678.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Dennis Schroder',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203471.png'),
 	 ('Mike Scott',false,9,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203118.png'),
 	 ('Jay Scrubb',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630206.png'),
@@ -4088,7 +4088,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Pascal Siakam',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627783.png'),
 	 ('Chris Silva',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629735.png'),
 	 ('Ben Simmons',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627732.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Aamir Simms',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630603.png'),
 	 ('Marko Simonovic',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630250.png'),
 	 ('Anfernee Simons',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629014.png'),
@@ -4099,7 +4099,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Dru Smith',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630696.png'),
 	 ('Ish Smith',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202397.png'),
 	 ('Jalen Smith',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630188.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Dennis Smith Jr.',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628372.png'),
 	 ('Xavier Sneed',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630270.png'),
 	 ('Tony Snell',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203503.png'),
@@ -4110,7 +4110,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('D.J. Stewart Jr.',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630597.png'),
 	 ('Max Strus',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629622.png'),
 	 ('Jalen Suggs',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630591.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Edmond Sumner',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628410.png'),
 	 ('Keifer Sykes',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626208.png'),
 	 ('Anthony Tarke',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630697.png'),
@@ -4121,7 +4121,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('MaCio Teague',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630617.png'),
 	 ('Garrett Temple',false,12,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202066.png'),
 	 ('Emanuel Terry',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629150.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Tyrell Terry',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630179.png'),
 	 ('Jon Teske',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630257.png'),
 	 ('Daniel Theis',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628464.png'),
@@ -4132,7 +4132,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Ethan Thompson',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630679.png'),
 	 ('Klay Thompson',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202691.png'),
 	 ('Tristan Thompson',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202684.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('JT Thor',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630550.png'),
 	 ('Sindarius Thornwell',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628414.png'),
 	 ('Matisse Thybulle',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629680.png'),
@@ -4143,7 +4143,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Juan Toscano-Anderson',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629308.png'),
 	 ('Axel Toupane',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626253.png'),
 	 ('Karl-Anthony Towns',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626157.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Gary Trent Jr.',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629018.png'),
 	 ('P.J. Tucker',false,15,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200782.png'),
 	 ('Myles Turner',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626167.png'),
@@ -4154,7 +4154,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Devin Vassell',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630170.png'),
 	 ('Luca Vildoza',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630492.png'),
 	 ('Gabe Vincent',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629216.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Nikola Vucevic',false,10,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202696.png'),
 	 ('Dean Wade',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629731.png'),
 	 ('Franz Wagner',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630532.png'),
@@ -4165,7 +4165,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Lonnie Walker IV',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629022.png'),
 	 ('John Wall',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202322.png'),
 	 ('T.J. Warren',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203933.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('P.J. Washington',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629023.png'),
 	 ('Duane Washington Jr.',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630613.png'),
 	 ('Yuta Watanabe',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629139.png'),
@@ -4176,7 +4176,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Coby White',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629632.png'),
 	 ('Derrick White',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628401.png'),
 	 ('Hassan Whiteside',false,11,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202355.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Joe Wieskamp',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630580.png'),
 	 ('Aaron Wiggins',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630598.png'),
 	 ('Andrew Wiggins',false,7,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203952.png'),
@@ -4187,7 +4187,7 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Ziaire Williams',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630533.png'),
 	 ('Robert Williams III',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629057.png'),
 	 ('Zion Williamson',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629627.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('D.J. Wilson',false,4,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628391.png'),
 	 ('Dylan Windler',false,2,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629685.png'),
 	 ('Justise Winslow',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626159.png'),
@@ -4198,15 +4198,15 @@ INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VAL
 	 ('Delon Wright',false,6,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626153.png'),
 	 ('Moses Wright',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630589.png'),
 	 ('McKinley Wright IV',true,0,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630593.png');
-INSERT INTO aws_player_attributes_source (player,is_rookie,yrs_exp,headshot) VALUES
+INSERT INTO internal_player_attributes (player,is_rookie,yrs_exp,headshot) VALUES
 	 ('Thaddeus Young',false,14,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201152.png'),
 	 ('Trae Young',false,3,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629027.png'),
 	 ('Omer Yurtseven',false,1,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630209.png'),
 	 ('Cody Zeller',false,8,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203469.png'),
 	 ('Ivica Zubac',false,5,'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627826.png');
 
-DROP TABLE IF EXISTS aws_preseason_odds_source;
-CREATE TABLE IF NOT EXISTS aws_preseason_odds_source (
+DROP TABLE IF EXISTS bbref_team_preseason_odds;
+CREATE TABLE IF NOT EXISTS bbref_team_preseason_odds (
 	team text NULL,
 	odds int8 NULL,
 	predicted float8 NULL,
@@ -4214,7 +4214,7 @@ CREATE TABLE IF NOT EXISTS aws_preseason_odds_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
+INSERT INTO bbref_team_preseason_odds (team,odds,predicted) VALUES
 	 ('Brooklyn Nets',12500,37.5),
 	 ('Los Angeles Lakers',1500,48.5),
 	 ('Milwaukee Bucks',600,52.5),
@@ -4225,7 +4225,7 @@ INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
 	 ('Los Angeles Clippers',2200,46.5),
 	 ('Denver Nuggets',450,54.5),
 	 ('Dallas Mavericks',2500,45.5);
-INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
+INSERT INTO bbref_team_preseason_odds (team,odds,predicted) VALUES
 	 ('Atlanta Hawks',8000,42.5),
 	 ('Miami Heat',1600,48.5),
 	 ('Boston Celtics',450,53.5),
@@ -4236,7 +4236,7 @@ INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
 	 ('Indiana Pacers',25000,35.5),
 	 ('Toronto Raptors',8000,37.5),
 	 ('Charlotte Hornets',50000,31.5);
-INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
+INSERT INTO bbref_team_preseason_odds (team,odds,predicted) VALUES
 	 ('Chicago Bulls',12500,37.5),
 	 ('Washington Wizards',50000,24.5),
 	 ('Sacramento Kings',3500,43.5),
@@ -4249,8 +4249,8 @@ INSERT INTO aws_preseason_odds_source (team,odds,predicted) VALUES
 	 ('Houston Rockets',25000,31.5);
 
 
-DROP TABLE IF EXISTS aws_reddit_comment_data_source;
-CREATE TABLE IF NOT EXISTS aws_reddit_comment_data_source (
+DROP TABLE IF EXISTS reddit_comments;
+CREATE TABLE IF NOT EXISTS reddit_comments (
 	"comment" text NULL,
 	score int8 NULL,
 	url text NULL,
@@ -4271,7 +4271,7 @@ CREATE TABLE IF NOT EXISTS aws_reddit_comment_data_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('or they could simply report heights to the tenth of an inch.',3,'https://www.reddit.com/r/nba/comments/vrcbkz/rahbar_okc_officially_lists_chet_holmgren_as_71/','00saddl','VanGrizzlies1',':mem-3: Vancouver Grizzlies','0','2023-10-26','2023-10-26 11:02:59.177',0.0,0.0,1.0,0.0,0,1.0,'3855a16adb54241b2f8a10d35dbf64fc'),
 	 ('^ this dude thinks oreos rust',5,'https://www.reddit.com/r/nba/comments/ucuvps/gianniss_wife_instagram_giannis_spent_the_night/','00saddl','VanGrizzlies1',':mem-3: Vancouver Grizzlies','0','2023-10-26','2022-10-26 11:03:03.294',0.0,0.0,1.0,0.0,0,1.0,'e691e40dc2c7c5962b9f0dc12f1b27d4'),
 	 ('this is the opposite of mamba mentality',0,'https://www.reddit.com/r/nba/comments/xox6ld/westerholm_my_favorite_part_of_celtics_media_day/','00saddl','VanGrizzlies1',':mem-3: Vancouver Grizzlies','0','2023-10-25','2023-10-25 11:04:36.621',0.0,0.0,1.0,0.0,0,1.0,'8a16bef9fd13efe36e2fcc6886173efe'),
@@ -4286,7 +4286,7 @@ AMA: https://np.reddit.com/r/IAmA/comments/p9a1v/im_woody_harrelson_ama/',9,'htt
 	 ('R E P O R T',8,'https://www.reddit.com/r/nba/comments/tiwqoi/rudy_golbert_on_draymond_green_if_i_was_an/','00Samwise00','Jazz1',':uta-1: Jazz','0','2022-03-21','2022-03-21 11:02:48.472',0.0,0.0,0.0,0.0,0,1.0,'8815ad20b2a5bfdd173bf0eb9f26d533'),
 	 ('The Jazz can''t even solve a Luka-less Mavs team, they would probably lose to the Suns in a series even without Booker.',10,'https://www.reddit.com/r/nba/comments/u8sywk/wojnarowksi_phoenix_suns_star_devin_booker_could/','00Samwise00','Jazz1',':uta-1: Jazz','0','2022-04-22','2022-04-22 11:02:44.047',-0.5093,0.193,0.807,0.0,0,1.0,'ae55f4841a16b7c8b8a1e05f13e814da'),
 	 ('"This just in, Steph Curry sleeps nude in an oxygen tent that he believes gives him sexual powers"',7,'https://www.reddit.com/r/nba/comments/u5e1iz/post_game_thread_the_golden_state_warriors_10/','00Samwise00','Jazz1',':uta-1: Jazz','0','2022-04-17','2022-04-17 11:03:26.374',0.0,0.0,1.0,0.0,0,1.0,'8c3a4b2227f7df12c3dfb7df42c40a84');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('But how does this affect LeBron''s legacy?',14,'https://www.reddit.com/r/nba/comments/ukty79/steph_curry_comments_on_ja_morant_injury/','00tpotter',NULL,NULL,'0','2022-05-08','2022-05-08 11:03:00.303',0.0,0.0,1.0,0.0,0,1.0,'02d491d0b799b0ff01f6ddc7d15e735f'),
 	 ('holup..',1,'https://www.reddit.com/r/nba/comments/whon1o/highlight_luka_obliterates_old_dwight_howard_with/','0100100012635','Pistons1',':det-1: Pistons','0','2022-08-07','2022-08-07 11:04:55.060',0.0,0.0,1.0,0.0,0,1.0,'965cd350448f7410a34d41a81a269824'),
 	 ('Holup..thought yall said Zion was fat?',11,'https://www.reddit.com/r/nba/comments/vv7ok9/zion_pulls_out_a_360_windmill_slam_with_ease/','0100100012635','Pistons1',':det-1: Pistons','0','2022-07-10','2022-07-10 11:03:11.157',0.0,0.0,1.0,0.0,0,1.0,'d258d1890b9b5e3445143ef0a02cd72d'),
@@ -4297,7 +4297,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('This is exactly why Seattle doesn’t deserve a team',-20,'https://www.reddit.com/r/nba/comments/wtnjon/pelton_game_called_midway_through_the_second/','010811731654','NBA',':nba-1: NBA','0','2023-10-26','2023-10-26 11:04:11.029',0.0,0.0,1.0,0.0,0,1.0,'bfca458fda10657bc9e629a7d56f8116'),
 	 ('Yeah never complains ever this is like the first time he has  ever really said something back. Unlike Dame who’s well liked always talking about the grind and how loyal he is on twitter',21,'https://www.reddit.com/r/nba/comments/vk2hlx/russ_responds_to_skip_calling_him_westbrick_yoooo/','010811731654',NULL,NULL,'0','2022-06-25','2022-06-25 11:02:39.702',0.9167,0.0,0.653,0.347,1,1.0,'af2a809d8a4857df244e5f7fc33fe561'),
 	 ('[Hayes right now](https://www.youtube.com/watch?v=EuJzSTNDUGI)',1,'https://www.reddit.com/r/nba/comments/u9w0r3/highlight_landry_shamet_throws_it_down_on_hayes/','0110011101101010','SUP8',':sp8-1: Super 8','0','2022-04-23','2022-04-23 11:02:41.582',0.0,0.0,1.0,0.0,0,1.0,'4830c39013258e02bd2451ef5c8d0e7f');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Unsullied by sponsorship',65,'https://www.reddit.com/r/nba/comments/x78mo6/reporter_if_you_have_time_which_team_is_the_one/','0110011101101010',NULL,NULL,'0','2023-10-26','2023-10-26 11:03:18.084',0.0,0.0,1.0,0.0,0,1.0,'a934bea96686234a6e19d342e15d36ba'),
 	 ('Giannis',2,'https://www.reddit.com/r/nba/comments/wc6sn4/in_the_past_20_years_who_has_the_closest_physique/','01123581321AhFuckIt',NULL,NULL,'0','2022-07-31','2022-07-31 11:04:19.707',0.0,0.0,1.0,0.0,0,1.0,'b5a8dce6edce41eb8c85c06f403892d4'),
 	 ('Giannis should be top 3 there. Cmon.',1,'https://www.reddit.com/r/nba/comments/x1p0jr/538_player_projections_with_the_highest_5_year/','01123581321AhFuckIt',NULL,NULL,'0','2022-08-31','2022-08-31 11:04:28.656',0.2023,0.0,0.735,0.265,1,1.0,'3b1518ec472bd19ed7d2beb943169916'),
@@ -4308,7 +4308,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('He probably has gotten better. Just hurt too often to notice it.',11,'https://www.reddit.com/r/nba/comments/vyepsn/pat_connaughton_pat_tells_a_story_about_gianniss/','0116316','Bucks2','Bucks','0','2023-10-27','2023-10-27 11:06:14.363',-0.128,0.209,0.613,0.178,0,1.0,'a74371f036c95dd2aa5c5c9d223a4b8b'),
 	 ('He was our starting shooting guard for the championship season until Dragic jumped on his foot in the 1st round. This is a steal for GSW. The Big Ragu will be back to form.',2,'https://www.reddit.com/r/nba/comments/vpdwst/charania_free_agent_donte_divincenzo_has_agreed/','0116316','Bucks2','Bucks','0','2022-07-02','2022-07-02 11:03:01.613',-0.0772,0.086,0.836,0.078,0,1.0,'bd2bbd4c5d92c5d7e3c812ce133db04e'),
 	 ('Jordan made over 30 mil a year in his last two seasons but those were record contracts at the time. Modern players are enjoying these TV contracts and having the smallest amount players of any major sport. That money has gotta go somewhere.',4,'https://www.reddit.com/r/nba/comments/vgwhta/kevin_durant_on_charles_barkleys_bus_driver/','0116316','Bucks2','Bucks','0','2022-06-21','2022-06-21 11:02:42.565',0.6808,0.0,0.899,0.101,1,1.0,'c38bc4c7c1856f60da9575081761cb24');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Ok. Just curious. I hate your team but love your players. Add some D so I can hate them all. Lol',-2,'https://www.reddit.com/r/nba/comments/tkjhbk/post_game_thread_the_milwaukee_bucks_4527_defeat/','0116316','Bucks2','Bucks','0','2022-03-23','2022-03-23 11:02:46.580',0.6542,0.23,0.373,0.397,1,1.0,'8f44430fbae940303fbeea12dd81799c'),
 	 ('That last sentence says it all. Marquee games are the most expensive tickets. You get a little upset to not see what you paid for. I have no problem with load management for home games or even in confernce road games. My beef is the is East Vs West games. As long as the season is those teams only come to town once a year. Make a rule you can''t load manage those games.',7,'https://www.reddit.com/r/nba/comments/x6hvto/stein_load_management_goes_international_greece/','0116316','Bucks2','Bucks','0','2022-09-06','2022-09-06 11:04:02.429',-0.7102,0.097,0.886,0.017,0,1.0,'cd9ec891053a092f34011745e21fcd25'),
 	 ('The Pelicans drafting incredible injury prone talent when they get the #1 pick is just a shame.',1,'https://www.reddit.com/r/nba/comments/wajyys/clark_zion_williamsons_extension_contains/','0116316','Bucks2','Bucks','0','2022-07-29','2022-07-29 11:04:24.915',-0.4767,0.272,0.599,0.129,0,1.0,'116a65bd309d3be41697890b06c6c004'),
@@ -4321,7 +4321,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 I’ll assume I got hit by delusional Laker fans who think your proposal is fair value.',1,'https://www.reddit.com/r/nba/comments/vjup9i/zach_lowe_teams_are_already_operating_under_not/','0157h7','76ers2','76ers','0','2022-06-25','2022-06-25 11:02:39.702',0.5719,0.0,0.875,0.125,1,1.0,'7b654d9e4af21e3a2820bf6c7f3711bc'),
 	 ('I love it. Turn it into a full wrestling bit. Let one side make the challenge and the other side respond. Maybe it’s Joel and Harden filming a video together challenging both of maybe it’s you and your player of choice. Ben responds a video I accept your challenge and my partner is , camera pans…. Or maybe it’s even a secret until they face off, Seth curry comes out and leg drops Simmons while he’s down.',5,'https://www.reddit.com/r/nba/comments/xstvnb/highlight_steph_klay_light_it_up_in_the_nba_japan/','0157h7','76ers2','76ers','0','2022-10-02','2022-10-02 11:04:13.522',0.8402,0.0,0.855,0.145,1,1.0,'6a92dd4480cfd31891bdfbad3892d346'),
 	 ('It’s the one that got toeracic outlet syndrome.',1,'https://www.reddit.com/r/nba/comments/xnn6hv/markelle_fultz_has_suffered_a_fracture_in_his_big/','0157h7','76ers2','76ers','0','2022-09-26','2022-09-26 11:04:14.434',0.0,0.0,1.0,0.0,0,1.0,'6447911a15ad575ce2e182b0306f136a');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('It''s true and both are annoying.',1,'https://www.reddit.com/r/nba/comments/se6fuk/lopez_pels_guard_jose_alvarado_said_joel_embiid/','0157h7','76ers2','76ers','false','2022-01-28','2022-01-28 12:02:52.715',0.0258,0.284,0.421,0.295,1,1.0,'13e872b7d8293c362e371e560371d53b'),
 	 ('Markelle has an unusual foot structure. He worded it that way because he wasn’t talking about his big toe but his left most toe which is extremely big.',1,'https://www.reddit.com/r/nba/comments/xnn6hv/markelle_fultz_has_suffered_a_fracture_in_his_big/','0157h7','76ers2','76ers','0','2022-09-26','2022-09-26 11:04:14.434',0.0,0.0,1.0,0.0,0,1.0,'a5d5a48c649dd44276f19a0f762bacfb'),
 	 ('Me too bro. He may be my third favorite center in the league.',2,'https://www.reddit.com/r/nba/comments/sr6snb/highlight_joel_embiid_absolutely_destroys_the_rim/','0157h7','76ers2','76ers','false','2022-02-13','2022-02-13 12:03:54.468',0.4588,0.0,0.8,0.2,1,1.0,'91cc38575880db63346818717a84d88c'),
@@ -4332,7 +4332,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('This is what bothers me about him.. i’m trying hard to like him because he wears a Lakers uniform and I’m a Lakers fan but if he lets fans and the media bother him it will reflect in his performance on the court. In fact it has already. I expect more of the same next season. This soul song crap makes me believe his feelings are still hurt little does he know the money is only going to be a temporary hi',2,'https://www.reddit.com/r/nba/comments/vmp7jv/russell_westbrook_posts_video_of_him_vibing_right/','01Cloud01',NULL,NULL,'0','2022-06-29','2022-06-29 11:03:15.574',-0.8834,0.156,0.806,0.039,0,1.0,'8b4b758ff090903d8d35b88c723d62c3'),
 	 ('Agreed. Even though my city benefitted from it, there’s no denying Kawhi did SA dirty. Hell, I didn’t particularly like the way he left Toronto either.',6,'https://www.reddit.com/r/nba/comments/w1k18d/kawhi_preparing_and_eating_chinese_food_with/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-18','2022-07-18 11:04:53.955',-0.6712,0.321,0.478,0.201,0,1.0,'88c9de8d52c39d6971406be50ee3d79a'),
 	 ('All good bro, people think it’s cute to be stupid or some shit. I didn’t know what it meant but appreciated the explanation.',2,'https://www.reddit.com/r/nba/comments/wdkt8d/charania_fresh_off_making_allnba_second_team/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-08-02','2022-08-02 11:04:43.543',0.5994,0.151,0.569,0.281,1,1.0,'da62713394b4a32253001b67233b365d');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('And I wanna bang Scarlet Johanson',1,'https://www.reddit.com/r/nba/comments/vt7u72/vincent_goodwill_on_chris_haynes_pod_i_heard_that/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-07','2022-07-07 11:03:22.153',0.0,0.0,1.0,0.0,0,1.0,'b58e2c02cb2dc29e6fe46281ea01ef75'),
 	 ('A whole generation of bitches',36,'https://www.reddit.com/r/nba/comments/xuotb8/devin_booker_posts_snippet_of_lebrons_infamous/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-10-04','2022-10-04 11:04:13.631',-0.5994,0.565,0.435,0.0,0,1.0,'3e5a7d53cd0cc331c58f7626b5ce0f23'),
 	 ('Book and Tyler herro got the most punchable faces',2,'https://www.reddit.com/r/nba/comments/xuotb8/devin_booker_posts_snippet_of_lebrons_infamous/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-10-04','2022-10-04 11:04:13.631',0.0,0.0,1.0,0.0,0,1.0,'ccd51f3009b404d09784172ca620d1c1'),
@@ -4343,7 +4343,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Google the phrase',1,'https://www.reddit.com/r/nba/comments/ueat6y/highlight_raptors_fans_stay_back_to_applaud_their/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-04-29','2022-04-29 11:03:47.593',0.0,0.0,1.0,0.0,0,1.0,'33d965050546f1624b5fdaf4669f1dde'),
 	 ('Guess I’m having chipotle for dinner',2,'https://www.reddit.com/r/nba/comments/v3gd9m/wojnarowski_nike_founder_phil_knight_and_dodgers/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-06-03','2022-06-03 11:02:35.239',0.0,0.0,1.0,0.0,0,1.0,'13e940705f485a7ad7521ebfd5b104f7'),
 	 ('gutting the team for KD doesn''t make us contenders either. not gonna burn down everything we built for a 34 year old, injury prone, bus rider and flight risk.',4,'https://www.reddit.com/r/nba/comments/vrnkij/lewis_miami_and_phoenix_are_durants_preferred/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-05','2022-07-05 11:02:59.177',-0.5994,0.159,0.841,0.0,0,1.0,'505b54ec31a26958b9ee252980db2b78');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('https://imgflip.com/i/6k8prh',1,'https://www.reddit.com/r/nba/comments/vgarps/basketball_players_should_be_able_to_drop_the/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-06-20','2022-06-20 11:02:17.693',0.0,0.0,1.0,0.0,0,1.0,'454396843231b36f4884751784b1a5dd'),
 	 ('I always thought it referred to being a scaredy-cat',5,'https://www.reddit.com/r/nba/comments/uchtha/in_a_meeting_with_nets_officials_and_rich_paul_on/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-04-27','2022-04-27 11:03:03.294',0.0,0.0,1.0,0.0,0,1.0,'7d01e69429bc2d17b2c0a2f6ef4b2bca'),
 	 ('I don''t understand why this point keeps coming up. The regular season runs from October-April. That is 6 months. 41/82 games are on the road.
@@ -4360,7 +4360,7 @@ I never thought we’d win a championship in my lifetime and am still thankful f
 	 ('I’ve never once heard the word “back shot” referring to anything even remotely basketball related, OP knew what he was doing with that title',81,'https://www.reddit.com/r/nba/comments/whon1o/highlight_luka_obliterates_old_dwight_howard_with/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-08-07','2022-08-07 11:04:55.060',0.0,0.0,1.0,0.0,0,1.0,'fb77e950a2b648dd0be28acaaca1e3f7'),
 	 ('JJ need to get off his high horse it wasn''t that deep',1,'https://www.reddit.com/r/nba/comments/u52hau/jj_reddick_on_timberwolves_winning_for_all_the/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-04-17','2022-04-17 11:03:26.374',0.4084,0.0,0.801,0.199,1,1.0,'8206ef99e7f930c61f8c57982d6c0f04'),
 	 ('Lmao',1,'https://www.reddit.com/r/nba/comments/uogc6l/highlight_several_76ers_fans_are_seen_leaving_the/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-05-13','2022-05-13 11:03:03.215',0.5994,0.0,0.0,1.0,1,1.0,'25a4dc1204bc2e5e397d66d5b51d9ba5');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Mavs had higher ambitions then Goran Dragic',40,'https://www.reddit.com/r/nba/comments/vqoshj/charania_free_agent_guard_goran_dragic_has_agreed/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-04','2022-07-04 11:02:59.975',0.0,0.0,1.0,0.0,0,1.0,'54306ca0bdf75a3eb2f6a683239b343d'),
 	 ('Most likely undermining the coach. Didn’t he say something along the lines of “we don’t have a coach”',2,'https://www.reddit.com/r/nba/comments/vgvlz3/bleacher_report_espn_kyrie_irving_would_hold_his/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-06-21','2022-06-21 11:02:42.565',-0.4173,0.148,0.852,0.0,0,1.0,'cbce337bf6762998993be62457480dec'),
 	 ('Nephews quoting 8 mile instead of mobb deep getting more upvotes, TF',23,'https://www.reddit.com/r/nba/comments/vfd5av/a_kid_yells_brick_as_bradley_beal_prepares_to/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-06-19','2022-06-19 03:15:25.583',0.0,0.0,1.0,0.0,0,1.0,'cc9937bf344691f1b1bd5c8880e5d501'),
@@ -4371,7 +4371,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('That was hilarious',16,'https://www.reddit.com/r/nba/comments/ucph1c/chuck_responds_to_kds_social_media_posts_god/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-04-27','2022-04-27 11:03:03.294',0.4019,0.0,0.426,0.574,1,1.0,'8461d276d010d1add8a226e0674b1745'),
 	 ('That was just his natural shooting motion, their nuts fouled his foot',16,'https://www.reddit.com/r/nba/comments/ujagc1/steve_kerr_on_the_warriors_mantra_just_play_hard/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-05-06','2022-05-06 11:03:01.667',0.0516,0.155,0.676,0.169,1,1.0,'aaab30dfb09ce07727793940a71489e6'),
 	 ('their doctors told them to do it',2,'https://www.reddit.com/r/nba/comments/uayy3x/highlight_harden_takes_a_step_back_misses_and/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-04-25','2022-04-25 11:02:59.815',0.0,0.0,1.0,0.0,0,1.0,'6d336ce77cf0307d25438c3c3acd1f1f');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('>The Le-jokes are funny in the way dad jokes are. They’re mostly purposefully corny but every once in a while one might make you genuinely chuckle.- [/u/LoveMavs1031](https://www.reddit.com/u/LoveMavs1031/)
 
 Dad jokes are purposely corny but take some wit and effort, and are actually funny.
@@ -4390,7 +4390,7 @@ the fact that he''s got 4 years left on his contract doesn''t give me much confi
 
 so hard pass. scottie is untouchable.',1,'https://www.reddit.com/r/nba/comments/vrnkij/lewis_miami_and_phoenix_are_durants_preferred/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-05','2022-07-05 11:02:59.177',0.1633,0.0,0.81,0.19,1,1.0,'0d74ab6708d4db85e1598d59b1f1ba7d'),
 	 ('Dropped 27 on the cavs and 23 on the knicks when given the chance. Gobbles up rebounds and hustles. Huge energy guy, active on the bench, locker room glue. He’s a legit nba player.',11,'https://www.reddit.com/r/nba/comments/u9vdlr/highlight_giannis_enjoys_his_big_brother_thanasis/','0-27','Bucks3','Bucks','0','2022-04-23','2022-04-23 11:02:41.582',0.7964,0.0,0.761,0.239,1,1.0,'75a27e408b7627c0130d076f21996e72');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Naw man, chandler was unlucky. 
   
 Larry Sanders runs away with this new award.',5,'https://www.reddit.com/r/nba/comments/s71gz5/charania_nineyear_nba_veteran_chandler_parsons/','0-27','Bucks3','Bucks','false','2022-01-19','2022-01-19 12:02:30.543',0.5423,0.0,0.774,0.226,1,1.0,'964bf2235f3e337b96c547886c85c0b2'),
@@ -4448,7 +4448,7 @@ I hope this information helps you in your quest for understanding.
 And here is some additional info on the [History of Naming](https://namestories.com/pages/history-of-naming)',11,'https://www.reddit.com/r/nba/comments/wgn0yg/70_juco_player_shines_as_he_dunks_on_paolo/','0-27','Bucks3','Bucks','1','2022-08-05','2022-08-05 11:04:32.271',0.9581,0.0,0.959,0.041,1,1.0,'09eaef8448c70bac4cff9b604b4a127f'),
 	 ('Absolute tone deaf post by the twitter intern or social media manager, just post Holiday or any other player, like they always do',11,'https://www.reddit.com/r/nba/comments/saboni/charania_bulls_say_alex_caruso_will_undergo/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-23','2022-01-23 12:02:26.649',0.6369,0.0,0.802,0.198,1,1.0,'a8c0d9d2a9cb0fe6ebb9be8047d1c398'),
 	 ('Allen, that’s why, this poll happened in the timeline of that foul',124,'https://www.reddit.com/r/nba/comments/sshhg5/polling_the_nba_subreddits_results/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-15','2022-02-15 12:02:30.322',0.0,0.0,1.0,0.0,0,1.0,'5e9c8c9e7be5cdc079189fbcc7c6a075');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Atleast there would be some obvious clips and stats thread tonight, rest of the days I have to dig deep just to find anything bucks',2,'https://www.reddit.com/r/nba/comments/so5qpt/post_game_thread_the_milwaukee_bucks_3521_defeat/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-09','2022-02-09 12:03:00.271',0.0,0.0,1.0,0.0,0,1.0,'fe1524796ead3ac6a62872cd151b3ece'),
 	 ('bruh everyone in the east is a problem',10,'https://www.reddit.com/r/nba/comments/t87qcc/post_game_thread_the_boston_celtics_3927_defeat/','027eddy','Bucks5',':mke-5: Bucks','0','2022-03-07','2022-03-07 12:02:53.323',-0.4019,0.31,0.69,0.0,0,1.0,'54e181e9311bb2b3244a8c7c6d578f52'),
 	 ('Da fuck they doin ova there?',53,'https://www.reddit.com/r/nba/comments/speyzs/stein_the_mavericks_are_trading_kristaps/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-11','2022-02-11 14:48:40.161',-0.5423,0.412,0.588,0.0,0,1.0,'50e50f91eeb740903697d3679597b22a'),
@@ -4461,7 +4461,7 @@ His other time doing it was Oct. 24, 2019 at HOU (30 PTS, 13 REB, 11 AST in 28:1
 	 ('How hard is it not to do this, our twitter posts barely gets over a 1k impressions even when it is to vote for Giannis as an All star and now this stupid gif has over 4k likes and counting.',3,'https://www.reddit.com/r/nba/comments/saboni/charania_bulls_say_alex_caruso_will_undergo/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-23','2022-01-23 12:02:26.649',-0.1779,0.12,0.776,0.104,0,1.0,'9d8ab2caae7f7cb0053ef5f4dae73cf8'),
 	 ('I hate the 3rd quarter bucks',2,'https://www.reddit.com/r/nba/comments/t709ez/post_game_thread_the_milwaukee_bucks_3925_defeat/','027eddy','Bucks5',':mke-5: Bucks','0','2022-03-05','2022-03-05 12:03:05.979',-0.5719,0.481,0.519,0.0,0,1.0,'78ff28eb9dce823d837bffac23c01889'),
 	 ('I never thought we would beat them this comprehensively, we held warriors under 40 points for the first half was not my bingo for this year, Giannis MVP',1,'https://www.reddit.com/r/nba/comments/s3h645/post_game_thread_the_milwaukee_bucks_2717_defeat/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-14','2022-01-14 12:01:41.516',0.0,0.0,1.0,0.0,0,1.0,'8b4c453e122c310b156058249331a723');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Just when they got 1st seed as well, fucking hell',463,'https://www.reddit.com/r/nba/comments/tqc164/charania_boston_celtics_center_robert_williams_is/','027eddy','Bucks5',':mke-5: Bucks','0','2022-03-29','2022-03-29 11:03:17.008',-0.5849,0.326,0.534,0.14,0,1.0,'9b7202cf99576c40fa466373c6c43980'),
 	 ('Kyrie and Rose getting more votes than Jrue',2,'https://www.reddit.com/r/nba/comments/rxkqvg/charania_warriors_stephen_curry_and_nets_kevin/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-07','2022-01-07 12:01:35.381',0.0,0.0,1.0,0.0,0,1.0,'df0656f346cbcfdd0e9acd5bba0a3c52'),
 	 ('Nets sub really don’t like Giannis huh',73,'https://www.reddit.com/r/nba/comments/sshhg5/polling_the_nba_subreddits_results/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-15','2022-02-15 12:02:30.322',0.4173,0.0,0.683,0.317,1,1.0,'d9678c34ee63ff3b30d0f87025e04928'),
@@ -4472,7 +4472,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Steven Adams doesn’t take his Vitamins brother - HH',1,'https://www.reddit.com/r/nba/comments/tq2ufm/steven_adams_on_rebounding_you_could_go_into_the/','027eddy','Bucks5',':mke-5: Bucks','0','2022-03-28','2022-03-28 11:02:36.422',0.0,0.0,1.0,0.0,0,1.0,'83c62b5552744194bcd465835a3c139c'),
 	 ('That is amazing to me, 8 assists and 0 turnovers for a guy of his size, Giannis and Jokic are truly elite playmaking big men',142,'https://www.reddit.com/r/nba/comments/so5q1v/giannis_antetokounmpo_in_the_win_vs_lakers_44_pts/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-09','2022-02-09 12:03:00.271',0.7717,0.0,0.749,0.251,1,1.0,'d70ceea038fb1a4a09e21e000e12f147'),
 	 ('That should clinch the MVP',3,'https://www.reddit.com/r/nba/comments/tyube0/post_game_thread_the_denver_nuggets_4833_defeat/','027eddy','Bucks5',':mke-5: Bucks','0','2022-04-08','2022-04-08 11:02:41.933',0.0,0.0,1.0,0.0,0,1.0,'2bae7bc9be3c5f117e00676122875cd4');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('They really played the playoff defensive scheme on Kyrie, and Kings FO said we are having none of that',2,'https://www.reddit.com/r/nba/comments/snrnga/spears_kings_fans_finally_have_reason_to/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-09','2022-02-09 12:03:00.271',0.4201,0.0,0.818,0.182,1,1.0,'984bac77d7ef73580589ead2fa0c3b5a'),
 	 ('This might be the worst “despite the loss” effort I’ve seen, 56 & 14, if you can’t win with this, idk how’re you so supposed to win',288,'https://www.reddit.com/r/nba/comments/rvmm7t/trae_young_tonight_56_pts_4_reb_14_ast_on_1726/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-04','2022-01-04 12:01:33.155',0.4767,0.157,0.627,0.217,1,1.0,'65ea0d99f319e3ad95c8a7a5e6ce4d4b'),
 	 ('*Very minimal*',99,'https://www.reddit.com/r/nba/comments/st8np7/harden_on_if_kyries_vax_situation_impacted_things/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-16','2022-02-16 12:02:33.687',0.0,0.0,1.0,0.0,0,1.0,'9ed80a6fe9b7110fea23d0502b1f753d'),
@@ -4483,7 +4483,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('5 triple singles means they don''t crack 50 points',69,'https://www.reddit.com/r/nba/comments/vd4fru/who_is_the_worst_player_you_could_duplicate_5x/','02buddha02',NULL,NULL,'0','2022-06-16','2022-06-16 11:02:44.426',0.0,0.0,1.0,0.0,0,1.0,'2c60d5b346713eff76d26b805cd846ca'),
 	 ('Caru5o',5,'https://www.reddit.com/r/nba/comments/vd4fru/who_is_the_worst_player_you_could_duplicate_5x/','02buddha02',NULL,NULL,'0','2022-06-16','2022-06-16 11:02:44.426',0.0,0.0,1.0,0.0,0,1.0,'949026385fd97703e4af16985745c9ae'),
 	 ('Ernie, when I guy is banging you...😅',2,'https://www.reddit.com/r/nba/comments/xws7oo/charania_when_a_chesttochest_interaction_with/','02buddha02',NULL,NULL,'0','2022-10-06','2022-10-06 11:04:34.822',0.0,0.0,1.0,0.0,0,1.0,'2c0e026fb5824c12570c55498f993dfc');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('He only pledged the money. To him that''s the same as giving.',11,'https://www.reddit.com/r/nba/comments/x2ddpz/rumor_alex_rodriguez_scrambling_to_come_up_with/','02buddha02',NULL,NULL,'0','2022-09-01','2022-09-01 11:04:28.508',0.34,0.0,0.821,0.179,1,1.0,'a6f28b233e638fa1da90ab7975486a5c'),
 	 ('I can never say Le-Gacy the same way ever again',1,'https://www.reddit.com/r/nba/comments/wusz6q/kingjames_on_instagram_wheres_lewaldo/','02buddha02',NULL,NULL,'0','2022-08-23','2022-08-23 11:04:26.173',0.0,0.0,1.0,0.0,0,1.0,'1515e830030e45cb60820c36acbf56e3'),
 	 ('I know it''s in the past and his rep is built back up now, but when Magic retired after the HIV bombshell, it was huge and he had to do a lot of damage control.',1,'https://www.reddit.com/r/nba/comments/w4ulub/in_your_opinion_which_former_players_reputation/','02buddha02',NULL,NULL,'0','2022-07-22','2022-07-22 11:04:27.019',-0.3291,0.112,0.81,0.077,0,1.0,'172b67955ea7f40f701a5a076ba733d2'),
@@ -4496,7 +4496,7 @@ Bottom feeders would die for this treatment (Knicks, Kings, Wizards, etc).',3,'h
 	 ('The King vs the Kings.',2,'https://www.reddit.com/r/nba/comments/w3v4w4/no_active_nba_player_has_ever_faced_the_kings_in/','02buddha02',NULL,NULL,'0','2022-07-21','2022-07-21 11:05:09.414',0.0,0.0,1.0,0.0,0,1.0,'2d1dc5dfa02a67df2cae6882dbb49104'),
 	 ('Vince hits the game winner against the Sixers. This was my first heartbreak as a fan. You never forget your first',1,'https://www.reddit.com/r/nba/comments/vw34fc/you_can_change_one_play_in_nba_history_what/','02buddha02',NULL,NULL,'0','2022-07-11','2022-07-11 11:03:33.751',0.4707,0.135,0.583,0.283,1,1.0,'a424c36e2ec0cb93ed339ec39e672ad5'),
 	 ('What if the ex is the future?',21,'https://www.reddit.com/r/nba/comments/svapn0/pompey_the_rhetoric_coming_out_of_brooklyn_would/','02buddha02',NULL,NULL,'false','2022-02-18','2022-02-18 11:27:15.521',0.0,0.0,1.0,0.0,0,1.0,'644773b7264f5758f0d9b56a25fa12e4');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('America is also in the midst of their longest ever Men''s World Cup streak at "0." Crushing the sports game rn.',143,'https://www.reddit.com/r/nba/comments/veab5g/for_the_third_straight_season_a_team_from_the/','0-2er','Bucks1',':mke-1: Bucks','1','2022-06-18','2022-06-18 11:03:32.945',-0.3612,0.111,0.889,0.0,0,1.0,'7795b3db3567c74ae95db97791fd3774'),
 	 ('As a biased bucks fan, this is the only future possible imo',3,'https://www.reddit.com/r/nba/comments/tap7ky/giannis_antetokounmpo_in_the_last_24_hours_821912/','0-2er','Bucks1',':mke-1: Bucks','0','2022-03-10','2022-03-10 12:02:38.244',0.0516,0.157,0.672,0.172,1,1.0,'57aea091207a32056f92dc3a160e82df'),
 	 ('If only there was some sort of challenge system that a coach is allowed to strategically use throughout the game, damn',3,'https://www.reddit.com/r/nba/comments/uknt1e/highlight_marcus_smart_successfully_misses_the/','0-2er','Bucks1',':mke-1: Bucks','0','2022-05-08','2022-05-08 11:03:00.303',-0.4005,0.124,0.829,0.046,0,1.0,'1df9b95df5d679ff015c64008a8bf463'),
@@ -4507,7 +4507,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Yea if Jrue plays better on Offense, Pat/greyson/portis/brook also, we look way better. Celtics are definitely an insane defensive powerhouse, though, which I think is why our offense looks like it’s fumbling.',58,'https://www.reddit.com/r/nba/comments/uknul4/giannis_today_vs_celtics_421282_steals3_blocks_on/','0-2er','Bucks1',':mke-1: Bucks','0','2022-05-08','2022-05-08 11:03:00.303',0.7506,0.157,0.514,0.329,1,1.0,'c9a53d1e0a5893ae97ebe9ba7797bef3'),
 	 ('its not that serious mate. chill',9,'https://www.reddit.com/r/nba/comments/sbcqhg/lebron_on_concerns_on_his_workload_this_season_im/','02ragnar','West',':wc-1: West','false','2022-01-24','2022-01-24 12:02:49.514',0.0572,0.0,0.804,0.196,1,1.0,'ec44668b7f94a3c2fb01aff473805537'),
 	 ('Who is he kicking out with two rings?',5,'https://www.reddit.com/r/nba/comments/u3ym4s/who_are_the_top_5_players_who_would_bolster_their/','02ragnar','West',':wc-1: West','0','2022-04-15','2022-04-15 11:02:50.578',0.0,0.0,1.0,0.0,0,1.0,'da2faaf353a59dd570b49c83c5f0e941');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Atleast with a fadeaway i Can grab the rebound, with these mfs shooting a half court shot on a double rim that shit flys to the next court over',14,'https://www.reddit.com/r/nba/comments/uuqsdl/matt_barnes_if_you_dont_like_steph_curry_then/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-05-22','2022-05-22 11:02:34.373',-0.5574,0.13,0.87,0.0,0,1.0,'18dbad8efcc618e185fb418c3c6bce54'),
 	 ('Edwards shouldn’t even be guarded by a guard, you need a wing to stop him',1,'https://www.reddit.com/r/nba/comments/vxmtm1/jones_expect_the_new_york_knicks_to_quickly_try/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-07-13','2022-07-13 11:03:33.279',-0.296,0.155,0.845,0.0,0,1.0,'5d01664e3ca4c992bbb337e560debc6a'),
 	 ('Embiid was in a few of them',49,'https://www.reddit.com/r/nba/comments/tren4n/winfield_in_terms_of_what_bens_doing_in_practice/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-03-30','2022-03-30 11:02:40.418',0.0,0.0,1.0,0.0,0,1.0,'e73b350cdc1b7ff726a33fe1edef19d2'),
@@ -4518,7 +4518,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('I mean yeah, guns are pretty cool, cars are too and those also kill people all the time',4,'https://www.reddit.com/r/nba/comments/w5d7yy/mcmenamin_los_angeles_lakers_austin_reaves_looks/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-07-23','2022-07-23 11:04:47.356',0.25,0.185,0.512,0.303,1,1.0,'9f33409ee465c75d67291dcb77d60fbb'),
 	 ('This is the new Kornet contest',28,'https://www.reddit.com/r/nba/comments/10hfyvj/highlight_tim_hardaway_jr_squeaks_his_shoe_before/','migibb','Celtics2','Celtics','0','2023-01-21','2023-01-21 12:04:24.829',0.0,0.0,1.0,0.0,0,NULL,'1bdafd1a04b091991fe37e22d82af9da'),
 	 ('It has to be Wiggins after this finals run, Him being able to create his own shot brings him above klay rn imo',22,'https://www.reddit.com/r/nba/comments/vdad4d/the_mavericks_went_to_the_wcf_and_are_now/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-06-16','2022-06-16 11:02:44.426',0.2732,0.0,0.913,0.087,1,1.0,'f55471be65a800950ea2ddc154fe1457');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('I think the wizards blowing a 35 point lead with a 4 point play from Luke kennard at the buzzer might be a worse loss',1,'https://www.reddit.com/r/nba/comments/uqlah1/is_this_suns_loss_the_worst_loss_in_nba_history/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-05-16','2022-05-16 11:03:54.777',-0.4588,0.218,0.685,0.097,0,1.0,'9e1eded3a4e6e7d064bf32af4ee038a8'),
 	 ('It was fucked, I kept seeing hill grab a rebound and then a big just rips it out his hands every time smh',19,'https://www.reddit.com/r/nba/comments/up7a5p/post_game_thread_the_boston_celtics_33_defeat_the/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-05-14','2022-05-14 11:03:10.257',-0.7717,0.271,0.729,0.0,0,1.0,'f810ba3c6e5c505aad7dbda0a6d15bfb'),
 	 ('Kyrie had a perfect first half with a crazy fade at the buzzer and then missed like 2 or 3 shots in the second half, that game was wild',5,'https://www.reddit.com/r/nba/comments/uu4awr/greenberg_marcus_smart_guarded_jimmy_butler_for/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-05-21','2022-05-21 11:03:06.124',0.3818,0.145,0.66,0.195,1,1.0,'f742659c4925890494f63734dc58bcf6'),
@@ -4529,7 +4529,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('What’s the most amount of suspensions or flags rants in a playoff series? This series might break whatever that record is holy shit lmfao',1,'https://www.reddit.com/r/nba/comments/uktejw/letourneau_jordan_poole_on_play_that_injured_ja/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-05-08','2022-05-08 11:03:00.303',-0.34,0.201,0.68,0.119,0,1.0,'4f18243854a310cda1a6362e1e764d2b'),
 	 ('Yeah we made it luka vs the clippers it worked for us but it was too close at times until kawhi turned into MJ',21,'https://www.reddit.com/r/nba/comments/w0z8iv/at_just_23_luka_doncic_has_more_allnba_first_team/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-07-17','2022-07-17 11:04:40.094',0.1531,0.0,0.935,0.065,1,1.0,'0b1dd4e84bab110654ee93bc03fad840'),
 	 ('You don’t think they proved anything going to the wcf last year and only losing once kawhi went down? I mean I think they’ve proven themselves, the clippers fate is ruled by injury for the most part imo',54,'https://www.reddit.com/r/nba/comments/vdad4d/the_mavericks_went_to_the_wcf_and_are_now/','02TrapBurned','Clippers1',':lac-1: Clippers','0','2022-06-16','2022-06-16 11:02:44.426',-0.6597,0.137,0.863,0.0,0,1.0,'8f559fbc08a13d79db7a99c956c9efa3');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Brandon Jennings and Monta Ellis in 2k13 gives me nightmares',24,'https://www.reddit.com/r/nba/comments/wk5wm9/jeremy_gordon_nba_nostalgia_culture_is_out_of/','02_WCF','Lakers2',':lal-2: Lakers','0','2022-08-10','2022-08-10 11:04:46.618',0.0,0.0,1.0,0.0,0,1.0,'0df5dacaded86737d35000229ccc4ee7'),
 	 ('It’s amazing how different Magic and Jordan’s personality are',1,'https://www.reddit.com/r/nba/comments/sxipuu/michael_jordan_challenges_magic_johnson_to_a_game/','02_WCF','Lakers2',':lal-2: Lakers','false','2022-02-21','2022-02-21 12:02:47.292',0.5859,0.0,0.678,0.322,1,1.0,'3269a214cf10e8dded78f47b53cad44c'),
 	 ('That tap pass to Monk in the corner was absolutely amazing',25,'https://www.reddit.com/r/nba/comments/rysfud/post_game_thread_the_los_angeles_lakers_2119/','02_WCF','Lakers2',':lal-2: Lakers','false','2022-01-08','2022-01-08 12:02:03.804',0.624,0.0,0.71,0.29,1,1.0,'f8554203a6125fa4d0ef38a990b6e9b9'),
@@ -4544,7 +4544,7 @@ the fuck
 down',7,'https://www.reddit.com/r/nba/comments/wykqjp/murphy_the_raptors_used_a_remaining_chunk_of/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-27','2022-08-27 11:04:11.763',-0.5423,0.538,0.462,0.0,0,1.0,'962b4b8495cd9938e31046e6df153dd5'),
 	 ('calm the fuck down we’re 4 games below .500',4,'https://www.reddit.com/r/nba/comments/sj8c32/post_game_thread_memphis_grizzlies_3618_defeat/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-03','2022-02-03 12:02:21.157',-0.296,0.297,0.508,0.195,0,1.0,'a80b3362c3aa9f207c730486a24380b5'),
 	 ('I can’t help but think of that infamous LeBron squat video',1,'https://www.reddit.com/r/nba/comments/107h4ye/lebron_trash_talking_aaron_gordon/','DavidPriceIsRight',NULL,NULL,'0','2023-01-10','2023-01-10 12:04:51.184',0.2144,0.0,0.829,0.171,1,NULL,'889639bdaff156ccb8f355f348c6613a');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Can’t see the Jokic one happening. Hakeem is the bar to clear for getting into that club, and I’m not convinced that Jokic’s offense = Hakeem’s defense or that Jokic’s defense = Hakeem’s offense.',8,'https://www.reddit.com/r/nba/comments/wozpo1/what_take_that_sounds_wild_now_would_appear/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-16','2022-08-16 13:54:31.435',-0.1675,0.165,0.687,0.148,0,1.0,'0fb7eb2c0f74ae18f6d7364492d390bf'),
 	 ('Efficient, just like the Hawks offense 😤',10,'https://www.reddit.com/r/nba/comments/tt5mfu/4_years_ago_the_knicks_were_the_11th_seed_in_the/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-04-01','2022-04-01 11:02:37.515',0.5106,0.194,0.291,0.515,1,1.0,'5fa0b0e337368454dda99fb74c6cc7ca'),
 	 ('Everybody and their mother obsesses over jokic on this sub lmao wtf
@@ -4559,7 +4559,7 @@ I’m betting he did and he’s just lying to make himself look like the victim.
 	 ('If there’s a Euro star who gets to 40, it’ll be Jokic coming off the bench in 2035 and basically playing “backup PG” with his passing and posting up.',13,'https://www.reddit.com/r/nba/comments/wu4z4v/today_lebron_is_as_old_as_kobe_was_in_his_final/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-22','2022-08-22 11:04:10.513',0.2023,0.0,0.938,0.062,1,1.0,'04d02aa86de6c2d6d7fc9dba993abff2'),
 	 ('If you’re not calling people losers than what the hell was the “who’s really the loser here?” like lmao that was obv an insult and you can’t just ignore that shit lol. Besides, I called him a loser, not a menace to society. I think using your platform as a superstar to take anti-vax and flat earther stances is a pretty loser thing to do. He’s a good basketball player but he’s on some conspiracy theory bullshit and it’s fair to call him out for it.',10,'https://www.reddit.com/r/nba/comments/srawyd/early_cmon_now_puppeteerstheres_no_guilt_that_i/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-13','2022-02-13 12:03:54.468',-0.9004,0.247,0.593,0.161,0,1.0,'7f87a3f1ec585efb729cdd99eaae27d9'),
 	 ('I have full faith we’ll surprise people and go .500 down the stretch to make sure we can’t have a good pick because that’s just what we do',9,'https://www.reddit.com/r/nba/comments/sybsll/teams_with_toughest_schedules_left_1_mil_2_chi_3/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-22','2022-02-22 12:02:44.987',0.8442,0.0,0.685,0.315,1,1.0,'bcb1f5beb770d9ce309edade3d419d77');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('I’m like yeahhhhhhh she’s fine, wonder when she’llllllll be mine, she walk past i presssss rewind, to see that ass oneeee more time',10,'https://www.reddit.com/r/nba/comments/sqj6pt/with_tonights_loss_against_the_76ers_the_okc/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-12','2022-02-12 12:02:43.840',-0.0516,0.131,0.709,0.16,0,1.0,'1cedfe50edee2de9ddb0820c21a9d84d'),
 	 ('I tend to assume people in hot-topic threads such as Kyrie opinions, stuff to do with China, etc. are trying to stir up shit, so I kinda defaulted to that perspective while writing my comment. Apologies.',8,'https://www.reddit.com/r/nba/comments/srawyd/early_cmon_now_puppeteerstheres_no_guilt_that_i/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-13','2022-02-13 12:03:54.468',-0.5574,0.098,0.902,0.0,0,1.0,'480a298c79d2cf316394abb4ace1582a'),
 	 ('I think the line people usually take is that because the people they argue with are children and children don’t have fully developed brains, that must mean they have the superior mental faculties and are therefore right.
@@ -4576,7 +4576,7 @@ Kings fandom is rock bottom, but you fell down a well and landed in a pile of sh
 
 lmao dude looks like if the weeknd got put in the microwave for too long, tf he sayin this for 😭',15,'https://www.reddit.com/r/nba/comments/sif86q/fox_news_sports_runs_headline_former_nba_player/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-02','2022-02-02 12:02:36.812',0.8979,0.0,0.641,0.359,1,1.0,'52b2dda94113e9db1c96baee184fb869'),
 	 ('lmaooo the video',1,'https://www.reddit.com/r/nba/comments/tqpahr/post_game_thread_the_new_york_knicks_3442_defeat/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-03-29','2022-03-29 11:03:17.008',0.0,0.0,1.0,0.0,0,1.0,'87b279e6082551afcf75a986ff16dc21');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('lol you know that’s not what he literally meant right? he’s just saying that if you drive drunk or drive high, you’re inebriated either way, even if the inebriation experience is different for each',61,'https://www.reddit.com/r/nba/comments/wpfa49/while_one_player_faces_felony_charges_for/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-16','2022-08-16 13:54:31.435',0.1027,0.065,0.86,0.075,1,1.0,'ccfbdf7abbc2b3c0958816c69757f114'),
 	 ('Man, I better give the fuck up at life, I’ll never be able to influence people’s lives as much as an NBA star can. 
 
@@ -4593,7 +4593,7 @@ This sentence pretty clearly states that the Lakers had the ability to sign Caru
 	 ('Now *this* is a guy who…',1,'https://www.reddit.com/r/nba/comments/se8mtq/draymond_green_joining_turner_sports_on_multiyear/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-01-28','2022-01-28 12:02:52.715',0.0,0.0,1.0,0.0,0,1.0,'a87a2866ced6830a80125868fbe37f18'),
 	 ('Okafor was better as a rookie, so criticizing people for using that to project future success seems silly to me. Jokic has improved by leaps and bounds since his rookie year, practically the only thing he did then that’s anywhere near as good as he does it now was rebounding.',2,'https://www.reddit.com/r/nba/comments/sh73l0/this_sub_needs_to_wake_up_about_stats_and/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-01','2022-02-01 12:02:22.485',0.8576,0.054,0.717,0.229,1,1.0,'c2fd50f06dc599a15405341a9a2151c0'),
 	 ('*Pink Panther music plays*',43,'https://www.reddit.com/r/nba/comments/vigm9k/wojnarowski_detroit_has_traded_jerami_grant_to/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-06-23','2022-06-23 11:02:33.660',0.0,0.0,1.0,0.0,0,1.0,'6e0cd5706bc78c48c0a7238107e5f3a2');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Pretty sure something came out a couple years ago about Malik Beasley fucking Pippen’s ex-wife',10,'https://www.reddit.com/r/nba/comments/ucs5p4/highlight_morant_takes_flight_for_the_monstrous/','03_03_28','bwMil',':bw-mil: Bucks Bandwagon','0','2022-04-27','2022-04-27 11:03:03.294',0.6705,0.0,0.686,0.314,1,1.0,'70bbc4b2ecbbc69fbcbc84e00aec6036'),
 	 ('Question: Which 00-0-1-2-3 lineup wins in a hypothetical matchup?',3,'https://www.reddit.com/r/nba/comments/sinxnb/during_last_nights_win_over_the_spurs_the/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-03','2022-02-03 12:02:21.157',0.5719,0.0,0.654,0.346,1,1.0,'e5213048260d9fedda819bb5f43484bd'),
 	 ('Reddit moment',28,'https://www.reddit.com/r/nba/comments/x0ujd9/bill_russell_the_game_is_played_by_very_insecure/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-30','2022-08-30 11:04:05.854',0.0,0.0,1.0,0.0,0,1.0,'230b8143148d939016b8352fc415c09a'),
@@ -4604,7 +4604,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('smh i only listen to artists with MULTIPLE domestic abuse charges. that’s real music right there',17,'https://www.reddit.com/r/nba/comments/ug4z6p/scott_foster_and_ed_malloy_try_to_figure_out_who/','03_03_28','bwMil',':bw-mil: Bucks Bandwagon','0','2022-05-02','2022-05-02 11:02:46.247',-0.8225,0.417,0.583,0.0,0,1.0,'812af6760def641230696e13ec93b2c6'),
 	 ('smh this is jordan hill erasure',11,'https://www.reddit.com/r/nba/comments/u6w55o/highlight_jordan_poole_feels_himself_for_3/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-04-19','2022-04-19 11:02:59.154',-0.3182,0.315,0.685,0.0,0,1.0,'278edc5eb962b94acb6ab96af8e52af9'),
 	 ('“Smh you WANTED to break up with her, why are you mad she slept with her ex behind your back bro”',5,'https://www.reddit.com/r/nba/comments/u7bkr1/weiss_kevin_durant_on_celtics_fans_hostility/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-04-20','2022-04-20 11:03:03.027',-0.4939,0.138,0.862,0.0,0,1.0,'05f6972fd0ed6be413fd277650e67c8f');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Steph/KD/Harden/etc. feels like a different generation of players than Giannis/Embiid/Jokic/etc. They each are peaking in two different decades (mid-2010s for the first; early-to-mid-2020s for the second) which doesn’t really seem like the same generation to me',2,'https://www.reddit.com/r/nba/comments/xnxfsw/allan_giannis_says_am_i_one_of_the_best_players/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-09-26','2022-09-26 11:04:14.434',0.6124,0.0,0.868,0.132,1,1.0,'49b9d6cd952ac8cf76ee46a352b14930'),
 	 ('That shit was erotic',58,'https://www.reddit.com/r/nba/comments/u5xhm6/post_game_thread_the_boston_celtics_10_grit_it/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-04-18','2022-04-18 11:03:01.017',-0.5574,0.545,0.455,0.0,0,1.0,'90f24debf13d1fd947c698666ddb27dd'),
 	 ('That type of comment is my one of my least favorite things on Reddit
@@ -4621,7 +4621,7 @@ Read the original comment, jeez',9,'https://www.reddit.com/r/nba/comments/v1yz33
 	 ('uhhhh… Wall last year < Westbrook this year
 
 y’all haven’t seen wall so you forget that as bad as westbrook has been this year, wall had worse efficiency, less assists, almost as many turnovers, and worse defensive stats than westbrook has this year. he can absolutely be worse and still cost you $44 million',29,'https://www.reddit.com/r/nba/comments/sn08mh/chase_hughes_a_scenario_told_to_me_from_someone/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-08','2022-02-08 12:02:38.564',-0.9077,0.232,0.712,0.056,0,1.0,'74360ed48fd64cf1b9203acb0e09e38e');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('why not, lmao',8,'https://www.reddit.com/r/nba/comments/wrhg03/highlight_lebron_james_sends_jason_terry_to_the/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-19','2022-08-19 11:04:23.801',-0.4847,0.611,0.389,0.0,0,1.0,'9c24584e9d84ce93dce7a9cb14c0a88b'),
 	 ('Yeah this is the defining Westbrook dunk in my mind. 20 years down the road, someone’s gonna mention Westbrook, and the first thing that’ll pop into my mind is him on this dunk, arm cocked back with the ball and coiled up like a fucking cobra ready to strike.',3,'https://www.reddit.com/r/nba/comments/s6osj7/highlight_westbrook_puts_gobert_on_a_poster/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-01-18','2022-01-18 12:03:01.061',0.7165,0.028,0.831,0.141,1,1.0,'634948e859a5981756bd0e49db528d95'),
 	 ('your username fits a lot better with the top comment lol',13,'https://www.reddit.com/r/nba/comments/xnxfsw/allan_giannis_says_am_i_one_of_the_best_players/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-09-26','2022-09-26 11:04:14.434',0.7579,0.0,0.483,0.517,1,1.0,'943ec0538822b6072294e6677e5636d5'),
@@ -4632,7 +4632,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('They were still the clear best team in the west the year after',1,'https://www.reddit.com/r/nba/comments/x5k2dx/highlight_breen_kawhi_leonard_going_crazy/','0324rayo','TrailBlazers5',':por-5: Trail Blazers','0','2022-09-05','2022-09-05 11:04:58.588',0.7783,0.0,0.618,0.382,1,1.0,'3e56f823461463fe7cde4b19e8061fe4'),
 	 ('2 min sprints should have everyone soaked my friend. Shits not easy',97,'https://www.reddit.com/r/nba/comments/wvx64b/draymond_green_gives_the_best_motivational_speech/','03-Adolesecence',NULL,NULL,'0','2022-08-24','2022-08-24 11:04:59.284',-0.3195,0.33,0.479,0.192,0,1.0,'72d205b3fe7db46c6a2ea0a645e74b7b'),
 	 ('And no assists to boot. Truly a shooting guard.',14,'https://www.reddit.com/r/nba/comments/sr9rxs/klay_lights_up_the_lakers_33_points_5_rebounds_on/','03thisishard03',NULL,NULL,'false','2022-02-13','2022-02-13 12:03:54.468',0.1779,0.198,0.541,0.261,1,1.0,'138d6957ab1c0843271786c26643e6eb');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Damn. Klay really is a shooting guard.',3,'https://www.reddit.com/r/nba/comments/sr9s13/post_game_thread_the_golden_state_warriors_4215/','03thisishard03',NULL,NULL,'false','2022-02-13','2022-02-13 12:03:54.468',-0.4019,0.351,0.649,0.0,0,1.0,'eb6d4a7546ff44eb1bc3bb6b49687405'),
 	 ('Big dick energy',5,'https://www.reddit.com/r/nba/comments/um7kq4/post_game_thread_the_boston_celtics_22_beat_the/','04201969',NULL,NULL,'0','2022-05-10','2022-05-10 11:02:43.609',-0.296,0.516,0.156,0.328,0,1.0,'ddb7744f1132d3f559048bb3202de76c'),
 	 ('Big soul',19,'https://www.reddit.com/r/nba/comments/tsogn8/jokic_tonight_3713921_on_1519_fg/','04201969',NULL,NULL,'0','2022-03-31','2022-03-31 11:03:01.201',0.0,0.0,1.0,0.0,0,1.0,'2dc51ea9b726adfdff40fbd062fe1c53'),
@@ -4643,7 +4643,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('European sports crowds are next level compared to the US.',14,'https://www.reddit.com/r/nba/comments/uielpa/kd_getting_booed_by_an_entire_arena_in_greece_at/','04201969',NULL,NULL,'0','2022-05-05','2022-05-05 11:02:46.708',0.0,0.0,1.0,0.0,0,1.0,'6631d3012883a1dab9d6933c750689fb'),
 	 ('His movement looks so smooth, and it’s even better in person',99,'https://www.reddit.com/r/nba/comments/trujlx/luka_doncic_just_recorded_a_triple_double_in_23/','04201969',NULL,NULL,'0','2022-03-30','2022-03-30 11:02:40.418',0.4404,0.0,0.775,0.225,1,1.0,'9e9a6325b9e49076ceb863dd6211ad74'),
 	 ('I agree. Honestly in retrospect it’s actually not surprising at all he has back to back MVPs. Idk how people count him out for next year already.',15,'https://www.reddit.com/r/nba/comments/wxo1ii/highlight_jokić_with_the_sombor_shuffle_3_over/','04201969',NULL,NULL,'0','2022-08-26','2022-08-26 11:04:27.235',0.5083,0.105,0.716,0.179,1,1.0,'2021cc9c9b4d4b5ac3a86b23b8fb0a3d');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('If he stays injury free and has a good offseason it’s in the bag unless one of the big 3 currently balls out even harder than they are right now',8,'https://www.reddit.com/r/nba/comments/trv8od/post_game_thread_the_dallas_mavericks_4729_defeat/','04201969',NULL,NULL,'0','2022-03-30','2022-03-30 11:02:40.418',0.5267,0.082,0.735,0.182,1,1.0,'cf51c0a00efe3d4e5f4503b2a526d3bf'),
 	 ('If Mavs scored 0 in the 4th quarter they still would have won lmao',18,'https://www.reddit.com/r/nba/comments/trv8od/post_game_thread_the_dallas_mavericks_4729_defeat/','04201969',NULL,NULL,'0','2022-03-30','2022-03-30 11:02:40.418',0.8225,0.0,0.591,0.409,1,1.0,'8ecd2523a7175ff898538ad633bca2db'),
 	 ('If they can get some offensive presence in the paint the Mavs would be a much better team.',46,'https://www.reddit.com/r/nba/comments/uvp6sj/highlight_luka_does_his_own_shimmy_after_burying/','04201969',NULL,NULL,'0','2022-05-23','2022-05-23 11:04:06.784',-0.0258,0.144,0.718,0.139,0,1.0,'104f15c61941a498ed5e79865d5e9d58'),
@@ -4656,7 +4656,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 But yes pretty much, it’s one of the most common first names',321,'https://www.reddit.com/r/nba/comments/u18dsk/givony_nikola_jovic_a_610_18year_old_small/','04201969',NULL,NULL,'0','2022-04-12','2022-04-12 11:03:02.356',0.8338,0.0,0.605,0.395,1,1.0,'e931dd78c2e7e3552156d75659d46ac9'),
 	 ('Played him like a fiddle',10,'https://www.reddit.com/r/nba/comments/uc36b0/highlight_luka_gets_the_and1_on_gobert_and_lets/','04201969',NULL,NULL,'0','2022-04-26','2022-04-26 11:02:58.135',0.5994,0.0,0.29,0.71,1,1.0,'0bf935976a1630ef984c90bb6546204a'),
 	 ('SHOOK',1,'https://www.reddit.com/r/nba/comments/ulcicq/chris_paul_in_a_game_4_loss_against_dallas_5/','04201969',NULL,NULL,'0','2022-05-09','2022-05-09 11:02:51.244',-0.1027,1.0,0.0,0.0,0,1.0,'74ae47e5134c11743fb69dbfd49448d1');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Short answer: No
 
 
@@ -4680,7 +4680,7 @@ He''s the 14th highest paid point guard this season.',5,'https://www.reddit.com/
 	 ('Even if he was facing the 2012 Bobcats'' bench unit and only scored on easy buckets, 17/15 on 9 shots and 5 blocks would be a fantastic game. 
 
 You can see the play by play [here](https://www.basketball-reference.com/boxscores/pbp/202001110HOU.html) and some of the highlights [here](https://youtu.be/bMVoQmr-N5I)',2,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.8555,0.04,0.72,0.239,1,1.0,'b37aeb49337d530732f224f569f19a51');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('He had 3 fouls in 26 minutes that game. That''s a lot, but I don''t see how it makes sense to not even put him in the game because you''re afraid he''ll foul after that.',24,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.0,0.0,1.0,0.0,0,1.0,'980697d90baa727b268b3469edb4f7e1'),
 	 ('He just had a career high TS% of 66.4%. Draymond also had a career high at 58.7%. 
 
@@ -4695,7 +4695,7 @@ In the playoffs, they were at +4.4 with Lowry without DeRozan and -23 with DeRoz
 	 ('I''ve watched a ton of his highlights. He can score efficiently, pass, rebound, and defend.',3,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.4019,0.0,0.828,0.172,1,1.0,'8a87003be70582c8664775315501aa58'),
 	 ('My bad, I mixed up Covington with Tucker.',3,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',-0.5423,0.368,0.632,0.0,0,1.0,'39c6e0a654c3a0e6c80c052e4eccb725'),
 	 ('Ngl, those games after Capela went down and they were playing Tucker ~~Covington~~ as a center were very entertaining.',10,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'1','2022-07-29','2022-07-29 11:04:24.915',0.6115,0.0,0.762,0.238,1,1.0,'d6b4a04adef85c9d8be485c44969e7a4');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('No?',3,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',-0.296,1.0,0.0,0.0,0,1.0,'3c01d0ccc6cc594793ca9e7d97c5fab7'),
 	 ('People have this idea that SGA is good enough that he''d prevent OKC from being awful, but that isn''t the case at all. They have a net rating of -7.2 when he''s been on the court these past 2 seasons.
 
@@ -4720,7 +4720,7 @@ If you look at only the playoffs, the Mavs have a much better net rating with Lu
 
 They were at -2.6 with them both on the court and -4.6 without either of them.',19,'https://www.reddit.com/r/nba/comments/wg5ag5/what_empty_stats_guys_are_there_left_in_the_league/','065Alakazam',NULL,NULL,'0','2022-08-05','2022-08-05 11:04:32.271',0.128,0.082,0.795,0.123,1,1.0,'3b3a99db639aaf6e53b9823f93db33bd'),
 	 ('There was just a player that averaged 30/8 on a 30 win team.',106,'https://www.reddit.com/r/nba/comments/wg5ag5/what_empty_stats_guys_are_there_left_in_the_league/','065Alakazam',NULL,NULL,'0','2022-08-05','2022-08-05 11:04:32.271',0.5859,0.0,0.725,0.275,1,1.0,'53d8814122a0cb5b3c7e413bdda6c097');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('They had a -2.1 net rating with LeBron and -4.5 without him. So they were 2.4 points better with him on the court.
 
 Demarcus Cousins is considered to be the biggest empty stats guy of the past decade and the Kings'' net rating improved by 2.9 points when he was on the court. If you only look at his all-star seasons, their net rating improved by 7 points when he was on the court.',50,'https://www.reddit.com/r/nba/comments/wg5ag5/what_empty_stats_guys_are_there_left_in_the_league/','065Alakazam',NULL,NULL,'0','2022-08-05','2022-08-05 11:04:32.271',0.8074,0.023,0.862,0.115,1,1.0,'0b53fcc5c98a6069dda8cd3ad7384cd9'),
@@ -4737,7 +4737,7 @@ The role player also had great nights every other time he got significant minute
 	 ('Lol💀',18,'https://www.reddit.com/r/nba/comments/v9ovu1/highlight_steph_curry_is_credited_as_the_3rd/','_1Kmez',NULL,NULL,'0','2022-06-11','2022-06-11 11:03:16.451',0.0,0.0,1.0,0.0,0,1.0,'70ecdd6e07a7b0f84df9b9971c80c26e'),
 	 ('444 a classic',10,'https://www.reddit.com/r/nba/comments/xkrsob/charania_celtics_coach_ime_udoka_had_an_improper/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-09-23','2022-09-23 11:04:46.582',0.0,0.0,1.0,0.0,0,1.0,'91227b7e6c8d32eb9c3fca8b14f48498'),
 	 ('AD don’t count?',1,'https://www.reddit.com/r/nba/comments/sbaddb/gonzaga_university_suspends_hall_of_famer_john/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-24','2022-01-24 12:02:49.514',0.0,0.0,1.0,0.0,0,1.0,'4815a99193cdc696646dc1d7af636b46');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Also Kawhi but he hasn’t played.',16,'https://www.reddit.com/r/nba/comments/tu816j/robert_covington_tonight_43_pts_8_reb_2_ast_2_stl/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-02','2022-04-02 11:02:26.539',0.4767,0.0,0.617,0.383,1,1.0,'65b49b73cb69ebf8fad373f41556f331'),
 	 ('Any mirrors?',1,'https://www.reddit.com/r/nba/comments/swlmfm/dominique_wilkins_picks_himself_with_the_number/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-20','2022-02-20 12:02:37.028',0.0,0.0,1.0,0.0,0,1.0,'86d58e73e0bbaf5238ec2e888c87858c'),
 	 ('Aren’t most companies like Applebees franchises though? So they actually would be a small business',1,'https://www.reddit.com/r/nba/comments/txrl3t/youngmisuk_the_impression_that_i_got_from_his/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-07','2022-04-07 11:03:00.470',0.4173,0.0,0.824,0.176,1,1.0,'4744fa75d3fea7fd389f399fdb26d0b2'),
@@ -4748,7 +4748,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Big fan of crypto by chance?',1,'https://www.reddit.com/r/nba/comments/vl4v0r/sixers_plan_to_use_doc_rivers_as_an_asset_when/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-27','2022-06-27 11:02:25.269',0.5106,0.0,0.482,0.518,1,1.0,'e10ffff67c76bd876ad65173ec19ff26'),
 	 ('Blame Cuban for nixing the the pick.',5,'https://www.reddit.com/r/nba/comments/sxpbja/giannis_antetokounmpo_there_were_only_two/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-22','2022-02-22 12:02:44.987',-0.34,0.286,0.714,0.0,0,1.0,'53119cb5d7ddbe291a7654eb37e0d9f4'),
 	 ('Bringing “Like Mike Sneakers” for Russell Westbrook.',3,'https://www.reddit.com/r/nba/comments/s8wl8a/sheridan_charles_barkley_on_the_lakers_roster_old/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-21','2022-01-21 12:02:48.283',0.0,0.0,1.0,0.0,0,1.0,'423faebfa1ca9a59d6fb4d106a8da19b');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('But he loves his wife',3,'https://www.reddit.com/r/nba/comments/vrb61j/fergie_gives_a_beautiful_rendition_of_the/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-07-05','2022-07-05 11:02:59.177',0.7227,0.0,0.442,0.558,1,1.0,'6c4c5702ab1d67adc38ece744c0a9975'),
 	 ('But you gotta respect 2 APG, it’s always dangerous maybe he will get 7.',1,'https://www.reddit.com/r/nba/comments/ufp65t/is_rudy_gobert_valuable_in_the_playoffs/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-05-01','2022-05-01 11:02:39.445',0.0,0.215,0.57,0.215,0,1.0,'6771acc66bb6590e4c7c55a9931b4a66'),
 	 ('Caruso was there during Ryan West era, Reeves wasn’t there during his involvement.',3,'https://www.reddit.com/r/nba/comments/shxywb/lakers_repealed_the_lifetime_season_tickets_of/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-02','2022-02-02 12:02:36.812',0.0,0.0,1.0,0.0,0,1.0,'9c59637453ab19ef066b629a2d16b528'),
@@ -4759,7 +4759,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Even with the playoff price pool?',2,'https://www.reddit.com/r/nba/comments/sac270/bucks_good_morning_video_of_allen_eating_a_donut/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-23','2022-01-23 12:02:26.649',0.0,0.0,1.0,0.0,0,1.0,'ace0000407286ca849611f8efd5d048c'),
 	 ('Give us something',7,'https://www.reddit.com/r/nba/comments/sv9ei6/twolves_g_patrick_beverley_watching_the/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-18','2022-02-18 11:27:15.521',0.0,0.0,1.0,0.0,0,1.0,'f1fe9e538aca6f1f6c52035e3261e1b9'),
 	 ('Good game shows have easy to understand concepts.',1,'https://www.reddit.com/r/nba/comments/swq062/highlight_steph_curry_is_welcomed_by_cleveland/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-20','2022-02-20 12:02:37.028',0.7003,0.0,0.508,0.492,1,1.0,'0b94d6d9f040f8478057cd33c9854dbb');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Have you seen Stevie''s?',5,'https://www.reddit.com/r/nba/comments/w9ucj5/jimmy_butler_unveils_his_new_hairdo/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-07-28','2022-07-28 11:05:06.526',0.0,0.0,1.0,0.0,0,1.0,'b53e4c2f7e9138b92a8b21c5490cbf78'),
 	 ('He cares more about entertainment than ball.',-8,'https://www.reddit.com/r/nba/comments/u3v9b1/bud_light_hey_patbev21_say_the_word_and_well_have/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-15','2022-04-15 11:02:50.578',0.7251,0.0,0.451,0.549,1,1.0,'e048b1e3fdc66071748a2c4c0cd123d2'),
 	 ('Helping more people get thru college than the GI bill',24,'https://www.reddit.com/r/nba/comments/ur9svi/deandre_ayton_cant_live_without_video_games_and/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-05-17','2022-05-17 11:03:26.270',0.296,0.0,0.804,0.196,1,1.0,'c3cfedeeadf984cb07b4359b7fbd3738'),
@@ -4770,7 +4770,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('I doubt most players who are staying in hotels care',25,'https://www.reddit.com/r/nba/comments/vqvfsa/lisa_ann_presents_5_ways_nba_players_can_avoid/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-07-04','2022-07-04 11:02:59.975',0.1779,0.197,0.551,0.252,1,1.0,'b2816c38f9750e05917683f67d4c6d78'),
 	 ('If this team were to be in 2014 it would be great, but it isn''t 2014.',13,'https://www.reddit.com/r/nba/comments/txe77e/the_los_angeles_lakers_have_been_eliminated_from/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-06','2022-04-06 11:02:45.544',0.3716,0.0,0.855,0.145,1,1.0,'3529f54242a1233369ce59b017bbb3ed'),
 	 ('Is there a list of players who have dropped 50 or more points in a game?',1,'https://www.reddit.com/r/nba/comments/ul16q0/daily_discussion_thread_game_thread_index/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-05-09','2022-05-09 11:02:51.244',0.0,0.0,1.0,0.0,0,1.0,'b2274763682ac97e76c4e55fdf6f44e1');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('I think he is saying over like the next 10 year period Clippers will have an higher floor than the Suns due to differing mentalities of both teams ownership.',1,'https://www.reddit.com/r/nba/comments/vi8iaz/arnovitz_the_suns_have_a_total_14_people_employed/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-23','2022-06-23 11:02:33.660',0.3612,0.0,0.915,0.085,1,1.0,'f924c5e6c7b4a2d9aeac1311c9b246e3'),
 	 ('I think he might have pressure from front office to play tht',2,'https://www.reddit.com/r/nba/comments/sjbmff/post_game_thread_the_los_angeles_lakers_2527/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-03','2022-02-03 12:02:21.157',0.0516,0.162,0.662,0.176,1,1.0,'016994bba3ab6dbffceb5a226a604949'),
 	 ('I think it was an Ukrainian or Russian show about bad children. Children who had outbursts and shit.',5,'https://www.reddit.com/r/nba/comments/u9h73e/draymond_green_everybody_not_made_for_the/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-23','2022-04-23 11:02:41.582',-0.7964,0.321,0.679,0.0,0,1.0,'0e90689db3cd18d91e32e2ae3b99e50e'),
@@ -4781,7 +4781,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Nah, he had different height legs.',1,'https://www.reddit.com/r/nba/comments/vvwx6a/historical_the_kings_dont_pick_luka/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-07-11','2022-07-11 11:03:33.751',-0.1027,0.219,0.781,0.0,0,1.0,'d8daa05f59803fe63ef643408a652ba3'),
 	 ('No the one who went triple platinum without any features.',47,'https://www.reddit.com/r/nba/comments/v8it25/ryan_clark_listen_its_a_problem_when_j_cole_has_a/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-10','2022-06-10 11:03:05.154',-0.296,0.196,0.804,0.0,0,1.0,'91b15ce9bb4fe5f0e64c3fed762e38d0'),
 	 ('Not really when you are playing sub .300 basketball',0,'https://www.reddit.com/r/nba/comments/wtb7jl/favorite_tweet_from_anyone_in_the_nba/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-08-21','2022-08-21 11:04:11.029',0.2023,0.0,0.816,0.184,1,1.0,'6f8c0cb09fc56fc8b82162d17003d185');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('PLEASE BABY NO MORE PLAYOFFS IN LA',10,'https://www.reddit.com/r/nba/comments/u4qdc5/post_game_thread_the_new_orleans_pelicans/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-16','2022-04-16 11:02:43.460',0.0258,0.232,0.526,0.242,1,1.0,'44dbd04763fa056dd86ba952923ab7db'),
 	 ('Remind me of the old skins betting that was happening between ‘14-‘18',1,'https://www.reddit.com/r/nba/comments/vhdp8p/nba_espn_pushing_viewers_to_focus_on_gambling_and/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-22','2022-06-22 11:02:24.618',0.0,0.0,1.0,0.0,0,1.0,'5f8649dc137f729d9d239f4bd15ad132'),
 	 ('Rumor was they came to kawhi with list of people they thought they’d be able to get next to him. And PG was his first choice',1,'https://www.reddit.com/r/nba/comments/vhnjw4/the_okc_thunder_have_more_1st_round_draft_picks/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-22','2022-06-22 11:02:24.618',0.0,0.0,1.0,0.0,0,1.0,'c134bddb19af2b7b5c07405551f40215'),
@@ -4796,7 +4796,7 @@ I think opposite that it hasn''t, he has had 2 surgeries. You are just gonna hav
 >',4,'https://www.reddit.com/r/nba/comments/twbrru/farbod_the_la_clippers_clinched_the_8th_seed/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-05','2022-04-05 11:02:38.705',0.34,0.0,0.87,0.13,1,1.0,'8e0ac0fa9cbaaf793acf09fbdabfc6cb'),
 	 ('Start playing grind heavy games like RuneScape or some other shit game like that.',4,'https://www.reddit.com/r/nba/comments/twbrru/farbod_the_la_clippers_clinched_the_8th_seed/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-05','2022-04-05 11:02:38.705',0.296,0.176,0.49,0.333,1,1.0,'14cc723acd97ac2bfbb6e1bdecbac391'),
 	 ('Still 30% chance to win',1,'https://www.reddit.com/r/nba/comments/vep6fe/the_warriors_210_run_yesterday_is_the_biggest/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-18','2022-06-18 11:03:32.945',0.7003,0.0,0.341,0.659,1,1.0,'b7b209bae0809e92dc0cd66a15eacc51');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Tbh, if court was full of advertisements like nascar cars I think it look dope.',1,'https://www.reddit.com/r/nba/comments/szkvkw/oc_too_many_ads_an_analysis_on_how_the_nba_is/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-24','2022-02-24 12:03:04.958',0.3612,0.0,0.839,0.161,1,1.0,'f05cc6761f9865795bd04c6af2b59ee6'),
 	 ('Thank you for tbis',2,'https://www.reddit.com/r/nba/comments/ul16q0/daily_discussion_thread_game_thread_index/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-05-09','2022-05-09 11:02:51.244',0.3612,0.0,0.545,0.455,1,1.0,'f4b54e5f981569a06108c943af95d289'),
 	 ('That 35 year old living on his fathers glort',8,'https://www.reddit.com/r/nba/comments/vf6jr8/congratulations_to_gary_payton_ii_and_kevon/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-19','2022-06-19 11:02:29.960',0.0,0.0,1.0,0.0,0,1.0,'614a836d43c3074678b94a0b64d7332a'),
@@ -4807,7 +4807,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('There was a website to track if teams are out of the playoffs anyone remember the name?',1,'https://www.reddit.com/r/nba/comments/tdwxfo/daily_discussion_thread_game_thread_index/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-03-15','2022-03-15 11:02:41.894',0.0,0.0,1.0,0.0,0,1.0,'e86c5a3cced0fda76986cfbc3199020b'),
 	 ('They got Ali G production?',2,'https://www.reddit.com/r/nba/comments/sbaayy/highlight_lebron_reacts_to_bam_fouling_out_by/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-24','2022-01-24 12:02:49.514',0.0,0.0,1.0,0.0,0,1.0,'8bfbed3cccc685b565df3652542153b0'),
 	 ('They have them custom made for their sizes',1,'https://www.reddit.com/r/nba/comments/vff5i4/mills_jordan_poole_is_asked_about_if_he_expects/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-06-19','2022-06-19 11:02:29.960',0.0,0.0,1.0,0.0,0,1.0,'312eaddfdbf6cfb9fc1554497dd66d8b');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('They should just allow illegal substances.',33,'https://www.reddit.com/r/nba/comments/rw0lre/david_aldridge_i_worked_for_turner_sports_which/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-05','2022-01-05 12:01:46.473',-0.4019,0.379,0.421,0.2,0,1.0,'db4bef6b7df2397723dd5657058a33ce'),
 	 ('This is an reference to pistons bulls match where Zeke walked out without shaking hands with bulls.',14,'https://www.reddit.com/r/nba/comments/sw2h3h/isiah_thomas_i_aint_shaking_no_hands_tyrese_maxey/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-02-19','2022-02-19 12:02:19.976',0.1326,0.0,0.913,0.087,1,1.0,'28c52f27ce18a5a84fb13d545b861647'),
 	 ('This was made when he was rookie and they started 2-5.',8,'https://www.reddit.com/r/nba/comments/wtb7jl/favorite_tweet_from_anyone_in_the_nba/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-08-21','2022-08-21 11:04:11.029',0.0,0.0,1.0,0.0,0,1.0,'fc74da9ef31a85f152d1f00656384988'),
@@ -4818,7 +4818,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('I am so uncomfortable',-71,'https://www.reddit.com/r/nba/comments/zvvn1y/stars_from_around_the_league_congratulate_dame_on/','416_647','Raptors4',':tor-4: Raptors','0','2022-12-27','2022-12-27 12:05:28.542',-0.4391,0.591,0.409,0.0,0,NULL,'7230b29c00e3c4329868e73b61290e4c'),
 	 ('Yes but pre 20 year break it was just 1 dude',6,'https://www.reddit.com/r/nba/comments/uzsxgr/pat_rileys_indestructible_empire_losing_aging/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-05-29','2022-05-29 11:02:50.412',0.2144,0.0,0.829,0.171,1,1.0,'57358303443a546118138e1f697f19c6'),
 	 ('Ant Edwards up there',1,'https://www.reddit.com/r/nba/comments/xre57n/nick_young_says_a_wizards_cheerleader_got_fired/','0826man',NULL,NULL,'0','2022-09-30','2022-09-30 11:04:31.663',0.0,0.0,1.0,0.0,0,1.0,'a5ce8a4523479c36b955bc8974ee2eec');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Jordans 33m contract in 97, adjusted for inflation, is 60m today.... Some people don''t understand basic macroeconomics',-1,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'0','2022-07-03','2022-07-03 11:03:00.187',0.0,0.0,1.0,0.0,0,1.0,'8ede5c2fac388895e2b650eb9905bcff'),
 	 ('😤Stats like this just get me fired up',1,'https://www.reddit.com/r/nba/comments/102sg1w/giannis_antetokounmpo_checks_out_the_vs_the/','Intelligent-Agent440',NULL,NULL,'0','2023-01-04','2023-01-04 12:04:28.064',-0.2732,0.298,0.496,0.207,0,NULL,'e1d7857bfb99a6da06307896f578f6cf'),
 	 ('Look up the difference in the value of NBA from 1997 and today, then look at the average value of an NBA team in 1997 compared to today, you''ll see the money is in line smooth brain. 
@@ -4835,7 +4835,7 @@ Something you gotta think about is other owners are billionaires too. Other team
 	 ('Celtics tickets have also been going for $2-5 lately a couple days before game day, FWIW. Normally in past years the get-in price for a bad game has been anywhere from $25-45ish',1,'https://www.reddit.com/r/nba/comments/shfem7/tickets_for_the_clippers_pacers_game_going_for_as/','08tonyallen',NULL,NULL,'false','2022-02-01','2022-02-01 12:02:22.485',-0.5423,0.108,0.892,0.0,0,1.0,'2d23f3308f02d2c46304023305b02fe1'),
 	 ('He wore a clover #6 hat in nearly every single public appearance in the last decade. Used to tweet support for the Celtics and players all the time. Would come back to Boston here and there (fyi, something Larry bird never does, no matter what, but that’s a different story)',97,'https://www.reddit.com/r/nba/comments/wm2j7r/with_the_nbas_decision_to_retire_bill_russells_6/','08tonyallen',NULL,NULL,'0','2022-08-12','2022-08-12 11:04:38.581',0.3087,0.021,0.912,0.067,1,1.0,'1dd95e94c960b9dab132fb7906b65b49'),
 	 ('These non-update updates are just brutal',23,'https://www.reddit.com/r/nba/comments/wutdoo/charania_a_new_western_conference_contender_is/','08tonyallen',NULL,NULL,'0','2022-08-23','2022-08-23 11:04:26.173',-0.6249,0.451,0.549,0.0,0,1.0,'6ce75599740169edb313a726e90d75e8');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Was there and this was the reason. Immediately after the FTs he signaled to the crowd to “pump back up” again',48,'https://www.reddit.com/r/nba/comments/t8812y/highlight_td_garden_chants_kyrie_sucks_kyrie/','08tonyallen',NULL,NULL,'0','2022-03-07','2022-03-07 12:02:53.323',0.0,0.0,1.0,0.0,0,1.0,'ae39b32e3f5bd5840ef087f21367c805'),
 	 ('What year do we think we’ll see the first $100M/yr player?',3,'https://www.reddit.com/r/nba/comments/vun659/the_year_is_2026_damian_lillard_is_36_years_old/','08tonyallen',NULL,NULL,'0','2022-07-09','2022-07-09 11:03:23.157',0.0,0.0,1.0,0.0,0,1.0,'515ffa78131c533deb3117768c652aac'),
 	 ('I love this team',1,'https://www.reddit.com/r/nba/comments/teej5n/karlanthony_towns_has_56_points_and_14_rebounds/','0905evo','Timberwolves5',':min-1: Timberwolves','0','2022-03-15','2022-03-15 11:02:41.894',0.6369,0.0,0.323,0.677,1,1.0,'e90a27ec9a477e3a512de2cacbf2fe6b'),
@@ -4846,7 +4846,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('Sure everyone could look it up on google but it is often more fun and informative to ask people on the internet.',11,'https://www.reddit.com/r/nba/comments/u84v01/did_the_baby_that_dapped_up_booker_need_a_ticket/','091882',NULL,NULL,'0','2022-04-21','2022-04-21 11:02:50.207',0.7607,0.0,0.754,0.246,1,1.0,'e612f3682b5eccd11eda8d87733cf0f3'),
 	 ('That''s some lower tier "winning", IMO.',-2,'https://www.reddit.com/r/nba/comments/u5xx6y/kyrie_shows_his_appreciation_of_boston_fans_again/','091882',NULL,NULL,'0','2022-04-18','2022-04-18 11:03:01.017',-0.296,0.306,0.694,0.0,0,1.0,'32df82cce20e7280de92ca8bc5560983'),
 	 ('What exactly has Trae won?',-5,'https://www.reddit.com/r/nba/comments/u5xx6y/kyrie_shows_his_appreciation_of_boston_fans_again/','091882',NULL,NULL,'0','2022-04-18','2022-04-18 11:03:01.017',0.5719,0.0,0.519,0.481,1,1.0,'b09925342e3a8a2ec81f0af316505c0b');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Both ex pistons I miss them both',1,'https://www.reddit.com/r/nba/comments/vii9xl/christian_wood_and_jerami_grant_were_both_traded/','096624',NULL,NULL,'0','2022-06-23','2022-06-23 11:02:33.660',-0.1531,0.242,0.758,0.0,0,1.0,'497c1eb66ea2a215774c92b156e38b7d'),
 	 ('Didn’t he mainly come off the bench? Amazing',3,'https://www.reddit.com/r/nba/comments/ttayzm/charania_san_antonio_spurs_icon_manu_ginobili/','096624',NULL,NULL,'0','2022-04-01','2022-04-01 11:02:37.515',0.5859,0.0,0.648,0.352,1,1.0,'d6c49b3879229c0dcbad1e871f029e1a'),
 	 ('Idk draymond scoring 2 points a game in the finals means he can do Whatever he wants',3,'https://www.reddit.com/r/nba/comments/xws7oo/charania_when_a_chesttochest_interaction_with/','096624',NULL,NULL,'0','2022-10-06','2022-10-06 11:04:34.822',-0.1027,0.091,0.909,0.0,0,1.0,'5c2dc5415db44919282062e92edd98de'),
@@ -4872,7 +4872,7 @@ Bite after bite, nothing is happening...what''s he doing now.....he''s INSPECTIN
 
 When I got out and went into semiconductor manufacturing, I realized the Navy wasn''t half as bad as chemists and physicists,',1,'https://www.reddit.com/r/nba/comments/wwktrp/mavs_just_fd_over_thousands_of_sths_by_assigning/','098706',NULL,NULL,'0','2022-08-25','2022-08-25 11:04:53.782',0.6155,0.114,0.737,0.149,1,1.0,'40856fdc6e3a890c32812dc46945f42f'),
 	 ('Are Minn''s owners abusing animals or own some farms?',1,'https://www.reddit.com/r/nba/comments/u576av/highlight_security_removing_the_chained_fan_from/','09jtherrien','Hawks4','Hawks','0','2022-04-17','2022-04-17 11:03:26.374',-0.4588,0.273,0.727,0.0,0,1.0,'e25e0c1706f83e348f5f1039c018c96b');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('looks like if I shat on his head hahaha',-2,'https://www.reddit.com/r/nba/comments/xok0po/winderman_jimmy_butler_says_he_still_is_weighing/','09kwokhy1',NULL,NULL,'0','2022-09-27','2022-09-27 11:04:36.621',0.7269,0.0,0.496,0.504,1,1.0,'505620ea38cbc151bc90fcd8abcf60e3'),
 	 ('Any progress to get her out would be awesome to see but Give me a break, fuck this attention whore',3,'https://www.reddit.com/r/nba/comments/wu1ir1/dennis_rodman_says_hes_going_to_russia_to_seek/','09Trollhunter09',NULL,NULL,'0','2022-08-22','2022-08-22 11:04:10.513',-0.85,0.355,0.498,0.148,0,1.0,'3f88703776b82f998d2859a1014399a5'),
 	 ('I want to thank you for saying this',3,'https://www.reddit.com/r/nba/comments/sqbo2h/shelburneben_simmons_was_reportedly_emotional_on/','0AZRonFromTucson0',NULL,NULL,'false','2022-02-12','2022-02-12 12:02:43.840',0.4215,0.0,0.568,0.432,1,1.0,'c9ee4e088fbf0f318a64016a1f83cfb0'),
@@ -4885,7 +4885,7 @@ INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,fl
 	 ('http://1stream.top/game/MTMxNTU0OTg4
 
 use an adblock',2,'https://www.reddit.com/r/nba/comments/xrti1n/game_thread_golden_state_warriors_00_washington/','0bservatory',NULL,NULL,'0','2022-09-30','2022-09-30 11:04:31.663',0.0,0.0,1.0,0.0,0,1.0,'fb38a104822f78ebef296ac3889865ec');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('>power
 
 my dying grandmother has more power than these fucks',2,'https://www.reddit.com/r/nba/comments/tbcz5u/highlight_ben_simmons_dunks_and_the_philly_crowd/','0bservatory',NULL,NULL,'0','2022-03-11','2022-03-11 12:02:42.328',-0.4767,0.256,0.744,0.0,0,1.0,'6ed197c8b87721105cd2455bc8dae7ed'),
@@ -4900,14 +4900,14 @@ my dying grandmother has more power than these fucks',2,'https://www.reddit.com/
 He hid behind Spo lol',8,'https://www.reddit.com/r/nba/comments/tnbpyw/highlight_jose_alvarado_hides_in_the_corner/','0ccams-razor','Heat1',':mia-1: Heat','0','2022-03-25','2022-03-25 11:03:00.629',0.34,0.171,0.488,0.341,1,1.0,'551dc9350d0e4c91065aa6c342b52aa0'),
 	 ('Center goes to Kareem or Shaq I think. Maybe Kareem cause he was good for longer but when Shaq was hot, nothing has ever been hotter.',2,'https://www.reddit.com/r/nba/comments/uffule/if_tim_duncan_is_the_greatest_pf_ever_and_jordan/','0_clever_names_left',NULL,NULL,'0','2022-05-01','2022-05-01 11:02:39.445',0.2382,0.0,0.925,0.075,1,1.0,'7b6bb06b745f2624f5bfd2fd10f534ac'),
 	 ('Poetic as a mamma jamma',2,'https://www.reddit.com/r/nba/comments/tdm5xk/highlight_lebron_james_records_his_10000th_assist/','0_clever_names_left',NULL,NULL,'0','2022-03-14','2022-03-14 11:02:56.931',0.0,0.0,1.0,0.0,0,1.0,'e52bf61203e69e92255e83aaa1dba602');
-INSERT INTO aws_reddit_comment_data_source ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
+INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('For real though, I have no interest in blowing up our core for KD''s snake ass, he''s just not an archetype Celtic, no loyalty to  anyone but himself and not for nothing but I''m failing to see how Durant is as valuable as he''s perceived to be. He was an ''all-world'' player, now? He''s on the downhill side of his career. Doesn''t mean he isn''t a great player, but he''s not that dude anymore. Acquiring KD is not an auto-ring for anyone, he needs to be surrounded by other All-Stars to even have a shot. This squad made him look foolish in the first round, and now we''re supposed to sell that farm to get him? I don''t think so.',2,'https://www.reddit.com/r/nba/comments/w7mjt4/charania_the_celtics_offered_brown_derrick_white/','0ctobot',NULL,NULL,'0','2022-07-26','2022-07-26 11:04:55.394',0.1955,0.098,0.812,0.091,1,1.0,'9e70e1f424dbccbd3664c68be4d99cb4'),
 	 ('Celtics legit playing beautiful basketball. The whole team is completely in sync on defense it’s fun to watch.',28,'https://www.reddit.com/r/nba/comments/uayy3x/highlight_harden_takes_a_step_back_misses_and/','0ctobyte','Raptors1','Raptors','0','2022-04-25','2022-04-25 11:02:59.815',0.8591,0.0,0.571,0.429,1,1.0,'160b7ea96ef412f3e66d7b6682061d50'),
 	 ('Evan Scott calling goaltending from half court was major cap',12,'https://www.reddit.com/r/nba/comments/tqp9j0/post_game_thread_the_toronto_raptors_4332_defeat/','0ctobyte','Raptors1','Raptors','0','2022-03-29','2022-03-29 11:03:17.008',0.0,0.0,1.0,0.0,0,1.0,'cae6a6784cd05adbfc49b9f664a19108'),
 	 ('Giannis is too inspirational…man got nothing handed to him and worked hard to get to where he’s at. And he is still working on his flaws even after all his accolades.',29,'https://www.reddit.com/r/nba/comments/smugrl/video_from_lakersknicks_game_of_julius_randle/','0ctobyte','Raptors1','Raptors','false','2022-02-08','2022-02-08 12:02:38.564',-0.1027,0.045,0.955,0.0,0,1.0,'415c5c2a552631da129927879cfcf7ce');
 
-DROP TABLE IF EXISTS aws_reddit_data_source;
-CREATE TABLE IF NOT EXISTS aws_reddit_data_source (
+DROP TABLE IF EXISTS reddit_posts;
+CREATE TABLE IF NOT EXISTS reddit_posts (
 	title text NULL,
 	score int8 NULL,
 	id text NULL,
@@ -4921,7 +4921,7 @@ CREATE TABLE IF NOT EXISTS aws_reddit_data_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_reddit_data_source (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
+INSERT INTO reddit_posts (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
 	 ('Daily Discussion Thread + Game Thread Index',67,'y823pn','https://www.reddit.com/r/nba/comments/y823pn/daily_discussion_thread_game_thread_index/','https://www.reddit.com/r/nba/comments/y823pn/daily_discussion_thread_game_thread_index/',89,'# Game Threads Index (October 19, 2022):
 
 |Tip-off|GDT|Away|Score|Home|PGT|
@@ -4981,7 +4981,7 @@ In his first game back: 30 min, 22 points, 11/22 shooting, 9 boards, 3 assists, 
 
 https://www.espn.com/nba/boxscore/_/gameId/401468021','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Post Game Thread] The Toronto Raptors (1-0) defeat the Cleveland Cavaliers (0-1), 108-105',2448,'y8l9dh','https://www.reddit.com/r/nba/comments/y8l9dh/post_game_thread_the_toronto_raptors_10_defeat/','https://www.reddit.com/r/nba/comments/y8l9dh/post_game_thread_the_toronto_raptors_10_defeat/',1024,'Box Score: [https://www.espn.com/nba/game?gameId=401468023](https://www.espn.com/nba/game?gameId=401468023)','2022-10-20','2022-10-20 11:01:21.236');
-INSERT INTO aws_reddit_data_source (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
+INSERT INTO reddit_posts (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
 	 ('[Highlight] Precious Achiuwa gets spooked during Raptors opening night intro',2938,'y8ipas','https://streamable.com/pvqxiy','https://www.reddit.com/r/nba/comments/y8ipas/highlight_precious_achiuwa_gets_spooked_during/',120,'','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('Steph celebrates Damion Lee’s game winner against the Mavs!',1183,'y8om6s','https://streamable.com/mls7li','https://www.reddit.com/r/nba/comments/y8om6s/steph_celebrates_damion_lees_game_winner_against/',127,'','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Highlight] Herb Jones casually blocks a Kevin Durant 3 pointer',2429,'y8j2dn','https://streamable.com/xc66ma','https://www.reddit.com/r/nba/comments/y8j2dn/highlight_herb_jones_casually_blocks_a_kevin/',125,'','2022-10-20','2022-10-20 11:01:21.236'),
@@ -5086,7 +5086,7 @@ Note: This data is only as accurate as NBA.com
 It appears Klay Thompson is feeling remorse for his bashing of beloved NBA 2K figure, "Ronnie2k" 🙏','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Highlight] Luka Doncic making it look easy in the paint as he draws ooh and aahs from the Phoenix crowd',1350,'y8ltwy','https://streamable.com/9d322g','https://www.reddit.com/r/nba/comments/y8ltwy/highlight_luka_doncic_making_it_look_easy_in_the/',178,'','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Highlight] Goran Dragic YEETS the ball from deep',2006,'y8iuii','https://streamable.com/cp79pb','https://www.reddit.com/r/nba/comments/y8iuii/highlight_goran_dragic_yeets_the_ball_from_deep/',104,'','2022-10-20','2022-10-20 11:01:21.236');
-INSERT INTO aws_reddit_data_source (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
+INSERT INTO reddit_posts (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
 	 ('The Lakers are so bad, that if Lebron or AD get injured the Pelicans could conceivably end up making a playoff run AND land Victor Wembanyama via the Anthony Davis pick swap',5749,'y8ap8y','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/',724,'In today''s opening night overreaction pod on the ringer, this was brought up. Can you imagine if Lebron or AD go out for any extended period of time? The Lakers easily become a bottom 5 team and could conceivably gift the Pelicans a top 2 pick in this year''s draft. 
 
 What a big brain front office the Lakers have. How does Pelinka still have a job?','2022-10-20','2022-10-20 11:01:21.236'),
@@ -5125,8 +5125,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra, ex 
 	 ('[Highlight] Ant gives the Blazers the lead with 7.2 left',579,'yaedv7','https://streamable.com/76e89c','https://www.reddit.com/r/nba/comments/yaedv7/highlight_ant_gives_the_blazers_the_lead_with_72/',114,'','2022-10-22','2022-10-22 11:01:25.718');
 
 
-DROP TABLE IF EXISTS aws_schedule_source;
-CREATE TABLE IF NOT EXISTS aws_schedule_source (
+DROP TABLE IF EXISTS bbref_league_schedule;
+CREATE TABLE IF NOT EXISTS bbref_league_schedule (
 	start_time text NULL,
 	away_team text NULL,
 	home_team text NULL,
@@ -5136,12 +5136,12 @@ CREATE TABLE IF NOT EXISTS aws_schedule_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_schedule_source (start_time,away_team,home_team,"date",proper_date) VALUES
+INSERT INTO bbref_league_schedule (start_time,away_team,home_team,"date",proper_date) VALUES
 	 ('10:00p','Orlando Magic','Portland Trail Blazers',TO_CHAR(CURRENT_DATE, 'Dy, Mon DD, YYYY'),current_date),
 	 ('10:00p','Golden State Warriors','Sacramento Kings',TO_CHAR(CURRENT_DATE, 'Dy, Mon DD, YYYY'),current_date),
 	 ('7:30p','Philadelphia 76ers','Milwaukee Bucks','Thu, Oct 26, 2023','2023-10-26'),
 	 ('10:00p','Phoenix Suns','Los Angeles Lakers','Thu, Oct 26, 2023','2023-10-26');
-INSERT INTO aws_schedule_source (start_time,away_team,home_team,"date",proper_date) VALUES
+INSERT INTO bbref_league_schedule (start_time,away_team,home_team,"date",proper_date) VALUES
 	 ('10:30p','Portland Trail Blazers','Los Angeles Clippers','Wed, Oct 25, 2023','2023-10-25'),
 	 ('9:30p','Dallas Mavericks','San Antonio Spurs','Wed, Oct 25, 2023','2023-10-25'),
 	 ('7:00p','Houston Rockets','Orlando Magic','Wed, Oct 25, 2023','2023-10-25'),
@@ -5152,15 +5152,15 @@ INSERT INTO aws_schedule_source (start_time,away_team,home_team,"date",proper_da
 	 ('7:30p','Minnesota Timberwolves','Toronto Raptors','Wed, Oct 25, 2023','2023-10-25'),
 	 ('7:30p','Cleveland Cavaliers','Brooklyn Nets','Wed, Oct 25, 2023','2023-10-25'),
 	 ('8:00p','New Orleans Pelicans','Memphis Grizzlies','Wed, Oct 25, 2023','2023-10-25');
-INSERT INTO aws_schedule_source (start_time,away_team,home_team,"date",proper_date) VALUES
+INSERT INTO bbref_league_schedule (start_time,away_team,home_team,"date",proper_date) VALUES
 	 ('8:00p','Oklahoma City Thunder','Chicago Bulls','Wed, Oct 25, 2023','2023-10-25'),
 	 ('9:00p','Sacramento Kings','Utah Jazz','Wed, Oct 25, 2023','2023-10-25'),
 	 ('10:00p','Phoenix Suns','Golden State Warriors','Tue, Oct 24, 2023','2023-10-24'),
 	 ('7:30p','Los Angeles Lakers','Denver Nuggets','Tue, Oct 24, 2023','2023-10-24');
 
 
-DROP TABLE IF EXISTS aws_shooting_stats_source;
-CREATE TABLE aws_shooting_stats_source (
+DROP TABLE IF EXISTS bbref_player_shooting_stats;
+CREATE TABLE bbref_player_shooting_stats (
 	player text NULL,
 	avg_shot_distance text NULL,
 	pct_fga_2p text NULL,
@@ -5187,7 +5187,7 @@ CREATE TABLE aws_shooting_stats_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Aaron Henry','12.0','.800','.200','.200','.400','.000','.200','1.000','.000','.000',NULL,'1.000',NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Abdel Nader','12.9','.600','.314','.286','.000','.000','.400','.727','.000',NULL,NULL,'.500','1.000','.029','1','.357','.200','1','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Ade Murkey',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5198,7 +5198,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Anthony Black','1.9','1.000','.500','.500','.000','.000','.000','1.000','1.000',NULL,NULL,'.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Ben Sheppard','0.9','1.000','1.000','.000','.000','.000','.000','.000',NULL,NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Bilal Coulibaly','13.9','.667','.333','.000','.000','.333','.333','.000',NULL,NULL,'.000',NULL,'1.000','.000','0','1.000','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Brandon Miller','22.8','.222','.222','.000','.000','.000','.778','1.000',NULL,NULL,NULL,'1.000','1.000','.111','1','.286','.500','1','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Brice Sensabaugh','15.4','1.000','.000','.000','.500','.500','.000',NULL,NULL,'.000','.000',NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Cade Cunningham','16.5','.667','.074','.222','.148','.222','.333','.500','.500','.750','.333','.556','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5209,7 +5209,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Cam Reddish','14.4','.444','.333','.111','.000','.000','.556','.667','1.000',NULL,NULL,'.667','1.000','.000','0','.600','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Avery Bradley','18.1','.400','.137','.091','.083','.089','.600','.604','.281','.483','.452','.636','.939','.003','1','.538','.381','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Cam Thomas','13.8','.762','.095','.238','.286','.143','.238','1.000','.800','.500','.667','.455','.500','.000','0','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('B.J. Johnson','16.9','.600','.200','.080','.120','.200','.400','.400','.000','.667','.600','.714','1.000','.040','1','.200','.500','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Ben McLemore','21.9','.226','.091','.033','.006','.096','.774','.694','.389','.333','.442','.846','.967','.017','8','.309','.488','2','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Cam Whitmore','13.8','.500','.500','.000','.000','.000','.500','.000',NULL,NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5220,7 +5220,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Cedi Osman','19.6','.400','.200','.000','.200','.000','.600','1.000',NULL,'.500',NULL,'1.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Charles Bassey','1.3','1.000','1.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,'1.000',NULL,'1.000','1',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Chet Holmgren','19.4','.571','.143','.000','.143','.286','.429','1.000',NULL,'.000','.500','1.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Brandon Goodwin','13.9','.643','.266','.201','.117','.058','.357','.634','.355','.333','.222','.244','.632','.000','0','.145','.250','2','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Chris Duarte','20.9','.200','.000','.200','.000','.000','.800',NULL,'.000',NULL,NULL,NULL,'.667','.000','0','.250','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Brandon Knight','19.4','.320','.280','.040','.000','.000','.680','.857','.000',NULL,NULL,'.667','.750','.000','0','.118','.000','1','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5231,7 +5231,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Christian Wood','11.0','.727','.364','.273','.000','.091','.273','1.000','.333',NULL,'.000','.600',NULL,'.273','3','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Chuma Okeke','26.4','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Clint Capela','2.3','1.000','.700','.300','.000','.000','.000','.714','.333',NULL,NULL,'.667',NULL,'.300','3',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Coby White','17.2','.500','.143','.143','.071','.143','.500','1.000','.000','.000','.000','.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Colby Jones',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('C.J. Miles',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5242,7 +5242,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Corey Kispert','12.5','.545','.545','.000','.000','.000','.455','.500',NULL,NULL,NULL,'.333','1.000','.091','0','.200','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Cory Joseph',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('D''Angelo Russell','13.6','.571','.214','.286','.036','.036','.429','1.000','.125','.000','.000','.571','1.000','.000','0','.083','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Cameron McGriff','13.0','.571','.357','.143','.000','.071','.429','.400','.500',NULL,'.000','.667','.000','.000','0','.333','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Cameron Oliver','7.8','.800','.600','.133','.000','.067','.200','.667','1.000',NULL,'1.000','.778','1.000','.067','1','.333','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Dalen Terry','17.6','.500','.000','.500','.000','.000','.500',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5253,7 +5253,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Cassius Winston','19.1','.455','.091','.091','.182','.091','.545','.000','.000','.500','1.000','.500','1.000','.000','0','.167','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Cat Barber','9.6','1.000','.500','.000','.000','.500','.000','.000',NULL,NULL,'.000',NULL,NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Chandler Hutchison','5.0','1.000','.500','.500','.000','.000','.000','.000','1.000',NULL,NULL,'1.000',NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Charlie Brown','11.0','.692','.385','.205','.077','.026','.308','.467','.250','.000','.000','.444','1.000','.077','2','.167','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Chaundee Brown','17.9','.438','.188','.094','.156','.000','.563','.500','.000','.200',NULL,'.500','1.000','.000','0','.222','.250','1','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Cheick Diallo','3.1','1.000','.375','.625','.000','.000','.000','.667','.200',NULL,NULL,'.333',NULL,'.125','1',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5264,7 +5264,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('DaQuan Jeffries','12.1','.500','.500','.000','.000','.000','.500','1.000',NULL,NULL,NULL,'1.000',NULL,'.500','1','1.000','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Dakota Mathias','25.1','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.167','1.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Damyean Dotson','11.3','.750','.250','.250','.250','.000','.250','1.000','.000','1.000',NULL,'.500',NULL,'.000','0','1.000','.000','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Daniel Oturu','6.8','.833','.500','.333','.000','.000','.167','.667','.500',NULL,NULL,'.333',NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Darren Collison','16.1','.571','.286','.000','.000','.286','.429','1.000',NULL,NULL,'.000','1.000',NULL,'.000','0','1.000','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('David Johnson','26.1','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5275,7 +5275,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Deividas Sirvydis','19.4','.300','.200','.100','.000','.000','.700','.000','.000',NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Denzel Valentine','20.6','.288','.061','.091','.106','.030','.712','.750','.333','.143','.000','.333','.895','.015','1','.426','.450','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Derrick Favors','9.7','.912','.341','.165','.231','.176','.088','.694','.433','.548','.406','.837','1.000','.077','12','.875','.071','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Derrick Walton','18.1','.500','.077','.192','.038','.192','.500','.500','.200','.000','.200','.000','1.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Devin Cannady','22.5','.159','.045','.045','.045','.023','.841','.000','.000','.000','.000',NULL,'1.000','.000','0','.297','.636','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Ausar Thompson','9.5','.714','.429','.143','.143','.000','.286','.000','.000','.000',NULL,NULL,'.000','.143','0','.500','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5286,7 +5286,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Elfrid Payton','8.0','.897','.263','.491','.097','.046','.103','.500','.372','.353','.250','.270','.750','.029','4','.333','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Elijah Hughes','20.1','.340','.090','.090','.125','.035','.660','.692','.615','.278','.000','.500','.840','.021','2','.274','.231','2','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Emanuel Terry','2.2','1.000','.600','.400','.000','.000','.000','.000','.000',NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Emmanuel Mudiay','13.0','1.000','.000','.000','1.000','.000','.000',NULL,NULL,'.000',NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Enes Freedom','4.4','.948','.557','.330','.041','.021','.052','.537','.500','.500','1.000','.388','1.000','.031','2','.200','1.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Eric Bledsoe','14.2','.652','.231','.194','.107','.120','.348','.611','.462','.440','.286','.301','.902','.002','1','.129','.333','2','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5297,7 +5297,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Gabriel Lundberg','19.3','.579','.158','.053','.000','.368','.421','.000','.000',NULL,'.286','.000','.667','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Gary Clark','20.1','.205','.091','.102','.011','.000','.795','.125','.444','.000',NULL,'.800','.964','.011','0','.571','.500','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('George King','19.6','.200','.000','.200','.000','.000','.800',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0','.750','.000','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Georgios Kalaitzakis','13.8','.612','.269','.179','.090','.075','.388','.667','.583','.333','.000','.524','.800','.075','4','.154','.250','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Greg Monroe','3.1','1.000','.632','.351','.000','.018','.000','.694','.350',NULL,'.000','.563',NULL,'.018','1',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Hassan Whiteside','3.8','1.000','.552','.376','.058','.015','.000','.802','.516','.263','.000','.637',NULL,'.282','86',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5308,7 +5308,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('JaQuori McLaughlin','21.9','.500','.000','.000','.000','.500','.500',NULL,NULL,NULL,'.000',NULL,NULL,'.000','0','1.000','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jabari Parker','16.6','.579','.211','.184','.026','.158','.421','.750','.286','.000','.333','.600','.875','.105','4','.375','.500','1','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jahmi''us Ramsey','12.4','.690','.310','.224','.069','.086','.310','.667','.231','.250','.600','.579','.800','.034','2','.167','.333','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jaime Echenique',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jake Layman','14.4','.521','.301','.123','.055','.041','.479','.773','.222','.250','.667','.682','1.000','.096','6','.486','.235','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('James Ennis','10.6','.667','.542','.083','.000','.042','.333','.538','.500',NULL,'.000','.750','1.000','.000','0','.125','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5319,7 +5319,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Javonte Smart','16.3','.550','.183','.167','.133','.067','.450','.545','.300','.125','.250','.364','.875','.000','0','.148','.500','1','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jaylen Hoard','10.0','.722','.322','.344','.033','.022','.278','.724','.387','.333','.500','.429','.889','.044','4','.280','.571','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jaylen Morris','11.6','.667','.500','.167','.000','.000','.333','.000','.000',NULL,NULL,NULL,NULL,'.167','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jaysean Paige','23.7','.333','.000','.000','.000','.333','.667',NULL,NULL,NULL,'.000',NULL,NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jemerrio Jones','2.7','1.000','.667','.333','.000','.000','.000','1.000','.000',NULL,NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jeremy Lamb','17.4','.510','.089','.202','.147','.072','.490','.581','.400','.412','.440','.346','.818','.000','0','.188','.313','4','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5330,7 +5330,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Josh Jackson','14.9','.567','.243','.170','.060','.093','.433','.712','.392','.389','.286','.517','.879','.043','9','.238','.194','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Justin Anderson','18.9','.379','.147','.095','.042','.095','.621','.714','.444','.250','.667','.667','.933','.032','1','.339','.400','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Justin Robinson','21.4','.344','.065','.075','.118','.086','.656','.833','.143','.182','.250','.200','.778','.000','0','.262','.375','2','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Juwan Morgan','17.1','.333','.333','.000','.000','.000','.667','1.000',NULL,NULL,NULL,'1.000','1.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Keifer Sykes','17.3','.526','.168','.079','.116','.163','.474','.688','.333','.182','.355','.429','.889','.021','4','.300','.407','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Kelan Martin','15.4','.561','.234','.123','.088','.117','.439','.650','.190','.467','.550','.646','1.000','.023','3','.347','.423','1','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5341,7 +5341,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Kyle Guy','18.7','.385','.108','.169','.031','.077','.615','.857','.091','.500','.800','.500','.786','.000','0','.225','.444','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('LaMarcus Aldridge','12.3','.900','.210','.170','.240','.279','.100','.729','.513','.509','.563','.748','1.000','.039','18','.283','.308','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Lance Stephenson','14.3','.721','.220','.164','.080','.257','.279','.662','.547','.423','.398','.200','.593','.003','1','.178','.375','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Langston Galloway','19.4','.385','.115','.038','.115','.115','.615','.333','.000','.667','.333','.500','.500','.000','0','.375','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Jacob Gilyard','24.4','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.333','.000','0','0','2023-09-30','2023-09-30 10:09:11.308'),
 	 ('Lonzo Ball','19.9','.321','.154','.047','.057','.063','.679','.610','.333','.273','.167','.404','.845','.018','6','.235','.475','2','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5352,7 +5352,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Marcus Garrett','9.3','.810','.476','.143','.095','.095','.190','.200','.333','.000','.500','.500','1.000','.000','0','.500','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Markus Howard','20.2','.307','.089','.119','.040','.059','.693','.333','.417','.250','.333','.545','.821','.000','0','.243','.529','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Marquese Chriss','7.8','.813','.530','.254','.015','.015','.187','.592','.265','1.000','.500','.833','1.000','.269','27','.200','.400','1','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Mason Jones','10.5','.733','.267','.400','.067','.000','.267','.750','.500','.000',NULL,'.667','.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Matt Mooney','25.1','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Matt Thomas','22.6','.321','.007','.015','.082','.216','.679','1.000','.000','.273','.552','.850','.886','.000','0','.242','.500','0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5363,7 +5363,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Moses Wright','13.2','.750','.250','.000','.500','.000','.250','1.000',NULL,'.000',NULL,'1.000',NULL,'.000','0','1.000','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Mychal Mulder','19.7','.299','.117','.104','.026','.052','.701','.556','.000','.500','.250','.571','1.000','.039','2','.241','.385','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Myles Powell','13.5','.647','.353','.176','.000','.118','.353','.667','.000',NULL,'.000','.000','.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Nate Hinton','8.1','1.000','.000','1.000','.000','.000','.000',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Nemanja Bjelica','14.1','.564','.260','.260','.023','.020','.436','.674','.438','.500','.429','.689','.944','.026','9','.128','.368','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Nik Stauskas','20.7','.286','.071','.071','.071','.071','.714','.000','.000','1.000','.000','1.000','.750','.000','0','.500','.600','0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5374,7 +5374,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Max Christie',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Paul Watson','19.7','.257','.114','.114','.029','.000','.743','.750','.500','1.000',NULL,'.500','1.000','.029','0','.423','.273','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Petr Cornelie','15.9','.467','.333','.067','.000','.067','.533','.600','1.000',NULL,'.000','1.000','1.000','.267','2','.375','.000','0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Quinndary Weatherspoon','8.5','.762','.476','.238','.048','.000','.238','.800','.600','.000',NULL,'.818','1.000','.048','1','.200','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('RJ Nembhard','8.0','.889','.389','.333','.111','.056','.111','.857','.000','.000','.000','.500',NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Rajon Rondo','16.1','.500','.222','.170','.091','.017','.500','.641','.233','.313','.000','.081','.839','.000','0','.114','.300','0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5385,7 +5385,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Rodney Hood','19.6','.420','.089','.096','.102','.134','.580','.857','.267','.438','.238','.536','.833','.006','1','.286','.346','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Sam Dekker',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Scottie Lewis',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Scotty Hopson','17.3','.750','.000','.250','.000','.500','.250',NULL,'.000',NULL,'1.000','.500',NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Sekou Doumbouya','8.9','.750','.500','.250','.000','.000','.250','1.000','.000',NULL,NULL,'.500','1.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Semi Ojeleye','16.5','.495','.091','.263','.141','.000','.505','.667','.269','.143',NULL,'.733','.800','.061','5','.320','.250','1','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5396,7 +5396,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Tim Frazier','17.4','.622','.067','.178','.133','.244','.378','1.000','.250','.167','.182','.375','.833','.000','0','.235','.250','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Timothe Luwawu-Cabarrot','17.5','.344','.220','.070','.038','.016','.656','.512','.385','.429','.333','.700','.977','.032','6','.459','.464','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Tomas Satoransky','13.0','.723','.241','.236','.152','.094','.277','.630','.333','.379','.333','.443','1.000','.037','6','.208','.091','3','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Tony Snell','20.0','.251','.105','.094','.035','.018','.749','.722','.375','.500','.667','.750','.956','.018','3','.477','.361','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Trayvon Palmer','4.0','1.000','.000','1.000','.000','.000','.000',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Tre Scott','8.2','.833','.500','.167','.167','.000','.167','.667','1.000','.000',NULL,'.667',NULL,'.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5407,7 +5407,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Tristan Thompson','4.3','.989','.487','.464','.034','.004','.011','.608','.452','.556','.000','.657','1.000','.157','33','.000',NULL,'2','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Tyler Cook','2.2','1.000','.684','.316','.000','.000','.000','.692','.417',NULL,NULL,'.783',NULL,'.395','14',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Tyler Hall',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Tyler Johnson','22.2','.350','.000','.000','.150','.200','.650',NULL,NULL,'.000','.250','1.000','1.000','.000','0','.308','.250','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Tyrone Wallace','13.0','.600','.350','.150','.050','.050','.400','.714','.000','.000','.000','1.000','1.000','.000','0','.375','.333','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Wayne Ellington','23.4','.110','.042','.025','.030','.013','.890','.800','.667','.429','.333','.875','.951','.000','0','.280','.475','0','0','2022-06-18','2022-06-18 11:04:12.708'),
@@ -5418,7 +5418,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Zavier Simpson','9.1','.846','.250','.442','.096','.058','.154','.538','.391','.400','.000','.222','1.000','.000','0','.000',NULL,'0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Zylan Cheatham','17.2','.333','.333','.000','.000','.000','.667','.000',NULL,NULL,NULL,NULL,NULL,'.000','0','.500','.000','0','0','2022-06-18','2022-06-18 11:04:12.708'),
 	 ('Danilo Gallinari','13.4','.714','.143','.286','.286','.000','.286','.000','1.000','.000',NULL,'1.000','1.000','.286','1','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Dante Exum','13.6','.500','.000','.500','.000','.000','.500',NULL,'1.000',NULL,NULL,'1.000',NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Dario Saric','11.7','.727','.091','.636','.000','.000','.273','1.000','.143',NULL,NULL,'.500','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Davion Mitchell','18.5','.333','.000','.333','.000','.000','.667',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5429,7 +5429,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Deandre Ayton','7.5','1.000','.250','.500','.250','.000','.000','1.000','.500','.000',NULL,'1.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Dejounte Murray','13.6','.786','.214','.143','.143','.286','.214','.333','.000','.500','.250','.000',NULL,'.000','0','.667','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Delon Wright','6.4','.875','.625','.125','.000','.125','.125','.400','.000',NULL,'.000','.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Deni Avdija','1.5','1.000','.875','.125','.000','.000','.000','.571','.000',NULL,NULL,'.250',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Dennis Schroder','15.7','.529','.235','.059','.118','.118','.471','.500','.000','.500','.500','.250','1.000','.000','0','.250','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Dennis Smith','14.9','.400','.400','.000','.000','.000','.600','1.000',NULL,NULL,NULL,'.500','.500','.000','0','.667','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5440,7 +5440,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Desmond Bane','14.9','.545','.182','.273','.091','.000','.455','.500','.500','.500',NULL,'.333','.800','.000','0','.200','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Devin Booker','16.1','.619','.000','.381','.095','.143','.381',NULL,'.875','.000','1.000','.200','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Devin Vassell','17.1','.647','.176','.059','.118','.294','.353','1.000','.000','.500','.800','.625','1.000','.059','1','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Dillon Brooks','22.5','.143','.143','.000','.000','.000','.857','1.000',NULL,NULL,NULL,'.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Domantas Sabonis','7.0','.857','.429','.429','.000','.000','.143','.667','.500',NULL,NULL,'.429','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Donovan Mitchell','16.1','.524','.143','.238','.048','.095','.476','1.000','.600','.000','.500','.143','.500','.048','1','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5451,7 +5451,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Drew Eubanks','8.8','1.000','.000','.600','.200','.200','.000',NULL,'.667','.000','.000','1.000',NULL,'.200','1',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Dru Smith','14.2','.500','.000','.500','.000','.000','.500',NULL,'1.000',NULL,NULL,'.000',NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Duncan Robinson','14.6','.500','.300','.200','.000','.000','.500','1.000','.000',NULL,NULL,'1.000','1.000','.000','0','.400','.500','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Dyson Daniels','6.7','.833','.500','.333','.000','.000','.167','.333','1.000',NULL,NULL,'.667',NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Fred VanVleet','15.7','.538','.231','.154','.077','.077','.462','.333','.000','.000','.000','.000','.500','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Gabe Vincent','16.5','.500','.222','.167','.000','.111','.500','.750','.667',NULL,'.500','.333',NULL,'.000','0','.222','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5462,7 +5462,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Goga Bitadze','1.8','1.000','1.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Gordon Hayward','14.3','.875','.125','.125','.250','.375','.125','1.000','1.000','.500','.333','.750',NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Gradey Dick','2.0','1.000','1.000','.000','.000','.000','.000','.000',NULL,NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Grant Williams','19.2','.273','.182','.000','.091','.000','.727','1.000',NULL,'.000',NULL,'1.000','1.000','.000','0','.750','.500','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Grayson Allen','21.7','.250','.000','.250','.000','.000','.750',NULL,'.000',NULL,NULL,NULL,'.500','.000','0','.222','.500','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Harrison Barnes','13.8','.563','.188','.375','.000','.000','.438','.667','.667',NULL,NULL,'.500','1.000','.063','1','.429','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5473,7 +5473,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Isaiah Jackson','1.8','1.000','.750','.250','.000','.000','.000','.667','.000',NULL,NULL,'1.000',NULL,'.500','2',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Justin Manaya','21.9','.167','.167','.000','.000','.000','.833','1.000',NULL,NULL,NULL,'.000','1.000','.000','0','.000',NULL,'0','0','2023-04-06','2023-04-06 12:01:24.073'),
 	 ('Isaiah Joe','20.9','.250','.125','.000','.125','.000','.750','1.000',NULL,'.000',NULL,'.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Isaiah Stewart','10.4','.727','.273','.455','.000','.000','.273','.667','.400',NULL,NULL,'.750','1.000','.091','1','.333','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Ivica Zubac','4.1','1.000','.400','.600','.000','.000','.000','1.000','.667',NULL,NULL,'.750',NULL,'.300','3',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('JT Thor','15.9','.571','.286','.000','.286','.000','.429','.000',NULL,'.500',NULL,'1.000','1.000','.000','0','.667','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5484,7 +5484,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Jaime Jaquez','4.2','1.000','.667','.333','.000','.000','.000','1.000','1.000',NULL,NULL,'.333',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jakob Poeltl','0.9','1.000','1.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,'.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jalen Brunson','14.4','.619','.190','.143','.238','.048','.381','.250','.000','.200','1.000','.333','.667','.000','0','.125','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jalen Duren','1.7','1.000','.727','.273','.000','.000','.000','.750','.667',NULL,NULL,'.875',NULL,'.545','6',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jalen Green','8.3','.900','.500','.200','.000','.200','.100','.400','.000',NULL,'.000','1.000',NULL,'.200','1','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jalen Johnson','8.7','.769','.462','.308','.000','.000','.231','1.000','.500',NULL,NULL,'.750','1.000','.231','3','.333','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5495,7 +5495,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Jalen Williams','14.0','.455','.455','.000','.000','.000','.545','.600',NULL,NULL,NULL,'.667','1.000','.000','0','.333','.500','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jamal Murray','15.0','.615','.077','.308','.077','.154','.385','.000','.750','1.000','.500','.600','.667','.000','0','.200','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jarace Walker','8.5','.800','.200','.600','.000','.000','.200','.000','.000',NULL,NULL,NULL,NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jared Butler','18.2','.500','.000','.500','.000','.000','.500',NULL,'.000',NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jaren Jackson','17.5','.444','.000','.333','.111','.000','.556',NULL,'.333','1.000',NULL,'.500',NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jaxson Hayes',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5506,7 +5506,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Jerami Grant','13.5','.667','.083','.333','.167','.083','.333','.000','.500','1.000','1.000','.600',NULL,'.000','0','.500','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jeremy Sochan','10.3','.667','.417','.167','.083','.000','.333','.400','.000','.000',NULL,'1.000','1.000','.083','1','.250','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jermaine Samuels',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jett Howard','23.0','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jevon Carter','25.8','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jimmy Butler','6.3','1.000','.222','.556','.222','.000','.000','.250','.400','.250',NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5517,7 +5517,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Jonas Valanciunas','16.1','.429','.000','.429','.000','.000','.571',NULL,'.667',NULL,NULL,'1.000','1.000','.000','0','.250','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jonathan Kuminga','5.3','1.000','.000','1.000','.000','.000','.000',NULL,'.500',NULL,NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jordan Ford','13.4','1.000','.000','.000','1.000','.000','.000',NULL,NULL,'.000',NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Jordan Goodwin','14.8','.684','.105','.211','.263','.105','.316','1.000','.500','.400','.000','.333','.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jordan Hawkins','25.9','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Jordan Miller','10.1','1.000','.500','.000','.000','.500','.000','1.000',NULL,NULL,'.000','.000',NULL,'.500','1',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5528,7 +5528,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Jusuf Nurkic','11.5','.692','.308','.308','.000','.077','.308','.500','.500',NULL,'1.000','.400','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Karl-Anthony Towns','14.3','.600','.200','.280','.120','.000','.400','.600','.429','.000',NULL,'.500','1.000','.040','1','.100','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kawhi Leonard','13.2','.706','.235','.176','.176','.118','.294','.500','.333','.333','.000','1.000','.400','.118','2','.200','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Keegan Murray','20.2','.308','.000','.154','.154','.000','.692',NULL,'.500','.000',NULL,'.000','1.000','.077','0','.333','.333','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Keldon Johnson','7.9','.800','.467','.267','.067','.000','.200','.429','.500','1.000',NULL,'.500','1.000','.133','2','.667','.500','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kelly Olynyk','2.0','1.000','.667','.333','.000','.000','.000','.500','1.000',NULL,NULL,'.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5539,7 +5539,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Kevin Huerter','16.9','.444','.222','.000','.222','.000','.556','1.000',NULL,'.000',NULL,'.500','1.000','.000','0','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kevin Love','19.5','.333','.222','.000','.000','.111','.667','.500',NULL,NULL,'.000','1.000','1.000','.000','0','.167','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kevon Looney','4.1','1.000','.167','.833','.000','.000','.000','1.000','.400',NULL,NULL,'1.000',NULL,'.167','1',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Keyonte George','16.7','.400','.200','.200','.000','.000','.600','1.000','1.000',NULL,NULL,'.500','.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Klay Thompson','20.6','.389','.000','.167','.111','.111','.611',NULL,'.333','.500','.500','.333','1.000','.000','0','.091','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kobe Brown','17.8','.500','.000','.000','.500','.000','.500',NULL,NULL,'.000',NULL,NULL,NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5550,7 +5550,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Kyle Lowry','10.8','1.000','.000','.000','1.000','.000','.000',NULL,NULL,'.000',NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Kyrie Irving','13.2','.667','.250','.208','.167','.042','.333','.667','.800','.250','.000','.444','1.000','.000','0','.125','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('LaMelo Ball','22.5','.267','.000','.133','.133','.000','.733',NULL,'.000','.000',NULL,NULL,'1.000','.000','0','.182','.500','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Larry Nance','2.7','1.000','.500','.500','.000','.000','.000','1.000','.000',NULL,NULL,'.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Lauri Markkanen','14.0','.600','.000','.467','.133','.000','.400',NULL,'.571','.000',NULL,'.750','.500','.133','2','.167','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('LeBron James','11.5','.700','.467','.167','.033','.033','.300','.857','.600','.000','.000','.333','1.000','.067','2','.111','.000','1','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5561,7 +5561,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Luke Kennard','24.6','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','.400','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Luke Kornet','5.2','1.000','.000','1.000','.000','.000','.000',NULL,'.000',NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Malachi Flynn','12.1','.667','.333','.333','.000','.000','.333','.000','.000',NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Malaki Branham','15.1','.571','.143','.143','.286','.000','.429','1.000','.000','1.000',NULL,'.667',NULL,'.000','0','.333','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Malcolm Brogdon','14.9','.688','.000','.375','.125','.188','.313',NULL,'.500','1.000','.000','.200','1.000','.000','0','.400','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Malik Monk','20.0','.250','.083','.167','.000','.000','.750','1.000','.500',NULL,NULL,'.500','1.000','.083','1','.333','.667','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5572,7 +5572,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Marvin Bagley','1.9','1.000','.667','.333','.000','.000','.000','1.000','1.000',NULL,NULL,'.333',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Mason Plumlee','2.9','1.000','.500','.500','.000','.000','.000','1.000','.000',NULL,NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Matisse Thybulle','20.7','.143','.143','.000','.000','.000','.857','1.000',NULL,NULL,NULL,'.000','1.000','.143','1','.667','.250','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Matt Ryan','25.6','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Max Strus','20.2','.235','.176','.059','.000','.000','.765','.667','.000',NULL,NULL,'1.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Maxi Kleber','18.9','.286','.286','.000','.000','.000','.714','.000',NULL,NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5583,7 +5583,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Myles Turner','8.4','.750','.625','.125','.000','.000','.250','1.000','.000',NULL,NULL,'.800',NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Nassir Little','26.3','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Naz Reid','9.1','.750','.250','.500','.000','.000','.250','.500','.500',NULL,NULL,'1.000',NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Nic Claxton','3.5','1.000','.700','.200','.000','.100','.000','.429','.000',NULL,'.000','1.000',NULL,'.200','2',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Nick Richards','1.7','1.000','1.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,'1.000',NULL,'.500','1',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Nick Smith',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5594,7 +5594,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Norman Powell','24.0','.167','.000','.000','.167','.000','.833',NULL,NULL,'.000',NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('OG Anunoby','18.6','.308','.231','.000','.077','.000','.692','1.000',NULL,'.000',NULL,'1.000','1.000','.077','1','.333','.333','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Obi Toppin','15.0','.444','.333','.111','.000','.000','.556','.667','.000',NULL,NULL,'1.000','1.000','.111','1','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Ochai Agbaji','11.5','.667','.167','.500','.000','.000','.333','.000','.333',NULL,NULL,'1.000','1.000','.167','1','.500','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Olivier Sarr','1.1','1.000','1.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,'1.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Omer Yurtseven',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5605,7 +5605,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Pascal Siakam','12.5','.706','.118','.471','.059','.059','.294','1.000','.000','.000','.000','.500','1.000','.000','0','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Patrick Baldwin','0.3','1.000','1.000','.000','.000','.000','.000','.000',NULL,NULL,NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Patrick Williams','17.6','.600','.000','.100','.300','.200','.400',NULL,'1.000','.667','.500','.250',NULL,'.000','0','.750','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Paul George','15.9','.588','.176','.176','.118','.118','.412','1.000','1.000','.500','.000','.714','1.000','.176','3','.143','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Payton Pritchard','21.9','.250','.000','.000','.250','.000','.750',NULL,NULL,'1.000',NULL,'.000',NULL,'.000','0','.333','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Peyton Watson','25.1','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','.333','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5616,7 +5616,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Rudy Gobert','2.9','1.000','.667','.250','.083','.000','.000','.750','.000','.000',NULL,'.833',NULL,'.250','3',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Rui Hachimura','12.4','.615','.462','.154','.000','.000','.385','.667','.000',NULL,NULL,'1.000','1.000','.077','1','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Russell Westbrook','8.0','.750','.750','.000','.000','.000','.250','.667',NULL,NULL,NULL,'1.000','1.000','.500','4','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Ryan Rollins','6.4','1.000','.333','.333','.333','.000','.000','.000','.000','.000',NULL,NULL,NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Saddiq Bey','9.7','.667','.583','.083','.000','.000','.333','.714','.000',NULL,NULL,'.600','1.000','.083','1','.500','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Sam Hauser','25.3','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,NULL,'.000','0','.250','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5627,7 +5627,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Shaedon Sharpe','14.4','.571','.357','.071','.143','.000','.429','.600','1.000','.500',NULL,'.000','1.000','.143','2','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Shai Gilgeous-Alexander','13.9','.722','.222','.167','.167','.167','.278','.750','1.000','.667','.667','.200','.000','.000','0','.200','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Shake Milton','21.2','.200','.000','.200','.000','.000','.800',NULL,'.000',NULL,NULL,NULL,'1.000','.000','0','.250','1.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Simone Fontecchio','13.4','.500','.500','.000','.000','.000','.500','1.000',NULL,NULL,NULL,'.000',NULL,'.000','0','1.000','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Spencer Dinwiddie','23.3','.000','.000','.000','.000','.000','1.000',NULL,NULL,NULL,NULL,NULL,'1.000','.000','0','1.000','.333','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Stephen Curry','22.9','.300','.000','.250','.000','.050','.700',NULL,'.800',NULL,'.000','.250','.500','.000','0','.071','1.000','1','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5638,7 +5638,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Terry Rozier','14.6','.563','.000','.438','.063','.063','.438',NULL,'.571','1.000','.000','.200','1.000','.000','0','.429','.333','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Toumani Camara','14.3','.600','.200','.400','.000','.000','.400','.000','.000',NULL,NULL,NULL,'1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Trae Young','19.1','.526','.053','.211','.105','.158','.474','.000','.000','.500','.667','.333','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Tre Jones','14.6','.571','.286','.143','.143','.000','.429','1.000','.000','1.000',NULL,'.333','.500','.000','0','.333','.000','0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Troy Brown',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Ty Jerome','13.0','1.000','.000','.000','1.000','.000','.000',NULL,NULL,'1.000',NULL,'.000',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5649,7 +5649,7 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Walker Kessler','1.7','1.000','.800','.200','.000','.000','.000','.750','1.000',NULL,NULL,'.500',NULL,'.000','0',NULL,NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Wendell Carter','9.6','.800','.600','.000','.100','.100','.200','.667',NULL,'.000','.000','.500',NULL,'.300','3','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Xavier Tillman','10.3','.688','.313','.375','.000','.000','.313','.600','.500',NULL,NULL,'.667','1.000','.063','1','.400','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
-INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
+INSERT INTO bbref_player_shooting_stats (player,avg_shot_distance,pct_fga_2p,pct_fga_0_3,pct_fga_3_10,pct_fga_10_16,pct_fga_16_3p,pct_fga_3p,fg_pct_0_3,fg_pct_3_10,fg_pct_10_16,fg_pct_16_3p,pct_2pfg_ast,pct_3pfg_ast,dunk_pct_tot_fg,dunks,corner_3_ast_pct,corner_3pm_pct,heaves_att,heaves_makes,scrape_date,scrape_ts) VALUES
 	 ('Yuta Watanabe','20.5','.286','.000','.143','.143','.000','.714',NULL,'.000','1.000',NULL,'1.000','1.000','.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Zach Collins','14.8','.600','.100','.400','.100','.000','.400','1.000','1.000','1.000',NULL,'.500',NULL,'.000','0','.000',NULL,'0','0','2023-10-27','2023-10-27 12:01:27.297'),
 	 ('Zach LaVine','17.2','.438','.250','.000','.125','.063','.563','.250',NULL,'.500','.000','1.000','1.000','.000','0','.444','.250','0','0','2023-10-27','2023-10-27 12:01:27.297'),
@@ -5660,8 +5660,8 @@ INSERT INTO aws_shooting_stats_source (player,avg_shot_distance,pct_fga_2p,pct_f
 	 ('Aaron Gordon','7.4','.818','.455','.364','.000','.000','.182','1.000','.250',NULL,NULL,'.500','.000','.182','2','.500','.000','0','0','2023-10-27','2023-10-27 12:01:27.297');
 
 
-DROP TABLE IF EXISTS aws_stats_source;
-CREATE TABLE IF NOT EXISTS aws_stats_source (
+DROP TABLE IF EXISTS bbref_player_stats_snapshot;
+CREATE TABLE IF NOT EXISTS bbref_player_stats_snapshot (
 	player text NULL,
 	pos text NULL,
 	age text NULL,
@@ -5696,7 +5696,7 @@ CREATE TABLE IF NOT EXISTS aws_stats_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Grayson Allen','SG','28','PHO','1','1','21.0','0.0','6.0','.000','0.0','5.0','.000','0.0','1.0','.000','.000','0.0','0.0','','3.0','1.0','4.0','2.0','0.0','0.0','1.0','2.0',0.0,'2023-10-25'),
 	 ('Devin Booker','SG','27','PHO','1','1','37.0','13.0','21.0','.619','3.0','8.0','.375','10.0','13.0','.769','.690','3.0','3.0','1.000','1.0','5.0','6.0','8.0','1.0','0.0','6.0','4.0',32.0,'2023-10-25'),
 	 ('Christian Braun','SG','22','DEN','1','0','19.0','2.0','5.0','.400','0.0','1.0','.000','2.0','4.0','.500','.400','1.0','2.0','.500','1.0','2.0','3.0','2.0','0.0','1.0','1.0','1.0',5.0,'2023-10-25'),
@@ -5707,7 +5707,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Kevin Durant','PF','35','PHO','1','1','37.0','7.0','22.0','.318','1.0','2.0','.500','6.0','20.0','.300','.341','3.0','5.0','.600','2.0','9.0','11.0','3.0','0.0','1.0','2.0','1.0',18.0,'2023-10-25'),
 	 ('Drew Eubanks','C','26','PHO','1','0','19.0','1.0','3.0','.333','0.0','0.0','','1.0','3.0','.333','.333','2.0','4.0','.500','2.0','5.0','7.0','2.0','0.0','3.0','3.0','3.0',4.0,'2023-10-25'),
 	 ('Collin Gillespie','PG','24','DEN','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-25');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jordan Goodwin','PG','25','PHO','1','0','14.0','1.0','4.0','.250','0.0','1.0','.000','1.0','3.0','.333','.250','0.0','0.0','','1.0','3.0','4.0','3.0','1.0','0.0','2.0','0.0',2.0,'2023-10-25'),
 	 ('Aaron Gordon','PF','28','DEN','1','1','35.0','7.0','11.0','.636','1.0','2.0','.500','6.0','9.0','.667','.682','0.0','0.0','','2.0','5.0','7.0','5.0','2.0','1.0','0.0','0.0',15.0,'2023-10-25'),
 	 ('Eric Gordon','SG','35','PHO','1','0','32.0','4.0','16.0','.250','2.0','9.0','.222','2.0','7.0','.286','.313','0.0','0.0','','1.0','3.0','4.0','1.0','1.0','1.0','1.0','2.0',10.0,'2023-10-25'),
@@ -5718,7 +5718,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Nikola Jokic','C','28','DEN','1','1','36.0','12.0','22.0','.545','3.0','5.0','.600','9.0','17.0','.529','.614','2.0','4.0','.500','3.0','10.0','13.0','11.0','1.0','1.0','2.0','2.0',29.0,'2023-10-25'),
 	 ('Cory Joseph','PG','32','GSW','1','0','4.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','1.0','0.0','1.0','1.0','0.0','0.0','0.0','0.0',0.0,'2023-10-25'),
 	 ('Braxton Key','SF','26','DEN','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-25');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jonathan Kuminga','PF','21','GSW','1','0','20.0','4.0','8.0','.500','0.0','0.0','','4.0','8.0','.500','.500','4.0','6.0','.667','3.0','3.0','6.0','1.0','2.0','1.0','2.0','5.0',12.0,'2023-10-25'),
 	 ('Maxwell Lewis','SF','21','LAL','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-25'),
 	 ('Nassir Little','PF','23','PHO','1','0','3.0','1.0','1.0','1.000','1.0','1.0','1.000','0.0','0.0','','1.500','0.0','0.0','','0.0','1.0','1.0','0.0','1.0','0.0','0.0','1.0',3.0,'2023-10-25'),
@@ -5729,7 +5729,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jusuf Nurkic','C','29','PHO','1','1','28.0','5.0','8.0','.625','1.0','2.0','.500','4.0','6.0','.667','.688','3.0','3.0','1.000','3.0','11.0','14.0','3.0','0.0','1.0','1.0','5.0',14.0,'2023-10-25'),
 	 ('Josh Okogie','SG','25','PHO','1','1','32.0','7.0','9.0','.778','1.0','1.0','1.000','6.0','8.0','.750','.833','2.0','2.0','1.000','4.0','1.0','5.0','1.0','1.0','0.0','2.0','2.0',17.0,'2023-10-25'),
 	 ('Chris Paul','PG','38','GSW','1','1','34.0','4.0','15.0','.267','0.0','6.0','.000','4.0','9.0','.444','.267','6.0','7.0','.857','1.0','5.0','6.0','9.0','2.0','0.0','1.0','0.0',14.0,'2023-10-25');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Gary Payton II','SG','31','GSW','1','0','22.0','0.0','5.0','.000','0.0','2.0','.000','0.0','3.0','.000','.000','1.0','2.0','.500','0.0','2.0','2.0','2.0','3.0','0.0','0.0','1.0',1.0,'2023-10-25'),
 	 ('Jalen Pickett','SG','24','DEN','1','0','1.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',2.0,'2023-10-25'),
 	 ('Michael Porter Jr.','SF','25','DEN','1','1','30.0','5.0','13.0','.385','2.0','9.0','.222','3.0','4.0','.750','.462','0.0','0.0','','2.0','10.0','12.0','2.0','2.0','0.0','0.0','1.0',12.0,'2023-10-25'),
@@ -5740,7 +5740,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Dario Saric','PF','29','GSW','1','0','20.0','3.0','11.0','.273','1.0','3.0','.333','2.0','8.0','.250','.318','0.0','0.0','','4.0','3.0','7.0','1.0','0.0','2.0','0.0','3.0',7.0,'2023-10-25'),
 	 ('Klay Thompson','SF','33','GSW','1','1','36.0','6.0','18.0','.333','3.0','11.0','.273','3.0','7.0','.429','.417','0.0','0.0','','1.0','6.0','7.0','3.0','0.0','1.0','3.0','3.0',15.0,'2023-10-25'),
 	 ('Gabe Vincent','PG','27','LAL','1','0','22.0','3.0','8.0','.375','0.0','4.0','.000','3.0','4.0','.750','.375','0.0','0.0','','1.0','0.0','1.0','2.0','1.0','0.0','2.0','3.0',6.0,'2023-10-25');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Yuta Watanabe','SF','29','PHO','1','0','18.0','3.0','5.0','.600','2.0','4.0','.500','1.0','1.0','1.000','.800','0.0','0.0','','0.0','4.0','4.0','0.0','0.0','1.0','1.0','2.0',8.0,'2023-10-25'),
 	 ('Peyton Watson','SG','21','DEN','1','0','11.0','1.0','3.0','.333','1.0','3.0','.333','0.0','0.0','','.500','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','1.0','1.0','1.0',3.0,'2023-10-25'),
 	 ('Andrew Wiggins','SF','28','GSW','1','1','27.0','4.0','12.0','.333','0.0','3.0','.000','4.0','9.0','.444','.333','2.0','3.0','.667','1.0','0.0','1.0','0.0','0.0','1.0','0.0','3.0',10.0,'2023-10-25'),
@@ -5751,7 +5751,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Nickeil Alexander-Walker','SG','25','MIN','1','1','23.0','1.0','5.0','.200','0.0','3.0','.000','1.0','2.0','.500','.200','0.0','0.0','','0.0','4.0','4.0','2.0','1.0','0.0','1.0','3.0',2.0,'2023-10-26'),
 	 ('Grayson Allen','SG','28','PHO','1','1','21.0','0.0','6.0','.000','0.0','5.0','.000','0.0','1.0','.000','.000','0.0','0.0','','3.0','1.0','4.0','2.0','0.0','0.0','1.0','2.0',0.0,'2023-10-26'),
 	 ('Kyle Anderson','PF','30','MIN','1','0','30.0','3.0','9.0','.333','0.0','1.0','.000','3.0','8.0','.375','.333','1.0','2.0','.500','2.0','7.0','9.0','5.0','2.0','0.0','1.0','0.0',7.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Cole Anthony','PG','23','ORL','1','0','24.0','8.0','12.0','.667','1.0','2.0','.500','7.0','10.0','.700','.708','3.0','3.0','1.000','1.0','7.0','8.0','2.0','0.0','0.0','0.0','2.0',20.0,'2023-10-26'),
 	 ('OG Anunoby','SF','26','TOR','1','1','34.0','7.0','13.0','.538','4.0','9.0','.444','3.0','4.0','.750','.692','2.0','2.0','1.000','0.0','6.0','6.0','1.0','2.0','3.0','2.0','2.0',20.0,'2023-10-26'),
 	 ('Deni Avdija','SF','23','WAS','1','1','21.0','4.0','8.0','.500','0.0','0.0','','4.0','8.0','.500','.500','1.0','2.0','.500','2.0','5.0','7.0','5.0','1.0','0.0','2.0','0.0',9.0,'2023-10-26'),
@@ -5762,7 +5762,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Paolo Banchero','PF','21','ORL','1','1','28.0','3.0','6.0','.500','0.0','1.0','.000','3.0','5.0','.600','.500','6.0','7.0','.857','0.0','5.0','5.0','5.0','1.0','0.0','1.0','2.0',12.0,'2023-10-26'),
 	 ('Desmond Bane','SG','25','MEM','1','1','36.0','11.0','22.0','.500','5.0','10.0','.500','6.0','12.0','.500','.614','4.0','5.0','.800','0.0','5.0','5.0','5.0','2.0','1.0','2.0','1.0',31.0,'2023-10-26'),
 	 ('Harrison Barnes','PF','31','SAC','1','1','33.0','11.0','16.0','.688','5.0','7.0','.714','6.0','9.0','.667','.844','6.0','6.0','1.000','0.0','4.0','4.0','2.0','1.0','0.0','1.0','2.0',33.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Scottie Barnes','SF','22','TOR','1','1','37.0','6.0','16.0','.375','1.0','4.0','.250','5.0','12.0','.417','.406','4.0','6.0','.667','1.0','7.0','8.0','5.0','2.0','5.0','4.0','1.0',17.0,'2023-10-26'),
 	 ('RJ Barrett','SG','23','NYK','1','1','36.0','8.0','20.0','.400','2.0','5.0','.400','6.0','15.0','.400','.450','6.0','7.0','.857','1.0','2.0','3.0','2.0','1.0','0.0','2.0','0.0',24.0,'2023-10-26'),
 	 ('Charles Bassey','C','23','SAS','1','0','13.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','1.0','4.0','5.0','2.0','1.0','0.0','1.0','0.0',2.0,'2023-10-26'),
@@ -5773,7 +5773,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Bogdan Bogdanovic','SG','31','ATL','1','0','24.0','3.0','9.0','.333','1.0','5.0','.200','2.0','4.0','.500','.389','0.0','0.0','','0.0','4.0','4.0','4.0','3.0','0.0','0.0','1.0',7.0,'2023-10-26'),
 	 ('Devin Booker','SG','27','PHO','1','1','37.0','13.0','21.0','.619','3.0','8.0','.375','10.0','13.0','.769','.690','3.0','3.0','1.000','1.0','5.0','6.0','8.0','1.0','0.0','6.0','4.0',32.0,'2023-10-26'),
 	 ('Malaki Branham','SG','20','SAS','1','0','18.0','3.0','7.0','.429','0.0','3.0','.000','3.0','4.0','.750','.429','1.0','1.0','1.000','0.0','2.0','2.0','2.0','1.0','0.0','1.0','1.0',7.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Christian Braun','SG','22','DEN','1','0','19.0','2.0','5.0','.400','0.0','1.0','.000','2.0','4.0','.500','.400','1.0','2.0','.500','1.0','2.0','3.0','2.0','0.0','1.0','1.0','1.0',5.0,'2023-10-26'),
 	 ('Mikal Bridges','SG','27','BRK','1','1','35.0','6.0','12.0','.500','0.0','2.0','.000','6.0','10.0','.600','.500','8.0','9.0','.889','2.0','4.0','6.0','4.0','3.0','0.0','3.0','4.0',20.0,'2023-10-26'),
 	 ('Malcolm Brogdon','PG','31','POR','1','0','23.0','8.0','16.0','.500','3.0','5.0','.600','5.0','11.0','.455','.594','1.0','1.0','1.000','0.0','2.0','2.0','5.0','0.0','0.0','1.0','0.0',20.0,'2023-10-26'),
@@ -5784,7 +5784,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Troy Brown Jr.','SF','24','MIN','1','0','5.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Jalen Brunson','PG','27','NYK','1','1','33.0','6.0','21.0','.286','3.0','8.0','.375','3.0','13.0','.231','.357','0.0','1.0','.000','1.0','2.0','3.0','6.0','3.0','0.0','2.0','3.0',15.0,'2023-10-26'),
 	 ('Thomas Bryant','C','26','MIA','1','0','16.0','2.0','5.0','.400','0.0','0.0','','2.0','5.0','.400','.400','4.0','5.0','.800','2.0','4.0','6.0','3.0','1.0','0.0','1.0','0.0',8.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Reggie Bullock','SF','32','HOU','1','0','11.0','1.0','1.0','1.000','1.0','1.0','1.000','0.0','0.0','','1.500','0.0','0.0','','0.0','1.0','1.0','0.0','1.0','1.0','0.0','1.0',3.0,'2023-10-26'),
 	 ('Alec Burks','SG','32','DET','1','0','25.0','2.0','8.0','.250','2.0','5.0','.400','0.0','3.0','.000','.375','1.0','2.0','.500','0.0','5.0','5.0','0.0','0.0','1.0','0.0','1.0',7.0,'2023-10-26'),
 	 ('Jared Butler','SG','23','WAS','1','0','3.0','1.0','2.0','.500','1.0','1.0','1.000','0.0','1.0','.000','.750','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',3.0,'2023-10-26'),
@@ -5795,7 +5795,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jevon Carter','PG','28','CHI','1','0','16.0','1.0','4.0','.250','1.0','4.0','.250','0.0','0.0','','.375','0.0','0.0','','0.0','1.0','1.0','2.0','0.0','0.0','0.0','0.0',3.0,'2023-10-26'),
 	 ('Wendell Carter Jr.','C','24','ORL','1','1','27.0','4.0','10.0','.400','0.0','2.0','.000','4.0','8.0','.500','.400','0.0','0.0','','4.0','4.0','8.0','1.0','2.0','0.0','2.0','3.0',8.0,'2023-10-26'),
 	 ('Alex Caruso','PG','29','CHI','1','0','20.0','2.0','5.0','.400','1.0','4.0','.250','1.0','1.0','1.000','.500','1.0','2.0','.500','0.0','2.0','2.0','3.0','2.0','0.0','1.0','1.0',6.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Max Christie','SG','20','LAL','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Jordan Clarkson','SG','31','UTA','1','1','31.0','8.0','16.0','.500','2.0','5.0','.400','6.0','11.0','.545','.563','6.0','8.0','.750','2.0','2.0','4.0','6.0','0.0','0.0','2.0','4.0',24.0,'2023-10-26'),
 	 ('Nic Claxton','C','24','BRK','1','1','28.0','3.0','10.0','.300','0.0','0.0','','3.0','10.0','.300','.300','1.0','1.0','1.000','4.0','3.0','7.0','4.0','0.0','3.0','0.0','1.0',7.0,'2023-10-26'),
@@ -5806,7 +5806,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Bilal Coulibaly','SF','19','WAS','1','0','23.0','1.0','3.0','.333','1.0','1.0','1.000','0.0','2.0','.000','.500','0.0','0.0','','0.0','4.0','4.0','3.0','0.0','3.0','3.0','1.0',3.0,'2023-10-26'),
 	 ('Robert Covington','PF','33','LAC','1','1','23.0','2.0','5.0','.400','1.0','4.0','.250','1.0','1.0','1.000','.500','0.0','0.0','','1.0','3.0','4.0','2.0','3.0','1.0','0.0','2.0',5.0,'2023-10-26'),
 	 ('Torrey Craig','SF','33','CHI','1','0','22.0','4.0','6.0','.667','3.0','4.0','.750','1.0','2.0','.500','.917','0.0','0.0','','4.0','3.0','7.0','1.0','0.0','0.0','1.0','2.0',11.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Cade Cunningham','PG','22','DET','1','1','36.0','13.0','27.0','.481','4.0','9.0','.444','9.0','18.0','.500','.556','0.0','0.0','','0.0','3.0','3.0','9.0','1.0','1.0','3.0','5.0',30.0,'2023-10-26'),
 	 ('Seth Curry','SG','33','DAL','1','0','4.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Stephen Curry','PG','35','GSW','1','1','31.0','8.0','20.0','.400','4.0','14.0','.286','4.0','6.0','.667','.500','7.0','7.0','1.000','1.0','4.0','5.0','1.0','1.0','0.0','2.0','5.0',27.0,'2023-10-26'),
@@ -5817,7 +5817,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Gradey Dick','SG','20','TOR','1','0','2.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','1.0','0.0','0.0','0.0','1.0',0.0,'2023-10-26'),
 	 ('Ousmane Dieng','PF','20','OKC','1','0','14.0','3.0','5.0','.600','3.0','5.0','.600','0.0','0.0','','.900','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','0.0','1.0','1.0',9.0,'2023-10-26'),
 	 ('Spencer Dinwiddie','PG','30','BRK','1','1','24.0','1.0','3.0','.333','1.0','3.0','.333','0.0','0.0','','.500','2.0','2.0','1.000','0.0','1.0','1.0','3.0','0.0','0.0','1.0','2.0',5.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Donte DiVincenzo','SG','27','NYK','1','0','15.0','0.0','4.0','.000','0.0','3.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','3.0','3.0','2.0','0.0','0.0','0.0','1.0',0.0,'2023-10-26'),
 	 ('Luka Doncic','PG','24','DAL','1','1','34.0','13.0','25.0','.520','3.0','11.0','.273','10.0','14.0','.714','.580','4.0','7.0','.571','1.0','12.0','13.0','10.0','2.0','0.0','4.0','1.0',33.0,'2023-10-26'),
 	 ('Luguentz Dort','SF','24','OKC','1','1','33.0','3.0','8.0','.375','2.0','5.0','.400','1.0','3.0','.333','.500','0.0','0.0','','0.0','7.0','7.0','2.0','2.0','1.0','2.0','1.0',8.0,'2023-10-26'),
@@ -5828,7 +5828,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Kevin Durant','PF','35','PHO','1','1','37.0','7.0','22.0','.318','1.0','2.0','.500','6.0','20.0','.300','.341','3.0','5.0','.600','2.0','9.0','11.0','3.0','0.0','1.0','2.0','1.0',18.0,'2023-10-26'),
 	 ('Jalen Duren','C','20','DET','1','1','32.0','8.0','11.0','.727','0.0','0.0','','8.0','11.0','.727','.727','1.0','3.0','.333','6.0','8.0','14.0','4.0','0.0','4.0','4.0','4.0',17.0,'2023-10-26'),
 	 ('Anthony Edwards','SG','22','MIN','1','1','38.0','8.0','27.0','.296','4.0','7.0','.571','4.0','20.0','.200','.370','6.0','6.0','1.000','5.0','9.0','14.0','1.0','0.0','0.0','2.0','1.0',26.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Kessler Edwards','SF','23','SAC','1','0','1.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Keon Ellis','SG','24','SAC','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Drew Eubanks','C','26','PHO','1','0','19.0','1.0','3.0','.333','0.0','0.0','','1.0','3.0','.333','.333','2.0','4.0','.500','2.0','5.0','7.0','2.0','0.0','3.0','3.0','3.0',4.0,'2023-10-26'),
@@ -5839,7 +5839,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jordan Ford','PG','25','SAC','1','0','1.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('De''Aaron Fox','PG','26','SAC','1','1','33.0','6.0','18.0','.333','1.0','7.0','.143','5.0','11.0','.455','.361','5.0','6.0','.833','2.0','3.0','5.0','6.0','1.0','1.0','3.0','4.0',18.0,'2023-10-26'),
 	 ('Markelle Fultz','PG','25','ORL','1','1','25.0','5.0','9.0','.556','0.0','0.0','','5.0','9.0','.556','.556','0.0','0.0','','3.0','1.0','4.0','2.0','3.0','0.0','1.0','0.0',10.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Daniel Gafford','C','25','WAS','1','1','21.0','2.0','2.0','1.000','0.0','0.0','','2.0','2.0','1.000','1.000','2.0','4.0','.500','1.0','4.0','5.0','0.0','0.0','2.0','0.0','5.0',6.0,'2023-10-26'),
 	 ('Danilo Gallinari','SF','35','WAS','1','0','17.0','4.0','7.0','.571','2.0','2.0','1.000','2.0','5.0','.400','.714','6.0','6.0','1.000','2.0','1.0','3.0','0.0','0.0','0.0','0.0','1.0',16.0,'2023-10-26'),
 	 ('Darius Garland','PG','24','CLE','1','1','32.0','6.0','12.0','.500','1.0','5.0','.200','5.0','7.0','.714','.542','2.0','2.0','1.000','1.0','1.0','2.0','5.0','2.0','0.0','6.0','2.0',15.0,'2023-10-26'),
@@ -5850,7 +5850,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Collin Gillespie','PG','24','DEN','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Rudy Gobert','C','31','MIN','1','1','32.0','6.0','12.0','.500','0.0','0.0','','6.0','12.0','.500','.500','3.0','5.0','.600','5.0','8.0','13.0','1.0','2.0','4.0','2.0','3.0',15.0,'2023-10-26'),
 	 ('Jordan Goodwin','PG','25','PHO','1','0','14.0','1.0','4.0','.250','0.0','1.0','.000','1.0','3.0','.333','.250','0.0','0.0','','1.0','3.0','4.0','3.0','1.0','0.0','2.0','0.0',2.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Aaron Gordon','PF','28','DEN','1','1','35.0','7.0','11.0','.636','1.0','2.0','.500','6.0','9.0','.667','.682','0.0','0.0','','2.0','5.0','7.0','5.0','2.0','1.0','0.0','0.0',15.0,'2023-10-26'),
 	 ('Eric Gordon','SG','35','PHO','1','0','32.0','4.0','16.0','.250','2.0','9.0','.222','2.0','7.0','.286','.313','0.0','0.0','','1.0','3.0','4.0','1.0','1.0','1.0','1.0','2.0',10.0,'2023-10-26'),
 	 ('Jerami Grant','PF','29','POR','1','1','30.0','5.0','12.0','.417','0.0','4.0','.000','5.0','8.0','.625','.417','3.0','4.0','.750','2.0','1.0','3.0','1.0','0.0','1.0','3.0','1.0',13.0,'2023-10-26'),
@@ -5861,7 +5861,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Quentin Grimes','SG','23','NYK','1','1','23.0','4.0','7.0','.571','3.0','6.0','.500','1.0','1.0','1.000','.786','0.0','1.0','.000','0.0','1.0','1.0','0.0','0.0','0.0','0.0','2.0',11.0,'2023-10-26'),
 	 ('Rui Hachimura','PF','25','LAL','1','0','15.0','3.0','10.0','.300','0.0','3.0','.000','3.0','7.0','.429','.300','0.0','0.0','','2.0','1.0','3.0','0.0','0.0','0.0','0.0','2.0',6.0,'2023-10-26'),
 	 ('Tyrese Haliburton','PG','23','IND','1','1','27.0','9.0','16.0','.563','2.0','6.0','.333','7.0','10.0','.700','.625','0.0','0.0','','0.0','3.0','3.0','11.0','1.0','2.0','3.0','1.0',20.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Tim Hardaway Jr.','SF','31','DAL','1','0','28.0','5.0','14.0','.357','3.0','10.0','.300','2.0','4.0','.500','.464','4.0','4.0','1.000','2.0','4.0','6.0','4.0','1.0','0.0','1.0','0.0',17.0,'2023-10-26'),
 	 ('Gary Harris','SG','29','ORL','1','0','17.0','5.0','8.0','.625','1.0','4.0','.250','4.0','4.0','1.000','.688','0.0','0.0','','3.0','2.0','5.0','0.0','0.0','1.0','0.0','0.0',11.0,'2023-10-26'),
 	 ('Joe Harris','SG','32','DET','1','0','12.0','0.0','2.0','.000','0.0','2.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','2.0',0.0,'2023-10-26'),
@@ -5872,7 +5872,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jaxson Hayes','C','23','LAL','1','0','7.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','1.0',0.0,'2023-10-26'),
 	 ('Killian Hayes','PG','22','DET','1','1','31.0','4.0','12.0','.333','0.0','6.0','.000','4.0','6.0','.667','.333','2.0','3.0','.667','0.0','1.0','1.0','3.0','2.0','1.0','1.0','2.0',10.0,'2023-10-26'),
 	 ('Gordon Hayward','SF','33','CHO','1','1','33.0','4.0','8.0','.500','0.0','1.0','.000','4.0','7.0','.571','.500','2.0','3.0','.667','3.0','5.0','8.0','7.0','1.0','1.0','6.0','1.0',10.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Scoot Henderson','PG','19','POR','1','1','36.0','5.0','11.0','.455','0.0','3.0','.000','5.0','8.0','.625','.455','1.0','1.0','1.000','1.0','2.0','3.0','4.0','0.0','0.0','4.0','2.0',11.0,'2023-10-26'),
 	 ('Taylor Hendricks','PF','20','UTA','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','1.0','2.0','.500','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',1.0,'2023-10-26'),
 	 ('Tyler Herro','SG','24','MIA','1','1','35.0','7.0','24.0','.292','2.0','7.0','.286','5.0','17.0','.294','.333','0.0','0.0','','0.0','2.0','2.0','3.0','3.0','0.0','2.0','1.0',16.0,'2023-10-26'),
@@ -5883,7 +5883,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Al Horford','C','37','BOS','1','0','26.0','3.0','4.0','.750','2.0','3.0','.667','1.0','1.0','1.000','1.000','0.0','0.0','','3.0','4.0','7.0','2.0','0.0','0.0','3.0','2.0',8.0,'2023-10-26'),
 	 ('Talen Horton-Tucker','SG','23','UTA','1','1','22.0','3.0','9.0','.333','2.0','4.0','.500','1.0','5.0','.200','.444','0.0','0.0','','0.0','1.0','1.0','4.0','0.0','1.0','1.0','1.0',8.0,'2023-10-26'),
 	 ('Caleb Houstan','SF','21','ORL','1','0','5.0','1.0','2.0','.500','1.0','2.0','.500','0.0','0.0','','.750','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',3.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jett Howard','SF','20','ORL','1','0','5.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','1.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Kevin Huerter','SG','25','SAC','1','1','24.0','3.0','9.0','.333','1.0','5.0','.200','2.0','4.0','.500','.389','0.0','0.0','','2.0','3.0','5.0','2.0','0.0','0.0','1.0','3.0',7.0,'2023-10-26'),
 	 ('De''Andre Hunter','SF','26','ATL','1','1','31.0','4.0','9.0','.444','1.0','4.0','.250','3.0','5.0','.600','.500','0.0','1.0','.000','2.0','2.0','4.0','1.0','0.0','0.0','0.0','6.0',9.0,'2023-10-26'),
@@ -5894,7 +5894,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jonathan Isaac','PF','26','ORL','1','0','14.0','4.0','6.0','.667','1.0','3.0','.333','3.0','3.0','1.000','.750','2.0','3.0','.667','1.0','3.0','4.0','0.0','0.0','1.0','2.0','2.0',11.0,'2023-10-26'),
 	 ('Jaden Ivey','SG','21','DET','1','0','17.0','1.0','7.0','.143','0.0','2.0','.000','1.0','5.0','.200','.143','2.0','3.0','.667','0.0','2.0','2.0','3.0','0.0','0.0','3.0','3.0',4.0,'2023-10-26'),
 	 ('Isaiah Jackson','C','22','IND','1','0','11.0','2.0','4.0','.500','0.0','0.0','','2.0','4.0','.500','.500','0.0','0.0','','1.0','3.0','4.0','0.0','0.0','0.0','0.0','2.0',4.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jaren Jackson Jr.','C','24','MEM','1','1','36.0','2.0','9.0','.222','0.0','5.0','.000','2.0','4.0','.500','.222','4.0','4.0','1.000','1.0','4.0','5.0','3.0','0.0','5.0','3.0','5.0',8.0,'2023-10-26'),
 	 ('Reggie Jackson','PG','33','DEN','1','0','24.0','3.0','8.0','.375','2.0','5.0','.400','1.0','3.0','.333','.500','0.0','0.0','','0.0','3.0','3.0','1.0','1.0','0.0','2.0','0.0',8.0,'2023-10-26'),
 	 ('LeBron James','PF','39','LAL','1','1','29.0','10.0','16.0','.625','1.0','4.0','.250','9.0','12.0','.750','.656','0.0','1.0','.000','1.0','7.0','8.0','5.0','1.0','0.0','0.0','1.0',21.0,'2023-10-26'),
@@ -5905,7 +5905,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jalen Johnson','SF','22','ATL','1','0','29.0','9.0','13.0','.692','1.0','3.0','.333','8.0','10.0','.800','.731','2.0','4.0','.500','0.0','7.0','7.0','2.0','2.0','1.0','0.0','1.0',21.0,'2023-10-26'),
 	 ('Keldon Johnson','SF','24','SAS','1','1','32.0','7.0','15.0','.467','1.0','3.0','.333','6.0','12.0','.500','.500','2.0','3.0','.667','2.0','7.0','9.0','7.0','0.0','0.0','3.0','4.0',17.0,'2023-10-26'),
 	 ('Nikola Jokic','C','28','DEN','1','1','36.0','12.0','22.0','.545','3.0','5.0','.600','9.0','17.0','.529','.614','2.0','4.0','.500','3.0','10.0','13.0','11.0','1.0','1.0','2.0','2.0',29.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Colby Jones','SG','21','SAC','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Damian Jones','C','28','CLE','1','0','11.0','2.0','2.0','1.000','0.0','0.0','','2.0','2.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','2.0','0.0','0.0','2.0','3.0',4.0,'2023-10-26'),
 	 ('Derrick Jones Jr.','SF','26','DAL','1','1','12.0','0.0','3.0','.000','0.0','2.0','.000','0.0','1.0','.000','.000','1.0','2.0','.500','0.0','1.0','1.0','0.0','0.0','0.0','1.0','0.0',1.0,'2023-10-26'),
@@ -5916,7 +5916,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Luke Kennard','SG','27','MEM','1','0','15.0','0.0','5.0','.000','0.0','5.0','.000','0.0','0.0','','.000','3.0','3.0','1.000','1.0','1.0','2.0','2.0','0.0','0.0','1.0','0.0',3.0,'2023-10-26'),
 	 ('Walker Kessler','C','22','UTA','1','1','22.0','4.0','5.0','.800','0.0','0.0','','4.0','5.0','.800','.800','0.0','0.0','','4.0','4.0','8.0','0.0','0.0','1.0','1.0','3.0',8.0,'2023-10-26'),
 	 ('Braxton Key','SF','26','DEN','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Corey Kispert','SF','24','WAS','1','0','24.0','4.0','11.0','.364','1.0','5.0','.200','3.0','6.0','.500','.409','2.0','2.0','1.000','2.0','3.0','5.0','1.0','0.0','0.0','1.0','1.0',11.0,'2023-10-26'),
 	 ('Maxi Kleber','PF','32','DAL','1','1','23.0','2.0','7.0','.286','2.0','5.0','.400','0.0','2.0','.000','.429','0.0','0.0','','2.0','5.0','7.0','2.0','0.0','1.0','0.0','3.0',6.0,'2023-10-26'),
 	 ('Luke Kornet','C','28','BOS','1','0','8.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','1.0','0.0','1.0','2.0','0.0','1.0','0.0','0.0',0.0,'2023-10-26'),
@@ -5927,7 +5927,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Zach LaVine','SG','28','CHI','1','1','25.0','4.0','16.0','.250','2.0','9.0','.222','2.0','7.0','.286','.313','6.0','6.0','1.000','0.0','4.0','4.0','3.0','0.0','0.0','4.0','3.0',16.0,'2023-10-26'),
 	 ('Alex Len','C','30','SAC','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Kawhi Leonard','SF','32','LAC','1','1','29.0','9.0','17.0','.529','5.0','5.0','1.000','4.0','12.0','.333','.676','0.0','0.0','','1.0','4.0','5.0','6.0','1.0','1.0','4.0','2.0',23.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Caris LeVert','SG','29','CLE','1','0','31.0','4.0','17.0','.235','3.0','8.0','.375','1.0','9.0','.111','.324','0.0','0.0','','0.0','3.0','3.0','5.0','1.0','1.0','0.0','1.0',11.0,'2023-10-26'),
 	 ('Kira Lewis Jr.','PG','22','NOP','1','0','11.0','0.0','3.0','.000','0.0','2.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','1.0','1.0','1.0',0.0,'2023-10-26'),
 	 ('Maxwell Lewis','SF','21','LAL','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
@@ -5938,7 +5938,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Kyle Lowry','PG','37','MIA','1','1','32.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','2.0','2.0','2.0','2.0','1.0','0.0','4.0',0.0,'2023-10-26'),
 	 ('Theo Maledon','PG','22','CHO','1','0','16.0','2.0','5.0','.400','0.0','2.0','.000','2.0','3.0','.667','.400','0.0','0.0','','0.0','3.0','3.0','4.0','0.0','0.0','1.0','3.0',4.0,'2023-10-26'),
 	 ('Tre Mann','PG','22','OKC','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','1.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Lauri Markkanen','PF','26','UTA','1','1','32.0','6.0','15.0','.400','2.0','6.0','.333','4.0','9.0','.444','.467','5.0','6.0','.833','2.0','8.0','10.0','1.0','2.0','0.0','1.0','1.0',19.0,'2023-10-26'),
 	 ('Caleb Martin','SF','28','MIA','1','0','20.0','1.0','7.0','.143','0.0','3.0','.000','1.0','4.0','.250','.143','0.0','0.0','','1.0','2.0','3.0','1.0','1.0','0.0','0.0','1.0',2.0,'2023-10-26'),
 	 ('Kenyon Martin Jr.','SF','23','LAC','1','0','14.0','0.0','4.0','.000','0.0','2.0','.000','0.0','2.0','.000','.000','0.0','0.0','','1.0','0.0','1.0','1.0','1.0','0.0','0.0','2.0',0.0,'2023-10-26'),
@@ -5949,7 +5949,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Doug McDermott','SF','32','SAS','1','0','11.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','1.0','1.0','1.0','0.0','1.0','0.0','1.0',0.0,'2023-10-26'),
 	 ('JaVale McGee','C','36','SAC','1','0','13.0','4.0','4.0','1.000','0.0','0.0','','4.0','4.0','1.000','1.000','0.0','0.0','','0.0','1.0','1.0','1.0','0.0','1.0','0.0','0.0',8.0,'2023-10-26'),
 	 ('Brandon Miller','SF','21','CHO','1','0','25.0','5.0','9.0','.556','3.0','7.0','.429','2.0','2.0','1.000','.722','0.0','0.0','','0.0','3.0','3.0','2.0','0.0','0.0','1.0','3.0',13.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jordan Miller','SF','24','LAC','1','0','4.0','1.0','2.0','.500','0.0','0.0','','1.0','2.0','.500','.500','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','1.0',2.0,'2023-10-26'),
 	 ('Shake Milton','SG','27','MIN','1','0','21.0','1.0','5.0','.200','1.0','4.0','.250','0.0','1.0','.000','.300','1.0','2.0','.500','0.0','3.0','3.0','4.0','2.0','0.0','2.0','4.0',4.0,'2023-10-26'),
 	 ('Davion Mitchell','PG','25','SAC','1','0','14.0','0.0','3.0','.000','0.0','2.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','3.0','3.0','4.0','0.0','0.0','1.0','3.0',0.0,'2023-10-26'),
@@ -5960,7 +5960,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Dejounte Murray','SG','27','ATL','1','1','33.0','3.0','14.0','.214','0.0','3.0','.000','3.0','11.0','.273','.214','5.0','6.0','.833','0.0','2.0','2.0','6.0','0.0','0.0','1.0','0.0',11.0,'2023-10-26'),
 	 ('Jamal Murray','PG','26','DEN','1','1','34.0','8.0','13.0','.615','3.0','5.0','.600','5.0','8.0','.625','.731','2.0','2.0','1.000','0.0','2.0','2.0','6.0','0.0','1.0','1.0','3.0',21.0,'2023-10-26'),
 	 ('Keegan Murray','SF','23','SAC','1','1','30.0','5.0','13.0','.385','4.0','9.0','.444','1.0','4.0','.250','.538','1.0','1.0','1.000','2.0','6.0','8.0','1.0','1.0','2.0','0.0','4.0',15.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Kris Murray','SF','23','POR','1','0','5.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Mike Muscala','C','32','WAS','1','0','8.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','3.0','3.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Larry Nance Jr.','C','31','NOP','1','0','15.0','1.0','2.0','.500','0.0','0.0','','1.0','2.0','.500','.500','0.0','0.0','','1.0','7.0','8.0','0.0','1.0','0.0','2.0','1.0',2.0,'2023-10-26'),
@@ -5971,7 +5971,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jusuf Nurkic','C','29','PHO','1','1','28.0','5.0','8.0','.625','1.0','2.0','.500','4.0','6.0','.667','.688','3.0','3.0','1.000','3.0','11.0','14.0','3.0','0.0','1.0','1.0','5.0',14.0,'2023-10-26'),
 	 ('Jordan Nwora','SF','25','IND','1','0','6.0','2.0','7.0','.286','1.0','2.0','.500','1.0','5.0','.200','.357','0.0','0.0','','1.0','0.0','1.0','1.0','0.0','1.0','0.0','0.0',5.0,'2023-10-26'),
 	 ('Royce O''Neale','SF','30','BRK','1','0','23.0','2.0','6.0','.333','1.0','4.0','.250','1.0','2.0','.500','.417','0.0','0.0','','0.0','7.0','7.0','2.0','0.0','0.0','1.0','2.0',5.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Chuma Okeke','SF','25','ORL','1','0','5.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','3.0','3.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Josh Okogie','SG','25','PHO','1','1','32.0','7.0','9.0','.778','1.0','1.0','1.000','6.0','8.0','.750','.833','2.0','2.0','1.000','4.0','1.0','5.0','1.0','1.0','0.0','2.0','2.0',17.0,'2023-10-26'),
 	 ('Onyeka Okongwu','C','23','ATL','1','0','19.0','3.0','5.0','.600','0.0','0.0','','3.0','5.0','.600','.600','1.0','1.0','1.000','1.0','3.0','4.0','2.0','0.0','0.0','1.0','5.0',7.0,'2023-10-26'),
@@ -5982,7 +5982,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Chris Paul','PG','38','GSW','1','1','34.0','4.0','15.0','.267','0.0','6.0','.000','4.0','9.0','.444','.267','6.0','7.0','.857','1.0','5.0','6.0','9.0','2.0','0.0','1.0','0.0',14.0,'2023-10-26'),
 	 ('Gary Payton II','SG','31','GSW','1','0','22.0','0.0','5.0','.000','0.0','2.0','.000','0.0','3.0','.000','.000','1.0','2.0','.500','0.0','2.0','2.0','2.0','3.0','0.0','0.0','1.0',1.0,'2023-10-26'),
 	 ('Julian Phillips','SF','20','CHI','1','0','4.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jalen Pickett','SG','24','DEN','1','0','1.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',2.0,'2023-10-26'),
 	 ('Mason Plumlee','C','33','LAC','1','0','18.0','2.0','4.0','.500','0.0','0.0','','2.0','4.0','.500','.500','2.0','4.0','.500','3.0','5.0','8.0','2.0','0.0','0.0','0.0','0.0',6.0,'2023-10-26'),
 	 ('Jakob Poeltl','C','28','TOR','1','1','24.0','3.0','3.0','1.000','0.0','0.0','','3.0','3.0','1.000','1.000','1.0','4.0','.250','3.0','8.0','11.0','1.0','1.0','1.0','0.0','1.0',7.0,'2023-10-26'),
@@ -5993,7 +5993,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Norman Powell','SG','30','LAC','1','0','23.0','2.0','6.0','.333','2.0','5.0','.400','0.0','1.0','.000','.500','2.0','2.0','1.000','0.0','3.0','3.0','1.0','0.0','0.0','2.0','0.0',8.0,'2023-10-26'),
 	 ('Taurean Prince','PF','29','LAL','1','1','30.0','6.0','8.0','.750','4.0','6.0','.667','2.0','2.0','1.000','1.000','2.0','2.0','1.000','1.0','2.0','3.0','1.0','0.0','1.0','1.0','0.0',18.0,'2023-10-26'),
 	 ('Payton Pritchard','PG','26','BOS','1','0','11.0','1.0','4.0','.250','0.0','3.0','.000','1.0','1.0','1.000','.250','2.0','2.0','1.000','0.0','1.0','1.0','1.0','0.0','0.0','0.0','1.0',4.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Immanuel Quickley','SG','24','NYK','1','0','28.0','7.0','11.0','.636','5.0','7.0','.714','2.0','4.0','.500','.864','5.0','6.0','.833','2.0','4.0','6.0','4.0','1.0','0.0','2.0','3.0',24.0,'2023-10-26'),
 	 ('Julius Randle','PF','29','NYK','1','1','34.0','5.0','22.0','.227','3.0','8.0','.375','2.0','14.0','.143','.295','1.0','5.0','.200','4.0','7.0','11.0','7.0','2.0','0.0','0.0','3.0',14.0,'2023-10-26'),
 	 ('Austin Reaves','SG','25','LAL','1','1','31.0','4.0','11.0','.364','1.0','2.0','.500','3.0','9.0','.333','.409','5.0','7.0','.714','4.0','4.0','8.0','4.0','2.0','0.0','2.0','2.0',14.0,'2023-10-26'),
@@ -6004,7 +6004,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Mitchell Robinson','C','25','NYK','1','1','22.0','1.0','4.0','.250','0.0','0.0','','1.0','4.0','.250','.250','0.0','2.0','.000','3.0','3.0','6.0','1.0','2.0','0.0','1.0','4.0',2.0,'2023-10-26'),
 	 ('David Roddy','PF','22','MEM','1','0','28.0','4.0','7.0','.571','1.0','3.0','.333','3.0','4.0','.750','.643','0.0','0.0','','1.0','4.0','5.0','2.0','0.0','0.0','1.0','2.0',9.0,'2023-10-26'),
 	 ('Ryan Rollins','PG','21','WAS','1','0','6.0','0.0','3.0','.000','0.0','0.0','','0.0','3.0','.000','.000','1.0','2.0','.500','0.0','3.0','3.0','1.0','0.0','0.0','1.0','0.0',1.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Derrick Rose','PG','35','MEM','1','0','16.0','3.0','11.0','.273','2.0','4.0','.500','1.0','7.0','.143','.364','0.0','0.0','','1.0','1.0','2.0','3.0','0.0','0.0','0.0','0.0',8.0,'2023-10-26'),
 	 ('Terry Rozier','SG','29','CHO','1','1','34.0','7.0','16.0','.438','2.0','7.0','.286','5.0','9.0','.556','.500','8.0','12.0','.667','1.0','4.0','5.0','6.0','0.0','0.0','3.0','2.0',24.0,'2023-10-26'),
 	 ('Rayan Rupert','SG','19','POR','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
@@ -6015,7 +6015,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jermaine Samuels','SF','25','HOU','1','0','6.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','1.0',0.0,'2023-10-26'),
 	 ('Dario Saric','PF','29','GSW','1','0','20.0','3.0','11.0','.273','1.0','3.0','.333','2.0','8.0','.250','.318','0.0','0.0','','4.0','3.0','7.0','1.0','0.0','2.0','0.0','3.0',7.0,'2023-10-26'),
 	 ('Olivier Sarr','C','24','OKC','1','0','11.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','2.0','2.0','1.000','1.0','3.0','4.0','0.0','0.0','0.0','1.0','3.0',4.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Marcus Sasser','PG','23','DET','1','0','10.0','3.0','4.0','.750','2.0','3.0','.667','1.0','1.0','1.000','1.000','0.0','0.0','','0.0','2.0','2.0','1.0','0.0','0.0','1.0','0.0',8.0,'2023-10-26'),
 	 ('Dennis Schroder','PG','30','TOR','1','1','33.0','8.0','17.0','.471','4.0','8.0','.500','4.0','9.0','.444','.588','2.0','2.0','1.000','1.0','2.0','3.0','7.0','0.0','0.0','2.0','1.0',22.0,'2023-10-26'),
 	 ('Alperen Sengun','C','21','HOU','1','1','28.0','6.0','11.0','.545','0.0','1.0','.000','6.0','10.0','.600','.545','2.0','4.0','.500','2.0','6.0','8.0','6.0','0.0','0.0','1.0','4.0',14.0,'2023-10-26'),
@@ -6026,7 +6026,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Ben Sheppard','SG','22','IND','1','0','6.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Pascal Siakam','PF','29','TOR','1','1','34.0','5.0','17.0','.294','3.0','5.0','.600','2.0','12.0','.167','.382','2.0','2.0','1.000','0.0','7.0','7.0','6.0','1.0','0.0','2.0','2.0',15.0,'2023-10-26'),
 	 ('Ben Simmons','PG','27','BRK','1','1','23.0','2.0','6.0','.333','0.0','0.0','','2.0','6.0','.333','.333','0.0','0.0','','1.0','9.0','10.0','9.0','0.0','1.0','2.0','2.0',4.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Anfernee Simons','SG','24','POR','1','1','27.0','6.0','14.0','.429','2.0','6.0','.333','4.0','8.0','.500','.500','4.0','4.0','1.000','1.0','1.0','2.0','4.0','2.0','0.0','0.0','2.0',18.0,'2023-10-26'),
 	 ('Marcus Smart','PG','29','MEM','1','1','32.0','6.0','11.0','.545','2.0','6.0','.333','4.0','5.0','.800','.636','3.0','6.0','.500','0.0','0.0','0.0','3.0','2.0','0.0','5.0','3.0',17.0,'2023-10-26'),
 	 ('Dennis Smith Jr.','PG','26','BRK','1','0','16.0','4.0','5.0','.800','2.0','3.0','.667','2.0','2.0','1.000','1.000','0.0','0.0','','2.0','2.0','4.0','1.0','0.0','0.0','1.0','1.0',10.0,'2023-10-26'),
@@ -6037,7 +6037,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jeremy Sochan','PF','20','SAS','1','1','29.0','4.0','12.0','.333','2.0','4.0','.500','2.0','8.0','.250','.417','3.0','6.0','.500','3.0','5.0','8.0','5.0','1.0','0.0','3.0','4.0',13.0,'2023-10-26'),
 	 ('Isaiah Stewart','C','22','DET','1','1','35.0','6.0','11.0','.545','2.0','3.0','.667','4.0','8.0','.500','.636','0.0','0.0','','6.0','8.0','14.0','2.0','0.0','0.0','1.0','3.0',14.0,'2023-10-26'),
 	 ('Max Strus','SF','27','CLE','1','1','39.0','9.0','17.0','.529','7.0','13.0','.538','2.0','4.0','.500','.735','2.0','2.0','1.000','0.0','12.0','12.0','2.0','1.0','1.0','0.0','4.0',27.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jalen Suggs','SG','22','ORL','1','1','21.0','3.0','12.0','.250','2.0','7.0','.286','1.0','5.0','.200','.333','0.0','0.0','','1.0','3.0','4.0','0.0','0.0','0.0','0.0','2.0',8.0,'2023-10-26'),
 	 ('Jae''Sean Tate','SF','28','HOU','1','0','15.0','2.0','2.0','1.000','1.0','1.0','1.000','1.0','1.0','1.000','1.250','0.0','0.0','','0.0','2.0','2.0','0.0','1.0','1.0','0.0','1.0',5.0,'2023-10-26'),
 	 ('Jayson Tatum','SF','25','BOS','1','1','39.0','13.0','22.0','.591','3.0','8.0','.375','10.0','14.0','.714','.659','5.0','6.0','.833','0.0','11.0','11.0','4.0','2.0','1.0','4.0','3.0',34.0,'2023-10-26'),
@@ -6048,7 +6048,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Klay Thompson','SF','33','GSW','1','1','36.0','6.0','18.0','.333','3.0','11.0','.273','3.0','7.0','.429','.417','0.0','0.0','','1.0','6.0','7.0','3.0','0.0','1.0','3.0','3.0',15.0,'2023-10-26'),
 	 ('JT Thor','PF','21','CHO','1','0','20.0','2.0','7.0','.286','1.0','3.0','.333','1.0','4.0','.250','.357','0.0','0.0','','1.0','1.0','2.0','1.0','0.0','0.0','0.0','0.0',5.0,'2023-10-26'),
 	 ('Matisse Thybulle','SG','26','POR','1','1','20.0','3.0','7.0','.429','2.0','6.0','.333','1.0','1.0','1.000','.571','0.0','0.0','','1.0','0.0','1.0','1.0','1.0','0.0','2.0','0.0',8.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Xavier Tillman Sr.','C','25','MEM','1','1','34.0','7.0','16.0','.438','1.0','5.0','.200','6.0','11.0','.545','.469','2.0','2.0','1.000','4.0','8.0','12.0','4.0','3.0','1.0','0.0','2.0',17.0,'2023-10-26'),
 	 ('Obi Toppin','PF','25','IND','1','1','19.0','4.0','9.0','.444','2.0','5.0','.400','2.0','4.0','.500','.556','1.0','1.0','1.000','1.0','3.0','4.0','1.0','1.0','0.0','0.0','0.0',11.0,'2023-10-26'),
 	 ('Karl-Anthony Towns','PF','28','MIN','1','1','36.0','8.0','25.0','.320','2.0','10.0','.200','6.0','15.0','.400','.360','1.0','1.0','1.000','2.0','8.0','10.0','3.0','0.0','4.0','4.0','2.0',19.0,'2023-10-26'),
@@ -6059,7 +6059,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Devin Vassell','SG','23','SAS','1','1','35.0','9.0','17.0','.529','1.0','6.0','.167','8.0','11.0','.727','.559','4.0','5.0','.800','1.0','4.0','5.0','3.0','2.0','0.0','2.0','2.0',23.0,'2023-10-26'),
 	 ('Sasha Vezenkov','PF','28','SAC','1','0','16.0','3.0','6.0','.500','2.0','5.0','.400','1.0','1.0','1.000','.667','0.0','0.0','','1.0','1.0','2.0','0.0','2.0','0.0','0.0','1.0',8.0,'2023-10-26'),
 	 ('Gabe Vincent','PG','27','LAL','1','0','22.0','3.0','8.0','.375','0.0','4.0','.000','3.0','4.0','.750','.375','0.0','0.0','','1.0','0.0','1.0','2.0','1.0','0.0','2.0','3.0',6.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Nikola Vucevic','C','33','CHI','1','1','32.0','5.0','8.0','.625','0.0','2.0','.000','5.0','6.0','.833','.625','1.0','1.0','1.000','1.0','8.0','9.0','4.0','3.0','2.0','4.0','2.0',11.0,'2023-10-26'),
 	 ('Franz Wagner','SF','22','ORL','1','1','27.0','5.0','12.0','.417','3.0','7.0','.429','2.0','5.0','.400','.542','6.0','6.0','1.000','3.0','1.0','4.0','2.0','1.0','0.0','3.0','1.0',19.0,'2023-10-26'),
 	 ('Moritz Wagner','C','26','ORL','1','0','15.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','2.0','2.0','1.000','0.0','4.0','4.0','0.0','0.0','1.0','3.0','4.0',2.0,'2023-10-26'),
@@ -6070,7 +6070,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Yuta Watanabe','SF','29','PHO','1','0','18.0','3.0','5.0','.600','2.0','4.0','.500','1.0','1.0','1.000','.800','0.0','0.0','','0.0','4.0','4.0','0.0','0.0','1.0','1.0','2.0',8.0,'2023-10-26'),
 	 ('Lindy Waters III','SG','26','OKC','1','0','3.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Peyton Watson','SG','21','DEN','1','0','11.0','1.0','3.0','.333','1.0','3.0','.333','0.0','0.0','','.500','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','1.0','1.0','1.0',3.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Victor Wembanyama','PF','20','SAS','1','1','23.0','6.0','9.0','.667','3.0','5.0','.600','3.0','4.0','.750','.833','0.0','1.0','.000','0.0','5.0','5.0','2.0','2.0','1.0','5.0','5.0',15.0,'2023-10-26'),
 	 ('Russell Westbrook','PG','35','LAC','1','1','29.0','5.0','8.0','.625','1.0','2.0','.500','4.0','6.0','.667','.688','0.0','0.0','','2.0','3.0','5.0','13.0','0.0','0.0','3.0','3.0',11.0,'2023-10-26'),
 	 ('Coby White','SG','23','CHI','1','1','31.0','4.0','14.0','.286','2.0','7.0','.286','2.0','7.0','.286','.357','5.0','6.0','.833','1.0','3.0','4.0','4.0','0.0','0.0','0.0','3.0',15.0,'2023-10-26'),
@@ -6081,7 +6081,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Grant Williams','PF','25','DAL','1','1','35.0','6.0','11.0','.545','4.0','8.0','.500','2.0','3.0','.667','.727','1.0','1.0','1.000','1.0','5.0','6.0','0.0','0.0','1.0','3.0','4.0',17.0,'2023-10-26'),
 	 ('Jalen Williams','SG','22','OKC','1','1','32.0','5.0','11.0','.455','2.0','6.0','.333','3.0','5.0','.600','.545','4.0','4.0','1.000','0.0','3.0','3.0','5.0','1.0','0.0','2.0','3.0',16.0,'2023-10-26'),
 	 ('Jeenathan Williams','SG','24','HOU','1','0','5.0','2.0','3.0','.667','0.0','1.0','.000','2.0','2.0','1.000','.667','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',4.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Mark Williams','C','22','CHO','1','1','30.0','5.0','6.0','.833','0.0','0.0','','5.0','6.0','.833','.833','3.0','3.0','1.000','4.0','11.0','15.0','1.0','3.0','1.0','2.0','2.0',13.0,'2023-10-26'),
 	 ('Patrick Williams','PF','22','CHI','1','1','30.0','4.0','10.0','.400','0.0','4.0','.000','4.0','6.0','.667','.400','0.0','0.0','','2.0','1.0','3.0','4.0','2.0','0.0','0.0','3.0',8.0,'2023-10-26'),
 	 ('Robert Williams','C','26','POR','1','0','23.0','5.0','7.0','.714','0.0','0.0','','5.0','7.0','.714','.714','0.0','1.0','.000','2.0','5.0','7.0','0.0','3.0','1.0','2.0','4.0',10.0,'2023-10-26'),
@@ -6092,7 +6092,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Trae Young','PG','25','ATL','1','1','36.0','4.0','19.0','.211','1.0','9.0','.111','3.0','10.0','.300','.237','14.0','15.0','.933','0.0','1.0','1.0','9.0','1.0','0.0','5.0','3.0',23.0,'2023-10-26'),
 	 ('Omer Yurtseven','C','25','UTA','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-26'),
 	 ('Ivica Zubac','C','26','LAC','1','1','26.0','8.0','10.0','.800','0.0','0.0','','8.0','10.0','.800','.800','4.0','5.0','.800','5.0','7.0','12.0','0.0','0.0','4.0','2.0','3.0',20.0,'2023-10-26');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Precious Achiuwa','C','24','TOR','1','0','24.0','4.0','9.0','.444','0.0','1.0','.000','4.0','8.0','.500','.444','0.0','0.0','','3.0','5.0','8.0','0.0','0.0','0.0','2.0','1.0',8.0,'2023-10-27'),
 	 ('Bam Adebayo','C','26','MIA','1','1','32.0','7.0','13.0','.538','0.0','0.0','','7.0','13.0','.538','.538','8.0','10.0','.800','2.0','6.0','8.0','3.0','0.0','2.0','2.0','3.0',22.0,'2023-10-27'),
 	 ('Ochai Agbaji','SG','23','UTA','1','0','19.0','2.0','6.0','.333','1.0','2.0','.500','1.0','4.0','.250','.417','0.0','0.0','','0.0','3.0','3.0','0.0','0.0','0.0','0.0','2.0',5.0,'2023-10-27'),
@@ -6103,7 +6103,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Cole Anthony','PG','23','ORL','1','0','24.0','8.0','12.0','.667','1.0','2.0','.500','7.0','10.0','.700','.708','3.0','3.0','1.000','1.0','7.0','8.0','2.0','0.0','0.0','0.0','2.0',20.0,'2023-10-27'),
 	 ('OG Anunoby','SF','26','TOR','1','1','34.0','7.0','13.0','.538','4.0','9.0','.444','3.0','4.0','.750','.692','2.0','2.0','1.000','0.0','6.0','6.0','1.0','2.0','3.0','2.0','2.0',20.0,'2023-10-27'),
 	 ('Deni Avdija','SF','23','WAS','1','1','21.0','4.0','8.0','.500','0.0','0.0','','4.0','8.0','.500','.500','1.0','2.0','.500','2.0','5.0','7.0','5.0','1.0','0.0','2.0','0.0',9.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Deandre Ayton','C','25','POR','1','1','23.0','2.0','4.0','.500','0.0','0.0','','2.0','4.0','.500','.500','0.0','0.0','','3.0','9.0','12.0','1.0','3.0','1.0','3.0','5.0',4.0,'2023-10-27'),
 	 ('Marvin Bagley III','C','24','DET','1','0','16.0','3.0','3.0','1.000','0.0','0.0','','3.0','3.0','1.000','1.000','2.0','2.0','1.000','2.0','6.0','8.0','3.0','0.0','1.0','1.0','1.0',8.0,'2023-10-27'),
 	 ('Patrick Baldwin Jr.','SF','21','WAS','1','0','3.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
@@ -6114,7 +6114,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Scottie Barnes','SF','22','TOR','1','1','37.0','6.0','16.0','.375','1.0','4.0','.250','5.0','12.0','.417','.406','4.0','6.0','.667','1.0','7.0','8.0','5.0','2.0','5.0','4.0','1.0',17.0,'2023-10-27'),
 	 ('RJ Barrett','SG','23','NYK','1','1','36.0','8.0','20.0','.400','2.0','5.0','.400','6.0','15.0','.400','.450','6.0','7.0','.857','1.0','2.0','3.0','2.0','1.0','0.0','2.0','0.0',24.0,'2023-10-27'),
 	 ('Charles Bassey','C','23','SAS','1','0','13.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','1.0','4.0','5.0','2.0','1.0','0.0','1.0','0.0',2.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Nicolas Batum','PF','35','LAC','1','0','9.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','3.0','3.0','1.0','1.0','1.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Malik Beasley','SG','27','MIL','1','1','31.0','2.0','4.0','.500','1.0','1.0','1.000','1.0','3.0','.333','.625','0.0','0.0','','0.0','4.0','4.0','3.0','2.0','0.0','2.0','1.0',5.0,'2023-10-27'),
 	 ('MarJon Beauchamp','SF','23','MIL','1','0','16.0','2.0','3.0','.667','0.0','1.0','.000','2.0','2.0','1.000','.667','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','0.0','0.0','3.0',4.0,'2023-10-27'),
@@ -6125,7 +6125,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Bogdan Bogdanovic','SG','31','ATL','1','0','24.0','3.0','9.0','.333','1.0','5.0','.200','2.0','4.0','.500','.389','0.0','0.0','','0.0','4.0','4.0','4.0','3.0','0.0','0.0','1.0',7.0,'2023-10-27'),
 	 ('Devin Booker','SG','27','PHO','1','1','37.0','13.0','21.0','.619','3.0','8.0','.375','10.0','13.0','.769','.690','3.0','3.0','1.000','1.0','5.0','6.0','8.0','1.0','0.0','6.0','4.0',32.0,'2023-10-27'),
 	 ('Malaki Branham','SG','20','SAS','1','0','18.0','3.0','7.0','.429','0.0','3.0','.000','3.0','4.0','.750','.429','1.0','1.0','1.000','0.0','2.0','2.0','2.0','1.0','0.0','1.0','1.0',7.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Christian Braun','SG','22','DEN','1','0','19.0','2.0','5.0','.400','0.0','1.0','.000','2.0','4.0','.500','.400','1.0','2.0','.500','1.0','2.0','3.0','2.0','0.0','1.0','1.0','1.0',5.0,'2023-10-27'),
 	 ('Mikal Bridges','SG','27','BRK','1','1','35.0','6.0','12.0','.500','0.0','2.0','.000','6.0','10.0','.600','.500','8.0','9.0','.889','2.0','4.0','6.0','4.0','3.0','0.0','3.0','4.0',20.0,'2023-10-27'),
 	 ('Malcolm Brogdon','PG','31','POR','1','0','23.0','8.0','16.0','.500','3.0','5.0','.600','5.0','11.0','.455','.594','1.0','1.0','1.000','0.0','2.0','2.0','5.0','0.0','0.0','1.0','0.0',20.0,'2023-10-27'),
@@ -6136,7 +6136,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Troy Brown Jr.','SF','24','MIN','1','0','5.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jalen Brunson','PG','27','NYK','1','1','33.0','6.0','21.0','.286','3.0','8.0','.375','3.0','13.0','.231','.357','0.0','1.0','.000','1.0','2.0','3.0','6.0','3.0','0.0','2.0','3.0',15.0,'2023-10-27'),
 	 ('Thomas Bryant','C','26','MIA','1','0','16.0','2.0','5.0','.400','0.0','0.0','','2.0','5.0','.400','.400','4.0','5.0','.800','2.0','4.0','6.0','3.0','1.0','0.0','1.0','0.0',8.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Reggie Bullock','SF','32','HOU','1','0','11.0','1.0','1.0','1.000','1.0','1.0','1.000','0.0','0.0','','1.500','0.0','0.0','','0.0','1.0','1.0','0.0','1.0','1.0','0.0','1.0',3.0,'2023-10-27'),
 	 ('Alec Burks','SG','32','DET','1','0','25.0','2.0','8.0','.250','2.0','5.0','.400','0.0','3.0','.000','.375','1.0','2.0','.500','0.0','5.0','5.0','0.0','0.0','1.0','0.0','1.0',7.0,'2023-10-27'),
 	 ('Jared Butler','SG','23','WAS','1','0','3.0','1.0','2.0','.500','1.0','1.0','1.000','0.0','1.0','.000','.750','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',3.0,'2023-10-27'),
@@ -6147,7 +6147,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jevon Carter','PG','28','CHI','1','0','16.0','1.0','4.0','.250','1.0','4.0','.250','0.0','0.0','','.375','0.0','0.0','','0.0','1.0','1.0','2.0','0.0','0.0','0.0','0.0',3.0,'2023-10-27'),
 	 ('Wendell Carter Jr.','C','24','ORL','1','1','27.0','4.0','10.0','.400','0.0','2.0','.000','4.0','8.0','.500','.400','0.0','0.0','','4.0','4.0','8.0','1.0','2.0','0.0','2.0','3.0',8.0,'2023-10-27'),
 	 ('Alex Caruso','PG','29','CHI','1','0','20.0','2.0','5.0','.400','1.0','4.0','.250','1.0','1.0','1.000','.500','1.0','2.0','.500','0.0','2.0','2.0','3.0','2.0','0.0','1.0','1.0',6.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Max Christie','SG','20','LAL','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jordan Clarkson','SG','31','UTA','1','1','31.0','8.0','16.0','.500','2.0','5.0','.400','6.0','11.0','.545','.563','6.0','8.0','.750','2.0','2.0','4.0','6.0','0.0','0.0','2.0','4.0',24.0,'2023-10-27'),
 	 ('Nic Claxton','C','24','BRK','1','1','28.0','3.0','10.0','.300','0.0','0.0','','3.0','10.0','.300','.300','1.0','1.0','1.000','4.0','3.0','7.0','4.0','0.0','3.0','0.0','1.0',7.0,'2023-10-27'),
@@ -6158,7 +6158,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Pat Connaughton','SF','31','MIL','1','0','20.0','2.0','6.0','.333','1.0','4.0','.250','1.0','2.0','.500','.417','2.0','2.0','1.000','0.0','2.0','2.0','2.0','0.0','1.0','0.0','0.0',7.0,'2023-10-27'),
 	 ('Bilal Coulibaly','SF','19','WAS','1','0','23.0','1.0','3.0','.333','1.0','1.0','1.000','0.0','2.0','.000','.500','0.0','0.0','','0.0','4.0','4.0','3.0','0.0','3.0','3.0','1.0',3.0,'2023-10-27'),
 	 ('Robert Covington','PF','33','LAC','1','1','23.0','2.0','5.0','.400','1.0','4.0','.250','1.0','1.0','1.000','.500','0.0','0.0','','1.0','3.0','4.0','2.0','3.0','1.0','0.0','2.0',5.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Torrey Craig','SF','33','CHI','1','0','22.0','4.0','6.0','.667','3.0','4.0','.750','1.0','2.0','.500','.917','0.0','0.0','','4.0','3.0','7.0','1.0','0.0','0.0','1.0','2.0',11.0,'2023-10-27'),
 	 ('Jae Crowder','PF','33','MIL','1','0','27.0','3.0','4.0','.750','1.0','1.0','1.000','2.0','3.0','.667','.875','2.0','2.0','1.000','0.0','4.0','4.0','2.0','2.0','0.0','1.0','3.0',9.0,'2023-10-27'),
 	 ('Cade Cunningham','PG','22','DET','1','1','36.0','13.0','27.0','.481','4.0','9.0','.444','9.0','18.0','.500','.556','0.0','0.0','','0.0','3.0','3.0','9.0','1.0','1.0','3.0','5.0',30.0,'2023-10-27'),
@@ -6169,7 +6169,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('DeMar DeRozan','SF','34','CHI','1','1','33.0','9.0','20.0','.450','1.0','3.0','.333','8.0','17.0','.471','.475','1.0','3.0','.333','2.0','3.0','5.0','2.0','1.0','1.0','0.0','1.0',20.0,'2023-10-27'),
 	 ('Moussa Diabate','C','22','LAC','1','0','4.0','1.0','3.0','.333','0.0','0.0','','1.0','3.0','.333','.333','0.0','0.0','','1.0','0.0','1.0','0.0','2.0','0.0','0.0','0.0',2.0,'2023-10-27'),
 	 ('Gradey Dick','SG','20','TOR','1','0','2.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','1.0','0.0','0.0','0.0','1.0',0.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Ousmane Dieng','PF','20','OKC','1','0','14.0','3.0','5.0','.600','3.0','5.0','.600','0.0','0.0','','.900','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','0.0','1.0','1.0',9.0,'2023-10-27'),
 	 ('Spencer Dinwiddie','PG','30','BRK','1','1','24.0','1.0','3.0','.333','1.0','3.0','.333','0.0','0.0','','.500','2.0','2.0','1.000','0.0','1.0','1.0','3.0','0.0','0.0','1.0','2.0',5.0,'2023-10-27'),
 	 ('Donte DiVincenzo','SG','27','NYK','1','0','15.0','0.0','4.0','.000','0.0','3.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','3.0','3.0','2.0','0.0','0.0','0.0','1.0',0.0,'2023-10-27'),
@@ -6180,7 +6180,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Chris Duarte','SF','26','SAC','1','0','15.0','3.0','5.0','.600','3.0','4.0','.750','0.0','1.0','.000','.900','0.0','0.0','','1.0','1.0','2.0','1.0','0.0','0.0','0.0','3.0',9.0,'2023-10-27'),
 	 ('Kris Dunn','PG','29','UTA','1','0','16.0','3.0','6.0','.500','0.0','1.0','.000','3.0','5.0','.600','.500','2.0','4.0','.500','0.0','1.0','1.0','2.0','2.0','0.0','4.0','0.0',8.0,'2023-10-27'),
 	 ('Kevin Durant','PF','35','PHO','2','2','38.0','10.5','25.0','.420','1.0','3.5','.286','9.5','21.5','.442','.440','6.5','9.0','.722','1.0','10.0','11.0','2.5','0.5','1.0','5.0','1.5',28.5,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jalen Duren','C','20','DET','1','1','32.0','8.0','11.0','.727','0.0','0.0','','8.0','11.0','.727','.727','1.0','3.0','.333','6.0','8.0','14.0','4.0','0.0','4.0','4.0','4.0',17.0,'2023-10-27'),
 	 ('Anthony Edwards','SG','22','MIN','1','1','38.0','8.0','27.0','.296','4.0','7.0','.571','4.0','20.0','.200','.370','6.0','6.0','1.000','5.0','9.0','14.0','1.0','0.0','0.0','2.0','1.0',26.0,'2023-10-27'),
 	 ('Kessler Edwards','SF','23','SAC','1','0','1.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
@@ -6191,7 +6191,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Dorian Finney-Smith','PF','30','BRK','1','0','28.0','4.0','8.0','.500','2.0','6.0','.333','2.0','2.0','1.000','.625','0.0','1.0','.000','1.0','4.0','5.0','2.0','0.0','0.0','3.0','1.0',10.0,'2023-10-27'),
 	 ('Malachi Flynn','PG','25','TOR','1','0','10.0','1.0','3.0','.333','1.0','1.0','1.000','0.0','2.0','.000','.500','0.0','0.0','','0.0','0.0','0.0','2.0','1.0','0.0','2.0','4.0',3.0,'2023-10-27'),
 	 ('Simone Fontecchio','SF','28','UTA','1','0','2.0','1.0','2.0','.500','0.0','1.0','.000','1.0','1.0','1.000','.500','0.0','0.0','','1.0','0.0','1.0','1.0','0.0','0.0','0.0','0.0',2.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jordan Ford','PG','25','SAC','1','0','1.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('De''Aaron Fox','PG','26','SAC','1','1','33.0','6.0','18.0','.333','1.0','7.0','.143','5.0','11.0','.455','.361','5.0','6.0','.833','2.0','3.0','5.0','6.0','1.0','1.0','3.0','4.0',18.0,'2023-10-27'),
 	 ('Markelle Fultz','PG','25','ORL','1','1','25.0','5.0','9.0','.556','0.0','0.0','','5.0','9.0','.556','.556','0.0','0.0','','3.0','1.0','4.0','2.0','3.0','0.0','1.0','0.0',10.0,'2023-10-27'),
@@ -6202,7 +6202,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Paul George','SF','33','LAC','1','1','32.0','11.0','17.0','.647','4.0','7.0','.571','7.0','10.0','.700','.765','1.0','1.0','1.000','0.0','3.0','3.0','6.0','3.0','0.0','4.0','2.0',27.0,'2023-10-27'),
 	 ('Josh Giddey','PF','21','OKC','1','1','32.0','7.0','14.0','.500','2.0','3.0','.667','5.0','11.0','.455','.571','0.0','0.0','','1.0','5.0','6.0','6.0','0.0','0.0','3.0','1.0',16.0,'2023-10-27'),
 	 ('Shai Gilgeous-Alexander','PG','25','OKC','1','1','36.0','12.0','18.0','.667','2.0','5.0','.400','10.0','13.0','.769','.722','5.0','5.0','1.000','0.0','5.0','5.0','10.0','1.0','2.0','1.0','0.0',31.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Collin Gillespie','PG','24','DEN','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Rudy Gobert','C','31','MIN','1','1','32.0','6.0','12.0','.500','0.0','0.0','','6.0','12.0','.500','.500','3.0','5.0','.600','5.0','8.0','13.0','1.0','2.0','4.0','2.0','3.0',15.0,'2023-10-27'),
 	 ('Jordan Goodwin','PG','25','PHO','2','0','22.0','3.5','9.5','.368','0.5','3.0','.167','3.0','6.5','.462','.395','0.5','1.5','.333','0.5','4.5','5.0','2.5','1.5','0.0','1.5','1.0',8.0,'2023-10-27'),
@@ -6213,7 +6213,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jalen Green','SG','21','HOU','1','1','30.0','2.0','10.0','.200','0.0','1.0','.000','2.0','9.0','.222','.200','6.0','7.0','.857','0.0','1.0','1.0','0.0','1.0','1.0','4.0','2.0',10.0,'2023-10-27'),
 	 ('Jeff Green','PF','37','HOU','1','0','14.0','2.0','4.0','.500','0.0','1.0','.000','2.0','3.0','.667','.500','0.0','1.0','.000','3.0','0.0','3.0','1.0','0.0','0.0','1.0','2.0',4.0,'2023-10-27'),
 	 ('Josh Green','SG','23','DAL','1','0','30.0','3.0','5.0','.600','2.0','2.0','1.000','1.0','3.0','.333','.800','3.0','4.0','.750','2.0','0.0','2.0','1.0','1.0','0.0','0.0','4.0',11.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('AJ Griffin','SF','20','ATL','1','0','10.0','1.0','2.0','.500','0.0','1.0','.000','1.0','1.0','1.000','.500','0.0','0.0','','0.0','2.0','2.0','0.0','0.0','0.0','1.0','1.0',2.0,'2023-10-27'),
 	 ('Quentin Grimes','SG','23','NYK','1','1','23.0','4.0','7.0','.571','3.0','6.0','.500','1.0','1.0','1.000','.786','0.0','1.0','.000','0.0','1.0','1.0','0.0','0.0','0.0','0.0','2.0',11.0,'2023-10-27'),
 	 ('Rui Hachimura','PF','25','LAL','2','0','13.5','2.5','6.5','.385','0.5','2.5','.200','2.0','4.0','.500','.423','1.0','1.0','1.000','1.0','0.5','1.5','0.0','0.5','0.5','0.5','2.0',6.5,'2023-10-27'),
@@ -6224,7 +6224,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Tobias Harris','SF','31','PHI','1','1','37.0','8.0','9.0','.889','3.0','3.0','1.000','5.0','6.0','.833','1.056','1.0','2.0','.500','0.0','7.0','7.0','2.0','0.0','0.0','2.0','2.0',20.0,'2023-10-27'),
 	 ('Josh Hart','SF','28','NYK','1','0','22.0','2.0','4.0','.500','2.0','4.0','.500','0.0','0.0','','.750','1.0','2.0','.500','1.0','5.0','6.0','0.0','0.0','0.0','1.0','1.0',7.0,'2023-10-27'),
 	 ('Isaiah Hartenstein','C','25','NYK','1','0','26.0','3.0','4.0','.750','0.0','0.0','','3.0','4.0','.750','.750','1.0','2.0','.500','5.0','3.0','8.0','2.0','0.0','0.0','1.0','5.0',7.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Sam Hauser','SF','26','BOS','1','0','14.0','0.0','4.0','.000','0.0','4.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','2.0','2.0','0.0','1.0','1.0','0.0','1.0',0.0,'2023-10-27'),
 	 ('Jordan Hawkins','SG','21','NOP','1','0','9.0','1.0','2.0','.500','1.0','2.0','.500','0.0','0.0','','.750','0.0','0.0','','0.0','0.0','0.0','2.0','0.0','0.0','0.0','2.0',3.0,'2023-10-27'),
 	 ('Jaxson Hayes','C','23','LAL','2','0','6.5','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.5','1.5','0.0','0.5','0.0','1.0','2.0',0.0,'2023-10-27'),
@@ -6235,7 +6235,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Taylor Hendricks','PF','20','UTA','1','0','2.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','1.0','2.0','.500','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',1.0,'2023-10-27'),
 	 ('Tyler Herro','SG','24','MIA','1','1','35.0','7.0','24.0','.292','2.0','7.0','.286','5.0','17.0','.294','.333','0.0','0.0','','0.0','2.0','2.0','3.0','3.0','0.0','2.0','1.0',16.0,'2023-10-27'),
 	 ('Buddy Hield','SF','31','IND','1','0','25.0','5.0','9.0','.556','4.0','7.0','.571','1.0','2.0','.500','.778','0.0','0.0','','0.0','2.0','2.0','5.0','1.0','1.0','1.0','0.0',14.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Aaron Holiday','PG','27','HOU','1','0','5.0','0.0','3.0','.000','0.0','1.0','.000','0.0','2.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jrue Holiday','PG','33','BOS','1','1','35.0','4.0','10.0','.400','1.0','5.0','.200','3.0','5.0','.600','.450','0.0','0.0','','2.0','2.0','4.0','2.0','0.0','3.0','2.0','3.0',9.0,'2023-10-27'),
 	 ('Chet Holmgren','PF','21','OKC','1','1','25.0','4.0','7.0','.571','2.0','3.0','.667','2.0','4.0','.500','.714','1.0','3.0','.333','0.0','4.0','4.0','3.0','1.0','0.0','1.0','3.0',11.0,'2023-10-27'),
@@ -6246,7 +6246,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Kevin Huerter','SG','25','SAC','1','1','24.0','3.0','9.0','.333','1.0','5.0','.200','2.0','4.0','.500','.389','0.0','0.0','','2.0','3.0','5.0','2.0','0.0','0.0','1.0','3.0',7.0,'2023-10-27'),
 	 ('De''Andre Hunter','SF','26','ATL','1','1','31.0','4.0','9.0','.444','1.0','4.0','.250','3.0','5.0','.600','.500','0.0','1.0','.000','2.0','2.0','4.0','1.0','0.0','0.0','0.0','6.0',9.0,'2023-10-27'),
 	 ('Bones Hyland','PG','23','LAC','1','0','22.0','6.0','11.0','.545','3.0','8.0','.375','3.0','3.0','1.000','.682','2.0','2.0','1.000','0.0','0.0','0.0','3.0','0.0','0.0','2.0','4.0',17.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Joe Ingles','SF','36','ORL','1','0','18.0','0.0','3.0','.000','0.0','3.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','4.0','4.0','5.0','0.0','0.0','1.0','3.0',0.0,'2023-10-27'),
 	 ('Brandon Ingram','SF','26','NOP','1','1','36.0','7.0','18.0','.389','0.0','3.0','.000','7.0','15.0','.467','.389','5.0','6.0','.833','0.0','7.0','7.0','6.0','2.0','0.0','5.0','3.0',19.0,'2023-10-27'),
 	 ('Kyrie Irving','SG','31','DAL','1','1','36.0','10.0','24.0','.417','1.0','8.0','.125','9.0','16.0','.563','.438','1.0','1.0','1.000','0.0','2.0','2.0','6.0','1.0','0.0','2.0','3.0',22.0,'2023-10-27'),
@@ -6257,7 +6257,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Reggie Jackson','PG','33','DEN','1','0','24.0','3.0','8.0','.375','2.0','5.0','.400','1.0','3.0','.333','.500','0.0','0.0','','0.0','3.0','3.0','1.0','1.0','0.0','2.0','0.0',8.0,'2023-10-27'),
 	 ('LeBron James','PF','39','LAL','2','2','32.0','8.5','15.0','.567','1.0','4.5','.222','7.5','10.5','.714','.600','3.0','4.5','.667','1.0','7.0','8.0','7.0','1.5','1.0','2.5','1.0',21.0,'2023-10-27'),
 	 ('Jaime Jaquez Jr.','SF','22','MIA','1','0','13.0','3.0','3.0','1.000','0.0','0.0','','3.0','3.0','1.000','1.000','0.0','0.0','','0.0','2.0','2.0','2.0','2.0','0.0','1.0','2.0',6.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Ty Jerome','SG','26','CLE','1','0','6.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','1.0',2.0,'2023-10-27'),
 	 ('Isaiah Joe','SG','24','OKC','1','0','22.0','4.0','8.0','.500','3.0','6.0','.500','1.0','2.0','.500','.688','3.0','4.0','.750','1.0','4.0','5.0','2.0','1.0','0.0','2.0','2.0',14.0,'2023-10-27'),
 	 ('Cameron Johnson','PF','27','BRK','1','1','26.0','5.0','10.0','.500','1.0','4.0','.250','4.0','6.0','.667','.550','1.0','2.0','.500','2.0','3.0','5.0','3.0','2.0','0.0','2.0','1.0',12.0,'2023-10-27'),
@@ -6268,7 +6268,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Damian Jones','C','28','CLE','1','0','11.0','2.0','2.0','1.000','0.0','0.0','','2.0','2.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','2.0','0.0','0.0','2.0','3.0',4.0,'2023-10-27'),
 	 ('Derrick Jones Jr.','SF','26','DAL','1','1','12.0','0.0','3.0','.000','0.0','2.0','.000','0.0','1.0','.000','.000','1.0','2.0','.500','0.0','1.0','1.0','0.0','0.0','0.0','1.0','0.0',1.0,'2023-10-27'),
 	 ('Herbert Jones','PF','25','NOP','1','1','38.0','4.0','8.0','.500','2.0','3.0','.667','2.0','5.0','.400','.625','3.0','5.0','.600','3.0','5.0','8.0','3.0','1.0','1.0','3.0','3.0',13.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Tre Jones','PG','24','SAS','1','0','25.0','5.0','7.0','.714','2.0','3.0','.667','3.0','4.0','.750','.857','4.0','4.0','1.000','1.0','4.0','5.0','6.0','0.0','0.0','1.0','0.0',16.0,'2023-10-27'),
 	 ('Tyus Jones','PG','27','WAS','1','1','28.0','7.0','12.0','.583','2.0','4.0','.500','5.0','8.0','.625','.667','0.0','1.0','.000','1.0','2.0','3.0','6.0','1.0','1.0','2.0','1.0',16.0,'2023-10-27'),
 	 ('Cory Joseph','PG','32','GSW','1','0','4.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','1.0','0.0','1.0','1.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
@@ -6279,7 +6279,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Maxi Kleber','PF','32','DAL','1','1','23.0','2.0','7.0','.286','2.0','5.0','.400','0.0','2.0','.000','.429','0.0','0.0','','2.0','5.0','7.0','2.0','0.0','1.0','0.0','3.0',6.0,'2023-10-27'),
 	 ('Luke Kornet','C','28','BOS','1','0','8.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','1.0','0.0','1.0','2.0','0.0','1.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jonathan Kuminga','PF','21','GSW','1','0','20.0','4.0','8.0','.500','0.0','0.0','','4.0','8.0','.500','.500','4.0','6.0','.667','3.0','3.0','6.0','1.0','2.0','1.0','2.0','5.0',12.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Kyle Kuzma','PF','28','WAS','1','1','25.0','9.0','18.0','.500','1.0','4.0','.250','8.0','14.0','.571','.528','6.0','6.0','1.000','1.0','1.0','2.0','0.0','0.0','2.0','0.0','0.0',25.0,'2023-10-27'),
 	 ('Jock Landale','C','28','HOU','1','0','9.0','1.0','2.0','.500','1.0','2.0','.500','0.0','0.0','','.750','0.0','0.0','','0.0','0.0','0.0','2.0','0.0','0.0','1.0','1.0',3.0,'2023-10-27'),
 	 ('Jake LaRavia','PF','22','MEM','1','0','15.0','1.0','3.0','.333','0.0','2.0','.000','1.0','1.0','1.000','.333','0.0','0.0','','0.0','2.0','2.0','1.0','1.0','0.0','0.0','4.0',2.0,'2023-10-27'),
@@ -6290,7 +6290,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Maxwell Lewis','SF','21','LAL','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Damian Lillard','PG','33','MIL','1','1','37.0','9.0','20.0','.450','4.0','12.0','.333','5.0','8.0','.625','.550','17.0','17.0','1.000','0.0','8.0','8.0','4.0','0.0','0.0','0.0','2.0',39.0,'2023-10-27'),
 	 ('Nassir Little','PF','23','PHO','2','0','8.0','0.5','1.5','.333','0.5','1.5','.333','0.0','0.0','','.500','1.0','1.0','1.000','0.0','1.5','1.5','0.0','1.0','0.5','0.5','0.5',2.5,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Dereck Lively II','C','19','DAL','1','0','31.0','7.0','8.0','.875','0.0','0.0','','7.0','8.0','.875','.875','2.0','3.0','.667','5.0','5.0','10.0','1.0','1.0','1.0','1.0','4.0',16.0,'2023-10-27'),
 	 ('Kevon Looney','C','27','GSW','1','1','28.0','3.0','6.0','.500','0.0','0.0','','3.0','6.0','.500','.500','1.0','1.0','1.000','5.0','6.0','11.0','1.0','0.0','0.0','2.0','2.0',7.0,'2023-10-27'),
 	 ('Brook Lopez','C','35','MIL','1','1','29.0','5.0','7.0','.714','3.0','4.0','.750','2.0','3.0','.667','.929','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','0.0','2.0','4.0',13.0,'2023-10-27'),
@@ -6301,7 +6301,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Lauri Markkanen','PF','26','UTA','1','1','32.0','6.0','15.0','.400','2.0','6.0','.333','4.0','9.0','.444','.467','5.0','6.0','.833','2.0','8.0','10.0','1.0','2.0','0.0','1.0','1.0',19.0,'2023-10-27'),
 	 ('Caleb Martin','SF','28','MIA','1','0','20.0','1.0','7.0','.143','0.0','3.0','.000','1.0','4.0','.250','.143','0.0','0.0','','1.0','2.0','3.0','1.0','1.0','0.0','0.0','1.0',2.0,'2023-10-27'),
 	 ('Kenyon Martin Jr.','SF','23','LAC','1','0','14.0','0.0','4.0','.000','0.0','2.0','.000','0.0','2.0','.000','.000','0.0','0.0','','1.0','0.0','1.0','1.0','1.0','0.0','0.0','2.0',0.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Bennedict Mathurin','SG','21','IND','1','1','26.0','6.0','15.0','.400','2.0','6.0','.333','4.0','9.0','.444','.467','4.0','4.0','1.000','0.0','4.0','4.0','5.0','2.0','0.0','2.0','1.0',18.0,'2023-10-27'),
 	 ('Tyrese Maxey','SG','23','PHI','1','1','40.0','10.0','22.0','.455','3.0','8.0','.375','7.0','14.0','.500','.523','8.0','10.0','.800','0.0','4.0','4.0','8.0','2.0','0.0','0.0','3.0',31.0,'2023-10-27'),
 	 ('CJ McCollum','SG','32','NOP','1','1','37.0','8.0','16.0','.500','6.0','11.0','.545','2.0','5.0','.400','.688','2.0','2.0','1.000','1.0','3.0','4.0','6.0','2.0','1.0','2.0','3.0',24.0,'2023-10-27'),
@@ -6312,7 +6312,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('De''Anthony Melton','SG','25','PHI','1','1','25.0','3.0','10.0','.300','2.0','6.0','.333','1.0','4.0','.250','.400','2.0','2.0','1.000','1.0','1.0','2.0','4.0','2.0','0.0','1.0','2.0',10.0,'2023-10-27'),
 	 ('Khris Middleton','SF','32','MIL','1','1','16.0','2.0','5.0','.400','1.0','3.0','.333','1.0','2.0','.500','.500','1.0','2.0','.500','0.0','3.0','3.0','4.0','2.0','0.0','2.0','0.0',6.0,'2023-10-27'),
 	 ('Brandon Miller','SF','21','CHO','1','0','25.0','5.0','9.0','.556','3.0','7.0','.429','2.0','2.0','1.000','.722','0.0','0.0','','0.0','3.0','3.0','2.0','0.0','0.0','1.0','3.0',13.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jordan Miller','SF','24','LAC','1','0','4.0','1.0','2.0','.500','0.0','0.0','','1.0','2.0','.500','.500','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','1.0',2.0,'2023-10-27'),
 	 ('Shake Milton','SG','27','MIN','1','0','21.0','1.0','5.0','.200','1.0','4.0','.250','0.0','1.0','.000','.300','1.0','2.0','.500','0.0','3.0','3.0','4.0','2.0','0.0','2.0','4.0',4.0,'2023-10-27'),
 	 ('Davion Mitchell','PG','25','SAC','1','0','14.0','0.0','3.0','.000','0.0','2.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','3.0','3.0','4.0','0.0','0.0','1.0','3.0',0.0,'2023-10-27'),
@@ -6323,7 +6323,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Dejounte Murray','SG','27','ATL','1','1','33.0','3.0','14.0','.214','0.0','3.0','.000','3.0','11.0','.273','.214','5.0','6.0','.833','0.0','2.0','2.0','6.0','0.0','0.0','1.0','0.0',11.0,'2023-10-27'),
 	 ('Jamal Murray','PG','26','DEN','1','1','34.0','8.0','13.0','.615','3.0','5.0','.600','5.0','8.0','.625','.731','2.0','2.0','1.000','0.0','2.0','2.0','6.0','0.0','1.0','1.0','3.0',21.0,'2023-10-27'),
 	 ('Keegan Murray','SF','23','SAC','1','1','30.0','5.0','13.0','.385','4.0','9.0','.444','1.0','4.0','.250','.538','1.0','1.0','1.000','2.0','6.0','8.0','1.0','1.0','2.0','0.0','4.0',15.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Kris Murray','SF','23','POR','1','0','5.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Mike Muscala','C','32','WAS','1','0','8.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','3.0','3.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Larry Nance Jr.','C','31','NOP','1','0','15.0','1.0','2.0','.500','0.0','0.0','','1.0','2.0','.500','.500','0.0','0.0','','1.0','7.0','8.0','0.0','1.0','0.0','2.0','1.0',2.0,'2023-10-27'),
@@ -6334,7 +6334,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jusuf Nurkic','C','29','PHO','2','2','28.0','3.0','6.5','.462','0.5','2.0','.250','2.5','4.5','.556','.500','2.5','2.5','1.000','3.0','8.5','11.5','3.0','1.5','0.5','2.5','5.0',9.0,'2023-10-27'),
 	 ('Jordan Nwora','SF','25','IND','1','0','6.0','2.0','7.0','.286','1.0','2.0','.500','1.0','5.0','.200','.357','0.0','0.0','','1.0','0.0','1.0','1.0','0.0','1.0','0.0','0.0',5.0,'2023-10-27'),
 	 ('Royce O''Neale','SF','30','BRK','1','0','23.0','2.0','6.0','.333','1.0','4.0','.250','1.0','2.0','.500','.417','0.0','0.0','','0.0','7.0','7.0','2.0','0.0','0.0','1.0','2.0',5.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Chuma Okeke','SF','25','ORL','1','0','5.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','3.0','3.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Josh Okogie','SG','25','PHO','2','2','32.0','5.0','7.0','.714','1.5','2.5','.600','3.5','4.5','.778','.821','2.0','2.0','1.000','4.0','2.5','6.5','2.0','0.5','0.5','1.5','2.0',13.5,'2023-10-27'),
 	 ('Onyeka Okongwu','C','23','ATL','1','0','19.0','3.0','5.0','.600','0.0','0.0','','3.0','5.0','.600','.600','1.0','1.0','1.000','1.0','3.0','4.0','2.0','0.0','0.0','1.0','5.0',7.0,'2023-10-27'),
@@ -6345,7 +6345,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Kelly Oubre Jr.','SF','28','PHI','1','0','32.0','9.0','11.0','.818','5.0','6.0','.833','4.0','5.0','.800','1.045','4.0','4.0','1.000','1.0','3.0','4.0','0.0','1.0','0.0','3.0','4.0',27.0,'2023-10-27'),
 	 ('Chris Paul','PG','38','GSW','1','1','34.0','4.0','15.0','.267','0.0','6.0','.000','4.0','9.0','.444','.267','6.0','7.0','.857','1.0','5.0','6.0','9.0','2.0','0.0','1.0','0.0',14.0,'2023-10-27'),
 	 ('Cameron Payne','PG','29','MIL','1','0','9.0','1.0','3.0','.333','0.0','1.0','.000','1.0','2.0','.500','.333','0.0','0.0','','0.0','0.0','0.0','0.0','1.0','0.0','0.0','3.0',2.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Gary Payton II','SG','31','GSW','1','0','22.0','0.0','5.0','.000','0.0','2.0','.000','0.0','3.0','.000','.000','1.0','2.0','.500','0.0','2.0','2.0','2.0','3.0','0.0','0.0','1.0',1.0,'2023-10-27'),
 	 ('Julian Phillips','SF','20','CHI','1','0','4.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jalen Pickett','SG','24','DEN','1','0','1.0','1.0','1.0','1.000','0.0','0.0','','1.0','1.0','1.000','1.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',2.0,'2023-10-27'),
@@ -6356,7 +6356,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Michael Porter Jr.','SF','25','DEN','1','1','30.0','5.0','13.0','.385','2.0','9.0','.222','3.0','4.0','.750','.462','0.0','0.0','','2.0','10.0','12.0','2.0','2.0','0.0','0.0','1.0',12.0,'2023-10-27'),
 	 ('Bobby Portis','PF','28','MIL','1','0','19.0','5.0','8.0','.625','0.0','0.0','','5.0','8.0','.625','.625','0.0','4.0','.000','2.0','4.0','6.0','2.0','0.0','1.0','0.0','3.0',10.0,'2023-10-27'),
 	 ('Kristaps Porzingis','PF','28','BOS','1','1','38.0','8.0','15.0','.533','5.0','9.0','.556','3.0','6.0','.500','.700','9.0','10.0','.900','1.0','7.0','8.0','0.0','0.0','4.0','1.0','4.0',30.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Norman Powell','SG','30','LAC','1','0','23.0','2.0','6.0','.333','2.0','5.0','.400','0.0','1.0','.000','.500','2.0','2.0','1.000','0.0','3.0','3.0','1.0','0.0','0.0','2.0','0.0',8.0,'2023-10-27'),
 	 ('Taurean Prince','PF','29','LAL','2','2','24.0','3.0','6.5','.462','2.0','3.5','.571','1.0','3.0','.333','.615','1.0','1.0','1.000','0.5','1.0','1.5','0.5','0.5','0.5','0.5','1.5',9.0,'2023-10-27'),
 	 ('Payton Pritchard','PG','26','BOS','1','0','11.0','1.0','4.0','.250','0.0','3.0','.000','1.0','1.0','1.000','.250','2.0','2.0','1.000','0.0','1.0','1.0','1.0','0.0','0.0','0.0','1.0',4.0,'2023-10-27'),
@@ -6367,7 +6367,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Paul Reed','C','24','PHI','1','0','12.0','1.0','2.0','.500','0.0','1.0','.000','1.0','1.0','1.000','.500','1.0','2.0','.500','1.0','3.0','4.0','2.0','0.0','1.0','2.0','4.0',3.0,'2023-10-27'),
 	 ('Naz Reid','C','24','MIN','1','0','24.0','3.0','8.0','.375','0.0','2.0','.000','3.0','6.0','.500','.375','4.0','4.0','1.000','1.0','3.0','4.0','1.0','0.0','0.0','1.0','0.0',10.0,'2023-10-27'),
 	 ('Nick Richards','C','26','CHO','1','0','18.0','2.0','2.0','1.000','0.0','0.0','','2.0','2.0','1.000','1.000','3.0','4.0','.750','1.0','3.0','4.0','1.0','0.0','1.0','2.0','3.0',7.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Duncan Robinson','SF','29','MIA','1','0','22.0','6.0','10.0','.600','3.0','5.0','.600','3.0','5.0','.600','.750','0.0','0.0','','1.0','1.0','2.0','1.0','0.0','0.0','0.0','1.0',15.0,'2023-10-27'),
 	 ('Mitchell Robinson','C','25','NYK','1','1','22.0','1.0','4.0','.250','0.0','0.0','','1.0','4.0','.250','.250','0.0','2.0','.000','3.0','3.0','6.0','1.0','2.0','0.0','1.0','4.0',2.0,'2023-10-27'),
 	 ('David Roddy','PF','22','MEM','1','0','28.0','4.0','7.0','.571','1.0','3.0','.333','3.0','4.0','.750','.643','0.0','0.0','','1.0','4.0','5.0','2.0','0.0','0.0','1.0','2.0',9.0,'2023-10-27'),
@@ -6378,7 +6378,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('D''Angelo Russell','PG','27','LAL','2','2','34.5','5.0','14.0','.357','1.5','6.0','.250','3.5','8.0','.438','.411','1.0','1.5','.667','0.0','4.0','4.0','6.0','1.5','0.5','3.0','2.5',12.5,'2023-10-27'),
 	 ('Matt Ryan','SF','26','NOP','1','0','14.0','3.0','6.0','.500','3.0','6.0','.500','0.0','0.0','','.750','0.0','0.0','','0.0','1.0','1.0','1.0','0.0','0.0','0.0','2.0',9.0,'2023-10-27'),
 	 ('Domantas Sabonis','C','27','SAC','1','1','32.0','8.0','14.0','.571','1.0','2.0','.500','7.0','12.0','.583','.607','5.0','7.0','.714','6.0','6.0','12.0','5.0','1.0','2.0','3.0','3.0',22.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Luka Samanic','PF','24','UTA','1','0','2.0','1.0','2.0','.500','0.0','1.0','.000','1.0','1.0','1.000','.500','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',2.0,'2023-10-27'),
 	 ('Jermaine Samuels','SF','25','HOU','1','0','6.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','1.0',0.0,'2023-10-27'),
 	 ('Dario Saric','PF','29','GSW','1','0','20.0','3.0','11.0','.273','1.0','3.0','.333','2.0','8.0','.250','.318','0.0','0.0','','4.0','3.0','7.0','1.0','0.0','2.0','0.0','3.0',7.0,'2023-10-27'),
@@ -6389,7 +6389,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Brice Sensabaugh','SF','20','UTA','1','0','2.0','0.0','2.0','.000','0.0','0.0','','0.0','2.0','.000','.000','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Collin Sexton','PG','25','UTA','1','0','20.0','2.0','9.0','.222','0.0','2.0','.000','2.0','7.0','.286','.222','5.0','7.0','.714','0.0','3.0','3.0','0.0','0.0','0.0','3.0','3.0',9.0,'2023-10-27'),
 	 ('Day''Ron Sharpe','C','22','BRK','1','0','12.0','2.0','3.0','.667','0.0','0.0','','2.0','3.0','.667','.667','0.0','0.0','','1.0','1.0','2.0','0.0','0.0','2.0','3.0','2.0',4.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Shaedon Sharpe','SG','20','POR','1','0','28.0','6.0','14.0','.429','1.0','6.0','.167','5.0','8.0','.625','.464','1.0','1.0','1.000','4.0','2.0','6.0','3.0','1.0','0.0','0.0','4.0',14.0,'2023-10-27'),
 	 ('Ben Sheppard','SG','22','IND','1','0','6.0','0.0','1.0','.000','0.0','0.0','','0.0','1.0','.000','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Pascal Siakam','PF','29','TOR','1','1','34.0','5.0','17.0','.294','3.0','5.0','.600','2.0','12.0','.167','.382','2.0','2.0','1.000','0.0','7.0','7.0','6.0','1.0','0.0','2.0','2.0',15.0,'2023-10-27'),
@@ -6400,7 +6400,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Dru Smith','SG','26','MIA','1','0','9.0','1.0','2.0','.500','0.0','1.0','.000','1.0','1.0','1.000','.500','0.0','0.0','','0.0','0.0','0.0','1.0','0.0','0.0','0.0','1.0',2.0,'2023-10-27'),
 	 ('Jabari Smith Jr.','PF','20','HOU','1','1','26.0','3.0','9.0','.333','0.0','4.0','.000','3.0','5.0','.600','.333','1.0','2.0','.500','1.0','4.0','5.0','1.0','1.0','0.0','1.0','6.0',7.0,'2023-10-27'),
 	 ('Jalen Smith','C','23','IND','1','0','13.0','5.0','6.0','.833','2.0','2.0','1.000','3.0','4.0','.750','1.000','1.0','1.0','1.000','3.0','5.0','8.0','0.0','1.0','0.0','0.0','4.0',13.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Nick Smith Jr.','SG','19','CHO','1','0','1.0','0.0','0.0','','0.0','0.0','','0.0','0.0','','','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Jeremy Sochan','PF','20','SAS','1','1','29.0','4.0','12.0','.333','2.0','4.0','.500','2.0','8.0','.250','.417','3.0','6.0','.500','3.0','5.0','8.0','5.0','1.0','0.0','3.0','4.0',13.0,'2023-10-27'),
 	 ('Jaden Springer','SG','21','PHI','1','0','5.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','0.0','0.0','','0.0','0.0','0.0','0.0','0.0','2.0','0.0','1.0',0.0,'2023-10-27'),
@@ -6411,7 +6411,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Jayson Tatum','SF','25','BOS','1','1','39.0','13.0','22.0','.591','3.0','8.0','.375','10.0','14.0','.714','.659','5.0','6.0','.833','0.0','11.0','11.0','4.0','2.0','1.0','4.0','3.0',34.0,'2023-10-27'),
 	 ('Dalen Terry','SG','21','CHI','1','0','4.0','0.0','2.0','.000','0.0','1.0','.000','0.0','1.0','.000','.000','0.0','0.0','','0.0','2.0','2.0','1.0','0.0','0.0','0.0','0.0',0.0,'2023-10-27'),
 	 ('Cam Thomas','SG','22','BRK','1','0','25.0','13.0','21.0','.619','2.0','5.0','.400','11.0','16.0','.688','.667','8.0','11.0','.727','0.0','3.0','3.0','2.0','1.0','0.0','1.0','0.0',36.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Amen Thompson','SF','21','HOU','1','0','21.0','3.0','10.0','.300','1.0','7.0','.143','2.0','3.0','.667','.350','1.0','2.0','.500','1.0','4.0','5.0','2.0','0.0','0.0','4.0','2.0',8.0,'2023-10-27'),
 	 ('Ausar Thompson','SF','21','DET','1','1','27.0','1.0','7.0','.143','1.0','2.0','.500','0.0','5.0','.000','.214','1.0','2.0','.500','3.0','4.0','7.0','3.0','0.0','5.0','2.0','2.0',4.0,'2023-10-27'),
 	 ('Klay Thompson','SF','33','GSW','1','1','36.0','6.0','18.0','.333','3.0','11.0','.273','3.0','7.0','.429','.417','0.0','0.0','','1.0','6.0','7.0','3.0','0.0','1.0','3.0','3.0',15.0,'2023-10-27'),
@@ -6422,7 +6422,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Karl-Anthony Towns','PF','28','MIN','1','1','36.0','8.0','25.0','.320','2.0','10.0','.200','6.0','15.0','.400','.360','1.0','1.0','1.000','2.0','8.0','10.0','3.0','0.0','4.0','4.0','2.0',19.0,'2023-10-27'),
 	 ('Gary Trent Jr.','SG','25','TOR','1','0','27.0','2.0','8.0','.250','1.0','4.0','.250','1.0','4.0','.250','.313','0.0','0.0','','0.0','2.0','2.0','2.0','1.0','1.0','0.0','3.0',5.0,'2023-10-27'),
 	 ('P.J. Tucker','PF','38','PHI','1','1','26.0','0.0','2.0','.000','0.0','2.0','.000','0.0','0.0','','.000','0.0','0.0','','1.0','6.0','7.0','0.0','2.0','0.0','0.0','5.0',0.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Myles Turner','C','27','IND','1','1','23.0','5.0','8.0','.625','0.0','2.0','.000','5.0','6.0','.833','.625','1.0','2.0','.500','0.0','8.0','8.0','1.0','0.0','3.0','2.0','4.0',11.0,'2023-10-27'),
 	 ('Jonas Valanciunas','C','31','NOP','1','1','29.0','4.0','7.0','.571','2.0','4.0','.500','2.0','3.0','.667','.714','2.0','2.0','1.000','0.0','12.0','12.0','1.0','0.0','1.0','3.0','1.0',12.0,'2023-10-27'),
 	 ('Fred VanVleet','PG','29','HOU','1','1','34.0','5.0','13.0','.385','4.0','6.0','.667','1.0','7.0','.143','.538','0.0','0.0','','0.0','1.0','1.0','5.0','1.0','0.0','3.0','0.0',14.0,'2023-10-27'),
@@ -6433,7 +6433,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Franz Wagner','SF','22','ORL','1','1','27.0','5.0','12.0','.417','3.0','7.0','.429','2.0','5.0','.400','.542','6.0','6.0','1.000','3.0','1.0','4.0','2.0','1.0','0.0','3.0','1.0',19.0,'2023-10-27'),
 	 ('Moritz Wagner','C','26','ORL','1','0','15.0','0.0','1.0','.000','0.0','1.0','.000','0.0','0.0','','.000','2.0','2.0','1.000','0.0','4.0','4.0','0.0','0.0','1.0','3.0','4.0',2.0,'2023-10-27'),
 	 ('Jabari Walker','SF','21','POR','1','0','6.0','2.0','3.0','.667','0.0','0.0','','2.0','3.0','.667','.667','2.0','3.0','.667','1.0','0.0','1.0','0.0','0.0','0.0','2.0','0.0',6.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Jarace Walker','PF','20','IND','1','0','6.0','0.0','5.0','.000','0.0','1.0','.000','0.0','4.0','.000','.000','0.0','0.0','','1.0','3.0','4.0','0.0','1.0','0.0','0.0','1.0',0.0,'2023-10-27'),
 	 ('Cason Wallace','SG','20','OKC','1','0','19.0','5.0','5.0','1.000','3.0','3.0','1.000','2.0','2.0','1.000','1.300','0.0','0.0','','0.0','2.0','2.0','1.0','0.0','1.0','1.0','3.0',13.0,'2023-10-27'),
 	 ('P.J. Washington','PF','25','CHO','1','1','32.0','12.0','18.0','.667','1.0','6.0','.167','11.0','12.0','.917','.694','0.0','0.0','','1.0','4.0','5.0','2.0','0.0','0.0','1.0','4.0',25.0,'2023-10-27'),
@@ -6444,7 +6444,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Russell Westbrook','PG','35','LAC','1','1','29.0','5.0','8.0','.625','1.0','2.0','.500','4.0','6.0','.667','.688','0.0','0.0','','2.0','3.0','5.0','13.0','0.0','0.0','3.0','3.0',11.0,'2023-10-27'),
 	 ('Coby White','SG','23','CHI','1','1','31.0','4.0','14.0','.286','2.0','7.0','.286','2.0','7.0','.286','.357','5.0','6.0','.833','1.0','3.0','4.0','4.0','0.0','0.0','0.0','3.0',15.0,'2023-10-27'),
 	 ('Derrick White','SG','29','BOS','1','1','32.0','4.0','6.0','.667','1.0','3.0','.333','3.0','3.0','1.000','.750','3.0','4.0','.750','0.0','6.0','6.0','2.0','2.0','1.0','1.0','3.0',12.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Cam Whitmore','SF','19','HOU','1','0','10.0','0.0','4.0','.000','0.0','2.0','.000','0.0','2.0','.000','.000','0.0','0.0','','0.0','1.0','1.0','0.0','0.0','0.0','1.0','0.0',0.0,'2023-10-27'),
 	 ('Aaron Wiggins','SG','25','OKC','1','0','11.0','1.0','3.0','.333','0.0','1.0','.000','1.0','2.0','.500','.333','0.0','0.0','','1.0','2.0','3.0','0.0','0.0','0.0','1.0','2.0',2.0,'2023-10-27'),
 	 ('Andrew Wiggins','SF','28','GSW','1','1','27.0','4.0','12.0','.333','0.0','3.0','.000','4.0','9.0','.444','.333','2.0','3.0','.667','1.0','0.0','1.0','0.0','0.0','1.0','0.0','3.0',10.0,'2023-10-27'),
@@ -6455,7 +6455,7 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Patrick Williams','PF','22','CHI','1','1','30.0','4.0','10.0','.400','0.0','4.0','.000','4.0','6.0','.667','.400','0.0','0.0','','2.0','1.0','3.0','4.0','2.0','0.0','0.0','3.0',8.0,'2023-10-27'),
 	 ('Robert Williams','C','26','POR','1','0','23.0','5.0','7.0','.714','0.0','0.0','','5.0','7.0','.714','.714','0.0','1.0','.000','2.0','5.0','7.0','0.0','3.0','1.0','2.0','4.0',10.0,'2023-10-27'),
 	 ('Ziaire Williams','SF','22','MEM','1','1','29.0','4.0','7.0','.571','1.0','3.0','.333','3.0','4.0','.750','.643','0.0','0.0','','0.0','4.0','4.0','0.0','0.0','0.0','1.0','2.0',9.0,'2023-10-27');
-INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
+INSERT INTO bbref_player_stats_snapshot (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa","3p%","2p","2pa","2p%","efg%",ft,fta,"ft%",orb,drb,trb,ast,stl,blk,tov,pf,pts,scrape_date) VALUES
 	 ('Zion Williamson','PF','23','NOP','1','1','32.0','9.0','17.0','.529','0.0','0.0','','9.0','17.0','.529','.529','5.0','7.0','.714','4.0','3.0','7.0','3.0','0.0','0.0','3.0','1.0',23.0,'2023-10-27'),
 	 ('Christian Wood','PF','28','LAL','2','0','18.5','2.5','5.5','.455','0.0','1.5','.000','2.5','4.0','.625','.455','2.0','3.0','.667','1.5','5.5','7.0','0.5','0.0','0.0','1.0','1.5',7.0,'2023-10-27'),
 	 ('Delon Wright','PG','31','WAS','1','0','25.0','3.0','8.0','.375','1.0','1.0','1.000','2.0','7.0','.286','.438','1.0','1.0','1.000','1.0','5.0','6.0','6.0','3.0','0.0','0.0','1.0',8.0,'2023-10-27'),
@@ -6464,8 +6464,8 @@ INSERT INTO aws_stats_source (player,pos,age,team,g,gs,mp,fg,fga,"fg%","3p","3pa
 	 ('Ivica Zubac','C','26','LAC','1','1','26.0','8.0','10.0','.800','0.0','0.0','','8.0','10.0','.800','.800','4.0','5.0','.800','5.0','7.0','12.0','0.0','0.0','4.0','2.0','3.0',20.0,'2023-10-27');
 
 
-DROP TABLE IF EXISTS aws_team_attributes_source;
-CREATE TABLE IF NOT EXISTS aws_team_attributes_source (
+DROP TABLE IF EXISTS internal_team_attributes;
+CREATE TABLE IF NOT EXISTS internal_team_attributes (
 	team text NULL,
 	team_acronym text NULL,
 	conference text NULL,
@@ -6479,7 +6479,7 @@ CREATE TABLE IF NOT EXISTS aws_team_attributes_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
+INSERT INTO internal_team_attributes (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
 	 ('Milwaukee Bucks','MIL','Eastern','#00471b','#f0ebd2','NA',46,7,'https://stats.nba.com/media/img/teams/logos/MIL_logo.svg'),
 	 ('Toronto Raptors','TOR','Eastern','#ce1141','#061922','NA',27,24,'https://stats.nba.com/media/img/teams/logos/TOR_logo.svg'),
 	 ('Boston Celtics','BOS','Eastern','#008348','#061922','#bb9753',36,16,'https://stats.nba.com/media/img/teams/logos/BOS_logo.svg'),
@@ -6490,7 +6490,7 @@ INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_col
 	 ('Orlando Magic','ORL','Eastern','#007dc5','#c4ced3','NA',21,28,'https://stats.nba.com/media/img/teams/logos/ORL_logo.svg'),
 	 ('Charlotte Hornets','CHA','Eastern','#1d1160','#008ca8','#a1a1a4',33,20,'https://stats.nba.com/media/img/teams/logos/CHA_logo.svg'),
 	 ('Washington Wizards','WAS','Eastern','#002b5c','#e31837','NA',34,18,'https://stats.nba.com/media/img/teams/logos/WAS_logo.svg');
-INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
+INSERT INTO internal_team_attributes (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
 	 ('Chicago Bulls','CHI','Eastern','#ce1141','#061922','NA',31,22,'https://stats.nba.com/media/img/teams/logos/CHI_logo.svg'),
 	 ('New York Knicks','NYK','Eastern','#006bb6','#f58426','NA',41,12,'https://stats.nba.com/media/img/teams/logos/NYK_logo.svg'),
 	 ('Detroit Pistons','DET','Eastern','#006bb6','#ed174c','#0f586c',20,29,'https://stats.nba.com/media/img/teams/logos/DET_logo.svg'),
@@ -6501,7 +6501,7 @@ INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_col
 	 ('Denver Nuggets','DEN','Western','#4d90cd','#fdb927','NA',47,6,'https://stats.nba.com/media/img/teams/logos/DEN_logo.svg'),
 	 ('Houston Rockets','HOU','Western','#ce1141','#c4ced3','#061922',17,30,'https://stats.nba.com/media/img/teams/logos/HOU_logo.svg'),
 	 ('Oklahoma City Thunder','OKC','Western','#007dc3','#F05133','NA',22,27,'https://stats.nba.com/media/img/teams/logos/OKC_logo.svg');
-INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
+INSERT INTO internal_team_attributes (team,team_acronym,conference,primary_color,secondary_color,third_color,previous_season_wins,previous_season_rank,team_logo) VALUES
 	 ('Utah Jazz','UTA','Western','#002b5c','#f9a01b','NA',52,1,'https://stats.nba.com/media/img/teams/logos/UTA_logo.svg'),
 	 ('Dallas Mavericks','DAL','Western','#0064b1','#c4ced3','#061922',42,9,'https://stats.nba.com/media/img/teams/logos/DAL_logo.svg'),
 	 ('Portland Trail Blazers','POR','Western','#061922','#e03a3e','NA',42,10,'https://stats.nba.com/media/img/teams/logos/POR_logo.svg'),
@@ -6514,8 +6514,8 @@ INSERT INTO aws_team_attributes_source (team,team_acronym,conference,primary_col
 	 ('Golden State Warriors','GSW','Western','#fdb927','#006bb6','NA',39,14,'https://stats.nba.com/media/img/teams/logos/GSW_logo.svg');
 
 
-DROP TABLE IF EXISTS aws_transactions_source;
-CREATE TABLE IF NOT EXISTS aws_transactions_source (
+DROP TABLE IF EXISTS bbref_league_transactions;
+CREATE TABLE IF NOT EXISTS bbref_league_transactions (
 	"date" timestamp NULL,
 	"transaction" text NULL,
 	scrape_date date NULL,
@@ -6523,7 +6523,7 @@ CREATE TABLE IF NOT EXISTS aws_transactions_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-25 00:00:00.000','The Philadelphia 76ers signed Ricky Council IV to a two-way contract.','2023-10-27'),
 	 ('2023-10-25 00:00:00.000','The Philadelphia 76ers waived Azuolas Tubelis.','2023-10-27'),
 	 ('2023-10-24 00:00:00.000','The Charlotte Hornets waived Edmond Sumner.','2023-10-27'),
@@ -6534,7 +6534,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-23 00:00:00.000','The Houston Rockets waived Trevor Hudgins.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Atlanta Hawks signed Onyeka Okongwu to a contract extension.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The New York Knicks signed Duane Washington Jr. to a two-way contract.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-23 00:00:00.000','The Dallas Mavericks signed Josh Green to a contract extension.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Houston Rockets signed Nate Hinton to a two-way contract.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Philadelphia 76ers waived Montrezl Harrell.','2023-10-27'),
@@ -6545,7 +6545,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-23 00:00:00.000','The Portland Trail Blazers waived Ibou Badji.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Washington Wizards signed John Butler to a two-way contract.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Indiana Pacers signed Aaron Nesmith to a contract extension.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-23 00:00:00.000','The Milwaukee Bucks signed Giannis Antetokounmpo to a contract extension.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The San Antonio Spurs signed Charles Bediako to a two-way contract.','2023-10-27'),
 	 ('2023-10-23 00:00:00.000','The Houston Rockets signed Jeenathan Williams to a two-way contract.','2023-10-27'),
@@ -6556,7 +6556,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-22 00:00:00.000','The Boston Celtics waived Jay Scrubb.','2023-10-27'),
 	 ('2023-10-22 00:00:00.000','The Boston Celtics signed Nathan Knight to a two-way contract.','2023-10-27'),
 	 ('2023-10-22 00:00:00.000','The Oklahoma City Thunder waived Jack White.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-22 00:00:00.000','The Toronto Raptors signed Omari Moore to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-22 00:00:00.000','The New Orleans Pelicans claimed Matt Ryan on waivers from the Minnesota Timberwolves.','2023-10-27'),
 	 ('2023-10-22 00:00:00.000','The San Antonio Spurs signed Zach Collins to a contract extension.','2023-10-27'),
@@ -6567,7 +6567,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The New York Knicks signed Isaiah Roby to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New York Knicks waived Isaiah Roby.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New York Knicks waived Brandon Goodwin.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The New York Knicks waived Mamadi Diakite.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New Orleans Pelicans waived Tevian Jones.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New Orleans Pelicans waived Trey Jemison.','2023-10-27'),
@@ -6578,7 +6578,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Minnesota Timberwolves waived Javonte Cooke.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Minnesota Timberwolves signed Brian Bowen II to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Minnesota Timberwolves waived Brian Bowen II.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Miami Heat waived Cheick Diallo.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Miami Heat waived Justin Champagnie.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Memphis Grizzlies waived David Johnson.','2023-10-27'),
@@ -6589,7 +6589,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Houston Rockets waived Nate Hinton.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Golden State Warriors waived Rodney McGruder.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Golden State Warriors waived Rudy Gay.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons signed Ryan Turell to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived Ryan Turell.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived Zavier Simpson.','2023-10-27'),
@@ -6600,7 +6600,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived David Nwaba.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons signed Treveon Graham to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived Treveon Graham.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived Tosan Evbuomwan.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Detroit Pistons waived Buddy Boeheim.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers waived Zhaire Smith.','2023-10-27'),
@@ -6611,7 +6611,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers signed Aleem Ford to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers waived Aleem Ford.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers signed Rob Edwards to an Exhibit 10 contract.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers waived Rob Edwards.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Portland Trail Blazers claimed Ish Wainright on waivers from the Phoenix Suns.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Cleveland Cavaliers waived Sharife Cooper.','2023-10-27'),
@@ -6622,7 +6622,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Brooklyn Nets waived Kennedy Chandler.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New York Knicks converted Dylan Windler from a two-way contract to a regular contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Orlando Magic signed Trevelin Queen to a two-way contract.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The New York Knicks signed Charlie Brown Jr. to a two-way contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The New York Knicks signed Jacob Toppin to a two-way contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Milwaukee Bucks signed Marques Bolden to a two-way contract.','2023-10-27'),
@@ -6633,7 +6633,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Toronto Raptors waived Mouhamadou Gueye.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Toronto Raptors waived Jeff Dowtin.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Portland Trail Blazers waived Duop Reath.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Washington Wizards waived Gabe Kalscheur.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Portland Trail Blazers waived Kevin Knox.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Philadelphia 76ers waived David Duke Jr..','2023-10-27'),
@@ -6644,7 +6644,7 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Washington Wizards waived Michael Foster Jr..','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Washington Wizards signed Malik Fitts to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Washington Wizards signed Gabe Kalscheur to an Exhibit 10 contract.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-21 00:00:00.000','The Philadelphia 76ers waived Ricky Council IV.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Washington Wizards waived Devon Dotson.','2023-10-27'),
 	 ('2023-10-21 00:00:00.000','The Washington Wizards waived Hamidou Diallo.','2023-10-27'),
@@ -6655,13 +6655,13 @@ INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
 	 ('2023-10-20 00:00:00.000','The Oklahoma City Thunder waived Jahmi''us Ramsey.','2023-10-27'),
 	 ('2023-10-20 00:00:00.000','The Toronto Raptors signed Justise Winslow to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-20 00:00:00.000','The Los Angeles Clippers signed Joey Hauser to an Exhibit 10 contract.','2023-10-27');
-INSERT INTO aws_transactions_source ("date","transaction",scrape_date) VALUES
+INSERT INTO bbref_league_transactions ("date","transaction",scrape_date) VALUES
 	 ('2023-10-20 00:00:00.000','The Charlotte Hornets signed Terrell Brown Jr. to an Exhibit 10 contract.','2023-10-27'),
 	 ('2023-10-20 00:00:00.000','The Toronto Raptors waived Makur Maker.','2023-10-27');
 
 
-DROP TABLE IF EXISTS aws_twitter_data_source;
-CREATE TABLE IF NOT EXISTS aws_twitter_data_source (
+DROP TABLE IF EXISTS twitter_tweets;
+CREATE TABLE IF NOT EXISTS twitter_tweets (
 	api_created_at text NULL,
 	"date" text NULL,
 	username text NULL,
@@ -6683,8 +6683,8 @@ CREATE TABLE IF NOT EXISTS aws_twitter_data_source (
 );
 
 
-DROP TABLE IF EXISTS aws_twitter_tweepy_data_source;
-CREATE TABLE IF NOT EXISTS aws_twitter_tweepy_data_source (
+DROP TABLE IF EXISTS twitter_tweepy_legacy;
+CREATE TABLE IF NOT EXISTS twitter_tweepy_legacy (
 	tweet_id text NULL,
 	api_created_at text NULL,
 	username text NULL,
@@ -6729,7 +6729,7 @@ CREATE TABLE IF NOT EXISTS aws_twitter_tweets_source (
 
 
 
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453214952275970','Tue Jun 13 03:00:19 +0000 2023','juuaunn',3226826657,'RT @iampauloandre: Chegou a Hora H da NBA, o momento da grande final! Foram meses incríveis acompanhando, inclusive de perto. E nesse momen…',0.0,163.0,'pt','2023-06-14 12:01:38.590','http://pbs.twimg.com/profile_images/1666566594233880590/UQaC-lLt_normal.jpg','https://twitter.com/twitter/statuses/1668453214952275970',0.0,0.0,1.0,0.0,0),
 	 ('1668453214948139008','Tue Jun 13 03:00:19 +0000 2023','MandR____',1350954468024741890,'RT @BronGotGame: Please Lord let the NBA finals end today https://t.co/sjmLwYKjo4',0.0,74.0,'en','2023-06-14 12:01:38.595','http://pbs.twimg.com/profile_images/1657155122244337666/PtJF2GRN_normal.jpg','https://twitter.com/twitter/statuses/1668453214948139008',0.3182,0.0,0.813,0.187,1),
 	 ('1668453214922981376','Tue Jun 13 03:00:19 +0000 2023','ClippersNFo',1531434093447196670,'Congratulations to Clipper legends, @Reggie_Jackson and @DeAndre for winning the NBA Finals⚔️ https://t.co/SFvweLIC60',13.0,2.0,'en','2023-06-14 12:01:38.599','http://pbs.twimg.com/profile_images/1663780457970900992/InwRnwXY_normal.jpg','https://twitter.com/twitter/statuses/1668453214922981376',0.8074,0.0,0.601,0.399,1),
@@ -6742,7 +6742,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453214545678336','Tue Jun 13 03:00:19 +0000 2023','daveyfelds4',1786849596,'RT @AndrewDBailey: Flopping has to go, NBA. Please, for the love of basketball fans everywhere. Get rid of it.',0.0,23.0,'en','2023-06-14 12:01:38.694','http://pbs.twimg.com/profile_images/1511136680622788615/uwOenEaW_normal.jpg','https://twitter.com/twitter/statuses/1668453214545678336',0.7579,0.0,0.723,0.277,1),
 	 ('1668453213949788160','Tue Jun 13 03:00:19 +0000 2023','miwith360on',1352821943846756350,'@BleacherReport @BR_NBA Mid',0.0,0.0,'und','2023-06-14 12:01:38.698','http://pbs.twimg.com/profile_images/1659413553516797952/NgX5Kyok_normal.jpg','https://twitter.com/twitter/statuses/1668453213949788160',0.0,0.0,1.0,0.0,0),
 	 ('1668453213652271105','Tue Jun 13 03:00:19 +0000 2023','CanWeTalkLakers',1593856379034427390,'FINALLY THE NBA OFF SEASON 😊',0.0,0.0,'en','2023-06-14 12:01:38.702','http://pbs.twimg.com/profile_images/1660859645307543552/RmLUxcVx_normal.jpg','https://twitter.com/twitter/statuses/1668453213652271105',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453213513850880','Tue Jun 13 03:00:19 +0000 2023','PlayaPotna_Myke',578372082,'Denver looked great all Season
 Congrats to them Boys
 
@@ -6768,7 +6768,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:38.881'
 	 ('1668453212037304320','Tue Jun 13 03:00:18 +0000 2023','cdpauli',387366837,'No puede ser otro time out ya solo son 14 segundos y 5 puntos arriba !! #nba #NBAFinals ya se deja ver los #nuggets… https://t.co/ksQ6L0iA2l',2.0,0.0,'es','2023-06-14 12:01:38.885','http://pbs.twimg.com/profile_images/1641655479477649409/WbAG0F6Z_normal.jpg','https://twitter.com/twitter/statuses/1668453212037304320',-0.4184,0.112,0.888,0.0,0),
 	 ('1668453211945201664','Tue Jun 13 03:00:18 +0000 2023','Bobong_Berting',811053883854180350,'Congratulations! #DenverNuggets is the 2022-2023 NBA Champion!',0.0,0.0,'en','2023-06-14 12:01:38.890','http://pbs.twimg.com/profile_images/1161972764984504321/LL8xNcIa_normal.jpg','https://twitter.com/twitter/statuses/1668453211945201664',0.855,0.0,0.374,0.626,1),
 	 ('1668453211932336130','Tue Jun 13 03:00:18 +0000 2023','Matthew___10',1428157782021349380,'The Denver Nuggets have never won an NBA championship.',0.0,0.0,'en','2023-06-14 12:01:38.894','http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png','https://twitter.com/twitter/statuses/1668453211932336130',-0.0253,0.232,0.543,0.225,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453211907280902','Tue Jun 13 03:00:18 +0000 2023','RobbyDonoho',70595671,'Miami ran out of gas but this Denver Nuggets team is phenomenal. One of the best NBA teams I’ve seen in recent memo… https://t.co/8YVkSjj7jN',3.0,0.0,'en','2023-06-14 12:01:38.898','http://pbs.twimg.com/profile_images/1610338346877812738/YplDUCwX_normal.jpg','https://twitter.com/twitter/statuses/1668453211907280902',0.7783,0.0,0.799,0.201,1),
 	 ('1668453211898781696','Tue Jun 13 03:00:18 +0000 2023','AbuziVert',1488723875391279100,'DENVER NUGGETS ARE YOUR NBA CHAMPIONS #NBAFinals https://t.co/LPYg50FGyw',1.0,1.0,'en','2023-06-14 12:01:38.902','http://pbs.twimg.com/profile_images/1666632124290715648/tFjs_Mkc_normal.jpg','https://twitter.com/twitter/statuses/1668453211898781696',0.6289,0.0,0.629,0.371,1),
 	 ('1668453211827470336','Tue Jun 13 03:00:18 +0000 2023','Ddelliponti07',1529246295805906940,'@BleacherReport I SPEAK TO ALL NBA FANS THE PHOENIX SUNS SHOULD BE WINNING A NBA CHAMPIONSHIP RIGHT NOW AND GOAT KD… https://t.co/dY0tVBvWHO',1.0,0.0,'en','2023-06-14 12:01:38.982','http://pbs.twimg.com/profile_images/1657467199940853761/PYajqpLL_normal.jpg','https://twitter.com/twitter/statuses/1668453211827470336',0.8301,0.0,0.699,0.301,1),
@@ -6781,7 +6781,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 
 Now time for the NBA off-season (hype)',0.0,1.0,'en','2023-06-14 12:01:39.083','http://pbs.twimg.com/profile_images/1630030863516725254/GmIaqplq_normal.jpg','https://twitter.com/twitter/statuses/1668453211009679363',-0.6249,0.204,0.796,0.0,0),
 	 ('1668453211005669376','Tue Jun 13 03:00:18 +0000 2023','BR_NBA',36724576,'RT @BleacherReport: Nuggets fans after that foul call... https://t.co/WwlgoHo4AX',0.0,244.0,'en','2023-06-14 12:01:39.087','http://pbs.twimg.com/profile_images/1266053203616989186/ozSULDRt_normal.jpg','https://twitter.com/twitter/statuses/1668453211005669376',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453210942521344','Tue Jun 13 03:00:18 +0000 2023','GFentz',165220486,'NBA Champion DeAndre Jordan',3.0,0.0,'fr','2023-06-14 12:01:39.092','http://pbs.twimg.com/profile_images/442163199816007680/KKrUnEVZ_normal.jpeg','https://twitter.com/twitter/statuses/1668453210942521344',0.5994,0.0,0.435,0.565,1),
 	 ('1668453210854510594','Tue Jun 13 03:00:18 +0000 2023','southSidep__',781304405459030020,'RT @ShannonSharpe: That’s BULLJIVE. @nba that’s AWFUL officiating',0.0,472.0,'en','2023-06-14 12:01:39.096','http://pbs.twimg.com/profile_images/1550970432882450437/kZjfdPxj_normal.jpg','https://twitter.com/twitter/statuses/1668453210854510594',-0.5766,0.348,0.652,0.0,0),
 	 ('1668453210795933697','Tue Jun 13 03:00:18 +0000 2023','huannguyen_',43493333,'The Joker is an NBA champion wow',0.0,0.0,'en','2023-06-14 12:01:39.100','http://pbs.twimg.com/profile_images/1358563057744506882/7g6sr9Vd_normal.jpg','https://twitter.com/twitter/statuses/1668453210795933697',0.8481,0.0,0.303,0.697,1),
@@ -6799,7 +6799,7 @@ undisputed!
 	 ('1668453209621377024','Tue Jun 13 03:00:18 +0000 2023','TLest1993',350483370,'RT @TalkinHawks: Christian Braun is an NBA Champion.
 
 Jayhawks win. Period.',0.0,27.0,'en','2023-06-14 12:01:39.205','http://pbs.twimg.com/profile_images/1644211338896392194/IbVaY5RG_normal.jpg','https://twitter.com/twitter/statuses/1668453209621377024',0.8271,0.0,0.539,0.461,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453209482883072','Tue Jun 13 03:00:18 +0000 2023','patrovsk',1538367005279100930,'O VERDADEIRO MVP FOI CAMPEÃO DA NBA JOKIC CRAQUEEEEEE',1.0,0.0,'pt','2023-06-14 12:01:39.284','http://pbs.twimg.com/profile_images/1666952716558499843/w0dP-a-S_normal.jpg','https://twitter.com/twitter/statuses/1668453209482883072',0.0,0.0,1.0,0.0,0),
 	 ('1668453209361244160','Tue Jun 13 03:00:18 +0000 2023','jshepherd18_',2759036598,'We really about to say the nuggets are nba champions..that’s crazy',0.0,0.0,'en','2023-06-14 12:01:39.288','http://pbs.twimg.com/profile_images/1618670569481768984/rUgr5htw_normal.jpg','https://twitter.com/twitter/statuses/1668453209361244160',-0.34,0.194,0.806,0.0,0),
 	 ('1668453209180979201','Tue Jun 13 03:00:18 +0000 2023','sports_god1',380549829,'Incoming #JOKER #FINALSMVP #NUGGETS Seconds away from 1st Championship! #NBAFinals it was INEVITABLE #HEAT don''t fe… https://t.co/vdpiO1mpXq',1.0,0.0,'en','2023-06-14 12:01:39.293','http://pbs.twimg.com/profile_images/769652111621492736/vhJX9M8H_normal.jpg','https://twitter.com/twitter/statuses/1668453209180979201',0.4926,0.0,0.834,0.166,1),
@@ -6814,7 +6814,7 @@ Parabéns Denver Nuggets, nenhum time mereceu mais esse título.',2.0,0.0,'pt','
 	 ('1668453208304279554','Tue Jun 13 03:00:17 +0000 2023','bennyburnerchip',1664636619222032380,'@redditmavericks NBA Champion Ish Smith!!!',8.0,2.0,'en','2023-06-14 12:01:39.391','http://pbs.twimg.com/profile_images/1664830684995678210/UeGn0cvn_normal.jpg','https://twitter.com/twitter/statuses/1668453208304279554',0.6981,0.0,0.456,0.544,1),
 	 ('1668453208304279553','Tue Jun 13 03:00:17 +0000 2023','beazinhadelima',345497981,'e teremos um campeão inédito da nba',0.0,0.0,'pt','2023-06-14 12:01:39.395','http://pbs.twimg.com/profile_images/1347707274320609283/wHQr-Zts_normal.jpg','https://twitter.com/twitter/statuses/1668453208304279553',0.0,0.0,1.0,0.0,0),
 	 ('1668453208140791814','Tue Jun 13 03:00:17 +0000 2023','Edu_Vader',20656681,'Tremendo el 5 partido!! Los #Nuggets serán campeones de la @NBA',0.0,0.0,'es','2023-06-14 12:01:39.399','http://pbs.twimg.com/profile_images/1634213744107483139/xG5bJMOr_normal.jpg','https://twitter.com/twitter/statuses/1668453208140791814',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453208132399104','Tue Jun 13 03:00:17 +0000 2023','svcigar',1374718313272651780,'Congratulations to @nuggets on WINNING THE NBA FINALS!!! #NBAFinals',3.0,0.0,'en','2023-06-14 12:01:39.404','http://pbs.twimg.com/profile_images/1666151692696420370/RiV639Rj_normal.jpg','https://twitter.com/twitter/statuses/1668453208132399104',0.8723,0.0,0.44,0.56,1),
 	 ('1668453208115625984','Tue Jun 13 03:00:17 +0000 2023','illusionfeeling',1134228974194909180,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
 
@@ -6831,7 +6831,7 @@ De las últi… https://t.co/TjjL8aheBp',18.0,0.0,'es','2023-06-14 12:01:39.487'
 	 ('1668453207079542788','Tue Jun 13 03:00:17 +0000 2023','killshit_bando',214519289,'Definitely the worst NBA finals I remember ever watching. But I’m happy for the nuggets',0.0,0.0,'en','2023-06-14 12:01:39.586','http://pbs.twimg.com/profile_images/1645419016679219200/rsQkwBdV_normal.jpg','https://twitter.com/twitter/statuses/1668453207079542788',0.6542,0.125,0.538,0.337,1),
 	 ('1668453207046250497','Tue Jun 13 03:00:17 +0000 2023','Showtim3Lakers',1612260639132770300,'Thomas Bryant nba champion I’m sick',0.0,0.0,'en','2023-06-14 12:01:39.591','http://pbs.twimg.com/profile_images/1665823221269266433/Rxaafz9k_normal.jpg','https://twitter.com/twitter/statuses/1668453207046250497',0.1531,0.295,0.357,0.348,1),
 	 ('1668453207037603840','Tue Jun 13 03:00:17 +0000 2023','luludw3',2945580832,'Les Denver Nuggets sont Champions NBA, félicitations c’est vraiment mérité !',0.0,0.0,'fr','2023-06-14 12:01:39.595','http://pbs.twimg.com/profile_images/1423271034699100161/tCYLjp2P_normal.jpg','https://twitter.com/twitter/statuses/1668453207037603840',0.5707,0.0,0.709,0.291,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453206983335938','Tue Jun 13 03:00:17 +0000 2023','wilsonjude56',711801060,'@SportsCenter NBA wanted game 6 in Miami so bad lol',2.0,0.0,'en','2023-06-14 12:01:39.600','http://pbs.twimg.com/profile_images/1606557676783079424/xEvDZhsD_normal.jpg','https://twitter.com/twitter/statuses/1668453206983335938',-0.3427,0.308,0.48,0.211,0),
 	 ('1668453206731399169','Tue Jun 13 03:00:17 +0000 2023','RelloST',27698185,'RT @MambaSZN: Jimmy Butler in the NBA Finals  https://t.co/9GDKh0rUaW',0.0,81.0,'en','2023-06-14 12:01:39.604','http://pbs.twimg.com/profile_images/1624480954273214466/GRIDQhP8_normal.jpg','https://twitter.com/twitter/statuses/1668453206731399169',0.0,0.0,1.0,0.0,0),
 	 ('1668453206655901696','Tue Jun 13 03:00:17 +0000 2023','alvc666',1146487320612225020,'nikola jokic es el mejor jugador d la nba actualmente',0.0,0.0,'es','2023-06-14 12:01:39.609','http://pbs.twimg.com/profile_images/1536558159560593408/YYGRaBqf_normal.jpg','https://twitter.com/twitter/statuses/1668453206655901696',0.0,0.0,1.0,0.0,0),
@@ -6844,7 +6844,7 @@ Just peak terrible.  Always.',0.0,6.0,'en','2023-06-14 12:01:39.688','http://pbs
 	 ('1668453205854789634','Tue Jun 13 03:00:17 +0000 2023','NiqueDaSneak23',1354177037695639550,'Looks like that concludes one of the funniest/strangest NBA seasons ever too bad Jimmy couldn’t get his ring but go… https://t.co/kKggONVdOR',2.0,0.0,'en','2023-06-14 12:01:39.704','http://pbs.twimg.com/profile_images/1422384045401444356/GVY8dMh5_normal.jpg','https://twitter.com/twitter/statuses/1668453205854789634',-0.128,0.098,0.826,0.076,0),
 	 ('1668453205833924608','Tue Jun 13 03:00:17 +0000 2023','heyhalima',1665724952488624130,'NIKOLA JOKIC NBA CHAMPION #SOON',1.0,1.0,'pl','2023-06-14 12:01:39.783','http://pbs.twimg.com/profile_images/1665731749429518338/DCQbb1Za_normal.jpg','https://twitter.com/twitter/statuses/1668453205833924608',0.5994,0.0,0.506,0.494,1),
 	 ('1668453205515153411','Tue Jun 13 03:00:17 +0000 2023','LeviticusSports',1465842679011491840,'Man it’s about to be the NFL and NBA offseason. Worst time for sports',1.0,1.0,'en','2023-06-14 12:01:39.788','http://pbs.twimg.com/profile_images/1648164302463852544/woK5hfXq_normal.jpg','https://twitter.com/twitter/statuses/1668453205515153411',-0.6249,0.24,0.76,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453205351571456','Tue Jun 13 03:00:17 +0000 2023','Matthews1526',1221903167010607100,'@NBA Lmaooo yall wanted yo extend it?',0.0,0.0,'en','2023-06-14 12:01:39.792','http://pbs.twimg.com/profile_images/1445775541932421126/k2q3ITVL_normal.jpg','https://twitter.com/twitter/statuses/1668453205351571456',0.1779,0.0,0.779,0.221,1),
 	 ('1668453205238337537','Tue Jun 13 03:00:17 +0000 2023','dwayneohoward',724010869458227200,'@Herring_NBA That was the end right there',0.0,0.0,'en','2023-06-14 12:01:39.796','http://pbs.twimg.com/profile_images/1644215675395756035/gJ9wSBQz_normal.jpg','https://twitter.com/twitter/statuses/1668453205238337537',0.0,0.0,1.0,0.0,0),
 	 ('1668453205141778435','Tue Jun 13 03:00:17 +0000 2023','dyelison21',3152838837,'Jokic é campeão da NBA!!!',0.0,1.0,'pt','2023-06-14 12:01:39.800','http://pbs.twimg.com/profile_images/1634032716969660416/VWbd9pTj_normal.jpg','https://twitter.com/twitter/statuses/1668453205141778435',0.0,0.0,1.0,0.0,0),
@@ -6863,7 +6863,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453204680658945','Tue Jun 13 03:00:17 +0000 2023','bigdondoo',121905529,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:39.924','http://pbs.twimg.com/profile_images/1585661962918146049/TCCKZS6__normal.jpg','https://twitter.com/twitter/statuses/1668453204680658945',0.6486,0.0,0.819,0.181,1),
 	 ('1668453204651024384','Tue Jun 13 03:00:17 +0000 2023','eduardooamancio',892155135568248830,'Mlk, o Bruce Brown vai ser campeão da NBA e o Harden não kkkkkkkkkkkkk',0.0,0.0,'pt','2023-06-14 12:01:39.982','http://pbs.twimg.com/profile_images/1572761390582042627/eHIn60gQ_normal.jpg','https://twitter.com/twitter/statuses/1668453204651024384',0.0,0.0,1.0,0.0,0),
 	 ('1668453204252557312','Tue Jun 13 03:00:16 +0000 2023','SportsByMalik',229933395,'Congratulations to the Denver Nuggets 1st NBA Championship',0.0,0.0,'en','2023-06-14 12:01:39.986','http://pbs.twimg.com/profile_images/1592765469978759169/n6LNXPBO_normal.jpg','https://twitter.com/twitter/statuses/1668453204252557312',0.7783,0.0,0.469,0.531,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453204059717633','Tue Jun 13 03:00:16 +0000 2023','JMJje',945982106,'@RoobetES Necesito eso y nuevo campeón de la nba',0.0,0.0,'es','2023-06-14 12:01:39.999','http://pbs.twimg.com/profile_images/1493964629533413379/PNfj2_qB_normal.jpg','https://twitter.com/twitter/statuses/1668453204059717633',0.0,0.0,1.0,0.0,0),
 	 ('1668453203929694209','Tue Jun 13 03:00:16 +0000 2023','_dandesp',900517794923646980,'🃏🃏🃏 
 
@@ -6884,7 +6884,7 @@ going to retire as a top 20 player in… https://t.co/r2voAxZBYa',7.0,0.0,'en','
 	 ('1668453203099123716','Tue Jun 13 03:00:16 +0000 2023','strategywargamr',1623625740,'Congrats to @nuggets on being World Champions! #NBA',0.0,0.0,'en','2023-06-14 12:01:40.195','http://pbs.twimg.com/profile_images/1333446306782703625/Y8L9FHRX_normal.jpg','https://twitter.com/twitter/statuses/1668453203099123716',0.7959,0.0,0.458,0.542,1),
 	 ('1668453202671419393','Tue Jun 13 03:00:16 +0000 2023','DjLilDallas',73549382,'RT @DiamondstoneT: DENVER NUGGETS ARE THE 2023 NBA CHAMPIONS https://t.co/QceKBX16Ny',0.0,17.0,'en','2023-06-14 12:01:40.626','http://pbs.twimg.com/profile_images/1468852306313728003/-GubdWGB_normal.jpg','https://twitter.com/twitter/statuses/1668453202671419393',0.6289,0.0,0.685,0.315,1),
 	 ('1668453202616827904','Tue Jun 13 03:00:16 +0000 2023','crfdwayne',1708941307,'JOKER O VERDADEIRO MVP É CAMPEÃO DA NBA E PODERÁ VER SEUS CAVALOS NA SÉRVIA AMANHÃ',1.0,0.0,'pt','2023-06-14 12:01:40.643','http://pbs.twimg.com/profile_images/1662661725383016448/QsZS0zKQ_normal.jpg','https://twitter.com/twitter/statuses/1668453202616827904',0.128,0.0,0.889,0.111,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453202365394945','Tue Jun 13 03:00:16 +0000 2023','dslack',821097.0,'RT @john_chou: . @YouTubeTV sucks. how do you go to an emergency broadcast screen during the last minute of the nba finals?!',0.0,1.0,'en','2023-06-14 12:01:40.660','http://pbs.twimg.com/profile_images/26376612/IMG_0617_normal.jpg','https://twitter.com/twitter/statuses/1668453202365394945',-0.6588,0.221,0.779,0.0,0),
 	 ('1668453202079907841','Tue Jun 13 03:00:16 +0000 2023','gabslowp',1600676539099713540,'RT @NBAdabad: VAI ACONTECER
 
@@ -6900,7 +6900,7 @@ o titulo do lakers na bolha eu nem conto',3.0,0.0,'pt','2023-06-14 12:01:40.742'
 	 ('1668453201035554816','Tue Jun 13 03:00:16 +0000 2023','Bloop_1',774790615997394940,'Glad this NBA season is over, it was a hot mess.',3.0,0.0,'en','2023-06-14 12:01:40.835','http://pbs.twimg.com/profile_images/1579325156887068672/Wj_fSv-U_normal.jpg','https://twitter.com/twitter/statuses/1668453201035554816',0.128,0.185,0.593,0.222,1),
 	 ('1668453200884539394','Tue Jun 13 03:00:16 +0000 2023','GuiSilva78963',1667162609697583100,'Denver campeão 🃏 #NBAFinals #nba
 #DenverNuggets',0.0,0.0,'pt','2023-06-14 12:01:40.844','http://pbs.twimg.com/profile_images/1667163077907738631/aNxXBUMw_normal.jpg','https://twitter.com/twitter/statuses/1668453200884539394',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453200628789256','Tue Jun 13 03:00:16 +0000 2023','Kaiquera05',1428198869792350210,'o dia em que jimmy butler deu um título de nba na mão do jokic. 🍿',0.0,0.0,'pt','2023-06-14 12:01:40.880','http://pbs.twimg.com/profile_images/1664692741111009295/yFnQofke_normal.jpg','https://twitter.com/twitter/statuses/1668453200628789256',0.0,0.0,1.0,0.0,0),
 	 ('1668453200435851264','Tue Jun 13 03:00:16 +0000 2023','_Six8thegreat',1610045018,'Nba Champion Thomas Bryant',0.0,0.0,'en','2023-06-14 12:01:40.888','http://pbs.twimg.com/profile_images/1666065712433987584/Xx42oxnE_normal.jpg','https://twitter.com/twitter/statuses/1668453200435851264',0.5994,0.0,0.435,0.565,1),
 	 ('1668453200360251392','Tue Jun 13 03:00:15 +0000 2023','GLOINGEM',1168982897539371010,'Congratulations @nuggets on your first NBA Championship',0.0,0.0,'en','2023-06-14 12:01:40.897','http://pbs.twimg.com/profile_images/1601646064452386818/UnF1FBCR_normal.jpg','https://twitter.com/twitter/statuses/1668453200360251392',0.7783,0.0,0.424,0.576,1),
@@ -6921,7 +6921,7 @@ Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo�
 1+ BPG 
 
 in a Finals series. https://t.co/9QHldfLV…',0.0,196.0,'en','2023-06-14 12:01:41.080','http://pbs.twimg.com/profile_images/1609752135146639371/6W9eSQU0_normal.jpg','https://twitter.com/twitter/statuses/1668453198644822016',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453198405992449','Tue Jun 13 03:00:15 +0000 2023','warrenlain',15117970,'@YouTubeTV glitched out twice during the final two minutes of the NBA Finals. This on top of the Celtics Heat game… https://t.co/PIK6g13tWB',3.0,0.0,'en','2023-06-14 12:01:41.085','http://pbs.twimg.com/profile_images/1179643152929456128/4iFS1A44_normal.jpg','https://twitter.com/twitter/statuses/1668453198405992449',0.2023,0.0,0.921,0.079,1),
 	 ('1668453198263205888','Tue Jun 13 03:00:15 +0000 2023','Doco343',595632165,'Thomas Bryant is an nba champ',0.0,0.0,'en','2023-06-14 12:01:41.089','http://pbs.twimg.com/profile_images/1356399003458482178/M6IPkXSx_normal.jpg','https://twitter.com/twitter/statuses/1668453198263205888',0.4767,0.0,0.617,0.383,1),
 	 ('1668453198112374784','Tue Jun 13 03:00:15 +0000 2023','itsyoungjugg',2319328786,'This was the weirdest NBA season ever man
@@ -6935,7 +6935,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.189','http://pbs.twimg.com/profile_images/1665880423275147265/jxy3kR1J_normal.jpg','https://twitter.com/twitter/statuses/1668453196958670850',0.0,0.0,1.0,0.0,0),
 	 ('1668453196937797632','Tue Jun 13 03:00:15 +0000 2023','MikeyWoodyshrek',959529009477451780,'@inside_ur_mom Celtics should’ve made this Finals man. I’m just happy Aaron Gordon &amp; Jeff Green are about to be NBA Champions.',0.0,0.0,'en','2023-06-14 12:01:41.193','http://pbs.twimg.com/profile_images/1618057941294137344/Sn31cpfI_normal.jpg','https://twitter.com/twitter/statuses/1668453196937797632',0.7964,0.0,0.728,0.272,1),
 	 ('1548038966556823553','Fri Jul 15 20:17:05 +0000 2022','AbzSemtex',1238213044758630400,'@2KIntel Nba live 2.0?',3.0,0.0,'en','2022-07-17 11:02:36.061','http://pbs.twimg.com/profile_images/1545885767272222720/Zj5deA3z_normal.jpg','https://twitter.com/twitter/statuses/1548038966556823553',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453196933595136','Tue Jun 13 03:00:15 +0000 2023','Aidan_Clemenson',925543191503241220,'The Nuggets are the BEST NBA team and your 2023 Champion!',0.0,0.0,'en','2023-06-14 12:01:41.198','http://pbs.twimg.com/profile_images/1650589087097815040/0weyDb85_normal.jpg','https://twitter.com/twitter/statuses/1668453196933595136',0.8786,0.0,0.497,0.503,1),
 	 ('1668453196925206533','Tue Jun 13 03:00:15 +0000 2023','lzo1989',1002383668608937980,'Gringo comemorando campeonato mt bosta
 
@@ -6952,7 +6952,7 @@ Po seu time ganhando o PRIMEIRO título na NBA e eles assim "hooray!!!!" 🥳�
 
 ¿Podrán aguantar la diferencia?',0.0,1.0,'es','2023-06-14 12:01:41.384','http://pbs.twimg.com/profile_images/796361368714825728/CBJcIhOy_normal.jpg','https://twitter.com/twitter/statuses/1668453195700486147',0.0,0.0,1.0,0.0,0),
 	 ('1668453195650310144','Tue Jun 13 03:00:14 +0000 2023','J_Camacho00',2936719249,'The Denver Nuggets are your 2022-2023 NBA Champions with Nikola Jokic as your Finals MVP',0.0,0.0,'en','2023-06-14 12:01:41.388','http://pbs.twimg.com/profile_images/1627199141205135361/DgoGU1rv_normal.jpg','https://twitter.com/twitter/statuses/1668453195650310144',0.5267,0.0,0.805,0.195,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453195624902657','Tue Jun 13 03:00:14 +0000 2023','ElWormy',1452396872216289280,'RT @MambaSZN: Jimmy Butler in the NBA Finals  https://t.co/9GDKh0rUaW',0.0,81.0,'en','2023-06-14 12:01:41.392','http://pbs.twimg.com/profile_images/1667327550597505024/5pjn7JOP_normal.jpg','https://twitter.com/twitter/statuses/1668453195624902657',0.0,0.0,1.0,0.0,0),
 	 ('1668453195381628930','Tue Jun 13 03:00:14 +0000 2023','basedadxm',2815464541,'nba champ zeke nnaji',0.0,0.0,'ht','2023-06-14 12:01:41.396','http://pbs.twimg.com/profile_images/1453840817974837248/Wct2Y6VD_normal.jpg','https://twitter.com/twitter/statuses/1668453195381628930',0.4767,0.0,0.492,0.508,1),
 	 ('1668453195343884289','Tue Jun 13 03:00:14 +0000 2023','amruthsaji',157090601,'RT @mevvybear: There has been absolutely no hype for this NBA Finals literally nobody knows it’s even on right now',0.0,454.0,'en','2023-06-14 12:01:41.400','http://pbs.twimg.com/profile_images/1221647703018549248/LfpihLAx_normal.jpg','https://twitter.com/twitter/statuses/1668453195343884289',-0.3597,0.116,0.884,0.0,0),
@@ -6965,7 +6965,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.499','http://pbs.twimg.com/profile_images/1660826776644272128/EUN656o9_normal.jpg','https://twitter.com/twitter/statuses/1668453194844741632',0.0,0.0,1.0,0.0,0),
 	 ('1668453194777731075','Tue Jun 13 03:00:14 +0000 2023','mattipaez',173635382,'RT @SiemPReCABJ12: Como no te va a gustar la NBA, sos pelotudo?',0.0,11.0,'es','2023-06-14 12:01:41.502','http://pbs.twimg.com/profile_images/1503250788415541248/lk5UCCw8_normal.jpg','https://twitter.com/twitter/statuses/1668453194777731075',-0.296,0.18,0.82,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453194479935488','Tue Jun 13 03:00:14 +0000 2023','LivingITMoney',37918884,'The year is 2026 and the Mavs have just won the NBA championship',0.0,0.0,'en','2023-06-14 12:01:41.582','http://pbs.twimg.com/profile_images/1660991164990799880/_sUdjuMJ_normal.jpg','https://twitter.com/twitter/statuses/1668453194479935488',0.765,0.0,0.625,0.375,1),
 	 ('1668453194404610048','Tue Jun 13 03:00:14 +0000 2023','JulienEdwards',18365032,'Reggie Jackson and Deandre Jordan are nba champions',0.0,0.0,'en','2023-06-14 12:01:41.588','http://pbs.twimg.com/profile_images/723600177878028288/McP7VJqK_normal.jpg','https://twitter.com/twitter/statuses/1668453194404610048',0.5267,0.0,0.673,0.327,1),
 	 ('1668453194404339712','Tue Jun 13 03:00:14 +0000 2023','FornoNba',1328012813177155580,'É oficial
@@ -6982,7 +6982,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.598','http://pbs.twimg.co
 	 ('1668453193712381954','Tue Jun 13 03:00:14 +0000 2023','KyleDillard20',206955830,'LETS GO DENVER OMG WE’RE GONNA BE NBA CHAMPIONS IM GONNA CRY😫🥹',0.0,0.0,'en','2023-06-14 12:01:41.689','http://pbs.twimg.com/profile_images/1507741009639268355/oUdlAfnv_normal.jpg','https://twitter.com/twitter/statuses/1668453193712381954',0.5267,0.0,0.764,0.236,1),
 	 ('1668453193703931904','Tue Jun 13 03:00:14 +0000 2023','fareziin',1408854580700581890,'parabéns Jokic e seus capangas pelo título da NBA',1.0,0.0,'pt','2023-06-14 12:01:41.693','http://pbs.twimg.com/profile_images/1660072657621057536/POr6Dh8B_normal.jpg','https://twitter.com/twitter/statuses/1668453193703931904',0.0,0.0,1.0,0.0,0),
 	 ('1668453193263505410','Tue Jun 13 03:00:14 +0000 2023','QuakeGW',83424185,'Nuggets stink. NBA Season was ass cheeks.',4.0,0.0,'en','2023-06-14 12:01:41.697','http://pbs.twimg.com/profile_images/1520995357316026368/cB2rDszM_normal.jpg','https://twitter.com/twitter/statuses/1668453193263505410',-0.7351,0.554,0.446,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453193251004418','Tue Jun 13 03:00:14 +0000 2023','David_Terrero_',122245760,'Denver Nuggets es el nuevo campeón de la NBA. 
 28+16 para un señor llamado Nikola Jokic.',0.0,0.0,'es','2023-06-14 12:01:41.701','http://pbs.twimg.com/profile_images/1473737441517490183/VBfhWL9r_normal.jpg','https://twitter.com/twitter/statuses/1668453193251004418',0.0,0.0,1.0,0.0,0),
 	 ('1668453193183797248','Tue Jun 13 03:00:14 +0000 2023','CrossSports_',562366227,'That’s game. Congratulations to the @nuggets on winning the 2022-23 NBA World Championship! #NBAFinals https://t.co/8SldYQYoA7',1.0,0.0,'en','2023-06-14 12:01:41.705','http://pbs.twimg.com/profile_images/1563679928171655168/KnSqBIFi_normal.jpg','https://twitter.com/twitter/statuses/1668453193183797248',0.8883,0.0,0.534,0.466,1),
@@ -7004,7 +7004,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453191963254785','Tue Jun 13 03:00:13 +0000 2023','TheKidClo',369271898,'@ManuCmplx I think the fact that Miami made it this far missing Dipo (their best defender off the bench) and Herro… https://t.co/OR0ljpSIyx',0.0,0.0,'en','2023-06-14 12:01:41.882','http://pbs.twimg.com/profile_images/1416541235788107777/nI0Xsm4s_normal.jpg','https://twitter.com/twitter/statuses/1668453191963254785',0.5267,0.085,0.698,0.217,1),
 	 ('1668453191929741313','Tue Jun 13 03:00:13 +0000 2023','_karlath',1482232372192030720,'Sem comentários pra essa final da nba 😭',0.0,0.0,'pt','2023-06-14 12:01:41.887','http://pbs.twimg.com/profile_images/1633160966778023957/A7tmo06W_normal.jpg','https://twitter.com/twitter/statuses/1668453191929741313',0.0,0.0,1.0,0.0,0),
 	 ('1668453191825104896','Tue Jun 13 03:00:13 +0000 2023','blessedswift',357318897,'Maybe Taylor will sing change in Colorado bc the nuggets just won the NBA finals',7.0,0.0,'en','2023-06-14 12:01:41.891','http://pbs.twimg.com/profile_images/1320568520799703041/y30jrSTZ_normal.jpg','https://twitter.com/twitter/statuses/1668453191825104896',0.5719,0.0,0.791,0.209,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453191774527488','Tue Jun 13 03:00:13 +0000 2023','GleyberGoat25',2611666213,'@GarrettAlapeck i swear kawhi not a real human he the first nba player to ever run on AAA batteries bros system just be malfunctioning',0.0,0.0,'en','2023-06-14 12:01:41.894','http://pbs.twimg.com/profile_images/1583969202054074370/HOzRaj9y_normal.jpg','https://twitter.com/twitter/statuses/1668453191774527488',-0.0516,0.054,0.946,0.0,0),
 	 ('1668453191455760384','Tue Jun 13 03:00:13 +0000 2023','SergioLeon01',75728483,'Bro que partidazo! Denver Justo ganador, el mejor equipo de la NBA y de estos playoffs.',0.0,0.0,'es','2023-06-14 12:01:41.898','http://pbs.twimg.com/profile_images/1626270474232647682/K35hAInh_normal.jpg','https://twitter.com/twitter/statuses/1668453191455760384',0.0,0.0,1.0,0.0,0),
 	 ('1668453191380344833','Tue Jun 13 03:00:13 +0000 2023','Forevertelly',1638757454535340030,'Jimmy butler lost all respect Boston series but now he’s really dead to the nba world🚮',0.0,0.0,'en','2023-06-14 12:01:41.902','http://pbs.twimg.com/profile_images/1662245824581992448/KFrZy6fH_normal.jpg','https://twitter.com/twitter/statuses/1668453191380344833',-0.7899,0.348,0.563,0.089,0),
@@ -7017,7 +7017,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:41.997','http://pbs.twimg.com/profile_images/1461180821855952896/u68IGxI2_normal.jpg','https://twitter.com/twitter/statuses/1668453190839283713',0.0,0.0,1.0,0.0,0),
 	 ('1668453190474276864','Tue Jun 13 03:00:13 +0000 2023','DrP3pper215',943491922345254910,'2023 NBA Finals MVP. https://t.co/cG7cv8VxEH',0.0,0.0,'en','2023-06-14 12:01:42.001','http://pbs.twimg.com/profile_images/1648195789364113409/poUAfUOx_normal.jpg','https://twitter.com/twitter/statuses/1668453190474276864',0.0,0.0,1.0,0.0,0),
 	 ('1668453189954174977','Tue Jun 13 03:00:13 +0000 2023','mathfelice7',63359720,'Miami não era nem pra estar aí. Finalzinha mais pau mole dos últimos anos. Coincidentemente, as piores dos últimos… https://t.co/QhNhsfGdfA',0.0,0.0,'pt','2023-06-14 12:01:42.080','http://pbs.twimg.com/profile_images/1584678370935279616/dk1lAcwe_normal.jpg','https://twitter.com/twitter/statuses/1668453189954174977',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453189820227584','Tue Jun 13 03:00:13 +0000 2023','vdaphotos',1489833125618524160,'@ShannonSharpe @NBA the real bulljive is you not coming back on Undisputed UNC. gonna miss you!',1.0,0.0,'en','2023-06-14 12:01:42.099','http://pbs.twimg.com/profile_images/1594377426422726657/UQoi0fgc_normal.jpg','https://twitter.com/twitter/statuses/1668453189820227584',-0.2244,0.112,0.888,0.0,0),
 	 ('1668453189606309888','Tue Jun 13 03:00:13 +0000 2023','_uzicar__',1354300376313335810,'AARON GORDON YOU ARE AN NBA CHAMPION',4.0,0.0,'en','2023-06-14 12:01:42.126','http://pbs.twimg.com/profile_images/1657953246873518082/1FFYV9qF_normal.jpg','https://twitter.com/twitter/statuses/1668453189606309888',0.5994,0.0,0.606,0.394,1),
 	 ('1668453189169864709','Tue Jun 13 03:00:13 +0000 2023','hsb_me',46226224,'AND THAT’S A WRAP #NBA #FAMBAM 🏀👟🏀',0.0,0.0,'en','2023-06-14 12:01:42.142','http://pbs.twimg.com/profile_images/642474405503741952/tAiw8aI__normal.jpg','https://twitter.com/twitter/statuses/1668453189169864709',0.0,0.0,1.0,0.0,0),
@@ -7036,7 +7036,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:42.230','http://pbs.twimg.co
 	 ('1668453187949297666','Tue Jun 13 03:00:13 +0000 2023','jjuninxl',1299154322404651010,'RT @NBAdabad: VAI ACONTECER
 
 DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:42.287','http://pbs.twimg.com/profile_images/1455176394007318531/oq8kqiT4_normal.jpg','https://twitter.com/twitter/statuses/1668453187949297666',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453187597074434','Tue Jun 13 03:00:12 +0000 2023','La_Dbs',592311809,'RT @neotheone19: si no están viendo las NBA Finals, que están haciendo??!! Partidazo.',0.0,1.0,'es','2023-06-14 12:01:42.298','http://pbs.twimg.com/profile_images/1607451012138242050/WKBasYo0_normal.jpg','https://twitter.com/twitter/statuses/1668453187597074434',-0.4843,0.208,0.792,0.0,0),
 	 ('1668453187097952256','Tue Jun 13 03:00:12 +0000 2023','_Rhine__',1090608088732913660,'@ilovejadenhardy @NBA Bro refs gave Jimmy 3 free points torwards the end',0.0,0.0,'en','2023-06-14 12:01:42.302','http://pbs.twimg.com/profile_images/1601976029534380032/39T7je0i_normal.jpg','https://twitter.com/twitter/statuses/1668453187097952256',0.5106,0.0,0.752,0.248,1),
 	 ('1668453187043446784','Tue Jun 13 03:00:12 +0000 2023','JE_Morais01',2888369135,'NBA é cruel demais amigo... o que o Jimmy Butler fez nesse final é criminoso, Nuggets campeão merecido p caralho.',0.0,0.0,'pt','2023-06-14 12:01:42.381','http://pbs.twimg.com/profile_images/1668226560103444483/ZpuBH_6x_normal.jpg','https://twitter.com/twitter/statuses/1668453187043446784',-0.5859,0.213,0.787,0.0,0),
@@ -7050,7 +7050,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 
 NBA Champion 
 NBA Finals MVP',0.0,0.0,'pl','2023-06-14 12:01:42.811','http://pbs.twimg.com/profile_images/1608902100423168001/md9i6RaM_normal.jpg','https://twitter.com/twitter/statuses/1668453186569658369',0.5994,0.0,0.606,0.394,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453186200383490','Tue Jun 13 03:00:12 +0000 2023','miIuinthesky',741069542647058430,'y pensar que si no lo hubiesen cedido a campazzo hoy tendríamos a un argentino campeón de la nba https://t.co/eiBaVjHbqJ',5.0,0.0,'es','2023-06-14 12:01:42.885','http://pbs.twimg.com/profile_images/1641459089896009735/iY47ecmQ_normal.jpg','https://twitter.com/twitter/statuses/1668453186200383490',-0.296,0.121,0.879,0.0,0),
 	 ('1668453185869037568','Tue Jun 13 03:00:12 +0000 2023','Ernzrdz6',1399836998773395460,'RT @RealSkipBayless: CONGRATS TO THE DENVER NUGGETS, NBA CHAMPS FOR THE FIRST TIME EVER.',0.0,287.0,'en','2023-06-14 12:01:42.895','http://pbs.twimg.com/profile_images/1658640348422307840/Q1AJyEUk_normal.jpg','https://twitter.com/twitter/statuses/1668453185869037568',0.8256,0.0,0.61,0.39,1),
 	 ('1668453185831174144','Tue Jun 13 03:00:12 +0000 2023','EmersonCKlein1',1363293056062078980,'Denver muito perto do título.
@@ -7064,7 +7064,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:43.013','http://pbs.twimg.com/profile_images/1603582156424495104/GsXVVqe1_normal.jpg','https://twitter.com/twitter/statuses/1668453184396730368',0.0,0.0,1.0,0.0,0),
 	 ('1668453184384409600','Tue Jun 13 03:00:12 +0000 2023','bingyuicejade',721944700685393920,'提前庆祝！ https://t.co/1toa7XP9j6',27.0,0.0,'ja','2023-06-14 12:01:43.017','http://pbs.twimg.com/profile_images/1597197616869126144/S7sC9dQ0_normal.jpg','https://twitter.com/twitter/statuses/1668453184384409600',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453184208273409','Tue Jun 13 03:00:12 +0000 2023','MRDK75145185',1599342942136713220,'RT @NBA: Tyler Herro is ACTIVE for Game 5 👀
 
 Miami looks to extend the #NBAFinals presented by @YouTubeTV at 8:30pm/et on ABC!
@@ -7087,7 +7087,7 @@ Learn Why: https://t.co/Sn1CTXzWR2',0.0,19.0,'en','2023-06-14 12:01:43.101','htt
 	 ('1668453183486558209','Tue Jun 13 03:00:11 +0000 2023','federalia',1291809407421095940,'DeAndre Jordan, YOU are an NBA Champion 🥹🥹🥹',1.0,0.0,'en','2023-06-14 12:01:43.211','http://pbs.twimg.com/profile_images/1583783999067103232/Ges8PNBV_normal.jpg','https://twitter.com/twitter/statuses/1668453183486558209',0.5994,0.0,0.642,0.358,1),
 	 ('1668453183348174850','Tue Jun 13 03:00:11 +0000 2023','CurryfromSP',1385178431646797820,'RT @_warriorsguy: Últimos segundos como atual campeão da NBA 😭😭😭😭',0.0,1.0,'pt','2023-06-14 12:01:43.283','http://pbs.twimg.com/profile_images/1630025635446784000/6pfb8tGp_normal.jpg','https://twitter.com/twitter/statuses/1668453183348174850',0.0,0.0,1.0,0.0,0),
 	 ('1668453183050461186','Tue Jun 13 03:00:11 +0000 2023','Anatuesday',278367758,'RT @R_AndradeFranco: Mountain Time Zone, the forgotten ones, about to win an NBA title.',0.0,4.0,'en','2023-06-14 12:01:43.291','http://pbs.twimg.com/profile_images/1662862453502275586/luKQEU4r_normal.jpg','https://twitter.com/twitter/statuses/1668453183050461186',0.4404,0.107,0.678,0.215,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453182865907714','Tue Jun 13 03:00:11 +0000 2023','DallasC30264511',1635394349113516030,'@NBA Jimmy Butler https://t.co/d01HJdq3X3',5.0,0.0,'en','2023-06-14 12:01:43.306','http://pbs.twimg.com/profile_images/1663265244544679940/Avrg8ij2_normal.jpg','https://twitter.com/twitter/statuses/1668453182865907714',0.0,0.0,1.0,0.0,0),
 	 ('1668453182828347394','Tue Jun 13 03:00:11 +0000 2023','NikeshaBrown2',1048784760389087230,'@NBA get your referees?? Nothing! This was just ridiculous… you can’t make me crazy.🤪 I SAW! WHAT I SAW!👀 https://t.co/vZpn0WUO5W',0.0,0.0,'en','2023-06-14 12:01:43.323','http://pbs.twimg.com/profile_images/1607871537738309633/L7cXoeVm_normal.jpg','https://twitter.com/twitter/statuses/1668453182828347394',0.0,0.0,1.0,0.0,0),
 	 ('1668453182786228224','Tue Jun 13 03:00:11 +0000 2023','nick_rothschild',36561584,'For anyone wondering, this is where local media gets to watch the Nuggets win their first NBA championship #Denver7 https://t.co/CEaGKDMWLl',15.0,2.0,'en','2023-06-14 12:01:43.380','http://pbs.twimg.com/profile_images/1394709847875092481/cZIwduon_normal.jpg','https://twitter.com/twitter/statuses/1668453182786228224',0.7717,0.0,0.729,0.271,1),
@@ -7104,7 +7104,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453182274666496','Tue Jun 13 03:00:11 +0000 2023','DustinT__NBA',1576511575044694020,'Nuggets deserved this one. Have to give them their flowers. Best team in the league with the best player in the league.',2.0,0.0,'en','2023-06-14 12:01:43.481','http://pbs.twimg.com/profile_images/1650224475294818304/Ft2BjXPu_normal.jpg','https://twitter.com/twitter/statuses/1668453182274666496',0.8555,0.0,0.704,0.296,1),
 	 ('1668453182077546496','Tue Jun 13 03:00:11 +0000 2023','alquimistaxy',880882633,'@NBA Nuggets champs, despite the refs',0.0,0.0,'en','2023-06-14 12:01:43.491','http://pbs.twimg.com/profile_images/1570608170434797570/5tWrdExD_normal.png','https://twitter.com/twitter/statuses/1668453182077546496',0.4215,0.0,0.641,0.359,1),
 	 ('1668453181880147968','Tue Jun 13 03:00:11 +0000 2023','RZx1797',1553125189646524420,'O DENVER NUGGETS E CAMPEÃO DA NBA,MERECIDO DMS',0.0,0.0,'pt','2023-06-14 12:01:43.506','http://pbs.twimg.com/profile_images/1665903818930900992/AZywG2sc_normal.jpg','https://twitter.com/twitter/statuses/1668453181880147968',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453181792165888','Tue Jun 13 03:00:11 +0000 2023','NYRUBE',232022099,'Jimmy Butler and the Denver Nuggets are the new NBA champions! 🥴💀🗑️',1.0,0.0,'en','2023-06-14 12:01:43.518','http://pbs.twimg.com/profile_images/485983333197680641/rPCpfuC0_normal.jpeg','https://twitter.com/twitter/statuses/1668453181792165888',0.5707,0.0,0.749,0.251,1),
 	 ('1668453181716660225','Tue Jun 13 03:00:11 +0000 2023','NBA_Reddit',1626965413,'That’s game.',32.0,1.0,'en','2023-06-14 12:01:43.581','http://pbs.twimg.com/profile_images/912830725551882240/FYhA45Sf_normal.jpg','https://twitter.com/twitter/statuses/1668453181716660225',0.0,0.0,1.0,0.0,0),
 	 ('1668453181603344387','Tue Jun 13 03:00:11 +0000 2023','cmattdowns',1246615231,'@NBA The nuggets are overrated.',1.0,0.0,'en','2023-06-14 12:01:43.592','http://pbs.twimg.com/profile_images/1532794413147119616/7Mdr0TBD_normal.jpg','https://twitter.com/twitter/statuses/1668453181603344387',0.0,0.0,1.0,0.0,0),
@@ -7117,7 +7117,7 @@ What a weird ass season.',0.0,6.0,'en','2023-06-14 12:01:43.604','http://pbs.twi
 	 ('1668453181054160900','Tue Jun 13 03:00:11 +0000 2023','520Laker',1643752116715139070,'RT @kimandone: Alright so what’s happening with Ja @nba?',0.0,3.0,'en','2023-06-14 12:01:43.682','http://pbs.twimg.com/profile_images/1647396556591730695/roEWwrvE_normal.jpg','https://twitter.com/twitter/statuses/1668453181054160900',0.25,0.0,0.8,0.2,1),
 	 ('1668453180756180993','Tue Jun 13 03:00:11 +0000 2023','MattLanglais1',2783224654,'RT @Celtics_Junkies: Jimmy Butler deserve all the same slander that Jayson Tatum got last season from the NBA Finals … if not more.',0.0,494.0,'en','2023-06-14 12:01:43.694','http://pbs.twimg.com/profile_images/1426259789156343809/F_95fuOe_normal.jpg','https://twitter.com/twitter/statuses/1668453180756180993',0.0,0.0,1.0,0.0,0),
 	 ('1668453180756172803','Tue Jun 13 03:00:11 +0000 2023','AKidNamedQuee',170558958,'RT @RealSkipBayless: I love and honor the effort on both sides, but this has to be the worst NBA Finals game EVER PLAYED.',0.0,965.0,'en','2023-06-14 12:01:43.705','http://pbs.twimg.com/profile_images/1598868917119844352/k-vCTIg8_normal.jpg','https://twitter.com/twitter/statuses/1668453180756172803',0.307,0.174,0.553,0.273,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453180735213570','Tue Jun 13 03:00:11 +0000 2023','StrictlyMvelo',1301377579434283010,'As I predicted during the regular season…DENVER NUGGETS are the NBA CHAMPIONS 🤝🏿🤝🏿👑👑☺️☺️🐐🐐',0.0,0.0,'en','2023-06-14 12:01:43.715','http://pbs.twimg.com/profile_images/1547678025465991173/IP5A6y9V_normal.jpg','https://twitter.com/twitter/statuses/1668453180735213570',0.6289,0.0,0.727,0.273,1),
 	 ('1668453180621963265','Tue Jun 13 03:00:11 +0000 2023','billcookseyddt',1626310333609410560,'Jimmy Butler just melted in the spot light.  Damn. I though Playoff Jimmy had it. #HEATCulture  #heat #Nuggets  #NuggetsNation  #nba',0.0,0.0,'en','2023-06-14 12:01:43.780','http://pbs.twimg.com/profile_images/1626310567903260674/FrgnrWM3_normal.jpg','https://twitter.com/twitter/statuses/1668453180621963265',-0.4019,0.13,0.87,0.0,0),
 	 ('1668453180588404741','Tue Jun 13 03:00:11 +0000 2023','King_Devbear',456069081,'There is no worse feeling than the end of the NBA season.  No sports until football in the fall',3.0,0.0,'en','2023-06-14 12:01:43.790','http://pbs.twimg.com/profile_images/1086321143823380480/iziCq5d0_normal.jpg','https://twitter.com/twitter/statuses/1668453180588404741',-0.7184,0.313,0.625,0.062,0),
@@ -7134,7 +7134,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo…',0.0,4.0,'es','2023-06-14 12:01:43.904','http://pbs.twimg.com/profile_images/1557855475915431936/L1VxpZtg_normal.jpg','https://twitter.com/twitter/statuses/1668453179355197443',0.0,0.0,1.0,0.0,0),
 	 ('1668453179275485185','Tue Jun 13 03:00:10 +0000 2023','KevalGobin',601371419,'Congrats to Jokic, Murray &amp; the @nuggets  well deserved NBA champions 2023 🏆',0.0,0.0,'en','2023-06-14 12:01:43.933','http://pbs.twimg.com/profile_images/1317731570434904064/-zUcF71C_normal.jpg','https://twitter.com/twitter/statuses/1668453179275485185',0.836,0.0,0.503,0.497,1),
 	 ('1668453179149656065','Tue Jun 13 03:00:10 +0000 2023','Tony_Kudo',1540185708874326020,'Denver won the stanley cup and nba finals back to back years is wild lmao',1.0,0.0,'en','2023-06-14 12:01:43.955','http://pbs.twimg.com/profile_images/1663213583679868928/zeMF-5KF_normal.jpg','https://twitter.com/twitter/statuses/1668453179149656065',0.8225,0.0,0.631,0.369,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453179019907072','Tue Jun 13 03:00:10 +0000 2023','jrichardgoodman',758110205674610690,'Denver plus 12 on the glass 
 Defense rebounding wins nba chips 👊',59.0,12.0,'en','2023-06-14 12:01:43.982','http://pbs.twimg.com/profile_images/1536406995305046017/1Llpbm5T_normal.jpg','https://twitter.com/twitter/statuses/1668453179019907072',0.6369,0.0,0.634,0.366,1),
 	 ('1668453178994487297','Tue Jun 13 03:00:10 +0000 2023','meunomeehzaza',1554591084189196290,'tao comemorando nba na minha rua',2.0,0.0,'pt','2023-06-14 12:01:43.992','http://pbs.twimg.com/profile_images/1554591560175583233/6iRmHbiZ_normal.jpg','https://twitter.com/twitter/statuses/1668453178994487297',0.0,0.0,1.0,0.0,0),
@@ -7150,7 +7150,7 @@ Nikola Jokic, Jama…',0.0,22.0,'en','2023-06-14 12:01:44.090','http://pbs.twimg
 	 ('1668453177509793792','Tue Jun 13 03:00:10 +0000 2023','Murilindo__',1661915364484165630,'E O CAMPEAO DA NBA É UM ROMANTICOO🥰🥰🃏',0.0,0.0,'pt','2023-06-14 12:01:44.094','http://pbs.twimg.com/profile_images/1662132235082907653/W7wykK69_normal.jpg','https://twitter.com/twitter/statuses/1668453177509793792',0.0,0.0,1.0,0.0,0),
 	 ('1668453177308454916','Tue Jun 13 03:00:10 +0000 2023','Lronjackdic',28636661,'Well, another ABA team to win an NBA title before the Pacers. I am happy for any 1st time champ.',0.0,0.0,'en','2023-06-14 12:01:44.099','http://pbs.twimg.com/profile_images/1042176115752796162/Fg80QI6r_normal.jpg','https://twitter.com/twitter/statuses/1668453177308454916',0.9136,0.0,0.542,0.458,1),
 	 ('1668453177228767232','Tue Jun 13 03:00:10 +0000 2023','jayfrombklny',1514225156490768380,'RT @OfficialNetsFan: Bruce Brown and Jeff Green have both won an NBA Championship! https://t.co/8WVCMhls4a',0.0,17.0,'en','2023-06-14 12:01:44.103','http://pbs.twimg.com/profile_images/1649846636531572737/OQoEzzVx_normal.jpg','https://twitter.com/twitter/statuses/1668453177228767232',0.784,0.0,0.635,0.365,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453177119895554','Tue Jun 13 03:00:10 +0000 2023','dakid_genius',1551598274,'RT @ChickenColeman: Caleb Martin in the ECF vs Caleb Martin in the NBA Finals https://t.co/dHLlkFS7Fi',0.0,50.0,'en','2023-06-14 12:01:44.183','http://pbs.twimg.com/profile_images/1631779996149903360/ck8kx4_B_normal.jpg','https://twitter.com/twitter/statuses/1668453177119895554',0.0,0.0,1.0,0.0,0),
 	 ('1668453177052606464','Tue Jun 13 03:00:10 +0000 2023','olamiide',192517922,'RT @_Talkin_NBA: This city deserves an NBA championship!',0.0,1.0,'en','2023-06-14 12:01:44.188','http://pbs.twimg.com/profile_images/1558996459147694080/G5Yz55wV_normal.jpg','https://twitter.com/twitter/statuses/1668453177052606464',0.4926,0.0,0.687,0.313,1),
 	 ('1668453176880791554','Tue Jun 13 03:00:10 +0000 2023','larryberry33',395001648,'RT @BAULAPARRANTES: PEYTON WATSON YOU ARE AN NBA CHAMPION lol',0.0,3.0,'ht','2023-06-14 12:01:44.192','http://pbs.twimg.com/profile_images/1635308559037796355/p0fzeVFe_normal.jpg','https://twitter.com/twitter/statuses/1668453176880791554',0.8143,0.0,0.518,0.482,1),
@@ -7162,7 +7162,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453176176148481','Tue Jun 13 03:00:10 +0000 2023','brizznasty23',16937123,'Damn GGs heat. Denver Nuggets are NBA champs',0.0,0.0,'en','2023-06-14 12:01:44.286','http://pbs.twimg.com/profile_images/1634782849961431041/psgixIAq_normal.jpg','https://twitter.com/twitter/statuses/1668453176176148481',0.0258,0.235,0.522,0.243,1),
 	 ('1668453176108888065','Tue Jun 13 03:00:10 +0000 2023','7ioiiz',1063104060600000510,'دنفر ناغيتس وبقيادة الساحر يوكييييييتش 
 بطلاً للNBA 2023 🔥🔥🔥🔝🔝🔝',0.0,0.0,'ar','2023-06-14 12:01:44.291','http://pbs.twimg.com/profile_images/1668047735147077635/qHQ5mm2v_normal.jpg','https://twitter.com/twitter/statuses/1668453176108888065',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453175450537984','Tue Jun 13 03:00:10 +0000 2023','johnalvarezjr_',963731403287404540,'RT @___Colb___: Jimmy Butler gave us an all time war criminal performance in this NBA Finals.',0.0,36.0,'en','2023-06-14 12:01:44.295','http://pbs.twimg.com/profile_images/1598514252062392320/Rx2wyjWG_normal.jpg','https://twitter.com/twitter/statuses/1668453175450537984',-0.8074,0.343,0.657,0.0,0),
 	 ('1668453175391551488','Tue Jun 13 03:00:10 +0000 2023','htvzn',1476750384697913340,'RT @problemsthots: idc if y’all say we casuals lol these been the most boring nba finals ever.',0.0,11.0,'en','2023-06-14 12:01:44.299','http://pbs.twimg.com/profile_images/1661211358900236290/Nd_rAXlw_normal.jpg','https://twitter.com/twitter/statuses/1668453175391551488',0.0534,0.127,0.736,0.137,1),
 	 ('1668453175026675712','Tue Jun 13 03:00:09 +0000 2023','AbsolutCharly',2431782825,'Go Hard or Go Home #HEATCulture #NBAFinals #Nba #NBAxESPN',0.0,0.0,'en','2023-06-14 12:01:44.303','http://pbs.twimg.com/profile_images/1541198249394044929/u6bdbyUc_normal.jpg','https://twitter.com/twitter/statuses/1668453175026675712',-0.1027,0.149,0.851,0.0,0),
@@ -7177,7 +7177,7 @@ More Ga…',0.0,153.0,'en','2023-06-14 12:01:44.388','http://pbs.twimg.com/profi
 	 ('1668453174896721922','Tue Jun 13 03:00:09 +0000 2023','PrinceMarcus_29',1649448284291825660,'Announce the suspension already @NBA',1.0,1.0,'en','2023-06-14 12:01:44.400','http://pbs.twimg.com/profile_images/1663988470417707009/YjmxOZ4q_normal.jpg','https://twitter.com/twitter/statuses/1668453174896721922',0.0,0.0,1.0,0.0,0),
 	 ('1668453174871482370','Tue Jun 13 03:00:09 +0000 2023','Sir_JHud',36842417,'RT @Celtics_Junkies: Jimmy Butler deserve all the same slander that Jayson Tatum got last season from the NBA Finals … if not more.',0.0,494.0,'en','2023-06-14 12:01:44.404','http://pbs.twimg.com/profile_images/1630617031321042969/GTTxCeHS_normal.jpg','https://twitter.com/twitter/statuses/1668453174871482370',0.0,0.0,1.0,0.0,0),
 	 ('1668453174745743361','Tue Jun 13 03:00:09 +0000 2023','TonyLGND',234022250,'NBA Champion Deandre Jordan. 😭😭😭',0.0,0.0,'fr','2023-06-14 12:01:44.484','http://pbs.twimg.com/profile_images/1285287413888229376/MPuSQRlM_normal.jpg','https://twitter.com/twitter/statuses/1668453174745743361',0.5994,0.0,0.506,0.494,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453174603132930','Tue Jun 13 03:00:09 +0000 2023','emily_noe',471477843,'What an uneventful NBA final series',0.0,0.0,'en','2023-06-14 12:01:44.489','http://pbs.twimg.com/profile_images/1581788236241936385/jU-XYX9w_normal.jpg','https://twitter.com/twitter/statuses/1668453174603132930',0.0,0.0,1.0,0.0,0),
 	 ('1668453174527574016','Tue Jun 13 03:00:09 +0000 2023','biffyb',69824625,'@NBA Clean up your game, this was ugly.',0.0,0.0,'en','2023-06-14 12:01:44.493','http://pbs.twimg.com/profile_images/1590943155230281728/KSX1pjXx_normal.jpg','https://twitter.com/twitter/statuses/1668453174527574016',-0.1531,0.275,0.5,0.225,0),
 	 ('1668453174317907970','Tue Jun 13 03:00:09 +0000 2023','kaka_vicio',2739125117,'deu a lógica na NBA, o melhor time venceu',1.0,0.0,'pt','2023-06-14 12:01:44.497','http://pbs.twimg.com/profile_images/1409283755823484929/Yg6ASMtm_normal.jpg','https://twitter.com/twitter/statuses/1668453174317907970',0.0,0.0,1.0,0.0,0),
@@ -7188,7 +7188,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453173961318400','Tue Jun 13 03:00:09 +0000 2023','ScotMoney34',951358475866697730,'Celtics legend Jeff Green is an NBA champion',2.0,0.0,'en','2023-06-14 12:01:44.595','http://pbs.twimg.com/profile_images/1664378278386311171/3E9_WWDO_normal.jpg','https://twitter.com/twitter/statuses/1668453173961318400',0.5994,0.0,0.642,0.358,1),
 	 ('1668453173898489858','Tue Jun 13 03:00:09 +0000 2023','playboytrill26',832982967031099390,'RT @ShannonSharpe: That’s BULLJIVE. @nba that’s AWFUL officiating',0.0,472.0,'en','2023-06-14 12:01:44.599','http://pbs.twimg.com/profile_images/1266882704362127360/oB8P9ZhT_normal.jpg','https://twitter.com/twitter/statuses/1668453173898489858',-0.5766,0.348,0.652,0.0,0),
 	 ('1668453173793550336','Tue Jun 13 03:00:09 +0000 2023','connormcwright',1128706699,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:44.603','http://pbs.twimg.com/profile_images/1314724678062276608/uu4Tyosb_normal.jpg','https://twitter.com/twitter/statuses/1668453173793550336',0.6486,0.0,0.819,0.181,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453173718138882','Tue Jun 13 03:00:09 +0000 2023','WembySATX',1197751810439745540,'@NBA Finally this corny ass team will be off my screen 😭',0.0,0.0,'en','2023-06-14 12:01:44.682','http://pbs.twimg.com/profile_images/1662666799366778880/U0yiGmMs_normal.jpg','https://twitter.com/twitter/statuses/1668453173718138882',-0.5423,0.259,0.741,0.0,0),
 	 ('1668453173609070594','Tue Jun 13 03:00:09 +0000 2023','sirbustercherry',1634951340978847740,'@NBA https://t.co/8GbgZWQHfg',0.0,0.0,'und','2023-06-14 12:01:44.688','http://pbs.twimg.com/profile_images/1645633013462491136/ZdsilEV9_normal.jpg','https://twitter.com/twitter/statuses/1668453173609070594',0.0,0.0,1.0,0.0,0),
 	 ('1668453173466476547','Tue Jun 13 03:00:09 +0000 2023','quebuscas4pf',1388267821,'Que haré ahora sin la NBA en qué gastare los chavos 🤣',0.0,0.0,'es','2023-06-14 12:01:44.692','http://pbs.twimg.com/profile_images/1650525373187207172/OjTeYKkM_normal.jpg','https://twitter.com/twitter/statuses/1668453173466476547',-0.5574,0.265,0.735,0.0,0),
@@ -7201,7 +7201,7 @@ INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,use
 	 ('1668453172522676225','Tue Jun 13 03:00:09 +0000 2023','Charlymj',137789601,'Se lo merece el Gordo x q es crack Total 😍😍 Jokic Campeon de la NBA https://t.co/W8YiWWVIFw',0.0,0.0,'es','2023-06-14 12:01:44.789','http://pbs.twimg.com/profile_images/1582141523063410688/iitdoeb7_normal.jpg','https://twitter.com/twitter/statuses/1668453172522676225',0.0,0.0,1.0,0.0,0),
 	 ('1668453171943952385','Tue Jun 13 03:00:09 +0000 2023','iamnotatrollong',1569478804506316800,'This image is more entertaining than te nba finals https://t.co/tTlZls6X9l',2.0,0.0,'en','2023-06-14 12:01:45.149','http://pbs.twimg.com/profile_images/1665066386744393728/a1051p7Q_normal.jpg','https://twitter.com/twitter/statuses/1668453171943952385',0.4927,0.0,0.738,0.262,1),
 	 ('1668453171797331974','Tue Jun 13 03:00:09 +0000 2023','gdarici_s',243452456,'caraca mano, NBA é muito da hora! Tá maluco quem não gosta de basquete',0.0,0.0,'pt','2023-06-14 12:01:45.181','http://pbs.twimg.com/profile_images/1615310936633384962/-YVNky6n_normal.jpg','https://twitter.com/twitter/statuses/1668453171797331974',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453171780554752','Tue Jun 13 03:00:09 +0000 2023','CezrDaPleazr',351158489,'DeAndre Jordan is an NBA champion. #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:45.186','http://pbs.twimg.com/profile_images/1643473221789044737/5zh_0sU5_normal.jpg','https://twitter.com/twitter/statuses/1668453171780554752',0.5994,0.0,0.606,0.394,1),
 	 ('1668453171407224833','Tue Jun 13 03:00:09 +0000 2023','Azukiller_MFFL',799729530092912640,'マレーとヨキッチが2人で止めてるの良いね
 KCPも偉いし https://t.co/FJRaOD1OaO',1.0,0.0,'ja','2023-06-14 12:01:45.191','http://pbs.twimg.com/profile_images/1603962843355033601/72SeVQ_1_normal.jpg','https://twitter.com/twitter/statuses/1668453171407224833',0.0,0.0,1.0,0.0,0),
@@ -7213,7 +7213,7 @@ KCPも偉いし https://t.co/FJRaOD1OaO',1.0,0.0,'ja','2023-06-14 12:01:45.191',
 	 ('1668453170325127170','Tue Jun 13 03:00:08 +0000 2023','Kabo0s85',920945016,'Let me be the first to congratulate the Denver Nuggets on winning an NBA championship',1.0,0.0,'en','2023-06-14 12:01:45.300','http://pbs.twimg.com/profile_images/1494031470855217157/MbpChhHb_normal.jpg','https://twitter.com/twitter/statuses/1668453170325127170',0.8591,0.0,0.558,0.442,1),
 	 ('1668453170295578625','Tue Jun 13 03:00:08 +0000 2023','Sole_Exquisite1',1375614373,'Man this nba finals was so weak bruh',0.0,0.0,'en','2023-06-14 12:01:45.381','http://pbs.twimg.com/profile_images/456567671652249600/wY8CI2IB_normal.jpeg','https://twitter.com/twitter/statuses/1668453170295578625',-0.5777,0.348,0.652,0.0,0),
 	 ('1668453170132008961','Tue Jun 13 03:00:08 +0000 2023','_dpern',54406432,'Jamal Murray is an NBA champion https://t.co/fU6hkZLtPm',0.0,0.0,'en','2023-06-14 12:01:45.386','http://pbs.twimg.com/profile_images/1463485963318054914/h9WRvyzQ_normal.jpg','https://twitter.com/twitter/statuses/1668453170132008961',0.5994,0.0,0.606,0.394,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453169943199744','Tue Jun 13 03:00:08 +0000 2023','matinoguera95',752591696110690300,'RT @6toHombreLATAM: Que partidazo, por favor. Que linda es la NBA.',0.0,56.0,'es','2023-06-14 12:01:45.391','http://pbs.twimg.com/profile_images/1383922159400017928/ekB3NVK5_normal.jpg','https://twitter.com/twitter/statuses/1668453169943199744',0.4019,0.0,0.787,0.213,1),
 	 ('1668453169880522752','Tue Jun 13 03:00:08 +0000 2023','commie_slapper',1648238225243410430,'@NBA They don’t want a white man to win so bad',0.0,0.0,'en','2023-06-14 12:01:45.397','http://pbs.twimg.com/profile_images/1654722299596247040/1miMm5me_normal.jpg','https://twitter.com/twitter/statuses/1668453169880522752',-0.1005,0.271,0.422,0.307,0),
 	 ('1668453169779621888','Tue Jun 13 03:00:08 +0000 2023','ffcjuliab',1648494688905711620,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
@@ -7230,7 +7230,7 @@ No es hijo de su majestad
 #NBA #NBAFinals #NBAxESPN https://t.co/hQgMH8kY3l',64.0,9.0,'es','2023-06-14 12:01:45.501','http://pbs.twimg.com/profile_images/1409665615011397637/NsLDgoUS_normal.jpg','https://twitter.com/twitter/statuses/1668453168789835778',-0.296,0.136,0.864,0.0,0),
 	 ('1668453168752066560','Tue Jun 13 03:00:08 +0000 2023','Papa_BPrime',103533056,'I had a winning record betting on the NBA this season. Next year we in Vegas fellas',1.0,1.0,'en','2023-06-14 12:01:45.506','http://pbs.twimg.com/profile_images/1585426857079496704/-WQlzeNq_normal.jpg','https://twitter.com/twitter/statuses/1668453168752066560',0.5267,0.0,0.805,0.195,1),
 	 ('1668453168743870464','Tue Jun 13 03:00:08 +0000 2023','MeadowAtLast',92949461,'bruce brown and KCP were honestly born to play in the NBA finals',0.0,0.0,'en','2023-06-14 12:01:45.580','http://pbs.twimg.com/profile_images/1505093690972262403/aVnvoJUf_normal.jpg','https://twitter.com/twitter/statuses/1668453168743870464',0.6597,0.0,0.671,0.329,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453168731271169','Tue Jun 13 03:00:08 +0000 2023','JrsRmgn',1009772656525053950,'Final seconds of the NBA season🥲',0.0,0.0,'en','2023-06-14 12:01:45.585','http://pbs.twimg.com/profile_images/1626588219893743623/Y_wn4hLq_normal.jpg','https://twitter.com/twitter/statuses/1668453168731271169',0.0,0.0,1.0,0.0,0),
 	 ('1668453168387362816','Tue Jun 13 03:00:08 +0000 2023','AbsolFairyy',602533068,'2 time NBA champ KCP',4.0,1.0,'en','2023-06-14 12:01:45.590','http://pbs.twimg.com/profile_images/1666288213496041473/pBJmw3sP_normal.jpg','https://twitter.com/twitter/statuses/1668453168387362816',0.4767,0.0,0.492,0.508,1),
 	 ('1668453168374755334','Tue Jun 13 03:00:08 +0000 2023','keepiin',2476265262,'RT @NBA: THE STAGE IS SET 🍿
@@ -7249,7 +7249,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.693'
 #NBAFinals
 #NBA
 #NBAFinalsNaESPN',0.0,0.0,'pt','2023-06-14 12:01:45.703','http://pbs.twimg.com/profile_images/1528436226243559427/SeCMReUm_normal.jpg','https://twitter.com/twitter/statuses/1668453166965243905',0.0,0.0,1.0,0.0,0);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453166948700160','Tue Jun 13 03:00:08 +0000 2023','Band0415',1296516307974647810,'This NBA FINAL IS BORING 🥱 #MIAvsDEN https://t.co/h7McrGaV1O',5.0,0.0,'en','2023-06-14 12:01:45.784','http://pbs.twimg.com/profile_images/1300198656335773697/1Up7fxS-_normal.jpg','https://twitter.com/twitter/statuses/1668453166948700160',-0.4648,0.336,0.664,0.0,0),
 	 ('1668453166810120193','Tue Jun 13 03:00:07 +0000 2023','Derek9306',1436743569201586180,'RT @reseSZN: Jimmy Butler in the NBA finals https://t.co/wU500gu0ZW',0.0,13.0,'en','2023-06-14 12:01:45.788','http://pbs.twimg.com/profile_images/1663869698822266881/wxVdiTZg_normal.jpg','https://twitter.com/twitter/statuses/1668453166810120193',0.0,0.0,1.0,0.0,0),
 	 ('1668453166805839872','Tue Jun 13 03:00:07 +0000 2023','rpendola',188409587,'94-89 para Denver a 14 segundos de su primer título de #NBA',0.0,0.0,'es','2023-06-14 12:01:45.793','http://pbs.twimg.com/profile_images/1507125224373997572/pTfn98qG_normal.jpg','https://twitter.com/twitter/statuses/1668453166805839872',0.0,0.0,1.0,0.0,0),
@@ -7264,7 +7264,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.801'
 
 Jayhawks win. Period.',0.0,27.0,'en','2023-06-14 12:01:45.899','http://pbs.twimg.com/profile_images/1054909189464690689/4UkpBXII_normal.jpg','https://twitter.com/twitter/statuses/1668453165694320640',0.8271,0.0,0.539,0.461,1),
 	 ('1668453165400825859','Tue Jun 13 03:00:07 +0000 2023','bennyburnerchip',1664636619222032380,'RT @redditmavericks: Nba champion DeAndre Jordan wow',0.0,4.0,'fr','2023-06-14 12:01:45.904','http://pbs.twimg.com/profile_images/1664830684995678210/UeGn0cvn_normal.jpg','https://twitter.com/twitter/statuses/1668453165400825859',0.8271,0.0,0.394,0.606,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453165266612224','Tue Jun 13 03:00:07 +0000 2023','Shellhitemup',2519392531,'RT @RealSkipBayless: I love and honor the effort on both sides, but this has to be the worst NBA Finals game EVER PLAYED.',0.0,965.0,'en','2023-06-14 12:01:45.908','http://pbs.twimg.com/profile_images/1409668781035634688/rQWcwCF6_normal.jpg','https://twitter.com/twitter/statuses/1668453165266612224',0.307,0.174,0.553,0.273,1),
 	 ('1668453164779970561','Tue Jun 13 03:00:07 +0000 2023','sig_50',984297329313435650,'The Denver Nuggets are NBA Champions. They deserve every bit of this success….Jokic, Jamal, Aaron Gordon finally fi… https://t.co/omXs4AXwq7',0.0,0.0,'en','2023-06-14 12:01:45.984','http://pbs.twimg.com/profile_images/1249579151285157888/fp8Zi_lP_normal.jpg','https://twitter.com/twitter/statuses/1668453164779970561',0.5267,0.0,0.841,0.159,1),
 	 ('1668453164683501568','Tue Jun 13 03:00:07 +0000 2023','smjxmj',422063877,'RT @edsbs: One of my favorite things about the NBA playoffs is building the entire event around huge names and big brands and stars, and th…',0.0,84.0,'en','2023-06-14 12:01:45.989','http://pbs.twimg.com/profile_images/1541241885515202561/q-PCncqp_normal.jpg','https://twitter.com/twitter/statuses/1668453164683501568',0.6486,0.0,0.819,0.181,1),
@@ -7278,7 +7278,7 @@ DENVER NUGGETS VAI SER CAMPEÃO DA NBA',0.0,124.0,'pt','2023-06-14 12:01:45.998'
 #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:46.095','http://pbs.twimg.com/profile_images/1628785895183900672/ddPLO9Ov_normal.jpg','https://twitter.com/twitter/statuses/1668453164088176641',0.6289,0.0,0.547,0.453,1),
 	 ('1668453163899158528','Tue Jun 13 03:00:07 +0000 2023','MSGFanMax',1239938825499131900,'NIKOLA JOKIC IS AN NBA CHAMPION',1.0,0.0,'en','2023-06-14 12:01:46.110','http://pbs.twimg.com/profile_images/1668819972657643521/iseJrn21_normal.jpg','https://twitter.com/twitter/statuses/1668453163899158528',0.5994,0.0,0.562,0.438,1),
 	 ('1668453163819573248','Tue Jun 13 03:00:07 +0000 2023','KevinNahyr26',336231847,'El JOKER Y SU PRIMER ANILLO EN LA NBA! Un FENÓMENO',0.0,0.0,'es','2023-06-14 12:01:46.122','http://pbs.twimg.com/profile_images/1634393966123556865/WKF5e9dV_normal.jpg','https://twitter.com/twitter/statuses/1668453163819573248',0.3664,0.0,0.781,0.219,1);
-INSERT INTO aws_twitter_tweepy_data_source (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
+INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453163744264192','Tue Jun 13 03:00:07 +0000 2023','dksupremee',2374814708,'what an NBA season bro',0.0,0.0,'en','2023-06-14 12:01:46.182','http://pbs.twimg.com/profile_images/1645997915297681409/FUicTHRa_normal.jpg','https://twitter.com/twitter/statuses/1668453163744264192',0.0,0.0,1.0,0.0,0),
 	 ('1668453163723096064','Tue Jun 13 03:00:07 +0000 2023','RayCoyg',1637466752895397890,'@NBA Jimmy sold',0.0,0.0,'en','2023-06-14 12:01:46.193','http://pbs.twimg.com/profile_images/1637471613925851136/Ho9uGQpA_normal.jpg','https://twitter.com/twitter/statuses/1668453163723096064',0.0,0.0,1.0,0.0,0),
 	 ('1668453163639218178','Tue Jun 13 03:00:07 +0000 2023','Mnjt01',1290033134269091840,'Parabéns Denver, pelo título da NBA',0.0,0.0,'pt','2023-06-14 12:01:46.203','http://pbs.twimg.com/profile_images/1624791616706813961/Jxl0IijK_normal.jpg','https://twitter.com/twitter/statuses/1668453163639218178',0.0,0.0,1.0,0.0,0),
@@ -7394,8 +7394,8 @@ INSERT INTO ml.ml_game_predictions ("index",home_team,home_moneyline,away_team,a
 	 (0,'Milwaukee Bucks',-250.0,'Philadelphia 76ers',200.0,'2023-10-26',15,4,112.0,112.0,0.5,0.5,2,15,4,112.0,112.0,0.5,0.5,2,0.535,0.465);
 
 
-DROP TABLE IF EXISTS aws_adv_stats_source;
-CREATE TABLE IF NOT EXISTS aws_adv_stats_source (
+DROP TABLE IF EXISTS bbref_team_adv_stats_snapshot;
+CREATE TABLE IF NOT EXISTS bbref_team_adv_stats_snapshot (
 	"index" int8 NULL,
 	team text NULL,
 	age float8 NULL,
@@ -7429,7 +7429,7 @@ CREATE TABLE IF NOT EXISTS aws_adv_stats_source (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (0,'Denver Nuggets',27.1,1.0,0.0,1.0,0.0,12.0,-12.0,0.0,123.6,111.1,12.5,96.3,0.132,0.374,0.618,0.604,11.1,22.5,0.099,0.511,10.8,71.7,0.167,'Ball Arena',19842.0,19842.0,'2023-10-25'),
 	 (1,'Phoenix Suns',29.2,1.0,0.0,1.0,0.0,4.0,-4.0,0.0,106.2,102.3,3.9,101.7,0.179,0.347,0.527,0.5,15.6,35.4,0.137,0.406,8.8,70.5,0.218,'Footprint Center',NULL,NULL,'2023-10-25'),
 	 (2,'Golden State Warriors',30.3,0.0,1.0,0.0,1.0,-4.0,4.0,0.0,102.3,106.2,-3.9,101.7,0.277,0.426,0.459,0.406,8.8,29.5,0.218,0.5,15.6,64.6,0.137,'Chase Center',18064.0,18064.0,'2023-10-25'),
@@ -7440,7 +7440,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (7,'New York Knicks',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Madison Square Garden (IV)',NULL,NULL,'2023-10-25'),
 	 (8,'Oklahoma City Thunder',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Paycom Center',NULL,NULL,'2023-10-25'),
 	 (9,'Orlando Magic',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Amway Center',NULL,NULL,'2023-10-25');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (10,'Philadelphia 76ers',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Wells Fargo Center',NULL,NULL,'2023-10-25'),
 	 (11,'Portland Trail Blazers',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Moda Center',NULL,NULL,'2023-10-25'),
 	 (12,'Sacramento Kings',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Golden 1 Center',NULL,NULL,'2023-10-25'),
@@ -7451,7 +7451,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (17,'Milwaukee Bucks',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fiserv Forum',NULL,NULL,'2023-10-25'),
 	 (18,'Atlanta Hawks',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'State Farm Arena',NULL,NULL,'2023-10-25'),
 	 (19,'Memphis Grizzlies',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'FedEx Forum',NULL,NULL,'2023-10-25');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (20,'Los Angeles Clippers',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Crypto.com Arena',NULL,NULL,'2023-10-25'),
 	 (21,'Indiana Pacers',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Gainbridge Fieldhouse',NULL,NULL,'2023-10-25'),
 	 (22,'Houston Rockets',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Toyota Center',NULL,NULL,'2023-10-25'),
@@ -7462,7 +7462,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (27,'Chicago Bulls',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'United Center',NULL,NULL,'2023-10-25'),
 	 (28,'Brooklyn Nets',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Barclays Center',NULL,NULL,'2023-10-25'),
 	 (29,'Boston Celtics',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'TD Garden',NULL,NULL,'2023-10-25');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (0,'Orlando Magic',24.5,1.0,0.0,1.0,0.0,30.0,-30.0,0.0,121.9,90.4,31.5,95.2,0.299,0.391,0.589,0.534,14.0,41.5,0.264,0.481,18.1,85.1,0.127,'Amway Center',18846.0,18846.0,'2023-10-26'),
 	 (1,'Indiana Pacers',24.9,1.0,0.0,1.0,0.0,23.0,-23.0,0.0,129.3,108.5,20.8,110.6,0.112,0.402,0.637,0.617,9.7,22.7,0.103,0.505,11.4,78.8,0.24,'Gainbridge Fieldhouse',16004.0,16004.0,'2023-10-26'),
 	 (2,'Oklahoma City Thunder',22.7,1.0,0.0,1.0,0.0,20.0,-20.0,0.0,124.9,104.7,20.2,99.3,0.22,0.476,0.69,0.665,15.1,14.7,0.183,0.479,11.3,74.5,0.149,'Paycom Center',NULL,NULL,'2023-10-26'),
@@ -7473,7 +7473,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (7,'Dallas Mavericks',26.4,1.0,0.0,1.0,0.0,7.0,-7.0,0.0,118.4,111.8,6.6,106.4,0.232,0.475,0.577,0.551,9.9,26.5,0.172,0.579,16.1,79.5,0.18,'American Airlines Center',NULL,NULL,'2023-10-26'),
 	 (8,'Charlotte Hornets',25.0,1.0,0.0,1.0,0.0,6.0,-6.0,0.0,112.2,106.4,5.8,103.4,0.302,0.43,0.595,0.564,16.3,28.6,0.221,0.446,10.0,76.5,0.29,'Spectrum Center',16129.0,16129.0,'2023-10-26'),
 	 (9,'Boston Celtics',29.0,1.0,0.0,1.0,0.0,4.0,-4.0,0.0,113.2,109.0,4.2,95.4,0.338,0.506,0.611,0.558,12.8,18.9,0.286,0.464,9.2,69.6,0.144,'TD Garden',NULL,NULL,'2023-10-26');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (10,'Phoenix Suns',29.2,1.0,0.0,1.0,0.0,4.0,-4.0,0.0,106.2,102.3,3.9,101.7,0.179,0.347,0.527,0.5,15.6,35.4,0.137,0.406,8.8,70.5,0.218,'Footprint Center',NULL,NULL,'2023-10-26'),
 	 (11,'Toronto Raptors',26.2,1.0,0.0,1.0,0.0,3.0,-3.0,0.0,95.1,92.1,3.0,102.0,0.178,0.389,0.5,0.478,12.6,14.8,0.122,0.38,11.3,70.9,0.18,'Scotiabank Arena',19800.0,19800.0,'2023-10-26'),
 	 (12,'Miami Heat',29.6,1.0,0.0,1.0,0.0,1.0,-1.0,0.0,109.4,108.3,1.1,94.2,0.283,0.239,0.498,0.446,6.3,29.1,0.228,0.505,14.7,65.3,0.098,'Kaseya Center',19695.0,19695.0,'2023-10-26'),
@@ -7484,7 +7484,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (17,'Golden State Warriors',30.3,0.0,1.0,0.0,1.0,-4.0,4.0,0.0,102.3,106.2,-3.9,101.7,0.277,0.426,0.459,0.406,8.8,29.5,0.218,0.5,15.6,64.6,0.137,'Chase Center',18064.0,18064.0,'2023-10-26'),
 	 (18,'New York Knicks',25.6,0.0,1.0,0.0,1.0,-4.0,4.0,0.0,109.0,113.2,-4.2,95.4,0.268,0.423,0.48,0.464,9.2,30.4,0.144,0.558,12.8,81.1,0.286,'Madison Square Garden (IV)',19812.0,19812.0,'2023-10-26'),
 	 (19,'Atlanta Hawks',25.6,0.0,1.0,0.0,1.0,-6.0,6.0,0.0,106.4,112.2,-5.8,103.4,0.355,0.312,0.512,0.446,10.0,23.5,0.29,0.564,16.3,71.4,0.221,'State Farm Arena',NULL,NULL,'2023-10-26');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (20,'San Antonio Spurs',23.6,0.0,1.0,0.0,1.0,-7.0,7.0,0.0,111.8,118.4,-6.6,106.4,0.247,0.393,0.603,0.579,16.1,20.5,0.18,0.551,9.9,73.5,0.172,'AT&T Center',18947.0,18947.0,'2023-10-26'),
 	 (21,'Memphis Grizzlies',25.3,0.0,1.0,0.0,1.0,-7.0,7.0,0.0,101.8,108.7,-6.9,102.1,0.22,0.473,0.521,0.484,11.5,16.3,0.176,0.553,18.2,72.5,0.2,'FedEx Forum',17798.0,17798.0,'2023-10-26'),
 	 (22,'Portland Trail Blazers',24.3,0.0,1.0,0.0,1.0,-12.0,12.0,0.0,111.8,123.9,-12.1,99.3,0.183,0.344,0.552,0.527,15.2,32.6,0.14,0.611,15.6,64.1,0.144,'Moda Center',NULL,NULL,'2023-10-26'),
@@ -7495,7 +7495,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (27,'Houston Rockets',25.1,0.0,1.0,0.0,1.0,-30.0,30.0,0.0,90.4,121.9,-31.5,95.2,0.203,0.43,0.5,0.481,18.1,14.9,0.127,0.534,14.0,58.5,0.264,'Toyota Center',NULL,NULL,'2023-10-26'),
 	 (28,'Philadelphia 76ers',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Wells Fargo Center',NULL,NULL,'2023-10-26'),
 	 (29,'Milwaukee Bucks',NULL,0.0,0.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fiserv Forum',NULL,NULL,'2023-10-26');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (0,'Orlando Magic',24.5,1.0,0.0,1.0,0.0,30.0,-30.0,0.0,121.9,90.4,31.5,95.2,0.299,0.391,0.589,0.534,14.0,41.5,0.264,0.481,18.1,85.1,0.127,'Amway Center',18846.0,18846.0,'2023-10-27'),
 	 (1,'Indiana Pacers',24.9,1.0,0.0,1.0,0.0,23.0,-23.0,0.0,129.3,108.5,20.8,110.6,0.112,0.402,0.637,0.617,9.7,22.7,0.103,0.505,11.4,78.8,0.24,'Gainbridge Fieldhouse',16004.0,16004.0,'2023-10-27'),
 	 (2,'Oklahoma City Thunder',22.7,1.0,0.0,1.0,0.0,20.0,-20.0,0.0,124.9,104.7,20.2,99.3,0.22,0.476,0.69,0.665,15.1,14.7,0.183,0.479,11.3,74.5,0.149,'Paycom Center',NULL,NULL,'2023-10-27'),
@@ -7506,7 +7506,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (7,'Dallas Mavericks',26.4,1.0,0.0,1.0,0.0,7.0,-7.0,0.0,118.4,111.8,6.6,106.4,0.232,0.475,0.577,0.551,9.9,26.5,0.172,0.579,16.1,79.5,0.18,'American Airlines Center',NULL,NULL,'2023-10-27'),
 	 (8,'Charlotte Hornets',25.0,1.0,0.0,1.0,0.0,6.0,-6.0,0.0,112.2,106.4,5.8,103.4,0.302,0.43,0.595,0.564,16.3,28.6,0.221,0.446,10.0,76.5,0.29,'Spectrum Center',16129.0,16129.0,'2023-10-27'),
 	 (9,'Boston Celtics',29.0,1.0,0.0,1.0,0.0,4.0,-4.0,0.0,113.2,109.0,4.2,95.4,0.338,0.506,0.611,0.558,12.8,18.9,0.286,0.464,9.2,69.6,0.144,'TD Garden',NULL,NULL,'2023-10-27');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (10,'Toronto Raptors',26.2,1.0,0.0,1.0,0.0,3.0,-3.0,0.0,95.1,92.1,3.0,102.0,0.178,0.389,0.5,0.478,12.6,14.8,0.122,0.38,11.3,70.9,0.18,'Scotiabank Arena',19800.0,19800.0,'2023-10-27'),
 	 (11,'Miami Heat',29.6,1.0,0.0,1.0,0.0,1.0,-1.0,0.0,109.4,108.3,1.1,94.2,0.283,0.239,0.498,0.446,6.3,29.1,0.228,0.505,14.7,65.3,0.098,'Kaseya Center',19695.0,19695.0,'2023-10-27'),
 	 (12,'Milwaukee Bucks',30.4,1.0,0.0,1.0,0.0,1.0,-1.0,0.0,116.1,115.1,1.0,101.7,0.439,0.366,0.603,0.567,12.5,20.5,0.305,0.613,14.0,89.7,0.238,'Fiserv Forum',17783.0,17783.0,'2023-10-27'),
@@ -7517,7 +7517,7 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (17,'Detroit Pistons',23.3,0.0,1.0,0.0,1.0,-1.0,1.0,0.0,108.3,109.4,-1.1,94.2,0.163,0.348,0.517,0.505,14.7,34.7,0.098,0.446,6.3,70.9,0.228,'Little Caesars Arena',NULL,NULL,'2023-10-27'),
 	 (18,'Minnesota Timberwolves',27.9,0.0,1.0,0.0,1.0,-3.0,3.0,0.0,92.1,95.1,-3.0,102.0,0.22,0.31,0.429,0.38,11.3,29.1,0.18,0.478,12.6,85.2,0.122,'Target Center',NULL,NULL,'2023-10-27'),
 	 (19,'Los Angeles Lakers',28.7,1.0,1.0,1.0,1.0,-3.5,6.5,3.0,103.9,107.4,-3.5,99.6,0.282,0.333,0.529,0.486,12.5,22.6,0.218,0.544,16.1,77.4,0.157,'Crypto.com Arena',18997.0,18997.0,'2023-10-27');
-INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
+INSERT INTO bbref_team_adv_stats_snapshot ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,drtg,nrtg,pace,ftr,"3par","ts%","efg%","tov%","orb%","ft/fga","efg%_opp","tov%_opp","drb%_opp","ft/fga_opp",arena,attendance,"att/game",scrape_date) VALUES
 	 (20,'Golden State Warriors',30.3,0.0,1.0,0.0,1.0,-4.0,-2.0,-6.0,102.3,106.2,-3.9,101.7,0.277,0.426,0.459,0.406,8.8,29.5,0.218,0.5,15.6,64.6,0.137,'Chase Center',18064.0,18064.0,'2023-10-27'),
 	 (21,'New York Knicks',25.6,0.0,1.0,0.0,1.0,-4.0,4.0,0.0,109.0,113.2,-4.2,95.4,0.268,0.423,0.48,0.464,9.2,30.4,0.144,0.558,12.8,81.1,0.286,'Madison Square Garden (IV)',19812.0,19812.0,'2023-10-27'),
 	 (22,'Atlanta Hawks',25.6,0.0,1.0,0.0,1.0,-6.0,6.0,0.0,106.4,112.2,-5.8,103.4,0.355,0.312,0.512,0.446,10.0,23.5,0.29,0.564,16.3,71.4,0.221,'State Farm Arena',NULL,NULL,'2023-10-27'),
@@ -7530,13 +7530,13 @@ INSERT INTO aws_adv_stats_source ("index",team,age,w,l,pw,pl,mov,sos,srs,ortg,dr
 	 (29,'Houston Rockets',25.1,0.0,1.0,0.0,1.0,-30.0,30.0,0.0,90.4,121.9,-31.5,95.2,0.203,0.43,0.5,0.481,18.1,14.9,0.127,0.534,14.0,58.5,0.264,'Toyota Center',NULL,NULL,'2023-10-27');
 
 
-DROP TABLE IF EXISTS inactive_dates;
-CREATE TABLE IF NOT EXISTS inactive_dates (
+DROP TABLE IF EXISTS internal_league_inactive_dates;
+CREATE TABLE IF NOT EXISTS internal_league_inactive_dates (
 	"date" date,
 	is_inactive int
 );
 
-INSERT INTO inactive_dates("date", is_inactive)
+INSERT INTO internal_league_inactive_dates("date", is_inactive)
 VALUES ('2022-02-18', 1),
 	   ('2022-02-19', 1),
 	   ('2022-02-20', 1),
@@ -7544,30 +7544,8 @@ VALUES ('2022-02-18', 1),
 	   ('2022-02-22', 1),
 	   ('2022-02-23', 1);
 
-DROP TABLE IF EXISTS player_attributes;
-create table if not exists player_attributes (
-	id serial primary key,
-	player_id int,
-	player varchar(128),
-	headshot varchar(128),
-	created_at timestamp default current_timestamp,
-	modified_at timestamp default current_timestamp
-);
-
-INSERT INTO player_attributes (player_id,player,headshot,created_at,modified_at) VALUES
-	 (1630173,'Precious Achiuwa','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630173.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (203500,'Steven Adams','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203500.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1628389,'Bam Adebayo','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628389.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1630534,'Ochai Agbaji','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630534.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1630583,'Santi Aldama','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630583.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1629638,'Nickeil Alexander-Walker','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629638.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1628960,'Grayson Allen','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628960.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1628386,'Jarrett Allen','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628386.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (1630631,'Jose Alvarado','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630631.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905'),
-	 (203937,'Kyle Anderson','https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203937.png','2023-11-03 14:56:26.211905','2023-11-03 14:56:26.211905');
-
-DROP TABLE IF EXISTS team_top_players;
-create table if not exists team_top_players (
+DROP TABLE IF EXISTS internal_team_top_players;
+create table if not exists internal_team_top_players (
 	player text NULL,
 	team text NULL,
 	"rank" int8 NULL,
@@ -7575,7 +7553,7 @@ create table if not exists team_top_players (
 	modified_at timestamp default current_timestamp
 );
 
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('Trae Young','ATL',1),
 	 ('Dejounte Murray','ATL',2),
 	 ('Jayson Tatum','BOS',1),
@@ -7586,7 +7564,7 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Miles Bridges','CHA',2),
 	 ('DeMar DeRozan','CHI',1),
 	 ('Zach LaVine','CHI',2);
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('Donovan Mitchell','CLE',1),
 	 ('Jarrett Allen','CLE',2),
 	 ('Luka Doncic','DAL',1),
@@ -7597,7 +7575,7 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Jalen Duren','DET',2),
 	 ('Stephen Curry','GSW',1),
 	 ('Draymond Green','GSW',2);
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('Jalen Green','HOU',1),
 	 ('Alperen Sengun','HOU',2),
 	 ('Tyrese Haliburton','IND',1),
@@ -7608,7 +7586,7 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Anthony Davis','LAL',2),
 	 ('Ja Morant','MEM',1),
 	 ('Desmond Bane','MEM',2);
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('Jimmy Butler','MIA',1),
 	 ('Bam Adebayo','MIA',2),
 	 ('Giannis Antetokounmpo','MIL',1),
@@ -7619,7 +7597,7 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Zion Williamson','NOP',2),
 	 ('Jalen Brunson','NYK',1),
 	 ('Julius Randle','NYK',2);
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('Shai Gilgeous-Alexander','OKC',1),
 	 ('Jalen Williams','OKC',2),
 	 ('Paolo Banchero','ORL',1),
@@ -7630,7 +7608,7 @@ INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
 	 ('Kevin Durant','PHX',2),
 	 ('Anfernee Simons','POR',1),
 	 ('Jerami Grant','POR',2);
-INSERT INTO nba_source.team_top_players (player,team,"rank") VALUES
+INSERT INTO nba_source.internal_team_top_players (player,team,"rank") VALUES
 	 ('De''Aaron Fox','SAC',1),
 	 ('Harrison Barnes','SAC',2),
 	 ('Victor Wembanyama','SAS',1),

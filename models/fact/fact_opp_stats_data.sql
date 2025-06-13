@@ -1,11 +1,11 @@
 with opp_stats_cte as (
     select *
-    from {{ source('nba_source', 'aws_opp_stats_source') }}
+    from {{ source('nba_source', 'bbref_team_opponent_shooting_stats') }}
 ),
 
 most_recent_date as (
     select max(scrape_date) as scrape_date
-    from {{ source('nba_source', 'aws_opp_stats_source') }}
+    from {{ source('nba_source', 'bbref_team_opponent_shooting_stats') }}
     {# where scrape_date = '2022-04-11' -- lock the date to regular season #}
 ),
 

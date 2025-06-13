@@ -27,7 +27,7 @@ with shooting_stats as (
         created_at,
         modified_at
 
-    from {{ source('nba_source', 'aws_shooting_stats_source') }}
+    from {{ source('nba_source', 'bbref_player_shooting_stats') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

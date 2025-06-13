@@ -1,6 +1,6 @@
 with most_recent_date as (
     select max(scrape_date) as max_scrape_date
-    from {{ source('nba_source', 'aws_injury_data_source') }}
+    from {{ source('nba_source', 'bbref_player_injuries') }}
 ),
 
 injury_data as (
@@ -8,7 +8,7 @@ injury_data as (
         player,
         team,
         date,
-        aws_injury_data_source.scrape_date,
+        bbref_player_injuries.scrape_date,
         -- grabbing injury + status with the parantheses included still - ex `Out (Knee)`
         {{ split_part('description', " ' - ' ", 1) }} as injury_combined,
         {{ split_part('description', " ' - ' ", 2) }} as injury_description,
@@ -30,8 +30,8 @@ injury_data as (
         end as protocols,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_injury_data_source') }}
-        inner join most_recent_date on aws_injury_data_source.scrape_date = most_recent_date.max_scrape_date
+    from {{ source('nba_source', 'bbref_player_injuries') }}
+        inner join most_recent_date on bbref_player_injuries.scrape_date = most_recent_date.max_scrape_date
 )
 
 select *

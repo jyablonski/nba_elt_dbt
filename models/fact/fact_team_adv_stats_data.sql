@@ -1,6 +1,6 @@
 with most_recent_date as (
     select max(scrape_date) as scrape_date
-    from {{ source('nba_source', 'aws_adv_stats_source') }}
+    from {{ source('nba_source', 'bbref_team_adv_stats_snapshot') }}
 ),
 
 adv_stats as (
@@ -32,7 +32,7 @@ adv_stats as (
         arena::text,
         attendance::numeric,
         "att/game"::numeric as att_game,
-        aws_adv_stats_source.scrape_date::date as scrape_date,
+        bbref_team_adv_stats_snapshot.scrape_date::date as scrape_date,
         row_number() over (order by nrtg::numeric desc) as nrtg_order,
         row_number() over (order by ortg::numeric desc) as ortg_order,
         row_number() over (order by drtg::numeric) as drtg_order,
@@ -44,8 +44,8 @@ adv_stats as (
         row_number() over (order by "ft/fga_opp"::numeric) as ft_fga_opp_order,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_adv_stats_source') }}
-        inner join most_recent_date on aws_adv_stats_source.scrape_date = most_recent_date.scrape_date
+    from {{ source('nba_source', 'bbref_team_adv_stats_snapshot') }}
+        inner join most_recent_date on bbref_team_adv_stats_snapshot.scrape_date = most_recent_date.scrape_date
 )
 
 

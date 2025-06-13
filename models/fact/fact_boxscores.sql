@@ -37,7 +37,7 @@ with boxscores_enriched as (
         ), 1)::numeric as game_mvp_score,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_boxscores_source') }}
+    from {{ source('nba_source', 'bbref_player_boxscores') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

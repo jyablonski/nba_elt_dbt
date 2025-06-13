@@ -2,7 +2,7 @@ unit_tests:
   - name: test_dim_teams
     model: dim_teams
     given:
-      - input: source('nba_source', 'aws_team_attributes_source')
+      - input: source('nba_source', 'internal_team_attributes')
         format: sql
         fixture: teams_source_fixture
     overrides:

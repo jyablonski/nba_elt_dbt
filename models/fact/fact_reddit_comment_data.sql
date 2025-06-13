@@ -20,7 +20,7 @@ with comments as (
         date(created_at) as created_at_date,
         created_at,
         modified_at
-    from {{ source('nba_source', 'aws_reddit_comment_data_source') }}
+    from {{ source('nba_source', 'reddit_comments') }}
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
