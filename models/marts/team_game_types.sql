@@ -1,120 +1,51 @@
 with mov_data as (
     select
         team,
-        game_date,
-        outcome,
         mov::integer,
+        season_type,
         game_type
     from {{ ref('prep_recent_games_teams') }}
-    where season_type = 'Regular Season'
+    where season_type in ('Regular Season', 'Playoffs') -- ignore play-in
 ),
 
-mov_counts_w as (
+season_totals as (
     select
         team,
-        outcome,
-        count(outcome) as outcome_wins_count
+        season_type,
+        count(*) as total_games
     from mov_data
-    where outcome = 'W'
-    group by team, outcome
-),
-
-mov_counts_l as (
-    select
+    group by
         team,
-        outcome,
-        count(outcome) as outcome_losses_count
-    from mov_data
-    where outcome = 'L'
-    group by team, outcome
+        season_type
 ),
 
-mov_counts_clutch_wins as (
+mov_counts as (
     select
         team,
         game_type,
-        count(game_type) as clutch_wins_count
+        season_type,
+        count(*) as n,
+        case
+            when game_type = 'Clutch Game' then '5 points or less'
+            when game_type = '10 pt Game' then 'between 6 - 10 points'
+            when game_type = '20 pt Game' then 'between 11 and 20 points'
+            else 'more than 20 points'
+        end as explanation
     from mov_data
-    where game_type = 'Clutch Game' and outcome = 'W'
-    group by team, game_type
-),
-
-mov_counts_clutch_losses as (
-    select
+    group by
         team,
         game_type,
-        count(game_type) as clutch_losses_count
-    from mov_data
-    where game_type = 'Clutch Game' and outcome = 'L'
-    group by team, game_type
-),
-
-mov_counts_blowout_wins as (
-    select
-        team,
-        game_type,
-        count(game_type) as blowout_wins_count
-    from mov_data
-    where game_type = 'Blowout Game' and outcome = 'W'
-    group by team, game_type
-),
-
-mov_counts_blowout_losses as (
-    select
-        team,
-        game_type,
-        count(game_type) as blowout_losses_count
-    from mov_data
-    where game_type = 'Blowout Game' and outcome = 'L'
-    group by team, game_type
-),
-
-mov_counts_10pt_wins as (
-    select
-        team,
-        game_type,
-        count(game_type) as tenpt_wins_count
-    from mov_data
-    where game_type = '10 pt Game' and outcome = 'W'
-    group by team, game_type
-),
-
-mov_counts_10pt_losses as (
-    select
-        team,
-        game_type,
-        count(game_type) as tenpt_losses_count
-    from mov_data
-    where game_type = '10 pt Game' and outcome = 'L'
-    group by team, game_type
-),
-
--- reminder - you cant use a new column in a select statement to create ANOTHER column in postgres.
---  so i have to copy paste the coalesce code, or do this in another cte
-final as (
-    select distinct
-        team,
-        coalesce(mov_counts_w.outcome_wins_count, 0) as outcome_wins_count,
-        coalesce(mov_counts_l.outcome_losses_count, 0) as outcome_losses_count,
-        coalesce(mov_counts_clutch_wins.clutch_wins_count, 0) as clutch_wins_count,
-        coalesce(mov_counts_clutch_losses.clutch_losses_count, 0) as clutch_losses_count,
-        -- round(coalesce(mov_counts_clutch_wins.clutch_wins_count::numeric, 0) / (coalesce(mov_counts_clutch_wins.clutch_wins_count::numeric, 0) + coalesce(mov_counts_clutch_losses.clutch_losses_count::numeric, 0)), 3)::numeric as clutch_win_pct,
-        coalesce(mov_counts_blowout_wins.blowout_wins_count, 0) as blowout_wins_count,
-        coalesce(mov_counts_blowout_losses.blowout_losses_count, 0) as blowout_losses_count,
-        -- round(coalesce(mov_counts_blowout_wins.blowout_wins_count::numeric, 0) / (coalesce(mov_counts_blowout_wins.blowout_wins_count::numeric, 0) + coalesce(mov_counts_blowout_losses.blowout_losses_count::numeric, 0)), 3)::numeric as blowout_win_pct,
-        coalesce(mov_counts_10pt_wins.tenpt_wins_count, 0) as tenpt_wins_count,
-        coalesce(mov_counts_10pt_losses.tenpt_losses_count, 0) as tenpt_losses_count
-        -- round(coalesce(mov_counts_10pt_wins.tenpt_wins_count::numeric, 0) / (coalesce(mov_counts_10pt_wins.tenpt_wins_count::numeric, 0) + coalesce(mov_counts_10pt_losses.tenpt_losses_count::numeric, 0)), 3)::numeric as tenpt_win_pct
-    from mov_data
-        left join mov_counts_w using (team)
-        left join mov_counts_l using (team)
-        left join mov_counts_clutch_wins using (team)
-        left join mov_counts_clutch_losses using (team)
-        left join mov_counts_blowout_wins using (team)
-        left join mov_counts_blowout_losses using (team)
-        left join mov_counts_10pt_wins using (team)
-        left join mov_counts_10pt_losses using (team)
+        season_type
 )
 
-select *
-from final
+select
+    mov_counts.*,
+    round(100.0 * mov_counts.n / season_totals.total_games, 2) as pct_of_total
+from mov_counts
+    inner join season_totals
+    on mov_counts.team = season_totals.team
+        and mov_counts.season_type = season_totals.season_type
+order by
+    season_type,
+    team,
+    game_type
