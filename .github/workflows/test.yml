@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   test_pipeline:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the Repo
