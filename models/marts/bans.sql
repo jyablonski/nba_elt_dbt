@@ -37,7 +37,6 @@ final as (
         win_pct,
         league_ts_percent,
         last_updated_at,
-        run_type,
         most_recent_game,
         sum_active_protocols
     from bans_data
