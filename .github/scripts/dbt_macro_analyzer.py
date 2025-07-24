@@ -29,7 +29,9 @@ def extract_macro_names_from_manifest(files: list[str], manifest: dict) -> list[
     return changed_macros
 
 
-def find_models_depending_on_macros(macros: list[str], manifest: dict) -> dict[str, list[str]]:
+def find_models_depending_on_macros(
+    macros: list[str], manifest: dict
+) -> dict[str, list[str]]:
     affected_models = {}
     for node_id, node_data in manifest.get("nodes", {}).items():
         if node_data.get("resource_type") != "model":
@@ -41,9 +43,14 @@ def find_models_depending_on_macros(macros: list[str], manifest: dict) -> dict[s
     return affected_models
 
 
-def generate_comment(changed_macros: list[str], affected_models: dict[str, list[str]]) -> str:
+def generate_comment(
+    changed_macros: list[str], affected_models: dict[str, list[str]]
+) -> str:
+    # add an HTML comment marker so we can find it later
+    comment_id_marker = "<!-- macro-analyzer-comment -->"
+
     total_affected = len(set(m for models in affected_models.values() for m in models))
-    body = "### 🧪 Macro Impact Analysis\n\n"
+    body = f"{comment_id_marker}\n### 🧪 Macro Impact Analysis\n\n"
     body += f"- Changed macros: {', '.join(changed_macros)}\n"
     body += f"- Total models affected: **{total_affected}**\n\n"
 
@@ -59,23 +66,57 @@ def generate_comment(changed_macros: list[str], affected_models: dict[str, list[
     return body
 
 
-def post_github_comment(body: str):
-    if not all([GITHUB_TOKEN, PR_NUMBER, REPO]):
-        print("Missing GitHub environment variables. Skipping comment.")
-        return
+def post_github_comment(
+    pr_number: int, repo: str, token: str, body: str, marker: str
+) -> None:
+    import requests
 
-    url = f"https://api.github.com/repos/{REPO}/issues/{PR_NUMBER}/comments"
+    existing_comment_id = find_existing_comment(pr_number, repo, token, marker)
+
     headers = {
-        "Authorization": f"token {GITHUB_TOKEN}",
+        "Authorization": f"token {token}",
         "Accept": "application/vnd.github+json",
     }
 
-    response = requests.post(url, json={"body": body}, headers=headers)
+    if existing_comment_id:
+        url = (
+            f"https://api.github.com/repos/{repo}/issues/comments/{existing_comment_id}"
+        )
+        response = requests.patch(url, json={"body": body}, headers=headers)
+        response.raise_for_status()
+        print("Updated existing comment.")
+    else:
+        url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
+        response = requests.post(url, json={"body": body}, headers=headers)
+        response.raise_for_status()
+        print("Created new comment.")
+
+
+def find_existing_comment(
+    pr_number: int, repo: str, token: str, marker: str
+) -> int | None:
+    url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json",
+    }
+
+    response = requests.get(url, headers=headers)
     response.raise_for_status()
-    print("Comment posted to GitHub PR.")
+
+    comments = response.json()
+    for comment in comments:
+        if (
+            comment["user"]["login"] == "github-actions[bot]"
+            and marker in comment["body"]
+        ):
+            return comment["id"]
+
+    return None
 
 
 def main():
+    marker = "<!-- macro-analyzer-comment -->"
     changed_files = get_changed_macro_files()
     if not changed_files:
         print("No macros changed.")
@@ -97,7 +138,7 @@ def main():
     comment = generate_comment(changed_macro_ids, model_map)
     print(comment)
 
-    post_github_comment(comment)
+    post_github_comment(PR_NUMBER, REPO, GITHUB_TOKEN, comment, marker)
 
 
 if __name__ == "__main__":
