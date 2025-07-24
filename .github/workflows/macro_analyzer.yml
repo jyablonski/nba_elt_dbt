@@ -37,7 +37,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python .github/scripts/analyze_macro_changes.py
+        run: python .github/scripts/dbt_macro_analyzer.py
 
       - name: Stop Postgres
         run: make down
