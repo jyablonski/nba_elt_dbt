@@ -80,7 +80,10 @@ def generate_comment(
 def post_github_comment(
     pr_number: int, repo: str, token: str, body: str, marker: str
 ) -> None:
-    import requests
+    """
+    Function which either posts a new PR comment, or updates the existing
+    one already on the PR
+    """
 
     existing_comment_id = find_existing_comment(pr_number, repo, token, marker)
 
