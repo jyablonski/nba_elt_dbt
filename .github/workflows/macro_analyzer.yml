@@ -30,7 +30,7 @@ jobs:
         run: make up
 
       - name: Compile dbt project
-        run: uv run dbt compile --profiles-dir profiles/ --profile dbt_ci
+        run: uv run dbt compile --profiles-dir profiles/ --profile dbt_local
 
       - name: Analyze macro changes
         env:
