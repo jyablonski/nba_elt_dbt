@@ -1,6 +1,5 @@
 {% macro clean_player_names_bbref(column_name) %}
 
--- 
 CASE WHEN {{ column_name }} = 'Mo Bamba' THEN 'Mohamed Bamba'
      WHEN {{ column_name }} = 'Herb Jones' THEN 'Herbert Jones'
      WHEN {{ column_name }} = 'Nicolas Claxton' THEN 'Nic Claxton'
