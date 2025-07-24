@@ -81,8 +81,6 @@ def main():
         print("No macros changed.")
         return
 
-    subprocess.run(["dbt", "compile"], check=True)
-
     if not MANIFEST_PATH.exists():
         print("manifest.json not found. Did dbt compile fail?")
         return
