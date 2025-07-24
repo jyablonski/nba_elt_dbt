@@ -23,6 +23,9 @@ jobs:
           enable-cache: true
           prune-cache: false
 
+      - name: Build dbt deps
+        run: uv run dbt deps
+
       - name: Compile dbt project
         run: uv run dbt compile --profiles-dir profiles/ --profile dbt_ci
 
