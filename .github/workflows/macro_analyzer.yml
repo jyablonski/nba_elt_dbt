@@ -24,7 +24,7 @@ jobs:
           prune-cache: false
 
       - name: Compile dbt project
-        run: uv run dbt compile
+        run: uv run dbt compile --profiles-dir profiles/ --profile dbt_ci
 
       - name: Analyze macro changes
         env:
