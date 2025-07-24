@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed for full git history
+          fetch-depth: 0 # needed for full git history
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -26,6 +26,9 @@ jobs:
       - name: Build dbt deps
         run: uv run dbt deps
 
+      - name: Start Postgres
+        run: make up
+
       - name: Compile dbt project
         run: uv run dbt compile --profiles-dir profiles/ --profile dbt_ci
 
@@ -35,3 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python .github/scripts/analyze_macro_changes.py
+
+      - name: Stop Postgres
+        run: make down
