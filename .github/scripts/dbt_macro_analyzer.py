@@ -12,6 +12,14 @@ REPO = os.getenv("GITHUB_REPOSITORY")  # in the form of org/repo
 MANIFEST_PATH = Path("target/manifest.json")
 
 
+def strip_prefix(name: str) -> str:
+    prefixes = ["macro.nba_elt_project.", "model.nba_elt_project."]
+    for prefix in prefixes:
+        if name.startswith(prefix):
+            return name[len(prefix) :]
+    return name
+
+
 def get_changed_macro_files(base_branch: str = "origin/master") -> list[str]:
     result = subprocess.check_output(
         ["git", "diff", "--name-only", base_branch, "--", "macros/"]
@@ -48,16 +56,19 @@ def generate_comment(
 ) -> str:
     # add an HTML comment marker so we can find it later
     comment_id_marker = "<!-- macro-analyzer-comment -->"
+    clean_macros = [strip_prefix(m) for m in changed_macros]
 
     total_affected = len(set(m for models in affected_models.values() for m in models))
     body = f"{comment_id_marker}\n### 🧪 Macro Impact Analysis\n\n"
-    body += f"- Changed macros: {', '.join(changed_macros)}\n"
+    body += f"- Changed macros: {', '.join(clean_macros)}\n"
     body += f"- Total models affected: **{total_affected}**\n\n"
 
     for macro, models in affected_models.items():
-        body += f"#### `{macro}` used in {len(models)} models:\n"
+        clean_macro = strip_prefix(macro)
+        body += f"#### `{clean_macro}` used in {len(models)} models:\n"
         for model in models:
-            body += f"- `{model}`\n"
+            clean_model = strip_prefix(model)
+            body += f"- `{clean_model}`\n"
         body += "\n"
 
     if total_affected == 0:
