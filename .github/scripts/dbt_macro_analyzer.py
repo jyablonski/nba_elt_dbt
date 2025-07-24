@@ -8,7 +8,7 @@ import requests
 PR_NUMBER = os.getenv("PR_NUMBER")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")  # in the form of org/repo
-
+BASE_BRANCH = "origin/master"
 MANIFEST_PATH = Path("target/manifest.json")
 
 
@@ -20,7 +20,7 @@ def strip_prefix(name: str) -> str:
     return name
 
 
-def get_changed_macro_files(base_branch: str = "origin/master") -> list[str]:
+def get_changed_macro_files(base_branch: str = BASE_BRANCH) -> list[str]:
     result = subprocess.check_output(
         ["git", "diff", "--name-only", base_branch, "--", "macros/"]
     )
@@ -150,7 +150,6 @@ def main():
 
     model_map = find_models_depending_on_macros(changed_macro_ids, manifest)
     comment = generate_comment(changed_macro_ids, model_map)
-    print(comment)
 
     post_github_comment(PR_NUMBER, REPO, GITHUB_TOKEN, comment, marker)
 
