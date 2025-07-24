@@ -1,6 +1,5 @@
 {% macro convert_team_names_flairs(column_name) %}
 
--- v2
 CASE WHEN {{ column_name }} IN ('Hawks')  THEN 'ATL'
      WHEN {{ column_name }} IN ('Celtics', 'bwBos')  THEN 'BOS'
      WHEN {{ column_name }} IN ('Nets')  THEN 'BKN'
