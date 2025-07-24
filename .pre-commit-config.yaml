@@ -9,5 +9,5 @@ repos:
       #  - `--processes 0` to use maximum parallelism
       # By default, this hook applies all rules.
       # stages: [manual]  # this command is available only to run manually
-      entry: env DBT_PRAC_KEY=hooks sqlfluff fix --force --show-lint-violations --processes 0
+      entry: env sqlfluff fix --force --show-lint-violations --processes 0
       additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']

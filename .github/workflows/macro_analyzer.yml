@@ -1,0 +1,43 @@
+name: dbt Macro Analyzer
+
+on:
+  pull_request:
+    paths:
+      - "macros/**"
+
+env:
+  UV_VERSION: 0.8.2
+
+jobs:
+  macro-impact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # needed for full git history
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          prune-cache: false
+
+      - name: Build dbt deps
+        run: uv run dbt deps
+
+      - name: Start Postgres
+        run: make up
+
+      - name: Compile dbt project
+        run: uv run dbt compile --profiles-dir profiles/ --profile dbt_local
+
+      - name: Analyze macro changes
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/dbt_macro_analyzer.py
+
+      - name: Stop Postgres
+        run: make down

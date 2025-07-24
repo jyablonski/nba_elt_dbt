@@ -12,7 +12,6 @@ with bans_data as (
         league_ts_percent::numeric as league_ts_percent,
         {{ dbt.current_timestamp() }} as last_updated_at,
         most_recent_game,
-        '{{ env_var('DBT_PRAC_KEY') }}' as run_type,
         'join' as join_col
 
     from {{ ref('prep_bans') }}
@@ -38,7 +37,6 @@ final as (
         win_pct,
         league_ts_percent,
         last_updated_at,
-        run_type,
         most_recent_game,
         sum_active_protocols
     from bans_data
