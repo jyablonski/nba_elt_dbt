@@ -1,151 +1,155 @@
-/* to do - last 10 games column+ win streaks */
-
 with team_wins as (
     select distinct
-        b.game_date,
-        b.outcome,
-        a.conference,
-        (b.team),
-        case
-            when outcome = 'W' then 1
-            else 0
-        end as outcome_int
-    from {{ ref('fact_boxscores') }} as b
-        left join {{ ref('dim_teams') }} as a on b.team = a.team_acronym
-    where season_type = 'Regular Season'
-
+        fact_boxscores.game_date,
+        fact_boxscores.outcome,
+        dim_teams.conference,
+        fact_boxscores.team,
+        case when fact_boxscores.outcome = 'W' then 1 else 0 end as outcome_int
+    from {{ ref('fact_boxscores') }}
+        left join {{ ref('dim_teams') }}
+        on fact_boxscores.team = dim_teams.team_acronym
+    where fact_boxscores.season_type = 'Regular Season'
 ),
 
 active_injuries as (
     select
-        team,
-        team_active_injuries,
-        team_active_protocols
+        prep_team_injury_count_aggs.team,
+        prep_team_injury_count_aggs.team_active_injuries,
+        prep_team_injury_count_aggs.team_active_protocols
     from {{ ref('prep_team_injury_count_aggs') }}
-
 ),
 
 team_counts as (
     select
-        team,
+        team_wins.team,
         count(*) as games_played,
-        sum(outcome_int) as wins,
-        (count(*) - sum(outcome_int)) as losses
+        sum(team_wins.outcome_int) as wins,
+        count(*) - sum(team_wins.outcome_int) as losses
     from team_wins
-    group by team
+    group by team_wins.team
 ),
 
 team_attributes as (
     select
-        team_acronym as team,
-        team as team_full,
-        conference
+        dim_teams.team_acronym as team,
+        dim_teams.team as team_full,
+        dim_teams.conference
     from {{ ref('dim_teams') }}
 ),
 
 pre_final as (
-    select distinct
+    select
         team_attributes.team_full,
         team_attributes.conference,
-        team_counts.games_played,
+        coalesce(team_counts.games_played, 0) as games_played,
         coalesce(team_counts.wins, 0) as wins,
         coalesce(team_counts.losses, 0) as losses,
-        (team_attributes.team) as team,
+        team_attributes.team,
         coalesce(active_injuries.team_active_injuries, 0) as active_injuries,
         coalesce(active_injuries.team_active_protocols, 0) as active_protocols,
-        (team_counts.wins::numeric / games_played::numeric) as win_percentage
+        coalesce(team_counts.wins::numeric / nullif(team_counts.games_played, 0)::numeric, 0) as win_percentage
     from team_attributes
-        left join team_wins on team_attributes.team = team_wins.team
-        left join team_counts on team_wins.team = team_counts.team
-        left join active_injuries on team_attributes.team_full = active_injuries.team
-
+        left join team_counts
+        on team_attributes.team = team_counts.team
+        left join active_injuries
+        on team_attributes.team_full = active_injuries.team
 ),
 
 recent_10 as (
     select
-        team,
-        game_date,
-        outcome,
-        outcome_int,
-        row_number() over (partition by team order by game_date desc) as game_num
+        team_wins.team,
+        team_wins.game_date,
+        team_wins.outcome,
+        team_wins.outcome_int,
+        row_number() over (partition by team_wins.team order by team_wins.game_date desc) as game_num
     from team_wins
-    order by row_number() over (partition by team order by game_date desc)
 ),
 
 recent_10_wins as (
     select
-        team,
-        sum(outcome_int) as wins_last_10
+        recent_10.team,
+        sum(recent_10.outcome_int) as wins_last_10
     from recent_10
-    where game_num <= 10
-    group by team
-),
-
-recent_10_losses as (
-    select
-        team,
-        game_date,
-        outcome,
-        case when outcome = 'L' then 1 else 0 end as loss_count
-    from recent_10
-    where outcome = 'L' and game_num <= 10
-    order by game_date desc
-
+    where recent_10.game_num <= 10
+    group by recent_10.team
 ),
 
 recent_10_losses_group as (
     select
-        team,
-        sum(loss_count) as losses_last_10
-    from recent_10_losses
-    group by team
+        recent_10.team,
+        sum(case when recent_10.outcome = 'L' then 1 else 0 end) as losses_last_10
+    from recent_10
+    where recent_10.game_num <= 10
+    group by recent_10.team
 ),
 
 preseason as (
     select
-        team_acronym as team,
-        championship_odds,
-        predicted_wins,
-        predicted_losses
+        fact_preseason_odds_data.team_acronym as team,
+        fact_preseason_odds_data.championship_odds,
+        fact_preseason_odds_data.predicted_wins,
+        fact_preseason_odds_data.predicted_losses
     from {{ ref('fact_preseason_odds_data') }}
 ),
 
-final as (
+ranked as (
     select
-        *,
-        round(win_percentage * 82, 0)::numeric as projected_wins,
+        pre_final.*,
+        recent_10_wins.wins_last_10,
+        recent_10_losses_group.losses_last_10,
+        preseason.championship_odds,
+        preseason.predicted_wins,
+        preseason.predicted_losses,
+        round(pre_final.win_percentage * 82, 0)::numeric as projected_wins,
+        82 - round(pre_final.win_percentage * 82, 0)::numeric as projected_losses,
         case
-            when win_percentage >= 0.5 then 'Above .500'
+            when pre_final.win_percentage >= 0.5 then 'Above .500'
             else 'Below .500'
         end as team_status,
-        82 - round(win_percentage * 82, 0)::numeric as projected_losses
+        rank() over (
+            partition by pre_final.conference
+            order by pre_final.win_percentage desc
+        ) as calculated_rank,
+        nba_source.internal_team_standings_override.season_rank_override,
+        coalesce(
+            nba_source.internal_team_standings_override.season_rank_override,
+            rank()
+                over (
+                    partition by pre_final.conference
+                    order by pre_final.win_percentage desc
+                )
+        ) as season_rank
     from pre_final
-        left join recent_10_wins using (team)
-        left join recent_10_losses_group using (team)
-        left join preseason using (team)
+        left join recent_10_wins
+        on pre_final.team = recent_10_wins.team
+        left join recent_10_losses_group
+        on pre_final.team = recent_10_losses_group.team
+        left join preseason
+        on pre_final.team = preseason.team
+        left join nba_source.internal_team_standings_override
+        on pre_final.team = nba_source.internal_team_standings_override.team
 )
 
 select
-    team,
-    team_full,
-    conference,
-    coalesce(games_played, 0) as games_played,
-    coalesce(wins, 0) as wins,
-    coalesce(losses, 0) as losses,
-    active_injuries,
-    active_protocols,
-    round(win_percentage, 3)::numeric as win_percentage,
-    championship_odds,
-    predicted_wins,
-    predicted_losses,
-    team_status,
-    projected_wins,
-    projected_losses,
-    coalesce(wins_last_10, 0) as wins_last_10,
-    coalesce(losses_last_10, 0) as losses_last_10
-from final
-order by win_percentage desc
-/*
-select *
-from final
-*/
+    ranked.team,
+    ranked.team_full,
+    ranked.conference,
+    ranked.games_played,
+    ranked.wins,
+    ranked.losses,
+    ranked.active_injuries,
+    ranked.active_protocols,
+    round(ranked.win_percentage, 3)::numeric as win_percentage,
+    ranked.championship_odds,
+    ranked.predicted_wins,
+    ranked.predicted_losses,
+    ranked.team_status,
+    ranked.projected_wins,
+    ranked.projected_losses,
+    coalesce(ranked.wins_last_10, 0) as wins_last_10,
+    coalesce(ranked.losses_last_10, 0) as losses_last_10,
+    ranked.season_rank
+from ranked
+order by
+    ranked.conference asc,
+    ranked.season_rank asc

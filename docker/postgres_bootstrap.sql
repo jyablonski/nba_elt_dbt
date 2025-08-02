@@ -7642,3 +7642,25 @@ VALUES (
 	(make_date(EXTRACT(YEAR FROM CURRENT_DATE)::int, 4, 15)),
 	(make_date(EXTRACT(YEAR FROM CURRENT_DATE)::int, 4, 19))
 );
+
+DROP TABLE IF EXISTS nba_source.internal_team_standings_override;
+
+CREATE TABLE IF NOT EXISTS nba_source.internal_team_standings_override (
+	team varchar primary key,
+	season_rank_override integer,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	modified_at timestamp DEFAULT CURRENT_TIMESTAMP NULL
+);
+
+INSERT INTO nba_source.internal_team_standings_override (team, season_rank_override)
+VALUES
+	('MIA', 8),
+	('ATL', 9),
+	('CHI', 10),
+	('DEN', 4),
+	('LAC', 5),
+	('MIN', 6),
+	('GSW', 7),
+	('MEM', 8),
+	('SAC', 9),
+	('DAL', 10);

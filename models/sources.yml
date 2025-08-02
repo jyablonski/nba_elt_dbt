@@ -152,6 +152,8 @@ sources:
               - not_null
       - name: internal_league_inactive_dates
         description: Inactive Dates table to manually override Schedule Tests
+      - name: internal_team_standings_override
+        description: Table for Team Standings Rank Override (for when a team's rank changes after the play-in etc)
       - name: play_in_details
   - name: ml
     database: jacob_db
