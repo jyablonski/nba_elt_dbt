@@ -11,10 +11,7 @@ with standings as (
         active_protocols,
         wins_last_10,
         losses_last_10,
-        row_number() over (
-            partition by conference
-            order by round((wins::numeric / nullif(games_played::numeric, 0)), 3) desc
-        ) as rank
+        season_rank as rank
 
     from {{ ref('prep_standings_table') }}
 
@@ -22,19 +19,6 @@ with standings as (
 
 standings2 as (
     select
-    /*
-        case
-            when (rank = 1) and conference = 'Western' then 2  -- this is changing around the seeds for the play-in teams
-            when (rank = 2) and conference = 'Western' then 1
-            when (rank = 6) and conference = 'Western' then 8
-            when (rank = 7) and conference = 'Western' then 6
-            when (rank = 8) and conference = 'Western' then 7
-            when (rank = 5) and conference = 'Eastern' then 6
-            when (rank = 6) and conference = 'Eastern' then 5
-            -- when (rank = 9) and (conference = 'Western') then 8
-            else rank
-        end as rank,
-        */
         rank,
         team,
         team_full,
@@ -47,7 +31,9 @@ standings2 as (
         active_protocols,
         concat(wins_last_10, '-', losses_last_10) as last_10
     from standings
-    order by conference, rank
+    order by
+        conference,
+        rank
 ),
 
 final as (
