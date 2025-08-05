@@ -17,7 +17,7 @@ inactive_dates as (
     select
         date as game_date,
         is_inactive
-    from {{ source('nba_source', 'inactive_dates') }}
+    from {{ source('nba_source', 'internal_league_inactive_dates') }}
 ),
 
 -- filter out all inactive dates, and only grab records where moneyline odds are null on gamedays so the test fails

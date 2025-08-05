@@ -22,16 +22,9 @@ with players as (
 
 contracts as (
     select
-        replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(
-            player, 'Kelly Oubre Jr.', 'Kelly Oubre'
-        ), 'Kira Lewis Jr.', 'Kira Lewis'),
-        'Michael Porter Jr.', 'Michael Porter'), 'Mo Bamba', 'Mohamed Bamba'), 'Jaren Jackson Jr.', 'Jaren Jackson'),
-        'Wendell Carter Jr.', 'Wendell Carter'), 'Kenyon Martin Jr.', 'Kenyon Martin'), 'Gary Trent Jr.', 'Gary Trent'),
-        'Trey Murphy III', 'Trey Murphy'), 'Larry Nance Jr.', 'Larry Nance'), 'Gary Payton II', 'Gary Payton'),
-        'Troy Brown Jr.', 'Troy Brown'), 'Kevin Porter Jr.', 'Kevin Porter'), 'Enes Kanter', 'Enes Freedom') as player,
+        {{ clean_player_names_bbref('player') }}::text as player,
         coalesce(season_salary, 1000000)::numeric as salary
     from {{ source('nba_source', 'bbref_player_contracts') }}
-
 ),
 
 is_top_players as (
