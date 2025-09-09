@@ -11,12 +11,21 @@ with comments as (
         edited,
         scrape_date,
         scrape_ts,
+        -- these 5 columns are generated from the ingestion script
         compound::numeric as compound,
         neg::numeric as neg,
         neu::numeric as neu,
         pos::numeric as pos,
         sentiment,
+        -- `sentiment_category` should be preferred for downstream use. it determines sentiment by looking at the dominant
+        -- category for each comment
+        case
+            when pos::numeric >= neu::numeric and pos::numeric >= neg::numeric then 'Positive'
+            when neg::numeric >= neu::numeric and neg::numeric >= pos::numeric then 'Negative'
+            else 'Neutral'
+        end as sentiment_category,
         regexp_replace(flair1, '\d+$', '') as flair_final, --removes trailing digits (Warriors5, Suns2, Bulls1)
+        {{ convert_team_names_flairs("regexp_replace(flair1, '\\d+$', '')") }} as team_flair,
         date(created_at) as created_at_date,
         created_at,
         modified_at

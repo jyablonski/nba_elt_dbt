@@ -11,18 +11,23 @@ with game_dates as (
     from {{ ref('fact_boxscores') }}
 ),
 
--- REVIEW THIS MACRO EVERY COUPLE OF MONTHS
 new_comments as (
     select
-        *,
-        {{ convert_team_names_flairs('flair_final') }} as team
+        comment,
+        team_flair,
+        scrape_date,
+        score,
+        neg,
+        neu,
+        pos,
+        compound
     from {{ ref('fact_reddit_comment_data') }}
 ),
 
 aggs as (
     select
         scrape_date,
-        team,
+        team_flair as team,
         scrape_date - 1 as potential_game_date,
         count(*) as num_comments,
         round(avg(score), 3) as avg_score,
@@ -31,7 +36,10 @@ aggs as (
         round(avg(pos), 3) as avg_pos,
         round(avg(compound), 3) as avg_compound
     from new_comments
-    group by scrape_date, scrape_date - 1, team
+    group by
+        scrape_date,
+        scrape_date - 1,
+        team_flair
 ),
 
 final as (
@@ -49,7 +57,9 @@ final as (
         coalesce(outcome, 'NO GAME') as game_outcome
     from aggs
         left join game_dates using (potential_game_date, team)
-    order by team, scrape_date
+    order by
+        team,
+        scrape_date
 )
 
 select *

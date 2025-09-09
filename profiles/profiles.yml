@@ -33,6 +33,7 @@ dbt_ci:
       schema: nba_source
       user: postgres
       password: postgres
+      threads: 8
 
 dbt_local:
   target: dev
@@ -45,3 +46,4 @@ dbt_local:
       schema: nba_source
       user: postgres
       password: postgres
+      threads: 8
