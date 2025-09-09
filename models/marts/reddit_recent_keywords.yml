@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: reddit_recent_keywords
+    description: Recent Reddit Keywords by Flair
+    columns:
+      - name: word
+        data_tests:
+          - unique
+          - not_null
