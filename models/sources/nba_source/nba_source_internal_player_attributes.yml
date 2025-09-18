@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: nba_source
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: internal_player_attributes
+        columns:
+          - name: player
+            data_tests:
+              - not_null

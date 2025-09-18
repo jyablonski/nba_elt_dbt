@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: nba_source
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_team_opponent_shooting_stats
+        description: Raw Team Opponent Stats Table
+        columns:
+          - name: team
+            data_tests:
+              - not_null
