@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: marts
+    database: jacob_db
+    schema: marts
+    tables:
+      - name: user_predictions

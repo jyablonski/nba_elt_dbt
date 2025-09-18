@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: nba_source
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: reddit_comments
+        description: Raw reddit comment data
+        loaded_at_field: scrape_ts
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 72, period: hour}
+        columns:
+          - name: url
+            data_tests:
+              - not_null

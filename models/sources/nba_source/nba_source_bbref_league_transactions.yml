@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: nba_source
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_league_transactions
+        description: Raw player & team trades + transactions
+        columns:
+          - name: date
+            data_tests:
+              - not_null
+          - name: transaction
+            data_tests:
+              - not_null
