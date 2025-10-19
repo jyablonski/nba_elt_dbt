@@ -1,11 +1,10 @@
 version: 2
 
 models:
-    - name: team_game_types
-      description: Prod Game Types Table
-      data_tests:
-        - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["team", "game_type", "season_type"]
-        - dbt_expectations.expect_table_row_count_to_be_between:
-            min_value: 1
-            max_value: 200
+  - name: team_game_types
+    description: Prod Game Types Table
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          column_list: ["team", "game_type", "season_type"]
+      - dbt_expectations.expect_table_row_count_to_equal:
+          value: 240

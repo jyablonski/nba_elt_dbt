@@ -1,4 +1,9 @@
-with my_cte as (
+with team_attributes as (
+    select *
+    from {{ ref('dim_teams') }}
+),
+
+my_cte as (
     select
         player,
         salary
@@ -36,7 +41,6 @@ combo as (
         inner join team_gp using (team)
 ),
 
-
 team_max_date as (
     select distinct
         team,
@@ -54,7 +58,7 @@ team_record as (
 ),
 
 team_counts as (
-    select distinct
+    select
         team,
         win_percentage,
         sum(salary_earned) as sum_salary_earned,
@@ -64,18 +68,25 @@ team_counts as (
     group by
         team,
         win_percentage
-    order by team_pct_salary_earned desc
 ),
 
 final as (
-    select distinct
-        *,
-        sum_salary_earned_max - sum_salary_earned as value_lost_from_injury,
-        1 - team_pct_salary_earned as team_pct_salary_lost
-    from team_counts
-        left join team_record using (team)
-    where team is not null
+    select
+        team_attributes.team,
+        team_counts.win_percentage,
+        coalesce(team_counts.sum_salary_earned, 0) as sum_salary_earned,
+        coalesce(team_counts.sum_salary_earned_max, 0) as sum_salary_earned_max,
+        coalesce(team_counts.team_pct_salary_earned, 0) as team_pct_salary_earned,
+        coalesce(team_counts.sum_salary_earned_max - team_counts.sum_salary_earned, 0) as value_lost_from_injury,
+        coalesce(1 - team_counts.team_pct_salary_earned, 1) as team_pct_salary_lost,
+        team_record.record
+    from team_attributes
+        left join team_counts
+            on team_attributes.team = team_counts.team
+        left join team_record
+            on team_attributes.team = team_record.team
 )
 
 select *
 from final
+order by team_pct_salary_earned desc

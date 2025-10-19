@@ -1,16 +1,16 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'nba_elt_project'
-version: '1.0.0'
+name: "nba_elt_project"
+version: "1.0.0"
 config-version: 2
 
 vars:
-  'dbt_date:time_zone': 'America/Chicago'
+  "dbt_date:time_zone": "America/Los_Angeles"
+  "prediction_start_date": "2025-10-01"
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'default'
+profile: "default"
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
@@ -22,11 +22,10 @@ seed-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_packages"
-
+target-path: "target" # directory which will store compiled SQL files
+clean-targets: # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -36,55 +35,55 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   nba_elt_project:
-      # Applies to all files under models/example/
-      marts:
-        +materialized: table
-        +schema: marts
-        +tags:
-          - "NBA_PRODUCTION_MARTS"
-          - "DAILY"
-      reporting:
-        +materialized: view
-        +schema: reporting
-        +tags:
-          - "REPORTING"
-      prep:
-        +materialized: table
-        +schema: prep
-        +tags:
-          - "NBA_PRODUCTION_PREP"
-          - "DAILY"
-      operations:
-        +materialized: view
-        +schema: operations
-        +tags:
-          - "NBA_PRODUCTION_OPERATIONS"
-          - "DAILY"
-      ml:
-        +materialized: table
-        +schema: ml
-        +tags:
-          - "NBA_PRODUCTION_ML_MODELS"
-          - "DAILY"
-      ad_hoc_analytics:
-        +materialized: view
-        +schema: ad_hoc_analytics
-        +tags:
-          - "ANALYTICS"
-          - "AD HOC"
-          - "VIEW"
-      fact:
-        +materialized: table
-        +schema: fact
-        +tags:
-          - "DAILY"
-          - "FACT"
-      dim:
-        +materialized: table
-        +schema: dim
-        +tags:
-          - "DAILY"
-          - "DIM"
+    # Applies to all files under models/example/
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags:
+        - "NBA_PRODUCTION_MARTS"
+        - "DAILY"
+    reporting:
+      +materialized: view
+      +schema: reporting
+      +tags:
+        - "REPORTING"
+    prep:
+      +materialized: table
+      +schema: prep
+      +tags:
+        - "NBA_PRODUCTION_PREP"
+        - "DAILY"
+    operations:
+      +materialized: view
+      +schema: operations
+      +tags:
+        - "NBA_PRODUCTION_OPERATIONS"
+        - "DAILY"
+    ml:
+      +materialized: table
+      +schema: ml
+      +tags:
+        - "NBA_PRODUCTION_ML_MODELS"
+        - "DAILY"
+    ad_hoc_analytics:
+      +materialized: view
+      +schema: ad_hoc_analytics
+      +tags:
+        - "ANALYTICS"
+        - "AD HOC"
+        - "VIEW"
+    fact:
+      +materialized: table
+      +schema: fact
+      +tags:
+        - "DAILY"
+        - "FACT"
+    dim:
+      +materialized: table
+      +schema: dim
+      +tags:
+        - "DAILY"
+        - "DIM"
 seeds:
   nba_elt_project:
     schema: nba_source
