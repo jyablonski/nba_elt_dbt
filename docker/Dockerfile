@@ -48,11 +48,11 @@ ENV PATH="/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-COPY --from=python-deps /.venv /.venv
-COPY --from=python-deps /dbt_packages /app/dbt_packages
-
 WORKDIR /app
 
 COPY . .
+
+COPY --from=python-deps /.venv /.venv
+COPY --from=python-deps /dbt_packages /app/dbt_packages
 
 CMD ["dbt", "build", "--profiles-dir", "profiles/", "--target", "prod"]
