@@ -32,12 +32,13 @@ with my_cte as (
 
 schedule_wins as (
     select
-        a.team as home_team,
-        s.game_date,
-        s.outcome as outcome
-    from {{ ref('prep_schedule_analysis') }} as s
-        left join {{ ref('staging_seed_team_attributes') }} as a on s.team = a.team_acronym
-    where location = 'H'
+        dim_teams.team as home_team,
+        prep_schedule_analysis.game_date,
+        prep_schedule_analysis.outcome as outcome
+    from {{ ref('prep_schedule_analysis') }} as prep_schedule_analysis
+        left join {{ ref('dim_teams') }} as dim_teams 
+            on prep_schedule_analysis.team = dim_teams.team_acronym
+    where prep_schedule_analysis.location = 'H'
 ),
 
 final as (
@@ -58,8 +59,8 @@ game_predictions as (
     select distinct
         *,
         case
-            when
-                ml_prediction = actual_outcome then 1 else 0
+            when ml_prediction = actual_outcome then 1 
+            else 0
         end as ml_accuracy
     from final
 ),
@@ -67,26 +68,26 @@ game_predictions as (
 final_aggs as (
     select
         ml_accuracy,
-        count(*) as tot_correct_predictions,
-        'join' as join_col
+        count(*) as tot_correct_predictions
     from game_predictions
-    group by 1, 3
+    group by ml_accuracy
 ),
 
 final_aggs_sum as (
     select
-        'join' as join_col,
         count(*) as tot_games
     from game_predictions
 ),
 
 final_aggs_tot as (
     select
-        *,
-        round((tot_correct_predictions::numeric) / (tot_games::numeric), 3)::numeric as ml_prediction_pct
+        final_aggs.ml_accuracy,
+        final_aggs.tot_correct_predictions,
+        final_aggs_sum.tot_games,
+        round((final_aggs.tot_correct_predictions::numeric) / (final_aggs_sum.tot_games::numeric), 3)::numeric as ml_prediction_pct
     from final_aggs
-        left join final_aggs_sum using (join_col)
-    where ml_accuracy = 1
+        cross join final_aggs_sum
+    where final_aggs.ml_accuracy = 1
 ),
 
 

@@ -9,7 +9,7 @@ with aggs as (
         round(avg(bet_profit), 2) as avg_bet_profit,
         sum(case when is_correct_prediction = 1 then 1 else 0 end) as num_correct_predictions
     from {{ ref('user_past_predictions') }}
-    where game_date >= '2023-10-01'
+    where game_date >= '2025-10-01'
     group by
         username,
         selected_winner

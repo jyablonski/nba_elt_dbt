@@ -15,12 +15,13 @@ with games as (
 
 outcomes as (
     select distinct
-        a.team as home_team,
-        b.game_date,
-        case when b.outcome = 'W' then 1 else 0 end as outcome
-    from {{ ref('fact_boxscores') }} as b
-        left join {{ ref('dim_teams') }} as a on b.team = a.team_acronym
-    where b.location = 'H'
+        dim_teams.team as home_team,
+        fact_boxscores.game_date,
+        case when fact_boxscores.outcome = 'W' then 1 else 0 end as outcome
+    from {{ ref('fact_boxscores') }} as fact_boxscores
+        left join {{ ref('dim_teams') }} as dim_teams
+            on fact_boxscores.team = dim_teams.team_acronym
+    where fact_boxscores.location = 'H'
 ),
 
 home_team_avg as (
@@ -29,7 +30,7 @@ home_team_avg as (
         round(avg(pts_scored), 1)::numeric as home_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as home_team_avg_pts_scored_opp
     from {{ ref('prep_recent_games_teams') }}
-    group by 1
+    group by full_team
 
 ),
 
@@ -39,7 +40,7 @@ away_team_avg as (
         round(avg(pts_scored), 1)::numeric as away_team_avg_pts_scored,
         round(avg(pts_scored_opp), 1)::numeric as away_team_avg_pts_scored_opp
     from {{ ref('prep_recent_games_teams') }}
-    group by 1
+    group by full_team
 
 ),
 
@@ -68,14 +69,15 @@ away_team_win_pct as (
 -- these 2 have to be different for tonights games - pull from injury report
 team_top_players as (
     select
-        p.player,
-        p.team,
-        t.rank as player_rank
-    from {{ ref('fact_injury_data') }} as p
-        inner join {{ ref('dim_players') }} as t using (player)
+        fact_injury_data.player,
+        fact_injury_data.team,
+        dim_players.rank as player_rank
+    from {{ ref('fact_injury_data') }} as fact_injury_data
+        inner join {{ ref('dim_players') }} as dim_players
+            using (player)
     where
-        p.injury_status != 'Day To Day'
-        and t.rank != 0 -- don't care players who are not in the top 2
+        fact_injury_data.injury_status != 'Day To Day'
+        and dim_players.rank != 0 -- don't care players who are not in the top 2
 -- use status != daytoday bc these players will most likely play anyways, so assume they're healthy.
 ),
 
@@ -84,7 +86,7 @@ home_team_top_players_aggs as (
         team as home_team,
         2 - count(*) as home_is_top_players
     from team_top_players
-    group by 1
+    group by team
 ),
 
 away_team_top_players_aggs as (
@@ -92,7 +94,7 @@ away_team_top_players_aggs as (
         team as away_team,
         2 - count(*) as away_is_top_players
     from team_top_players
-    group by 1
+    group by team
 ),
 
 -- home days rest away days rest has to come from different methodology than ml_past_games
