@@ -42,12 +42,11 @@ ENV PATH="/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
+COPY --from=python-deps /.venv /.venv
+
 WORKDIR /app
 
 COPY . .
-
-COPY --from=python-deps /.venv /.venv
-COPY --from=python-deps /dbt_packages /app/dbt_packages
 
 RUN dbt deps --profiles-dir profiles/
 
