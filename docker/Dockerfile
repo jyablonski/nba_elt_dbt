@@ -33,12 +33,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync --frozen --no-dev
 
-# Copy profiles and dbt_project.yml, then install dbt packages
-COPY profiles/ ./profiles/
-COPY dbt_project.yml ./dbt_project.yml
-
-RUN dbt deps --profiles-dir profiles/
-
 # -------------------------------
 # Stage: Runtime
 # -------------------------------
@@ -54,5 +48,7 @@ COPY . .
 
 COPY --from=python-deps /.venv /.venv
 COPY --from=python-deps /dbt_packages /app/dbt_packages
+
+RUN dbt deps --profiles-dir profiles/
 
 CMD ["dbt", "build", "--profiles-dir", "profiles/", "--target", "prod"]
