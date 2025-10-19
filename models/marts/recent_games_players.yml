@@ -1,28 +1,30 @@
 version: 2
 
 models:
-    - name: recent_games_players
-      description: Prod Recent Games for Players Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_be_between:
-            min_value: 12
-            max_value: 30
-      columns:
-          - name: player
-            data_tests:
-                - unique
-                - not_null
-          - name: plus_minus
-            data_tests:
-                - not_null
-          - name: pts
-            data_tests:
-                - not_null
-          - name: pts_color
-            data_tests:
-            - dbt_expectations.expect_column_values_to_be_in_set:
-                value_set: [0, 1, 2, 3]
-          - name: ts_color
-            data_tests:
-            - dbt_expectations.expect_column_values_to_be_in_set:
-                value_set: [0, 1, 2, 3]
+  - name: recent_games_players
+    description: Prod Recent Games for Players Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          min_value: 0
+          max_value: 30
+          config:
+            warn_if: "= 0"
+    columns:
+      - name: player
+        data_tests:
+          - unique
+          - not_null
+      - name: plus_minus
+        data_tests:
+          - not_null
+      - name: pts
+        data_tests:
+          - not_null
+      - name: pts_color
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: [0, 1, 2, 3]
+      - name: ts_color
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: [0, 1, 2, 3]

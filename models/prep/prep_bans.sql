@@ -1,5 +1,12 @@
 -- only tracking regular season metrics as of now
-with boxscores as (
+with locations as (
+    -- Generate base rows for both locations
+    select 'Home' as location
+    union all
+    select 'Away' as location
+),
+
+boxscores as (
     select distinct
         game_date,
         location,
@@ -11,16 +18,17 @@ with boxscores as (
 ),
 
 tot_games_played as (
-    select sum(outcome_int) as games_played
+    select coalesce(sum(outcome_int), 0) as games_played
     from boxscores
 ),
 
 league_bans as (
     select
-        location,
-        sum(outcome_int) as tot_wins
-    from boxscores
-    group by location
+        locations.location,
+        coalesce(sum(boxscores.outcome_int), 0) as tot_wins
+    from locations
+        left join boxscores on locations.location = boxscores.location
+    group by locations.location
 ),
 
 upcoming_game_date as (
@@ -57,7 +65,7 @@ recent_game_date as (
 ),
 
 league_average_ppg as (
-    select round(avg(sum_pts), 2) as avg_pts
+    select coalesce(round(avg(sum_pts), 2), 0) as avg_pts
     from team_sum_pts_per_game
 ),
 
@@ -88,7 +96,11 @@ final as (
         league_bans.tot_wins,
         tot_games_played.games_played,
         league_average_ppg.avg_pts,
-        round((league_bans.tot_wins::numeric / tot_games_played.games_played::numeric), 3) as win_pct,
+        case
+            when tot_games_played.games_played > 0
+                then round((league_bans.tot_wins::numeric / tot_games_played.games_played::numeric), 3)
+            else 0
+        end as win_pct,
         latest_update.scrape_time,
         113.8::numeric as last_yr_ppg,
         league_ts_2.league_ts_percent,

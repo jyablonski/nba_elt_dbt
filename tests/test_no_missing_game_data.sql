@@ -6,7 +6,7 @@ with missing_games as (
     select *
     from {{ ref('user_past_predictions') }}
     where
-        game_date >= '2024-10-24'
+        game_date >= '{{ var("prediction_start_date") }}'
         and game_date < current_date
         and actual_winner = 'TBD'
 )

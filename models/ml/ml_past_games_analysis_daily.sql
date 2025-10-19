@@ -33,12 +33,13 @@ with my_cte as (
 
 schedule_wins as (
     select
-        a.team as home_team,
-        s.game_date as game_date,
-        s.outcome as outcome
-    from {{ ref('prep_schedule_analysis') }} as s
-        left join {{ ref('staging_seed_team_attributes') }} as a on a.team_acronym = s.team
-    where location = 'H'
+        dim_teams.team as home_team,
+        prep_schedule_analysis.game_date as game_date,
+        prep_schedule_analysis.outcome as outcome
+    from {{ ref('prep_schedule_analysis') }} as prep_schedule_analysis
+        left join {{ ref('dim_teams') }} as dim_teams 
+            on dim_teams.team_acronym = prep_schedule_analysis.team
+    where prep_schedule_analysis.location = 'H'
 ),
 
 final as (
@@ -68,7 +69,9 @@ final_aggs_correct as (
         count(*) as tot_correct_predictions
     from game_predictions
     where ml_accuracy = 1
-    group by 1, 2
+    group by
+        ml_accuracy,
+        game_date
 ),
 
 final_aggs_incorrect as (
@@ -78,7 +81,9 @@ final_aggs_incorrect as (
         count(*) as tot_incorrect_predictions
     from game_predictions
     where ml_accuracy = 0
-    group by 1, 2
+    group by
+        ml_accuracy,
+        game_date
 ),
 
 final_aggs_sum as (
@@ -86,20 +91,20 @@ final_aggs_sum as (
         count(*) as tot_games,
         game_date
     from game_predictions
-    group by 2
+    group by game_date
 ),
 
 final_aggs_tot as (
     select
-        s.game_date,
-        coalesce(c.tot_correct_predictions, 0) as tot_correct_predictions,
-        coalesce(i.tot_incorrect_predictions, 0) as tot_incorrect_predictions,
-        s.tot_games,
-        round((coalesce(c.tot_correct_predictions, 0)::numeric) / (tot_games::numeric), 3)::numeric as ml_prediction_pct
-    from final_aggs_sum s
-    left join final_aggs_correct c using (game_date)
-    left join final_aggs_incorrect i using (game_date)
-    order by game_date desc
+        final_aggs_sum.game_date,
+        coalesce(final_aggs_correct.tot_correct_predictions, 0) as tot_correct_predictions,
+        coalesce(final_aggs_incorrect.tot_incorrect_predictions, 0) as tot_incorrect_predictions,
+        final_aggs_sum.tot_games,
+        round((coalesce(final_aggs_correct.tot_correct_predictions, 0)::numeric) / (final_aggs_sum.tot_games::numeric), 3)::numeric as ml_prediction_pct
+    from final_aggs_sum
+    left join final_aggs_correct using (game_date)
+    left join final_aggs_incorrect using (game_date)
+    order by final_aggs_sum.game_date desc
 ),
 
 rolling_avg as (

@@ -1,13 +1,13 @@
 repos:
-- repo: https://github.com/sqlfluff/sqlfluff
-  rev: 3.1.0
-  hooks:
-    - id: sqlfluff-fix
-      # Set a couple of default flags:
-      #  - `--force` to disable confirmation
-      #  - `--show-lint-violations` shows issues to not require running `sqlfluff lint`
-      #  - `--processes 0` to use maximum parallelism
-      # By default, this hook applies all rules.
-      # stages: [manual]  # this command is available only to run manually
-      entry: env sqlfluff fix --force --show-lint-violations --processes 0
-      additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 3.5.0
+    hooks:
+      # this will automatically fix whatever checks it can
+      - id: sqlfluff-fix
+        additional_dependencies:
+          - sqlfluff-templater-dbt==3.5.0
+          - dbt-postgres==1.9.1
+        language: python
+        args:
+          - --config=pyproject.toml
+        files: ^models/.*\.sql$

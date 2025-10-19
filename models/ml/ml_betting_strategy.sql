@@ -13,7 +13,7 @@ with schedule_wins as (
         s.game_date,
         s.outcome as outcome
     from {{ ref('prep_schedule_analysis') }} as s
-        left join {{ ref('staging_seed_team_attributes') }} as a on s.team = a.team_acronym
+        left join {{ ref('dim_teams') }} as a on s.team = a.team_acronym
     where location = 'H'
 ),
 
@@ -68,7 +68,7 @@ home_odds as (
         date as game_date,
         moneyline as home_moneyline
     from {{ ref('fact_odds_data') }}
-        left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
+        left join {{ ref('dim_teams') }} as a using (team_acronym)
 ),
 
 away_odds as (
@@ -77,7 +77,7 @@ away_odds as (
         date as game_date,
         moneyline as away_moneyline
     from {{ ref('fact_odds_data') }}
-        left join {{ ref('staging_seed_team_attributes') }} as a using (team_acronym)
+        left join {{ ref('dim_teams') }} as a using (team_acronym)
 ),
 
 -- this shows the actual game outcomes that should be bet on

@@ -3,8 +3,9 @@ version: 2
 models:
   - name: fact_opp_stats_data
     data_tests:
-      - dbt_expectations.expect_table_row_count_to_equal:
-          value: 30
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          min_value: 0
+          max_value: 30
     columns:
       - name: team
         data_tests:

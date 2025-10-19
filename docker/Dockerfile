@@ -1,12 +1,15 @@
-FROM python:3.12-slim AS base
+FROM python:3.13-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    PATH="/.venv/bin:/root/.cargo/bin:$PATH" \
-    UV_COMPILE_BYTECODE=1 \
+    PATH="/.venv/bin:$PATH" \
+    UV_COMPILE_BYTECODE=1 \ 
     UV_PYTHON_DOWNLOADS=never \
-    UV_PYTHON=3.12
+    UV_PYTHON=3.13 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+# uv installs .pyc files in site-packages, and python doesn't recompile them at runtime
 
-# install OS-level deps once in base (so we don't repeat in each stage)
+# Install OS-level deps once in base (so we don't repeat in each stage)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates && \
     rm -rf /var/lib/apt/lists/*
@@ -18,18 +21,29 @@ FROM base AS python-deps
 
 COPY pyproject.toml uv.lock ./
 
-RUN pip install uv==0.6.12 && \
+# Cache mount: Persist pip's download cache across builds for faster rebuilds
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install uv==0.9.3
+
+# Cache mount: Persist uv's download cache across builds
+# Bind mounts: Temporarily mount files during RUN without copying them into the layer
+# This improves layer caching - if only app code changes, this layer is reused
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync --frozen --no-dev
 
 # -------------------------------
 # Stage: Runtime
 # -------------------------------
-FROM base AS runtime
+FROM python:3.13-slim AS runtime
 
-COPY --from=python-deps /.venv ./.venv
+ENV PATH="/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
-# reminder: can't do any `RUN useradd --create-home appuser` in dbt
-# because you'll hit a permissions error when running dbt deps
+COPY --from=python-deps /.venv /.venv
+
 WORKDIR /app
 
 COPY . .
