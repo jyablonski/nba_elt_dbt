@@ -53,7 +53,10 @@ home_team_win_pct as (
     select
         team_full as home_team,
         win_percentage as home_team_win_pct,
-        round(wins_last_10::numeric / (wins_last_10::numeric + losses_last_10::numeric), 3)::numeric as home_team_win_pct_last10
+        case
+            when (wins_last_10::numeric + losses_last_10::numeric) = 0 then 0.500
+            else round(wins_last_10::numeric / (wins_last_10::numeric + losses_last_10::numeric), 3)::numeric
+        end as home_team_win_pct_last10
     from {{ ref('prep_standings_table') }}
 ),
 
@@ -62,7 +65,10 @@ away_team_win_pct as (
     select
         team_full as away_team,
         win_percentage as away_team_win_pct,
-        round(wins_last_10::numeric / (wins_last_10::numeric + losses_last_10::numeric), 3)::numeric as away_team_win_pct_last10
+        case
+            when (wins_last_10::numeric + losses_last_10::numeric) = 0 then 0.500
+            else round(wins_last_10::numeric / (wins_last_10::numeric + losses_last_10::numeric), 3)::numeric
+        end as away_team_win_pct_last10
     from {{ ref('prep_standings_table') }}
 ),
 
