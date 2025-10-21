@@ -71,7 +71,6 @@ final2 as (
         left join opp_status as o using (opp)
 ),
 
-
 win_loss as (
     select distinct
         team,
@@ -191,9 +190,9 @@ above_wins as (
 prefinal as (
     select
         *,
-        round((wins::numeric / games_played::numeric), 3)::numeric as win_pct,
-        round((wins_opp::numeric / games_played_opp::numeric), 3)::numeric as win_pct_opp,
-        round((above_gp::numeric / games_played::numeric), 3)::numeric as pct_vs_above_500,
+        round((wins::numeric / nullif(games_played::numeric, 0)), 3)::numeric as win_pct,
+        round((wins_opp::numeric / nullif(games_played_opp::numeric, 0)), 3)::numeric as win_pct_opp,
+        round((above_gp::numeric / nullif(games_played::numeric, 0)), 3)::numeric as pct_vs_above_500,
         home_gp - coalesce(home_wins, 0) as home_losses,
         road_gp - coalesce(road_wins, 0) as road_losses,
         below_gp - below_500_wins as below_500_losses,
