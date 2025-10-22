@@ -1,14 +1,17 @@
 cd:
-- .github/workflows/deploy.yml
+  - .github/workflows/deploy.yml
 
 dependencies:
-- poetry.lock
+  - uv.lock
+  - packages.yml
 
-data_models:
-- models/**
+intermediate_models:
+  - models/fact/**
+  - models/dim/**
+  - models/prep/**
 
 data_products:
-- models/marts/**
+  - models/marts/**
 
 sources:
-- models/sources.yml
+  - models/sources.yml

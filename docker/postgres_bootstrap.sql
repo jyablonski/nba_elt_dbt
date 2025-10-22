@@ -7664,3 +7664,27 @@ VALUES
 	('MEM', 8),
 	('SAC', 9),
 	('DAL', 10);
+
+CREATE TABLE ml.ml_tonights_games_audit (
+	home_team text NULL,
+	away_team text NULL,
+	home_moneyline numeric NULL,
+	away_moneyline numeric NULL,
+	game_date date NULL,
+	home_team_rank int8 NULL,
+	home_days_rest int4 NULL,
+	home_team_avg_pts_scored numeric NULL,
+	home_team_avg_pts_scored_opp numeric NULL,
+	home_team_win_pct numeric NULL,
+	home_team_win_pct_last10 numeric NULL,
+	home_is_top_players numeric NULL,
+	away_team_rank int8 NULL,
+	away_days_rest int4 NULL,
+	away_team_avg_pts_scored numeric NULL,
+	away_team_avg_pts_scored_opp numeric NULL,
+	away_team_win_pct numeric NULL,
+	away_team_win_pct_last10 numeric NULL,
+	away_is_top_players numeric NULL,
+	outcome int4 null,
+	audit_inserted_at timestamp
+);
