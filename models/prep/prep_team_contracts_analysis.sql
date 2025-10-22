@@ -46,6 +46,7 @@ team_max_date as (
         team,
         max(game_date) as game_date
     from {{ ref('prep_past_schedule_analysis') }}
+    where game_date < current_date
     group by team
 ),
 
@@ -54,7 +55,7 @@ team_record as (
         team,
         record
     from {{ ref('prep_past_schedule_analysis') }}
-        inner join team_max_date using (team)
+        inner join team_max_date using (team, game_date)
 ),
 
 team_counts as (
@@ -82,9 +83,9 @@ final as (
         team_record.record
     from team_attributes
         left join team_counts
-            on team_attributes.team = team_counts.team
+            on team_attributes.team_acronym = team_counts.team
         left join team_record
-            on team_attributes.team = team_record.team
+            on team_attributes.team_acronym = team_record.team
 )
 
 select *

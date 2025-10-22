@@ -1,15 +1,23 @@
 -- only tracking regular season metrics as of now
 with locations as (
     -- Generate base rows for both locations
-    select 'Home' as location
+    select
+        'Home' as location,
+        'H' as location_code
     union all
-    select 'Away' as location
+    select
+        'Away' as location,
+        'A' as location_code
 ),
 
 boxscores as (
     select distinct
         game_date,
-        location,
+        case
+            when location = 'H' then 'Home'
+            when location = 'A' then 'Away'
+            else location
+        end as location,
         outcome,
         team,
         case when outcome = 'W' then 1 else 0 end as outcome_int

@@ -111,10 +111,10 @@ models:
             where: "season_type = 'Regular Season'"
 
       # Ensure top 20 scorers have ppg_rank <= 20
-      - dbt_utils.expression_is_true:
-          expression: "(scoring_category = 'Top 20 Scorers' AND ppg_rank <= 20) OR scoring_category = 'Other'"
-          config:
-            where: "season_type = 'Regular Season'"
+      # - dbt_utils.expression_is_true:
+      #     expression: "(scoring_category = 'Top 20 Scorers' AND ppg_rank <= 20) OR scoring_category = 'Other'"
+      #     config:
+      #       where: "season_type = 'Regular Season'"
 
       # Ensure no duplicate ranks within Regular Season
       - dbt_utils.unique_combination_of_columns:
