@@ -46,12 +46,11 @@ with pbp_raw as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-            and date > (select max(game_date) from {{ this }})
+            and date > (select coalesce(max(game_date), '1900-01-01'::date) from {{ this }})
 
         {% endif %}
 
 ),
-
 
 time_remaining_calcs as (
     select

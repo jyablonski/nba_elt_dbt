@@ -17,7 +17,7 @@ with preseason_odds as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where bbref_team_preseason_odds.modified_at > (select max(modified_at) from {{ this }})
+        where bbref_team_preseason_odds.modified_at > (select coalesce(max(modified_at), '1900-01-01'::timestamp) from {{ this }})
 
     {% endif %}
 )

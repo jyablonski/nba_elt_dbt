@@ -34,7 +34,7 @@ with comments as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where created_at > (select max(created_at) from {{ this }})
+        where created_at > (select coalesce(max(created_at), '1900-01-01'::timestamp) from {{ this }})
 
     {% endif %}
 )

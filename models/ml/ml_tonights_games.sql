@@ -1,3 +1,16 @@
+{{
+    config(
+        materialized='table',
+        post_hook=[
+            "insert into ml.ml_tonights_games_audit
+             select 
+                 *,
+                 current_timestamp as audit_inserted_at
+             from {{ this }}"
+        ]
+    )
+}}
+
 with games as (
     select
         home_team,

@@ -25,7 +25,7 @@ with old_twitter_data as (
 
         -- this filter will only be applied on an incremental run
         -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where scrape_ts > (select max(scrape_ts) from {{ this }})
+        where scrape_ts > (select coalesce(max(scrape_ts), '1900-01-01'::timestamp) from {{ this }})
 
     {% endif %}
 ),
