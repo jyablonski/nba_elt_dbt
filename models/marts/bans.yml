@@ -94,7 +94,7 @@ models:
           name: wins_cannot_exceed_games_played
 
       - dbt_utils.expression_is_true:
-          expression: "win_pct = ROUND(tot_wins::numeric / NULLIF(games_played, 0), 4) OR games_played = 0"
+          expression: "win_pct = ROUND(tot_wins::numeric / NULLIF(games_played, 0), 3) OR games_played = 0"
           name: win_pct_calculated_correctly
 
       - dbt_expectations.expect_table_row_count_to_equal:
