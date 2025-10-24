@@ -1,6 +1,6 @@
 ![Deployment](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/deploy.yml/badge.svg) ![Tests](https://github.com/jyablonski/nba_elt_dbt/actions/workflows/test.yml/badge.svg)
 
-Version: 3.2.16
+Version: 3.2.17
 
 ## Running The App
 Clone the Repo & run `make up` which will spin up a Postgres Database w/ bootstrapped data to test the project with.
