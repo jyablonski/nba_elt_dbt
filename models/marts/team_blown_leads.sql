@@ -5,13 +5,11 @@ with team_attributes as (
 
 season_type_scaffold as (
     select 'Regular Season' as season_type
-    union all
-    select 'Playoffs'
 ),
 
 all_team_season_combinations as (
     select
-        team_attributes.team,
+        team_attributes.team_acronym as team,
         season_type_scaffold.season_type
     from team_attributes
         cross join season_type_scaffold
