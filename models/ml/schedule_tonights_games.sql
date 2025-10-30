@@ -16,18 +16,9 @@ select
     away_moneyline,
     home_team_predicted_win_pct,
     away_team_predicted_win_pct,
-    case
-        when
-            ((home_moneyline >= -130 or home_moneyline >= 200) and home_team_predicted_win_pct >= 0.55)
-            or (home_moneyline >= 170 and home_team_predicted_win_pct >= 0.50) then 1
-        else 0
-    end as home_is_great_value,
-    case
-        when
-            ((away_moneyline >= -130 or away_moneyline >= 200) and away_team_predicted_win_pct >= 0.55)
-            or (away_moneyline >= 170 and away_team_predicted_win_pct >= 0.50) then 1
-        else 0
-    end as away_is_great_value
+    -- booleans used in the dashboard cells to highlight teams w/ good bet value
+    {{ is_great_bet_value('home_moneyline', 'home_team_predicted_win_pct') }} as home_is_great_value,
+    {{ is_great_bet_value('away_moneyline', 'away_team_predicted_win_pct') }} as away_is_great_value
 from {{ ref('schedule') }}
     inner join {{ source('ml', 'ml_game_predictions') }}
         on
@@ -35,3 +26,5 @@ from {{ ref('schedule') }}
             and schedule.away_team = ml_game_predictions.away_team
             and schedule.game_date = ml_game_predictions.game_date
 where schedule.game_date = current_date
+order by
+    schedule.game_ts
