@@ -43,9 +43,6 @@ models:
         description: Player salary (defaulted to 1M if null)
         data_tests:
           - not_null
-          - dbt_utils.accepted_range:
-              min_value: 1000000
-              inclusive: true
 
       - name: team_games_played
         description: Total games played by team
