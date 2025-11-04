@@ -36,3 +36,7 @@ select
     sum_active_protocols
 from bans_data
     cross join protocols_data
+-- dashboard expects:
+-- 1. home data first
+-- 2. away data second
+order by location desc
