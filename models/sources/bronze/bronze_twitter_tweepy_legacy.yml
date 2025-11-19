@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: twitter_tweepy_legacy
+        description: Raw twitter tweepy data (2022-07-13)
+        loaded_at_field: scrape_ts
+        freshness:
+          warn_after: { count: 24, period: hour }
+          error_after: { count: 72, period: hour }

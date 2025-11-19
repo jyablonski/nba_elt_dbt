@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: prep_recent_games_players
-    columns:
-      - name: player
-        data_tests:
-          - unique
-          - not_null

@@ -6,12 +6,10 @@ dependencies:
   - packages.yml
 
 intermediate_models:
-  - models/fact/**
-  - models/dim/**
-  - models/prep/**
+  - models/silver/**
 
 data_products:
-  - models/marts/**
+  - models/gold/**
 
 sources:
-  - models/sources.yml
+  - models/sources/bronze/**

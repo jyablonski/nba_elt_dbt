@@ -3,8 +3,10 @@ version: 2
 sources:
   - name: ml
     database: jacob_db
-    schema: ml
-    description: Landing Zone for NBA ML Data
+    schema: silver
+    description: |
+      Table that the ML Pipeline writes Game Predictions to. The data is pulled
+      from the prep.ml_tonights_games table
     tables:
       - name: ml_game_predictions
         columns:

@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_team_adv_stats_snapshot
+        description: Raw team advanced stats
+        columns:
+          - name: team
+            data_tests:
+              - not_null

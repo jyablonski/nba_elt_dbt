@@ -1,8 +1,0 @@
-version: 2
-
-models:
-  - name: prep_reddit_team_sentiment
-    columns:
-      - name: team
-        data_tests:
-          - not_null

@@ -2,7 +2,7 @@ with play_in_range as (
     select
         min(start_date) as start_date,
         max(end_date) as end_date
-    from {{ source('nba_source', 'play_in_details') }}
+    from {{ source('bronze', 'play_in_details') }}
 ),
 
 -- define test cases relative to the Play-In range

@@ -35,55 +35,31 @@ clean-targets: # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   nba_elt_project:
-    # Applies to all files under models/example/
-    marts:
+    # Gold layer - final marts for consumption
+    gold:
       +materialized: table
-      +schema: marts
+      +schema: gold
       +tags:
-        - "NBA_PRODUCTION_MARTS"
+        - "GOLD"
+        - "MARTS"
         - "DAILY"
-    reporting:
+
+    # Silver layer - cleaned and joined data (all subfolders use same config)
+    silver:
+      +materialized: table
+      +schema: silver
+      +tags:
+        - "SILVER"
+        - "DAILY"
+
+    # Scratch/workspace for ad hoc work
+    scratch:
       +materialized: view
-      +schema: reporting
+      +schema: scratch
       +tags:
-        - "REPORTING"
-    prep:
-      +materialized: table
-      +schema: prep
-      +tags:
-        - "NBA_PRODUCTION_PREP"
-        - "DAILY"
-    operations:
-      +materialized: view
-      +schema: operations
-      +tags:
-        - "NBA_PRODUCTION_OPERATIONS"
-        - "DAILY"
-    ml:
-      +materialized: table
-      +schema: ml
-      +tags:
-        - "NBA_PRODUCTION_ML_MODELS"
-        - "DAILY"
-    ad_hoc_analytics:
-      +materialized: view
-      +schema: ad_hoc_analytics
-      +tags:
-        - "ANALYTICS"
-        - "AD HOC"
-        - "VIEW"
-    fact:
-      +materialized: table
-      +schema: fact
-      +tags:
-        - "DAILY"
-        - "FACT"
-    dim:
-      +materialized: table
-      +schema: dim
-      +tags:
-        - "DAILY"
-        - "DIM"
+        - "SCRATCH"
+        - "AD_HOC"
+
 seeds:
   nba_elt_project:
-    schema: nba_source
+    +schema: bronze

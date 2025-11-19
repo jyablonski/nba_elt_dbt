@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: prep_team_contracts_analysis
-    columns:
-      - name: team
-        data_tests:
-          - not_null
-          - unique

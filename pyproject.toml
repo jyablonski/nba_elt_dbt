@@ -17,10 +17,7 @@ dev = [
     "sqlfluff-templater-dbt==3.1.0",
     "sqruff>=0.25.16,<0.26",
 ]
-local = [
-    "ipykernel>=6.30.0",
-    "ruff>=0.12.5",
-]
+local = ["ipykernel>=6.30.0", "ruff>=0.12.5"]
 
 [tool.uv]
 package = false
@@ -34,6 +31,15 @@ templater = "dbt"
 dialect = "postgres"
 exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L054,L057,L067"
 large_file_skip_byte_limit = 100000
+ignore_paths = [
+    "path_c/",
+    "target/",
+    "dbt_modules/",
+    "dbt_packages/",
+    "macros/",
+    "logs/",
+    "docker/postgres_bootstrap.sql",
+]
 
 [tool.sqlfluff.indentation]
 indented_joins = true

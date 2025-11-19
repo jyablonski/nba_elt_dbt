@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: draftkings_game_odds
+        description: Raw Odds table
+        columns:
+          - name: team
+            data_tests:
+              - not_null
+          - name: date
+            data_tests:
+              - not_null
+          - name: datetime1
+            data_tests:
+              - not_null
+        loaded_at_field: datetime1
+        freshness:
+          warn_after: { count: 124, period: day }
+          error_after: { count: 256, period: day }

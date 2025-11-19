@@ -8,7 +8,7 @@
 */
 with latest_date as (
     select min(game_date) as game_date
-    from {{ ref('prep_schedule_table') }}
+    from {{ ref('int_schedule_table') }}
     where game_date = date({{ dbt.current_timestamp() }} - interval '5 hour')
 ),
 
@@ -17,13 +17,13 @@ inactive_dates as (
     select
         date as game_date,
         is_inactive
-    from {{ source('nba_source', 'internal_league_inactive_dates') }}
+    from {{ source('bronze', 'internal_league_inactive_dates') }}
 ),
 
 -- filter out all inactive dates, and only grab records where moneyline odds are null on gamedays so the test fails
 final as (
     select *
-    from {{ ref('prep_schedule_table') }}
+    from {{ ref('int_schedule_table') }}
         inner join latest_date using (game_date)
         left join inactive_dates using (game_date)
     where (home_moneyline is null or away_moneyline is null) or (is_inactive != 1)

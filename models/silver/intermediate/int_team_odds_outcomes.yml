@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_team_odds_outcomes
+    columns:
+      - name: id
+        data_tests:
+          - unique
+          - not_null

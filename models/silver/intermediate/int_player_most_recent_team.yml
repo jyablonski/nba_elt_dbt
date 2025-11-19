@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_player_most_recent_team
+    columns:
+      - name: player
+        data_tests:
+          - not_null
+          - unique

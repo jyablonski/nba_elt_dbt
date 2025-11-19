@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_team_preseason_odds
+        description: Raw preseason odds table
+        data_tests:
+          - dbt_expectations.expect_table_row_count_to_equal:
+              value: 30
+        columns:
+          - name: team
+            data_tests:
+              - unique
+              - not_null

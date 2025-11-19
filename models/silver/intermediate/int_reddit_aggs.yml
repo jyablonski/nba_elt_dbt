@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: int_reddit_aggs
+    description: Daily Reddit comment aggregates with sentiment analysis and rolling averages
+    columns:
+      - name: date
+        description: Date of Reddit comments scrape
+        data_tests:
+          - not_null
+          - unique
+
+      - name: reddit_tot_comments
+        description: Total number of Reddit comments for the day
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+      - name: avg_compound
+        description: Average compound sentiment score (-1 to 1)
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -1
+              max_value: 1
+              inclusive: true
+
+      - name: avg_pos
+        description: Average positive sentiment score (0 to 1)
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
+
+      - name: avg_neg
+        description: Average negative sentiment score (0 to 1)
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
+
+      - name: avg_neu
+        description: Average neutral sentiment score (0 to 1)
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
+
+      - name: reddit_avg_comments
+        description: Overall average comments per day across all dates
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+      - name: rolling_avg_reddit_comments
+        description: Rolling 7-day average of Reddit comments
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+      - name: count_differential
+        description: Difference between daily comments and overall average
+        data_tests:
+          - not_null
+
+      - name: reddit_pct_difference
+        description: Percentage difference from overall average
+        data_tests:
+          - not_null
+
+    data_tests:
+      # Count differential calculation validation
+      - dbt_utils.expression_is_true:
+          expression: abs(count_differential - (reddit_tot_comments - reddit_avg_comments)) < 0.2
+          name: count_differential_calculated_correctly
+
+      # Percentage difference calculation validation
+      - dbt_utils.expression_is_true:
+          expression: abs(reddit_pct_difference - (round((reddit_tot_comments - reddit_avg_comments) / reddit_avg_comments * 100, 3))) < 0.1
+          name: pct_difference_calculated_correctly
+
+      # Rolling average should be between min and max of recent values
+      - dbt_utils.expression_is_true:
+          expression: rolling_avg_reddit_comments >= 0
+          name: rolling_avg_non_negative

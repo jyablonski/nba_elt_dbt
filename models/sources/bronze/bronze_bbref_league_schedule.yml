@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_league_schedule
+        description: Raw Schedule table
+        columns:
+          - name: away_team
+            data_tests:
+              - not_null
+          - name: home_team
+            data_tests:
+              - not_null
+          - name: proper_date
+            data_tests:
+              - not_null

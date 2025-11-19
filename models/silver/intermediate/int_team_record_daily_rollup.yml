@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_team_record_daily_rollup
+    columns:
+      - name: team
+        data_tests:
+          - not_null
+      - name: game_date
+        data_tests:
+          - not_null
+      - name: running_total_games_played
+        data_tests:
+          - not_null
