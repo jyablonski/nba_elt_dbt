@@ -2,7 +2,7 @@
     config(
         materialized='table',
         post_hook=[
-            "insert into silver.ml_tonights_games_audit
+            "insert into silver.ml_game_features_audit
              select 
                  *,
                  current_timestamp as audit_inserted_at
