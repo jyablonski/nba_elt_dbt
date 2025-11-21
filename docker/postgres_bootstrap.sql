@@ -7663,7 +7663,7 @@ VALUES
 	('SAC', 9),
 	('DAL', 10);
 
-CREATE TABLE silver.ml_tonights_games_audit (
+CREATE TABLE silver.ml_game_features_audit (
 	home_team text NULL,
 	away_team text NULL,
 	home_moneyline numeric NULL,
