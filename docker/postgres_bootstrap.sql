@@ -7344,8 +7344,8 @@ INSERT INTO gold.user_predictions (username,game_date,home_team,home_team_odds,h
 	 ('jyablonski','2023-10-26','Los Angeles Lakers',-225,0.228,'Phoenix Suns',185,0.772,'Los Angeles Lakers',10,'2023-10-26 13:33:36.280717'),
 	 ('jyablonski','2023-10-26','Milwaukee Bucks',-250,0.535,'Philadelphia 76ers',200,0.465,'Milwaukee Bucks',10,'2023-10-26 13:33:36.280717');
 
-DROP TABLE IF EXISTS silver.ml_game_predictions;
-CREATE TABLE IF NOT EXISTS silver.ml_game_predictions (
+DROP TABLE IF EXISTS gold.ml_game_predictions;
+CREATE TABLE IF NOT EXISTS gold.ml_game_predictions (
 	"index" int8 NULL,
 	home_team text NULL,
 	home_moneyline float8 NULL,
@@ -7372,7 +7372,7 @@ CREATE TABLE IF NOT EXISTS silver.ml_game_predictions (
     modified_at timestamp default current_timestamp
 );
 
-INSERT INTO silver.ml_game_predictions ("index",home_team,home_moneyline,away_team,away_moneyline,game_date,home_team_rank,home_days_rest,home_team_avg_pts_scored,home_team_avg_pts_scored_opp,home_team_win_pct,home_team_win_pct_last10,home_is_top_players,away_team_rank,away_days_rest,away_team_avg_pts_scored,away_team_avg_pts_scored_opp,away_team_win_pct,away_team_win_pct_last10,away_is_top_players,home_team_predicted_win_pct,away_team_predicted_win_pct) VALUES
+INSERT INTO gold.ml_game_predictions ("index",home_team,home_moneyline,away_team,away_moneyline,game_date,home_team_rank,home_days_rest,home_team_avg_pts_scored,home_team_avg_pts_scored_opp,home_team_win_pct,home_team_win_pct_last10,home_is_top_players,away_team_rank,away_days_rest,away_team_avg_pts_scored,away_team_avg_pts_scored_opp,away_team_win_pct,away_team_win_pct_last10,away_is_top_players,home_team_predicted_win_pct,away_team_predicted_win_pct) VALUES
 	 (0,'Denver Nuggets',-200.0,'Los Angeles Lakers',165.0,'2023-10-24',4,133,115.4,111.0,0.646,0.5,2,14,156,116.3,115.4,0.524,0.8,2,0.163,0.837),
 	 (1,'Golden State Warriors',-160.0,'Phoenix Suns',130.0,'2023-10-24',12,164,118.1,116.5,0.537,0.8,2,10,165,113.7,112.2,0.549,0.7,2,0.762,0.238),
 	 (5,'Miami Heat',-425.0,'Detroit Pistons',330.0,'2023-10-25',13,3,109.1,109.0,0.537,0.6,2,30,3,110.3,118.5,0.207,0.1,2,0.776,0.224),
@@ -7383,7 +7383,7 @@ INSERT INTO silver.ml_game_predictions ("index",home_team,home_moneyline,away_te
 	 (7,'Chicago Bulls',-110.0,'Oklahoma City Thunder',-110.0,'2023-10-25',19,3,112.8,111.6,0.488,0.6,2,20,3,117.3,116.5,0.488,0.4,2,0.589,0.411),
 	 (10,'San Antonio Spurs',140.0,'Dallas Mavericks',-170.0,'2023-10-25',29,3,113.0,123.1,0.268,0.3,2,21,3,114.2,114.1,0.463,0.2,2,0.367,0.633),
 	 (11,'Los Angeles Clippers',-417.0,'Portland Trail Blazers',330.0,'2023-10-25',12,3,113.7,113.6,0.537,0.6,2,26,3,113.2,117.4,0.402,0.1,2,0.74,0.26);
-INSERT INTO silver.ml_game_predictions ("index",home_team,home_moneyline,away_team,away_moneyline,game_date,home_team_rank,home_days_rest,home_team_avg_pts_scored,home_team_avg_pts_scored_opp,home_team_win_pct,home_team_win_pct_last10,home_is_top_players,away_team_rank,away_days_rest,away_team_avg_pts_scored,away_team_avg_pts_scored_opp,away_team_win_pct,away_team_win_pct_last10,away_is_top_players,home_team_predicted_win_pct,away_team_predicted_win_pct) VALUES
+INSERT INTO gold.ml_game_predictions ("index",home_team,home_moneyline,away_team,away_moneyline,game_date,home_team_rank,home_days_rest,home_team_avg_pts_scored,home_team_avg_pts_scored_opp,home_team_win_pct,home_team_win_pct_last10,home_is_top_players,away_team_rank,away_days_rest,away_team_avg_pts_scored,away_team_avg_pts_scored_opp,away_team_win_pct,away_team_win_pct_last10,away_is_top_players,home_team_predicted_win_pct,away_team_predicted_win_pct) VALUES
 	 (3,'New York Knicks',140.0,'Boston Celtics',-170.0,'2023-10-25',8,3,114.1,111.5,0.573,0.5,2,2,3,116.8,110.9,0.695,0.8,2,0.425,0.575),
 	 (8,'Memphis Grizzlies',-115.0,'New Orleans Pelicans',-105.0,'2023-10-25',6,3,116.1,112.8,0.622,0.6,1,15,3,114.4,112.6,0.512,0.7,2,0.61,0.39),
 	 (1,'Indiana Pacers',-290.0,'Washington Wizards',230.0,'2023-10-25',23,3,116.3,119.5,0.427,0.3,2,24,3,113.2,114.4,0.427,0.3,2,0.564,0.436),
