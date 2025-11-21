@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: prep_twitter_aggs
-    columns:
-      - name: date
-        data_tests:
-          - not_null
-          - unique

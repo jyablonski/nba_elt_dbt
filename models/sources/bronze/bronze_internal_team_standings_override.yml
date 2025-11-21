@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: internal_team_standings_override
+        description: Table for Team Standings Rank Override (for when a team's rank changes after the play-in etc)

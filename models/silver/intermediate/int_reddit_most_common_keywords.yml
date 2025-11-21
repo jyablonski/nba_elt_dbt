@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: int_reddit_most_common_keywords
+    description: "Analysis of most frequently used words from the latest day of NBA Reddit comments, excluding common stop words"
+    columns:
+      - name: word
+        description: "Individual word extracted from Reddit comments"
+        tests:
+          - not_null
+          - dbt_utils.not_empty_string
+
+      - name: word_frequency
+        description: "Number of times the word appears in comments"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 10000
+      
+      - name: frequency_rank
+        description: "Ranking of word by frequency (1 = most frequent)"
+        tests:
+          - not_null
+          - unique
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 100
+
+      - name: nba_team_flairs_using_word
+        description: "Number of different team flairs that used this word"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0  # possible that all comments with this word had no flair
+              max_value: 31 # 31 including 'NO_TEAM_FLAIR'
+      
+      - name: avg_sentiment_when_used
+        description: "Average sentiment score when this word is used"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: -1.0
+              max_value: 1.0
+      
+      - name: most_common_sentiment
+        description: "Most frequent sentiment category for this word"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Positive', 'Negative', 'Neutral']
+      
+      - name: analysis_date
+        description: "Date of the analyzed comments"
+        tests:
+          - not_null

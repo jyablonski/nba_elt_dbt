@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: int_schedule_table
+    description: Prep table for schedule + odds data
+    columns:
+      - name: away_team
+        data_tests:
+          - not_null
+      - name: home_team
+        data_tests:
+          - not_null
+      - name: game_pk
+        data_tests:
+          - unique
+          - not_null

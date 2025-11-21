@@ -1,17 +1,16 @@
-cd:
-  - .github/workflows/deploy.yml
+infra:
+  - .github/workflows/**
+  - docker/Dockerfile
 
 dependencies:
   - uv.lock
   - packages.yml
 
-intermediate_models:
-  - models/fact/**
-  - models/dim/**
-  - models/prep/**
+silver:
+  - models/silver/**
 
-data_products:
-  - models/marts/**
+gold:
+  - models/gold/**
 
-sources:
-  - models/sources.yml
+bronze:
+  - models/sources/bronze/**

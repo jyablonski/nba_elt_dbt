@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_team_top_player_stats
+    columns:
+      - name: team
+        data_tests:
+          - not_null
+          - unique

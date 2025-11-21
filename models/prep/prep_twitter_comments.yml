@@ -1,8 +1,0 @@
-version: 2
-
-models:
-  - name: prep_twitter_comments
-    columns:
-      - name: tweet
-        data_tests:
-          - not_null

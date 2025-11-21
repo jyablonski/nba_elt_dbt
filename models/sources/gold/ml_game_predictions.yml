@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: ml
+    database: jacob_db
+    schema: gold
+    description: |
+      Table that the ML Pipeline writes Game Predictions to. The data is pulled
+      from the silver.ml_tonights_games table and written to the gold layer
+    tables:
+      - name: ml_game_predictions
+        columns:
+          - name: game_date
+            data_tests:
+              - not_null

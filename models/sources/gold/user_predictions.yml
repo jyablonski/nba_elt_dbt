@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: gold
+    database: jacob_db
+    schema: gold
+    description: |
+      Table used in the REST API Frontend to store Win Predictions selected by Users
+    tables:
+      - name: user_predictions

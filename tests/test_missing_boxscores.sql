@@ -19,7 +19,7 @@ with boxscores_data as (
 )
 
 select *
-from {{ ref('prep_schedule_table') }}
+from {{ ref('int_schedule_table') }}
 where
     game_date < current_date
     and game_pk not in (select game_pk from boxscores_data)
