@@ -4,7 +4,7 @@
 
 Clone the Repo & run `make up` which will spin up a Postgres Database w/ bootstrapped data to test the project with.
 
-From there you can use Poetry to setup a local Environment w/ the appropriate dbt Packages by running `poetry install --with dev`.
+From there you can use uv to setup a local Environment w/ the appropriate dbt Packages by running `uv sync`.
 
 You must also have a `~/.dbt/profiles.yml` setup with the following Config:
 
