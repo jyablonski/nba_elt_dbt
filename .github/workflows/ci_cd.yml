@@ -1,0 +1,92 @@
+name: CI / CD Pipeline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+env:
+  IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
+  AWS_REGION: "us-east-1"
+  DBT_HOST: ${{ secrets.DBT_HOST }}
+  DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+  DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+  DBT_USER: ${{ secrets.DBT_USER }}
+  DBT_DOCS_BUCKET: ${{ secrets.DBT_DOCS_BUCKET }}
+  DBT_PASS: ${{ secrets.DBT_PASS }}
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
+permissions:
+  id-token: write
+  contents: read # This is required for actions/checkout
+
+jobs:
+  ci_pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repo
+        uses: actions/checkout@v5
+
+      - name: Configure Aws Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: nba-elt-dbt-ci
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Manifest File
+        run: |
+          aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json target/manifest.json
+
+      # NOTE: this builds the entire project and doesnt actually use the manifest json
+      # bc it builds fast as fuck anyways boi
+      - name: Build dbt Models
+        run: |
+          make test
+
+      - name: Upload Manifest to S3
+        run: |
+          if [ -e "target/manifest.json" ]; then
+              aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
+          else
+              echo "File does not exist, no dbt Models were changed. Exiting Out"
+              exit 0
+          fi
+
+  cd_pipeline:
+    name: Deploy Docker Image to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Build and Push Docker Image to ECR
+        uses: jyablonski/actions/deploy@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+          ecr-repo: jacobs_repo
+          image-name: nba_elt_pipeline_dbt
+          dockerfile: docker/Dockerfile
+          context: .
+
+      - name: Generate & Deploy dbt Docs
+        env:
+          aws_bucket: ${{ secrets.DBT_DOCS_BUCKET }}
+        run: |
+          make cd-docs-generate
+          aws s3 cp dbt_output/ s3://$aws_bucket/ --recursive --exclude "*" --include "catalog.json" --include "run_results.json" --include "index.html" --include "manifest.json"
+
+  notify:
+    needs: [cd_pipeline]
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Alert
+        uses: jyablonski/actions/alert@v1
+        with:
+          status: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
