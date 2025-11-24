@@ -33,17 +33,35 @@ is_top_players as (
         team,
         rank
     from {{ source('bronze', 'internal_team_top_players') }}
+),
+
+adv_stats as (
+    select
+        player,
+        pos,
+        vorp,
+        per,
+        bpm,
+        ws,
+        "ws/48" as ws_per_48
+    from {{ source('bronze', 'bbref_player_adv_stats') }}
 )
 
 select distinct
     players.player,
-    is_rookie,
-    yrs_exp,
-    headshot,
-    coalesce(salary, 1000000) as salary,
-    coalesce(rank, 0) as rank,
+    players.is_rookie,
+    players.yrs_exp,
+    players.headshot,
+    coalesce(contracts.salary, 1000000) as salary,
+    coalesce(is_top_players.rank, 0) as rank,
+    adv_stats.pos,
+    adv_stats.vorp,
+    adv_stats.per,
+    adv_stats.bpm,
+    adv_stats.ws_per_48,
     players.created_at,
     players.modified_at
 from players
     left join contracts on players.player = contracts.player
     left join is_top_players on players.player = is_top_players.player
+    left join adv_stats on players.player = adv_stats.player

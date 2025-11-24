@@ -10,7 +10,22 @@ models:
         data_tests:
           - not_null
           - unique
+
       - name: team_acronym
         data_tests:
+          - not_null
+          - unique
           - dbt_expectations.expect_column_value_lengths_to_equal:
               value: 3
+
+      - name: arena
+        data_tests:
+          - not_null
+
+      - name: arena_latitude
+        data_tests:
+          - not_null
+
+      - name: arena_longitude
+        data_tests:
+          - not_null

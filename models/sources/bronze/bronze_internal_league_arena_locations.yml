@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: internal_league_arena_locations
+        description: League arena locations data

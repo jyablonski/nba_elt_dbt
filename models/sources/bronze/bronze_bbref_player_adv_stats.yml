@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: bbref_player_adv_stats
+        description: Raw player advanced stats
+        columns:
+          - name: player
+          - name: pos
+          - name: vorp
+          - name: per
+          - name: bpm
+          - name: ws
+          - name: ws/48
