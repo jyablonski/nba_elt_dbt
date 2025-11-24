@@ -23,6 +23,7 @@ permissions:
 
 jobs:
   ci_pipeline:
+    name: CI Pipeline
     runs-on: ubuntu-latest
 
     steps:
@@ -56,9 +57,9 @@ jobs:
           fi
 
   cd_pipeline:
+    name: CD Pipeline
     needs: [ci_pipeline]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && success()
-    name: Deploy Docker Image to ECR
     runs-on: ubuntu-latest
 
     steps:
@@ -83,6 +84,7 @@ jobs:
           aws s3 cp dbt_output/ s3://$aws_bucket/ --recursive --exclude "*" --include "catalog.json" --include "run_results.json" --include "index.html" --include "manifest.json"
 
   notify:
+    name: Deploy Notification
     needs: [cd_pipeline]
     if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
