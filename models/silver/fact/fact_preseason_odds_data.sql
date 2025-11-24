@@ -12,7 +12,7 @@ with preseason_odds as (
     from {{ source('bronze', 'bbref_team_preseason_odds') }}
         left join {{ source('bronze', 'internal_team_attributes') }}
             on
-                bbref_team_preseason_odds.team = internal_team_attributes.team
+            bbref_team_preseason_odds.team = internal_team_attributes.team
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

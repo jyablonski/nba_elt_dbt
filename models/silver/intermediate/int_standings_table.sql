@@ -7,7 +7,7 @@ with team_wins as (
         case when fact_boxscores.outcome = 'W' then 1 else 0 end as outcome_int
     from {{ ref('fact_boxscores') }}
         left join {{ ref('dim_teams') }}
-        on fact_boxscores.team = dim_teams.team_acronym
+            on fact_boxscores.team = dim_teams.team_acronym
     where fact_boxscores.season_type = 'Regular Season'
 ),
 
@@ -50,9 +50,9 @@ pre_final as (
         coalesce(team_counts.wins::numeric / nullif(team_counts.games_played, 0)::numeric, 0) as win_percentage
     from team_attributes
         left join team_counts
-        on team_attributes.team = team_counts.team
+            on team_attributes.team = team_counts.team
         left join active_injuries
-        on team_attributes.team_full = active_injuries.team
+            on team_attributes.team_full = active_injuries.team
 ),
 
 recent_10 as (
@@ -121,13 +121,13 @@ ranked as (
         ) as season_rank
     from pre_final
         left join recent_10_wins
-        on pre_final.team = recent_10_wins.team
+            on pre_final.team = recent_10_wins.team
         left join recent_10_losses_group
-        on pre_final.team = recent_10_losses_group.team
+            on pre_final.team = recent_10_losses_group.team
         left join preseason
-        on pre_final.team = preseason.team
+            on pre_final.team = preseason.team
         left join {{ source('bronze', 'internal_team_standings_override') }}
-        on pre_final.team = internal_team_standings_override.team
+            on pre_final.team = internal_team_standings_override.team
 )
 
 select

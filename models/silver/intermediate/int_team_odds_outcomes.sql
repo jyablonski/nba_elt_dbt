@@ -17,7 +17,7 @@ with team_scores as (
         mov
     from {{ ref('int_recent_games_teams') }}
     {% if is_incremental() %}
-    where game_date > (select max(game_date) from {{ this }})
+        where game_date > (select max(game_date) from {{ this }})
 
     {% endif %}
 ),
@@ -30,7 +30,7 @@ odds_data as (
         date as game_date
     from {{ ref('fact_odds_data') }}
     {% if is_incremental() %}
-    where date > (select max(game_date) from {{ this }})
+        where date > (select max(game_date) from {{ this }})
 
     {% endif %}
 ),
@@ -63,10 +63,10 @@ combo as (
         end as covered_spread,
         current_timestamp as __created_at
     from {{ ref('dim_teams') }}
-        inner join team_scores on
-            dim_teams.team_acronym = team_scores.team
-        inner join odds_data on
-            team_scores.team = odds_data.team
+        inner join team_scores
+            on dim_teams.team_acronym = team_scores.team
+        inner join odds_data
+            on team_scores.team = odds_data.team
             and team_scores.game_date = odds_data.game_date
 )
 

@@ -28,9 +28,8 @@ final as (
         team_outcomes.mov
     from odds
         inner join team_outcomes
-            on
-                odds.date = team_outcomes.game_date
-                and odds.team = team_outcomes.team
+            on odds.date = team_outcomes.game_date
+            and odds.team = team_outcomes.team
 )
 
 select *

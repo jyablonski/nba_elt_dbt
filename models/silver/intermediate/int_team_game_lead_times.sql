@@ -84,7 +84,7 @@ team_game_plays as (
     from pbp_with_time_diff
         inner join lead_changes_per_game
             on pbp_with_time_diff.game_date = lead_changes_per_game.game_date
-                and pbp_with_time_diff.game_description = lead_changes_per_game.game_description
+            and pbp_with_time_diff.game_description = lead_changes_per_game.game_description
 
     union all
 
@@ -113,7 +113,7 @@ team_game_plays as (
     from pbp_with_time_diff
         inner join lead_changes_per_game
             on pbp_with_time_diff.game_date = lead_changes_per_game.game_date
-                and pbp_with_time_diff.game_description = lead_changes_per_game.game_description
+            and pbp_with_time_diff.game_description = lead_changes_per_game.game_description
 ),
 
 -- Calculate time in each game state
