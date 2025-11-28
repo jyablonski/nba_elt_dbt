@@ -5,6 +5,9 @@ unit_tests:
       - input: source('bronze', 'internal_team_attributes')
         format: sql
         fixture: teams_source_fixture
+      - input: source('bronze', 'internal_league_arena_locations')
+        format: sql
+        fixture: arena_locations_fixture
     overrides:
       macros:
         # unit test this model in "full refresh" mode
@@ -21,6 +24,9 @@ unit_tests:
             previous_season_wins: 46,
             previous_season_rank: 7,
             team_logo: "https://stats.nba.com/media/img/teams/logos/MIL_logo.svg",
+            arena: "Fiserv Forum",
+            arena_latitude: 43.0451,
+            arena_longitude: -87.9172,
           }
         - {
             team: "Toronto Raptors",
@@ -32,6 +38,9 @@ unit_tests:
             previous_season_wins: 27,
             previous_season_rank: 24,
             team_logo: "https://stats.nba.com/media/img/teams/logos/TOR_logo.svg",
+            arena: "Scotiabank Arena",
+            arena_latitude: 43.6435,
+            arena_longitude: -79.3791,
           }
         - {
             team: "Boston Celtics",
@@ -43,4 +52,7 @@ unit_tests:
             previous_season_wins: 36,
             previous_season_rank: 16,
             team_logo: "https://stats.nba.com/media/img/teams/logos/BOS_logo.svg",
+            arena: "TD Garden",
+            arena_latitude: 42.3662,
+            arena_longitude: -71.0621,
           }

@@ -5,7 +5,7 @@ models:
     description: hello world
     meta:
       owner: "@jacob"
-      model_maturity: work in progress  # testing meta
+      model_maturity: work in progress # testing meta
       contains_pii: true
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:

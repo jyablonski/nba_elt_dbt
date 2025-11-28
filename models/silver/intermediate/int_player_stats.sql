@@ -30,7 +30,6 @@ with agg_stats as (
     where
         player is not null
         and season_type in ('Regular Season', 'Playoffs')
-        -- skip play-in games
     group by
         player,
         season_type
@@ -55,22 +54,30 @@ ranks as (
 final as (
     select
         agg_stats.player,
-        team,
-        season_type,
-        avg_fga,
-        avg_fta,
-        round(avg_ppg, 1) as avg_ppg,
-        round(avg_plus_minus, 1) as avg_plus_minus,
-        avg_mvp_score,
-        avg_ts_percent,
-        games_played,
+        player_most_recent_team.team,
+        agg_stats.season_type,
+        agg_stats.avg_fga,
+        agg_stats.avg_fta,
+        round(agg_stats.avg_ppg, 1) as avg_ppg,
+        round(agg_stats.avg_plus_minus, 1) as avg_plus_minus,
+        agg_stats.avg_mvp_score,
+        agg_stats.avg_ts_percent,
+        agg_stats.games_played,
         ranks.ppg_rank,
         ranks.mvp_rank,
+
+        -- ML Feature for Star Power
         case
-            when row_number() over (order by avg_ppg desc) <= 20
-                then 'Top 20 Scorers'
+            when ranks.mvp_rank <= 5 then 2   -- Superstars (MVP Candidates)
+            when ranks.mvp_rank <= 25 then 1  -- All-Star Caliber Players
+            else 0                            -- Role Players
+        end as star_tier_score,
+
+        case
+            when ranks.ppg_rank <= 20 then 'Top 20 Scorers'
             else 'Other'
         end as scoring_category
+
     from agg_stats
         inner join player_most_recent_team on agg_stats.player = player_most_recent_team.player
         inner join ranks on agg_stats.player = ranks.player

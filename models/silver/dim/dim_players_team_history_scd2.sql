@@ -1,6 +1,6 @@
 with player_records as (
     select
-        player,
+        {{ clean_player_names_bbref('player') }}::text as player,
         team,
         date as game_date,
         {{ dbt_utils.generate_surrogate_key(["player", "team"]) }} as scd_id

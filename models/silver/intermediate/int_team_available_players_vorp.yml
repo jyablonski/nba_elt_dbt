@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_team_available_players_vorp
+    description: >
+      A daily snapshot of the current active roster for every team, enriched with 
+      advanced stats (VORP) and injury status. Used to calculate available vs. missing 
+      production for ML forecasting.
+
+      Note: as of 2025-11-28 VORP is missing for some players due to no games played etc
+    columns:
+      - name: player
+        description: The unique name of the player.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: team
+        description: The team the player is currently assigned to.
+        data_tests:
+          - not_null
+
+      - name: total_vorp
+        description: The player's total Value Over Replacement Player (VORP).
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: is_player_out
+        description: Integer flag (1/0). 1 if the player is currently marked 'Out' due to injury.
+        data_tests:
+          - not_null
+
+      - name: available_vorp
+        description: >
+          The VORP contribution currently available to the team. 
+          If status is 'Out', this is 0.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: missing_vorp
+        description: >
+          The VORP contribution lost due to injury. 
+          If status is 'Out', this equals total_vorp.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn

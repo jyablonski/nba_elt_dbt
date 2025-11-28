@@ -108,9 +108,8 @@ combo as (
         end as below_games_played
     from final2
         left join win_loss
-            on
-                final2.team = win_loss.team
-                and final2.game_date::date = win_loss.date::date
+            on final2.team = win_loss.team
+            and final2.game_date::date = win_loss.date::date
 
     order by game_date
 ),

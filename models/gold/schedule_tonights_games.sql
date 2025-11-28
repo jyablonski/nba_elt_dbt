@@ -22,9 +22,9 @@ select
 from {{ ref('schedule') }}
     inner join {{ source('ml', 'ml_game_predictions') }}
         on
-            schedule.home_team = ml_game_predictions.home_team
-            and schedule.away_team = ml_game_predictions.away_team
-            and schedule.game_date = ml_game_predictions.game_date
+        schedule.home_team = ml_game_predictions.home_team
+        and schedule.away_team = ml_game_predictions.away_team
+        and schedule.game_date = ml_game_predictions.game_date
 where schedule.game_date = current_date
 order by
     schedule.game_ts

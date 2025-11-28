@@ -30,9 +30,8 @@ final as (
         game_outcomes.outcome
     from my_cte
         left join game_outcomes
-            on
-                my_cte.team = game_outcomes.team
-                and my_cte.date = game_outcomes.game_date
+            on my_cte.team = game_outcomes.team
+            and my_cte.date = game_outcomes.game_date
     where outcome is not null
 ),
 
@@ -83,7 +82,6 @@ favorite_losses_aggs as (
         outcome,
         g_type
 ),
-
 
 final_two as (
     select

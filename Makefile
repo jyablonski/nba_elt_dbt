@@ -1,10 +1,7 @@
-.PHONY: docs-generate
-docs-generage:
+.PHONY: docs
+docs: up 
 	@dbt docs generate
-
-.PHONY: docs-serve
-docs-serve:
-	@dbt docs serve
+	@dbt docs serve --host 0.0.0.0
 
 .PHONY: docker-build
 docker-build:

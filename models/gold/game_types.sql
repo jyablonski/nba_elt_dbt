@@ -73,7 +73,7 @@ select
 from all_combinations
     left join mov_counts
         on all_combinations.game_type = mov_counts.game_type
-            and all_combinations.season_type = mov_counts.season_type
+        and all_combinations.season_type = mov_counts.season_type
     left join season_totals
         on all_combinations.season_type = season_totals.season_type
 order by

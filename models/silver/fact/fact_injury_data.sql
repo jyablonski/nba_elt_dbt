@@ -19,7 +19,7 @@ injury_data as (
                 '(', ''
             ), ')', ''
         ) -- removing any trailing or leading parantheses
-        as injury,
+            as injury,
         case
             when {{ split_part('description', " ' - ' ", 1) }} like '%health and safety protocols%' then 1
             when {{ split_part('description', " ' - ' ", 1) }} like '%Health and Safety Protocols%' then 1
@@ -28,6 +28,10 @@ injury_data as (
             when {{ split_part('description', " ' - ' ", 1) }} like '%protocols%' then 1
             else 0
         end as protocols,
+        case
+            when{{ split_part(split_part('description', " ' - ' ", 1), " ' ('", 1) }} ilike '%out%' then 1
+            else 0
+        end as is_player_out,
         created_at,
         modified_at
     from {{ source('bronze', 'bbref_player_injuries') }}

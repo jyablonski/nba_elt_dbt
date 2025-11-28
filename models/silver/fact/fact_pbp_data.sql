@@ -109,10 +109,10 @@ pbp_adjusted as (
     from pbp_raw
         inner join time_remaining_calcs
             on
-                pbp_raw.play = time_remaining_calcs.play
-                and pbp_raw.game_date = time_remaining_calcs.game_date
-                and pbp_raw.quarter = time_remaining_calcs.quarter
-                and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
+            pbp_raw.play = time_remaining_calcs.play
+            and pbp_raw.game_date = time_remaining_calcs.game_date
+            and pbp_raw.quarter = time_remaining_calcs.quarter
+            and pbp_raw.time_quarter = time_remaining_calcs.time_quarter
         left join {{ source('bronze', 'internal_team_attributes') }} as home_team_attributes
             on pbp_raw.home_team = home_team_attributes.team_acronym
         left join {{ source('bronze', 'internal_team_attributes') }} as away_team_attributes
@@ -146,9 +146,9 @@ lead_measures as (
     from pbp_adjusted
         inner join min_max_aggs
             on
-                pbp_adjusted.game_description = min_max_aggs.game_description
-                and pbp_adjusted.game_date = min_max_aggs.game_date
-                and pbp_adjusted.time_remaining_final = min_max_aggs.time_remaining_final
+            pbp_adjusted.game_description = min_max_aggs.game_description
+            and pbp_adjusted.game_date = min_max_aggs.game_date
+            and pbp_adjusted.time_remaining_final = min_max_aggs.time_remaining_final
     where leading_team != 'TIE' -- this is incase the game ends w/ free throws at 0.0 like hou vs sac on 2023-02-08 where the lead flips from 1 team to tie to the other team
 
 )
@@ -190,5 +190,5 @@ select distinct
 from pbp_adjusted
     inner join lead_measures
         on
-            pbp_adjusted.game_description = lead_measures.game_description
-            and pbp_adjusted.game_date = lead_measures.game_date
+        pbp_adjusted.game_description = lead_measures.game_description
+        and pbp_adjusted.game_date = lead_measures.game_date

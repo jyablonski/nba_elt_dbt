@@ -50,10 +50,10 @@ final as (
     from all_team_season_combinations
         left join team_comebacks
             on all_team_season_combinations.team = team_comebacks.team
-                and all_team_season_combinations.season_type = team_comebacks.season_type
+            and all_team_season_combinations.season_type = team_comebacks.season_type
         left join team_blown_leads
             on all_team_season_combinations.team = team_blown_leads.team
-                and all_team_season_combinations.season_type = team_blown_leads.season_type
+            and all_team_season_combinations.season_type = team_blown_leads.season_type
     order by team_comebacks_10pt desc
 ),
 
