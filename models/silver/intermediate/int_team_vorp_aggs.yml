@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_team_vorp_aggs
+    description: >
+      Aggregates player-level VORP availability into a team-level view.
+      Used to determine how much Star Power is missing due to injury per team.
+      Grain: 1 row per Team.
+
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          value: 30
+
+    columns:
+      - name: team
+        description: Team Acronym (e.g., LAL, BOS).
+        data_tests:
+          - unique
+          - not_null
+
+      - name: team_active_vorp
+        description: >
+          Net Sum of VORP for all players currently available. 
+          Can be negative (indicates a below-replacement-level roster).
+        data_tests:
+          - not_null
+
+      - name: team_injured_vorp
+        description: >
+          Sum of **POSITIVE** VORP for all players currently marked 'Out'.
+          Floored at 0 (we do not count negative players as "missing value").
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+
+      - name: team_total_vorp
+        description: Net Sum of VORP for the entire roster (Active + Injured).
+        data_tests:
+          - not_null
+
+      - name: pct_vorp_missing
+        description: >
+          Percentage of the team's **Positive Talent Capacity** currently sidelined.
+          Calculated as (Positive Injured) / (Positive Injured + Positive Active).
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100

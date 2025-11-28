@@ -1,7 +1,5 @@
-{{ config(materialized='incremental') }}
+{{ config(materialized='table') }}
 
--- to do: cleanup all of this into 1 data sourcew script.  right now it's 3 different ones pulling
--- separate info
 with players as (
     select
         {{ clean_player_names_bbref('player') }}::text as player,
@@ -11,13 +9,6 @@ with players as (
         created_at,
         modified_at
     from {{ source('bronze', 'internal_player_attributes') }}
-    {% if is_incremental() %}
-
-        -- this filter will only be applied on an incremental run
-        -- only grab records where date is greater than the max date of the existing records in the tablegm
-        where modified_at > (select coalesce(max(modified_at), '1900-01-01'::timestamp) from {{ this }})
-
-    {% endif %}
 ),
 
 contracts as (
@@ -36,7 +27,8 @@ is_top_players as (
 ),
 
 adv_stats as (
-    select
+    -- DISTINCT ON (player) keeps only the first row it finds for each player
+    select distinct on (player)
         player,
         pos,
         vorp,
@@ -45,6 +37,10 @@ adv_stats as (
         ws,
         "ws/48" as ws_per_48
     from {{ source('bronze', 'bbref_player_adv_stats') }}
+    -- We sort by Games (g) DESC so the '2TM' (Total) row is always 1st
+    order by
+        player asc,
+        g desc
 )
 
 select distinct

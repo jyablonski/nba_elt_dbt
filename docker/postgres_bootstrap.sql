@@ -4,6 +4,7 @@ CREATE SCHEMA gold;
 SET search_path TO bronze;
 
 CREATE ROLE dbt_role_dev LOGIN;
+CREATE EXTENSION IF NOT EXISTS unaccent schema silver;
 
 -- tbd :-)
 DROP TABLE IF EXISTS bbref_player_boxscores;
