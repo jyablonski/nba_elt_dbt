@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: int_team_vorp_aggs
+  - name: int_team_available_players_vorp_aggs
     description: >
       Aggregates player-level VORP availability into a team-level view.
       Used to determine how much Star Power is missing due to injury per team.

@@ -51,7 +51,7 @@ team_star_power_aggs as (
 
 team_vorp_aggs as (
     select *
-    from {{ ref('int_team_vorp_aggs') }}
+    from {{ ref('int_team_available_players_vorp_aggs') }}
 ),
 
 home_team_avg as (

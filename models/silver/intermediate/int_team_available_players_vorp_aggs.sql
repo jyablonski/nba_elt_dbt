@@ -5,7 +5,7 @@ with player_availability as (
         missing_vorp,
         total_vorp,
         is_player_out
-    from {{ ref('int_team_players_vorp') }}
+    from {{ ref('int_team_available_players_vorp') }}
 ),
 
 aggs as (

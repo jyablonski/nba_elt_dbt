@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: int_team_players_vorp
+  - name: int_team_available_players_vorp
     description: >
       A daily snapshot of the current active roster for every team, enriched with 
       advanced stats (VORP) and injury status. Used to calculate available vs. missing 
