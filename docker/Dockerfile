@@ -19,8 +19,6 @@ RUN apt-get update && \
 # -------------------------------
 FROM base AS python-deps
 
-COPY pyproject.toml uv.lock ./
-
 # Cache mount: Persist pip's download cache across builds for faster rebuilds
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install uv==0.9.3
@@ -36,17 +34,18 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # -------------------------------
 # Stage: Runtime
 # -------------------------------
-FROM python:3.13-slim AS runtime
-
-ENV PATH="/.venv/bin:$PATH" \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+FROM base AS runtime
 
 COPY --from=python-deps /.venv /.venv
 
 WORKDIR /app
 
-COPY . .
+COPY models/ models/
+COPY macros/ macros/
+COPY snapshots/ snapshots/
+COPY profiles/ profiles/
+COPY dbt_project.yml dbt_project.yml
+COPY packages.yml packages.yml
 
 RUN dbt deps --profiles-dir profiles/
 

@@ -54,13 +54,15 @@ models:
           value: 8
 
       - dbt_utils.expression_is_true:
-          expression: game_type IN ('Clutch Game', '10 pt Game', '20 pt Game', 'Blowout Game')
+          arguments:
+            expression: "game_type IN ('Clutch Game', '10 pt Game', '20 pt Game', 'Blowout Game')"
           name: valid_game_types_only
 
       - dbt_utils.expression_is_true:
-          expression: >
-            (game_type = 'Clutch Game' AND explanation = '5 points or less')
-            OR (game_type = '10 pt Game' AND explanation = 'between 6 - 10 points')
-            OR (game_type = '20 pt Game' AND explanation = 'between 11 and 20 points')
-            OR (game_type = 'Blowout Game' AND explanation = 'more than 20 points')
+          arguments:
+            expression: >
+              (game_type = 'Clutch Game' AND explanation = '5 points or less')
+              OR (game_type = '10 pt Game' AND explanation = 'between 6 - 10 points')
+              OR (game_type = '20 pt Game' AND explanation = 'between 11 and 20 points')
+              OR (game_type = 'Blowout Game' AND explanation = 'more than 20 points')
           name: explanation_matches_game_type
