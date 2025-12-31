@@ -4315,7 +4315,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 	 ('Who the hell calls him K Mid? It''s Kash Money.',2,'https://www.reddit.com/r/nba/comments/t8b23i/highlight_khris_middleton_hits_back_to_back/','0116316','Bucks2','Bucks','0','2022-03-07','2022-03-07 12:02:53.323',-0.6808,0.365,0.635,0.0,0,1.0,'b09b9b33f5f0e2488896dbd8465e4da0'),
 	 ('Yep. We had his bird rights so that was the max that could be given with the cap situation.',3,'https://www.reddit.com/r/nba/comments/vok8vm/wojnarowski_free_agent_f_bobby_portis_is/','0116316','Bucks2','Bucks','0','2022-07-01','2022-07-01 11:03:08.434',0.296,0.0,0.891,0.109,1,1.0,'c9726828a81a8038c5f338d05946ee0e'),
 	 ('A modern day Moses.',1,'https://www.reddit.com/r/nba/comments/xre1yb/harden_im_one_of_the_most_unselfish_players/','0157h7','76ers2','76ers','0','2022-09-30','2022-09-30 11:04:31.663',0.0,0.0,1.0,0.0,0,1.0,'a19868d974b1851b8c4fad140f138570'),
-	 ('I got downvoted two days ago for saying Lebron, AD, and Russ for Kyrie, KD, and Simmons. Yet you are upvoted. 
+	 ('I got downvoted two days ago for saying Lebron, AD, and Russ for Kyrie, KD, and Simmons. Yet you are upvoted.
 
 I’ll assume I got hit by delusional Laker fans who think your proposal is fair value.',1,'https://www.reddit.com/r/nba/comments/vjup9i/zach_lowe_teams_are_already_operating_under_not/','0157h7','76ers2','76ers','0','2022-06-25','2022-06-25 11:02:39.702',0.5719,0.0,0.875,0.125,1,1.0,'7b654d9e4af21e3a2820bf6c7f3711bc'),
 	 ('I love it. Turn it into a full wrestling bit. Let one side make the challenge and the other side respond. Maybe it’s Joel and Harden filming a video together challenging both of maybe it’s you and your player of choice. Ben responds a video I accept your challenge and my partner is , camera pans…. Or maybe it’s even a secret until they face off, Seth curry comes out and leg drops Simmons while he’s down.',5,'https://www.reddit.com/r/nba/comments/xstvnb/highlight_steph_klay_light_it_up_in_the_nba_japan/','0157h7','76ers2','76ers','0','2022-10-02','2022-10-02 11:04:13.522',0.8402,0.0,0.855,0.145,1,1.0,'6a92dd4480cfd31891bdfbad3892d346'),
@@ -4350,7 +4350,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 What exactly does he feel as a black man visiting Toronto? Is he trying to say that he is treated worse here? Cause I highly doubt that to be true.',3,'https://www.reddit.com/r/nba/comments/vrb3u6/chris_broussard_comes_out_with_some_outrageous/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-05','2022-07-05 11:02:59.177',-0.5351,0.11,0.841,0.049,0,1.0,'a76399c53037edb78887edc826a838c8'),
 	 ('I only know rich paul',39,'https://www.reddit.com/r/nba/comments/w23iea/buha_foucher_hinted_at_westbrooks_lack_of/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-19','2022-07-19 11:05:13.563',0.5574,0.0,0.455,0.545,1,1.0,'1b249aeb87e71ef015b13ab41c13e183'),
 	 ('Is there a story behind this that I’m not getting? I don’t understand why this post got so many upvotes.',3,'https://www.reddit.com/r/nba/comments/w1ae59/highlight_phoenix_suns_fan_uses_100_bills_to/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-18','2022-07-18 11:04:53.955',0.0,0.0,1.0,0.0,0,1.0,'948aa4ad7d44972deaf271734cbee6d5'),
-	 ('I understand that. 
+	 ('I understand that.
 
 Just didn’t like how he strung us along till the last minute like we ever had a chance. He knew he was leaving, just say it.
 
@@ -4390,12 +4390,12 @@ the fact that he''s got 4 years left on his contract doesn''t give me much confi
 so hard pass. scottie is untouchable.',1,'https://www.reddit.com/r/nba/comments/vrnkij/lewis_miami_and_phoenix_are_durants_preferred/','01OlI1O0I','Raptors4',':tor-4: Raptors','0','2022-07-05','2022-07-05 11:02:59.177',0.1633,0.0,0.81,0.19,1,1.0,'0d74ab6708d4db85e1598d59b1f1ba7d'),
 	 ('Dropped 27 on the cavs and 23 on the knicks when given the chance. Gobbles up rebounds and hustles. Huge energy guy, active on the bench, locker room glue. He’s a legit nba player.',11,'https://www.reddit.com/r/nba/comments/u9vdlr/highlight_giannis_enjoys_his_big_brother_thanasis/','0-27','Bucks3','Bucks','0','2022-04-23','2022-04-23 11:02:41.582',0.7964,0.0,0.761,0.239,1,1.0,'75a27e408b7627c0130d076f21996e72');
 INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
-	 ('Naw man, chandler was unlucky. 
-  
+	 ('Naw man, chandler was unlucky.
+
 Larry Sanders runs away with this new award.',5,'https://www.reddit.com/r/nba/comments/s71gz5/charania_nineyear_nba_veteran_chandler_parsons/','0-27','Bucks3','Bucks','false','2022-01-19','2022-01-19 12:02:30.543',0.5423,0.0,0.774,0.226,1,1.0,'964bf2235f3e337b96c547886c85c0b2'),
 	 ('No this was prior. It was drug-related',11,'https://www.reddit.com/r/nba/comments/t86rce/highlight_glen_big_baby_davis_gets_kicked_out_of/','0-27','Bucks3','Bucks','0','2022-03-07','2022-03-07 12:02:53.323',-0.296,0.268,0.732,0.0,0,1.0,'c9b308da7f15b5adb8be30a905f56fa5'),
-	 ('Philly vs Brooklyn, playoffs. 
-  
+	 ('Philly vs Brooklyn, playoffs.
+
 Game threads would be a blood bath.',3,'https://www.reddit.com/r/nba/comments/stvbo8/daily_discussion_thread_game_thread_index/','0-27','Bucks3','Bucks','false','2022-02-17','2022-02-17 12:02:36.231',0.0,0.0,1.0,0.0,0,1.0,'37f14b7547bbce5eb01f77ac6b402080'),
 	 ('Pics?',3,'https://www.reddit.com/r/nba/comments/waozok/ringer_2018_the_curious_case_of_bryan_colangelo/','0-27','Bucks3','Bucks','0','2022-07-29','2022-07-29 11:04:24.915',0.0,0.0,1.0,0.0,0,1.0,'3a30e252cd802869317c5ab418c597f6'),
 	 ('There is a not-so-distant alternate universe where the lakers did not sign RWB and are currently having a nice, defense-heavy tussle with the warriors. One can dream...',4,'https://www.reddit.com/r/nba/comments/uiye0u/and_the_results_are_in_for_the_least_valuable/','0-27','Bucks3','Bucks','0','2022-05-06','2022-05-06 11:03:01.667',0.4215,0.0,0.896,0.104,1,1.0,'78c204a145ae6e2d50911baefc372580'),
@@ -4439,11 +4439,11 @@ Chet Raymo (born 1936), American writer, educator and naturalist
 Chester Chet Walker (born 1940), American National Basketball Association player
 Chester Chet A. Wynne (1898–1967), American football player and college head coach
 Chet Pun (born 1984) Nepalese guitarist based in Melbourne, Australia. Performed with Bollywood Singer Alka Yagnik, Nepalese singers Deep Shrestha, Raj Sigdel, Rohit John Chettri, Anil Shahi and poet Nawaraj Parajuli
-  
+
 ----
 
-I hope this information helps you in your quest for understanding.   
-  
+I hope this information helps you in your quest for understanding.
+
 And here is some additional info on the [History of Naming](https://namestories.com/pages/history-of-naming)',11,'https://www.reddit.com/r/nba/comments/wgn0yg/70_juco_player_shines_as_he_dunks_on_paolo/','0-27','Bucks3','Bucks','1','2022-08-05','2022-08-05 11:04:32.271',0.9581,0.0,0.959,0.041,1,1.0,'09eaef8448c70bac4cff9b604b4a127f'),
 	 ('Absolute tone deaf post by the twitter intern or social media manager, just post Holiday or any other player, like they always do',11,'https://www.reddit.com/r/nba/comments/saboni/charania_bulls_say_alex_caruso_will_undergo/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-23','2022-01-23 12:02:26.649',0.6369,0.0,0.802,0.198,1,1.0,'a8c0d9d2a9cb0fe6ebb9be8047d1c398'),
 	 ('Allen, that’s why, this poll happened in the timeline of that foul',124,'https://www.reddit.com/r/nba/comments/sshhg5/polling_the_nba_subreddits_results/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-15','2022-02-15 12:02:30.322',0.0,0.0,1.0,0.0,0,1.0,'5e9c8c9e7be5cdc079189fbcc7c6a075');
@@ -4453,7 +4453,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 	 ('Da fuck they doin ova there?',53,'https://www.reddit.com/r/nba/comments/speyzs/stein_the_mavericks_are_trading_kristaps/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-11','2022-02-11 14:48:40.161',-0.5423,0.412,0.588,0.0,0,1.0,'50e50f91eeb740903697d3679597b22a'),
 	 ('[Found this gem](https://streamable.com/um5y8l)',1845,'https://www.reddit.com/r/nba/comments/sr18a4/michael_porter_jr_getting_his_car_towed/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-13','2022-02-13 12:03:54.468',0.0,0.0,1.0,0.0,0,1.0,'a8de7a68d685e0e94dabc037598c3551'),
 	 ('Giannis “at the end of the day” Antetokounmpo',2,'https://www.reddit.com/r/nba/comments/tczqoz/giannis_on_klay_obviously_we_havent_seen_him_in_a/','027eddy','Bucks5',':mke-5: Bucks','0','2022-03-13','2022-03-13 12:03:10.584',0.0,0.0,1.0,0.0,0,1.0,'674a9fd8535b14922a534f86512fddfe'),
-	 ('Giannis is the first player in NBA history to record multiple 30-point triple-doubles in less than 30 minutes of play. 
+	 ('Giannis is the first player in NBA history to record multiple 30-point triple-doubles in less than 30 minutes of play.
 
 His other time doing it was Oct. 24, 2019 at HOU (30 PTS, 13 REB, 11 AST in 28:10).',6,'https://www.reddit.com/r/nba/comments/s3h865/giannis_in_win_vs_the_warriors_30pts_12_rebs_11/','027eddy','Bucks5',':mke-5: Bucks','false','2022-01-14','2022-01-14 12:01:41.516',0.34,0.0,0.941,0.059,1,1.0,'4ae804b1b11fb561c09eb99719d4a720'),
 	 ('He joins Wilt Chamberlain and Kareem Abdul-Jabbar as the only players in NBA history with a 40/10/5 game on 85% shooting.',3,'https://www.reddit.com/r/nba/comments/so5q1v/giannis_antetokounmpo_in_the_win_vs_lakers_44_pts/','027eddy','Bucks5',':mke-5: Bucks','false','2022-02-09','2022-02-09 12:03:00.271',0.0,0.0,1.0,0.0,0,1.0,'fcc06770aec2a9e49dc4f36627c314f9'),
@@ -4577,7 +4577,7 @@ lmao dude looks like if the weeknd got put in the microwave for too long, tf he 
 	 ('lmaooo the video',1,'https://www.reddit.com/r/nba/comments/tqpahr/post_game_thread_the_new_york_knicks_3442_defeat/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-03-29','2022-03-29 11:03:17.008',0.0,0.0,1.0,0.0,0,1.0,'87b279e6082551afcf75a986ff16dc21');
 INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('lol you know that’s not what he literally meant right? he’s just saying that if you drive drunk or drive high, you’re inebriated either way, even if the inebriation experience is different for each',61,'https://www.reddit.com/r/nba/comments/wpfa49/while_one_player_faces_felony_charges_for/','03_03_28','Knicks4',':nyk-4: Knicks','0','2022-08-16','2022-08-16 13:54:31.435',0.1027,0.065,0.86,0.075,1,1.0,'ccfbdf7abbc2b3c0958816c69757f114'),
-	 ('Man, I better give the fuck up at life, I’ll never be able to influence people’s lives as much as an NBA star can. 
+	 ('Man, I better give the fuck up at life, I’ll never be able to influence people’s lives as much as an NBA star can.
 
 That’s a fucking stupid argument lmao. It’s like telling poor people they’re shitty for not giving as much to charity as your local millionaire does.',16,'https://www.reddit.com/r/nba/comments/srawyd/early_cmon_now_puppeteerstheres_no_guilt_that_i/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-13','2022-02-13 12:03:54.468',-0.7464,0.275,0.544,0.182,0,1.0,'4a05df50c867d7b0e16ac89ef6d8ae79'),
 	 ('Man, I love when pedantry is both annoying and wrong.
@@ -4611,7 +4611,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 Bro, why is it that cuckoldry is the first thing on your mind when a married woman is mentioned?',2,'https://www.reddit.com/r/nba/comments/v6g8u5/bill_simmons_podcast_apparently_one_of_the_sides/','03_03_28','bwMil',':bw-mil: Bucks Bandwagon','0','2022-06-07','2022-06-07 11:02:44.904',-0.357,0.074,0.926,0.0,0,1.0,'88b5ab8d24ab9c5273e0b18531dd732f'),
 	 ('the combination of calling them unhinged, but at the same time taking enough care to note their preferred pronouns, is funny af to me',12,'https://www.reddit.com/r/nba/comments/sif86q/fox_news_sports_runs_headline_former_nba_player/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-02-02','2022-02-02 12:02:36.812',0.8462,0.0,0.73,0.27,1,1.0,'c1499c3f355fa1472fe2d1db37b8a458'),
 	 ('The Spurs never combined dominance in the regular season with dominance in the postseason in a single year. They’ve won 60+ games seven times, but only two of those teams went on to be champions. ‘14 has the best case, but they lost more games in the playoffs (seven) than every team on the list except the ‘13 Heat (who also lost seven, and had a better regular season). ‘99 has comparable postseason performance to most of this list, but their regular season results are also worse than every team on the list.',14,'https://www.reddit.com/r/nba/comments/vfyso6/slams_top_75_nba_teams_of_all_time_10_13_heat_9/','03_03_28','bwMil',':bw-mil: Bucks Bandwagon','0','2022-06-20','2022-06-20 11:02:17.693',0.7881,0.114,0.737,0.149,1,1.0,'da6745fa884d25a60eb22f99102e550a'),
-	 ('The top 5 the Knicks were in wasn’t “winningest/best accolades”, it was “total influence and public recognition”. 
+	 ('The top 5 the Knicks were in wasn’t “winningest/best accolades”, it was “total influence and public recognition”.
 
 Read the original comment, jeez',9,'https://www.reddit.com/r/nba/comments/v1yz33/how_would_you_rank_the_top_5_nba_franchises_what/','03_03_28','bwMil',':bw-mil: Bucks Bandwagon','0','2022-06-01','2022-06-01 11:02:41.776',0.4767,0.0,0.823,0.177,1,1.0,'7b6650c311d82d8f9232ec0085687fc2'),
 	 ('This is an awful line of reasoning. The second sentence is factually incorrect, as the other reply shows, but the first one’s a nonsensical argument. KD didn’t win until he had a 73-win team to play with. Now he has 2 HoF teammates in Brooklyn and hasn’t won it again. Guess he needs 3 HoFers in his corner to win one, right? Doesn’t that argument sound stupid to you?',3,'https://www.reddit.com/r/nba/comments/s5olbk/nick_young_on_the_russell_westbrook_diss_track/','03_03_28','Knicks4',':nyk-4: Knicks','false','2022-01-17','2022-01-17 12:03:00.261',0.8385,0.147,0.628,0.225,1,1.0,'7c3a046f68161af1bdf710207c8635c6'),
@@ -4650,7 +4650,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 	 ('Imagine if the Warriors played a game in Europe. They would retire with PTSD the next day. I don’t think they’d even finish a full game.',1518,'https://www.reddit.com/r/nba/comments/v8rt1m/i_love_the_energy_boston_fans_bring_to_the_game/','04201969',NULL,NULL,'0','2022-06-10','2022-06-10 11:03:05.154',0.34,0.0,0.902,0.098,1,1.0,'bad6fbbbba9fa2a691590c112f34db40'),
 	 ('Jokic: Hold my saddle',23,'https://www.reddit.com/r/nba/comments/wdh19k/doncic_antetokounmpo_betting_favorites_to_win/','04201969',NULL,NULL,'0','2022-08-02','2022-08-02 11:04:43.543',0.0,0.0,1.0,0.0,0,1.0,'8910746a15665480514cece142ba94a3'),
 	 ('Maybe not the flares, but idk why no fans in the NBA have come up with actual songs to sing during the games.',125,'https://www.reddit.com/r/nba/comments/v8rt1m/i_love_the_energy_boston_fans_bring_to_the_game/','04201969',NULL,NULL,'0','2022-06-10','2022-06-10 11:03:05.154',-0.5267,0.173,0.827,0.0,0,1.0,'a28e21330e7e626a21efd2662acbd9e8'),
-	 ('Nikola = Nicholas 
+	 ('Nikola = Nicholas
 
 But yes pretty much, it’s one of the most common first names',321,'https://www.reddit.com/r/nba/comments/u18dsk/givony_nikola_jovic_a_610_18year_old_small/','04201969',NULL,NULL,'0','2022-04-12','2022-04-12 11:03:02.356',0.8338,0.0,0.605,0.395,1,1.0,'e931dd78c2e7e3552156d75659d46ac9'),
 	 ('Played him like a fiddle',10,'https://www.reddit.com/r/nba/comments/uc36b0/highlight_luka_gets_the_and1_on_gobert_and_lets/','04201969',NULL,NULL,'0','2022-04-26','2022-04-26 11:02:58.135',0.5994,0.0,0.29,0.71,1,1.0,'0bf935976a1630ef984c90bb6546204a'),
@@ -4668,7 +4668,7 @@ Long answer: Also no',7,'https://www.reddit.com/r/nba/comments/wxo1ii/highlight_
 It isn''t that uncommon of a desire. A lot of women want to birth at home or in a birthing center versus a hospital. More intimate of an experience is a commonly cited reason.',9,'https://www.reddit.com/r/nba/comments/xwf70g/schiffer_steve_nash_said_kyrie_irving_and_his/','04Dark',NULL,NULL,'0','2022-10-06','2022-10-06 11:04:34.822',-0.7151,0.095,0.851,0.054,0,1.0,'d90ecd34093e2e7dece19f8896af497b'),
 	 ('I respect it, hopefully will lead to at least a fractional increase of voting in the black community. Love to see initiatives like this. Everything helps and moves the needle of progress forward.',6,'https://www.reddit.com/r/nba/comments/wpun44/shaqulle_brewster_nbc_news_scoop_the_2022_nba/','04Dark',NULL,NULL,'0','2022-08-17','2022-08-17 14:45:13.052',0.9595,0.0,0.543,0.457,1,1.0,'1944629081e6799392227a787ae86672'),
 	 ('Fucking pussyyyyyyyy. Should pick fights with bigger dudes',1,'https://www.reddit.com/r/nba/comments/slea8d/jackson_per_multiple_sources_markieff_morris/','0590plazaj',NULL,NULL,'false','2022-02-06','2022-02-06 12:02:26.566',-0.4019,0.278,0.722,0.0,0,1.0,'012e1649285ddf8cab0bc7ef58827b4b'),
-	 ('The score is Poland 77:75 France. He misses two, France get a bucket with few seconds remaining and then dominate in OT. 
+	 ('The score is Poland 77:75 France. He misses two, France get a bucket with few seconds remaining and then dominate in OT.
 
 Wait… I think I already lived through it… two times !!!
 
@@ -4676,12 +4676,12 @@ https://www.instagram.com/p/Cif869zqU6P/',15,'https://www.reddit.com/r/nba/comme
 	 ('>all star money.
 
 He''s the 14th highest paid point guard this season.',5,'https://www.reddit.com/r/nba/comments/xvvytg/jalen_brunsons_first_game_as_a_knick_16_pts_4_ast/','065Alakazam',NULL,NULL,'0','2022-10-05','2022-10-05 11:04:18.708',0.0,0.0,1.0,0.0,0,1.0,'b013408c26fd0ff0534a8555bfd32d2d'),
-	 ('Even if he was facing the 2012 Bobcats'' bench unit and only scored on easy buckets, 17/15 on 9 shots and 5 blocks would be a fantastic game. 
+	 ('Even if he was facing the 2012 Bobcats'' bench unit and only scored on easy buckets, 17/15 on 9 shots and 5 blocks would be a fantastic game.
 
 You can see the play by play [here](https://www.basketball-reference.com/boxscores/pbp/202001110HOU.html) and some of the highlights [here](https://youtu.be/bMVoQmr-N5I)',2,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.8555,0.04,0.72,0.239,1,1.0,'b37aeb49337d530732f224f569f19a51');
 INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('He had 3 fouls in 26 minutes that game. That''s a lot, but I don''t see how it makes sense to not even put him in the game because you''re afraid he''ll foul after that.',24,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.0,0.0,1.0,0.0,0,1.0,'980697d90baa727b268b3469edb4f7e1'),
-	 ('He just had a career high TS% of 66.4%. Draymond also had a career high at 58.7%. 
+	 ('He just had a career high TS% of 66.4%. Draymond also had a career high at 58.7%.
 
 He shot 75% from 0-3 feet which is pretty elite. He was also 52% from 3-10 feet. And it''s not because he was just open either. He''s eFG% on shots where he was tightly guarded was 9th best in the league.',6,'https://www.reddit.com/r/nba/comments/wauot4/isaiah_hartenstein_had_the_12th_most_efficient/','065Alakazam',NULL,NULL,'0','2022-07-29','2022-07-29 11:04:24.915',0.8126,0.0,0.879,0.121,1,1.0,'3870e7b2d209f2f63614d771502e0771'),
 	 ('I''d say Lowry was better. From 2013 to 2018, the Raptors had a net rating of +8 when Lowry played without DeRozan and a net rating of -2.3 when DeRozan played without Lowry.
@@ -4790,7 +4790,7 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 I think opposite that it hasn''t, he has had 2 surgeries. You are just gonna have all that money be tied up in a surgery heavy player.',12,'https://www.reddit.com/r/nba/comments/s353iw/donatas_motiejunas_on_the_bol_bol_failed_physical/','07bot4life','YAC',':yc-1: Yacht Club','false','2022-01-14','2022-01-14 12:01:41.516',0.6486,0.0,0.854,0.146,1,1.0,'b64772197fe3e476e22522dce785b741'),
 	 ('Sorry dame ain’t on that team',24,'https://www.reddit.com/r/nba/comments/t71c8q/demarcus_cousins_as_a_starter_tonight_319431_on/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-03-05','2022-03-05 12:03:05.979',-0.0772,0.206,0.794,0.0,0,1.0,'cbf5e8cc1855ed9c98afd98825ff69ed'),
 	 ('This is one of Dame''s biggest accomplishments. The video, of course.',-77,'https://www.reddit.com/r/nba/comments/zvvn1y/stars_from_around_the_league_congratulate_dame_on/','UnderstandingThis',NULL,NULL,'0','2022-12-27','2022-12-27 12:05:28.542',0.0,0.0,1.0,0.0,0,NULL,'5f1585917e40d52272bbecbdefdb0ef2'),
-	 ('So they got a guy who wanted to go there + a guy who wanted to play with that guy? 
+	 ('So they got a guy who wanted to go there + a guy who wanted to play with that guy?
 
 >',4,'https://www.reddit.com/r/nba/comments/twbrru/farbod_the_la_clippers_clinched_the_8th_seed/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-05','2022-04-05 11:02:38.705',0.34,0.0,0.87,0.13,1,1.0,'8e0ac0fa9cbaaf793acf09fbdabfc6cb'),
 	 ('Start playing grind heavy games like RuneScape or some other shit game like that.',4,'https://www.reddit.com/r/nba/comments/twbrru/farbod_the_la_clippers_clinched_the_8th_seed/','07bot4life','YAC',':yc-1: Yacht Club','0','2022-04-05','2022-04-05 11:02:38.705',0.296,0.176,0.49,0.333,1,1.0,'14cc723acd97ac2bfbb6e1bdecbac391'),
@@ -4820,13 +4820,13 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scrape_date,scrape_ts,compound,neg,neu,pos,sentiment,row_col,md5_pk) VALUES
 	 ('Jordans 33m contract in 97, adjusted for inflation, is 60m today.... Some people don''t understand basic macroeconomics',-1,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'0','2022-07-03','2022-07-03 11:03:00.187',0.0,0.0,1.0,0.0,0,1.0,'8ede5c2fac388895e2b650eb9905bcff'),
 	 ('😤Stats like this just get me fired up',1,'https://www.reddit.com/r/nba/comments/102sg1w/giannis_antetokounmpo_checks_out_the_vs_the/','Intelligent-Agent440',NULL,NULL,'0','2023-01-04','2023-01-04 12:04:28.064',-0.2732,0.298,0.496,0.207,0,NULL,'e1d7857bfb99a6da06307896f578f6cf'),
-	 ('Look up the difference in the value of NBA from 1997 and today, then look at the average value of an NBA team in 1997 compared to today, you''ll see the money is in line smooth brain. 
+	 ('Look up the difference in the value of NBA from 1997 and today, then look at the average value of an NBA team in 1997 compared to today, you''ll see the money is in line smooth brain.
 
 With no cap you have teams going on an arms race (this is the macro side for your dumb ass) teams paying $$$$ to win. Prime time LeBron is worth wins, TV deals, merch, tickets. Sorry your too fucking dumb to look at the macro sense without it being spelled out',1,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'1','2022-07-03','2022-07-03 11:03:00.187',0.6249,0.098,0.765,0.137,1,1.0,'f43cb3ba78851fc342a8e51b43a2ac9e'),
 	 ('No cap in his peak? With balmer and the clippers at that point I could see up to 500m a year',-3,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'0','2022-07-03','2022-07-03 11:03:00.187',-0.296,0.109,0.891,0.0,0,1.0,'a64c56fa78a01a5193116a10df3ef4f4'),
-	 ('The dude is worth $117b. With that amount of money I''m sure he''s pulling in stupid money every year on passive investments. Look at how he is spending with a salary cap. 
+	 ('The dude is worth $117b. With that amount of money I''m sure he''s pulling in stupid money every year on passive investments. Look at how he is spending with a salary cap.
 
-Despite their team and consistency in making playoffs, the clippers are still largely irrelevant in LA as far as fan base goes. LeBron gets attention, in his prime he could carry any team to the finals, gets asses in seats, sells merch, brings endorsements. I''m not even a LeBron Stan but from a business standpoint it makes sense. 
+Despite their team and consistency in making playoffs, the clippers are still largely irrelevant in LA as far as fan base goes. LeBron gets attention, in his prime he could carry any team to the finals, gets asses in seats, sells merch, brings endorsements. I''m not even a LeBron Stan but from a business standpoint it makes sense.
 
 Something you gotta think about is other owners are billionaires too. Other teams would offer prime LeBron 150-250m a year without a cap.',-2,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'0','2022-07-03','2022-07-03 11:03:00.187',0.2382,0.02,0.925,0.055,1,1.0,'a11af728e187ae6923d269f9c2e444af'),
 	 ('Yeah you know his many billionaire owners would offer prime LeBron 60-100m a year with no cap? Probably half the teams.',0,'https://www.reddit.com/r/nba/comments/vq0uev/wojnarowski_new_orleans_pelicans_star_zion/','08JNASTY24',NULL,NULL,'0','2022-07-03','2022-07-03 11:03:00.187',0.0,0.098,0.804,0.098,0,1.0,'aed1149d88536dcdc439be29bc8d1bbc'),
@@ -4853,12 +4853,12 @@ INSERT INTO reddit_comments ("comment",score,url,author,flair1,flair2,edited,scr
 	 ('Well harden was smart to get out',2,'https://www.reddit.com/r/nba/comments/uakw8i/steve_nash_talks_about_the_fatigue_kevin_durant/','096624',NULL,NULL,'0','2022-04-24','2022-04-24 11:02:51.932',0.5859,0.0,0.51,0.49,1,1.0,'3795edbb6eea38d9cf6bcfbd6c3ac41d'),
 	 ('Here we have Kelvin Benjamin. Reaches into the buffet, sticks his hand in the ribs and immediately pulls it back! Looks like he can''t take the steam. Now he''s inspecting, moving around the other ribs in the chafing dish with his fingertip. He finds one, lifts it out of the buffet like an award- winning trout getting reeled in. Now....what is he doing? He''s shaking the hand he pulled the rib out all around with a wince on his face....guess the steam was STILL too hot for him!!
 
-  
+
 
 
 Now he''s twisting off the meat with his teeth. Can''t seem to get it off so he''ll lick the top of the rib using the bottom of his tongue. Tries again with the top....burnt tongue! Now his tongue is hurt from the sharp ends of the rib, so he''s going to wrap that meat in the side of his cheek and try to twist it off that way! Veteran move here. Meat still not budging.
 
-  
+
 
 
 Bite after bite, nothing is happening...what''s he doing now.....he''s INSPECTING the rib more closely and now he''s looking around. What could he need? He''s found something and is confidently striding towards it....it''s another rib, oh no! An error in judgement, he thought it would be cooler but it''s not. That''s gonna cost him some time and cause him a little bit of embarrassment. He''s making a joke about it to Cam Newton at the party. He seems unimpressed. The first rib is cool enough to eat, and look at that technique! One swift move, the meat is off and in his mouth, ready for the next rib without chewing! Amazing!!',22,'https://www.reddit.com/r/nba/comments/w7824s/highlight_4x_nba_champion_klay_thompson/','098706',NULL,NULL,'0','2022-07-25','2022-07-25 11:04:28.170',0.9065,0.059,0.831,0.11,1,1.0,'ccff7395de4721e7ca29fe4cc38ff67b'),
@@ -4866,7 +4866,7 @@ Bite after bite, nothing is happening...what''s he doing now.....he''s INSPECTIN
 	 ('I don''t think someone with your mannerisms should be commenting on proper behavior at all.',-70,'https://www.reddit.com/r/nba/comments/zvxja9/kendrickperkins_hey_serge_my_bad_homie_if_i/','Hojie_Kadenth','Warriors1',':gsw-1: Warriors','0','2022-12-27','2022-12-27 12:05:28.542',0.0,0.0,1.0,0.0,0,NULL,'3f69bc83789617c5db9b69b0830300fe'),
 	 ('Truth, I actually resented the lack of acronyms in the reactor plant on a carrier, most things are spoken out to avoid confusion, but the urgency made it feel like it took forever.
 
-  
+
 
 
 When I got out and went into semiconductor manufacturing, I realized the Navy wasn''t half as bad as chemists and physicists,',1,'https://www.reddit.com/r/nba/comments/wwktrp/mavs_just_fd_over_thousands_of_sths_by_assigning/','098706',NULL,NULL,'0','2022-08-25','2022-08-25 11:04:53.782',0.6155,0.114,0.737,0.149,1,1.0,'40856fdc6e3a890c32812dc46945f42f'),
@@ -4965,7 +4965,7 @@ Also is the fourth player in the last 30 seasons to record at least 20p/5reb/5a 
 
 Orlando has their guy.','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Highlight] Paolo Banchero takes off for the postererizer!',4467,'y8k0om','https://streamable.com/io8m0c','https://www.reddit.com/r/nba/comments/y8k0om/highlight_paolo_banchero_takes_off_for_the/',237,'','2022-10-20','2022-10-20 11:01:21.236'),
-	 ('[Post Game Thread] The New Orleans Pelicans (1-0) defeat the Brooklyn Nets (0-1) 130-108',3631,'y8l556','https://www.reddit.com/r/nba/comments/y8l556/post_game_thread_the_new_orleans_pelicans_10/','https://www.reddit.com/r/nba/comments/y8l556/post_game_thread_the_new_orleans_pelicans_10/',706,'Box Scores: 
+	 ('[Post Game Thread] The New Orleans Pelicans (1-0) defeat the Brooklyn Nets (0-1) 130-108',3631,'y8l556','https://www.reddit.com/r/nba/comments/y8l556/post_game_thread_the_new_orleans_pelicans_10/','https://www.reddit.com/r/nba/comments/y8l556/post_game_thread_the_new_orleans_pelicans_10/',706,'Box Scores:
 
 ESPN - https://www.espn.com/nba/boxscore/_/gameId/401468021
 
@@ -4974,9 +4974,9 @@ NBA.com - https://www.nba.com/game/nop-vs-bkn-0022200006/box-score#box-score','2
 	 ('[Post-Game Thread] The Phoenix Suns (1-0) come back from down 25 to defeat the Dallas Mavericks (0-1) 107-105 behind 28 points from Devin Booker!',2072,'y8ofqb','https://www.reddit.com/r/nba/comments/y8ofqb/postgame_thread_the_phoenix_suns_10_come_back/','https://www.reddit.com/r/nba/comments/y8ofqb/postgame_thread_the_phoenix_suns_10_come_back/',735,'ESPN Box Score: https://www.espn.com/nba/boxscore/_/gameId/401468028
 
 can''t wait for the new box score generator to come up :o','2022-10-20','2022-10-20 11:01:21.236'),
-	 ('Zion Williamson in his first game in 533 days: 25 points (11/22), 9 rebounds, 3 assists, 4 steals',2656,'y8l2fy','https://www.reddit.com/r/nba/comments/y8l2fy/zion_williamson_in_his_first_game_in_533_days_25/','https://www.reddit.com/r/nba/comments/y8l2fy/zion_williamson_in_his_first_game_in_533_days_25/',176,'Zion last played NBA basketball May 4, 2021. 
+	 ('Zion Williamson in his first game in 533 days: 25 points (11/22), 9 rebounds, 3 assists, 4 steals',2656,'y8l2fy','https://www.reddit.com/r/nba/comments/y8l2fy/zion_williamson_in_his_first_game_in_533_days_25/','https://www.reddit.com/r/nba/comments/y8l2fy/zion_williamson_in_his_first_game_in_533_days_25/',176,'Zion last played NBA basketball May 4, 2021.
 
-In his first game back: 30 min, 22 points, 11/22 shooting, 9 boards, 3 assists, 4 steals 
+In his first game back: 30 min, 22 points, 11/22 shooting, 9 boards, 3 assists, 4 steals
 
 https://www.espn.com/nba/boxscore/_/gameId/401468021','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Post Game Thread] The Toronto Raptors (1-0) defeat the Cleveland Cavaliers (0-1), 108-105',2448,'y8l9dh','https://www.reddit.com/r/nba/comments/y8l9dh/post_game_thread_the_toronto_raptors_10_defeat/','https://www.reddit.com/r/nba/comments/y8l9dh/post_game_thread_the_toronto_raptors_10_defeat/',1024,'Box Score: [https://www.espn.com/nba/game?gameId=401468023](https://www.espn.com/nba/game?gameId=401468023)','2022-10-20','2022-10-20 11:01:21.236');
@@ -4992,11 +4992,11 @@ CJ McCollum - 21 Points on 7-16 shooting and 3-9 from 3 with 4 rebounds, 6 assis
 
 This is 74 points between the 3, this isn''t even to mention JV and Trey Murphy who had 15 and 16 respectively
 
-Jonas - 15 Points from 6-13 and 1-1 From 3 with 13 Rebounds(6 ORB) 
+Jonas - 15 Points from 6-13 and 1-1 From 3 with 13 Rebounds(6 ORB)
 
-Trey Murphy - 16 Points from 5-7 shooting and 4-6 from 3 
+Trey Murphy - 16 Points from 5-7 shooting and 4-6 from 3
 
-all 5 of these guys combined for 105 Points 
+all 5 of these guys combined for 105 Points
 
 Very impressive season opener for the Pelicans as they take out the Nets, the question is how will they do moving on. Can they keep the same level of defense, shooting, offense, etc.','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Post Game Thread] The Chicago Bulls (1-0) defeat the Miami Heat (0-1), 116-108 behind DeMar DeRozan 37/9/6',1561,'y8lb9b','https://www.reddit.com/r/nba/comments/y8lb9b/post_game_thread_the_chicago_bulls_10_defeat_the/','https://www.reddit.com/r/nba/comments/y8lb9b/post_game_thread_the_chicago_bulls_10_defeat_the/',355,'#Chicago Bulls at Miami Heat
@@ -5063,7 +5063,7 @@ FTX Arena- Miami, FL
 Note: This data is only as accurate as NBA.com
 
 [Please message u/nba_gdt_bot if you have any suggestions or notice any bugs with the bot](https://www.reddit.com/message/compose?to=nba_gdt_bot&subject=NBA_Bot)','2022-10-20','2022-10-20 11:01:21.236'),
-	 ('DeMar DeRozan in the season opener: 37 points (28 in 2nd half) on 14-22, 9 assists, 6 rebounds, and the W',1535,'y8ldbt','https://www.reddit.com/r/nba/comments/y8ldbt/demar_derozan_in_the_season_opener_37_points_28/','https://www.reddit.com/r/nba/comments/y8ldbt/demar_derozan_in_the_season_opener_37_points_28/',115,'DeMar had himself one helluva opening night. He had to play without Zach LaVine, and he stepped up to the challenge. The first half was back and forth, but DeMar just went nuclear in the 2nd half to help the Bulls pull away from the Heat. Shoutout to Nikola Vucevic to with the 15pts & 17 rebounds 
+	 ('DeMar DeRozan in the season opener: 37 points (28 in 2nd half) on 14-22, 9 assists, 6 rebounds, and the W',1535,'y8ldbt','https://www.reddit.com/r/nba/comments/y8ldbt/demar_derozan_in_the_season_opener_37_points_28/','https://www.reddit.com/r/nba/comments/y8ldbt/demar_derozan_in_the_season_opener_37_points_28/',115,'DeMar had himself one helluva opening night. He had to play without Zach LaVine, and he stepped up to the challenge. The first half was back and forth, but DeMar just went nuclear in the 2nd half to help the Bulls pull away from the Heat. Shoutout to Nikola Vucevic to with the 15pts & 17 rebounds
 
 [source](https://www.espn.com/nba/boxscore/_/gameId/401468022)','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Post Game Thread] The Utah Jazz (1-0) defeat the Denver Nuggets (0-1), 123-102',1150,'y8n7f1','https://www.reddit.com/r/nba/comments/y8n7f1/post_game_thread_the_utah_jazz_10_defeat_the/','https://www.reddit.com/r/nba/comments/y8n7f1/post_game_thread_the_utah_jazz_10_defeat_the/',387,'https://www.espn.com/nba/boxscore/_/gameId/401468027','2022-10-20','2022-10-20 11:01:21.236'),
@@ -5076,7 +5076,7 @@ Note: This data is only as accurate as NBA.com
 
 &nbsp;
 
-**Context:** A couple days ago, Klay Thompson made a hurtful comment under a post where the NBA on ESPN crew was [interviewing Ronnie2k about NBA2K ratings:](https://streamable.com/oicarf) 
+**Context:** A couple days ago, Klay Thompson made a hurtful comment under a post where the NBA on ESPN crew was [interviewing Ronnie2k about NBA2K ratings:](https://streamable.com/oicarf)
 
 > Y''all really interviewed this clown ? I thought NBA on ESPN meant coverage of some of the best athletes in the world ? Not interviewing a promoter .... Do better ESPN
 
@@ -5086,10 +5086,10 @@ It appears Klay Thompson is feeling remorse for his bashing of beloved NBA 2K fi
 	 ('[Highlight] Luka Doncic making it look easy in the paint as he draws ooh and aahs from the Phoenix crowd',1350,'y8ltwy','https://streamable.com/9d322g','https://www.reddit.com/r/nba/comments/y8ltwy/highlight_luka_doncic_making_it_look_easy_in_the/',178,'','2022-10-20','2022-10-20 11:01:21.236'),
 	 ('[Highlight] Goran Dragic YEETS the ball from deep',2006,'y8iuii','https://streamable.com/cp79pb','https://www.reddit.com/r/nba/comments/y8iuii/highlight_goran_dragic_yeets_the_ball_from_deep/',104,'','2022-10-20','2022-10-20 11:01:21.236');
 INSERT INTO reddit_posts (title,score,id,url,reddit_url,num_comments,body,scrape_date,scrape_time) VALUES
-	 ('The Lakers are so bad, that if Lebron or AD get injured the Pelicans could conceivably end up making a playoff run AND land Victor Wembanyama via the Anthony Davis pick swap',5749,'y8ap8y','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/',724,'In today''s opening night overreaction pod on the ringer, this was brought up. Can you imagine if Lebron or AD go out for any extended period of time? The Lakers easily become a bottom 5 team and could conceivably gift the Pelicans a top 2 pick in this year''s draft. 
+	 ('The Lakers are so bad, that if Lebron or AD get injured the Pelicans could conceivably end up making a playoff run AND land Victor Wembanyama via the Anthony Davis pick swap',5749,'y8ap8y','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/','https://www.reddit.com/r/nba/comments/y8ap8y/the_lakers_are_so_bad_that_if_lebron_or_ad_get/',724,'In today''s opening night overreaction pod on the ringer, this was brought up. Can you imagine if Lebron or AD go out for any extended period of time? The Lakers easily become a bottom 5 team and could conceivably gift the Pelicans a top 2 pick in this year''s draft.
 
 What a big brain front office the Lakers have. How does Pelinka still have a job?','2022-10-20','2022-10-20 11:01:21.236'),
-	 ('The Pistons 1st round rookies went off in their debuts. Jaden Ivey: 19/4/3/3 stl (8-15 FG, 2-4 3FG). Jalen Duren: 14/1/11/3 blk (7-13 FG, 6 OREB).',1362,'y8kgte','https://www.reddit.com/r/nba/comments/y8kgte/the_pistons_1st_round_rookies_went_off_in_their/','https://www.reddit.com/r/nba/comments/y8kgte/the_pistons_1st_round_rookies_went_off_in_their/',134,'> Jaden Ivey: 19 pts, 4 ast, 3 reb, 3 stl (8-15 FG, 2-4 3FG). 
+	 ('The Pistons 1st round rookies went off in their debuts. Jaden Ivey: 19/4/3/3 stl (8-15 FG, 2-4 3FG). Jalen Duren: 14/1/11/3 blk (7-13 FG, 6 OREB).',1362,'y8kgte','https://www.reddit.com/r/nba/comments/y8kgte/the_pistons_1st_round_rookies_went_off_in_their/','https://www.reddit.com/r/nba/comments/y8kgte/the_pistons_1st_round_rookies_went_off_in_their/',134,'> Jaden Ivey: 19 pts, 4 ast, 3 reb, 3 stl (8-15 FG, 2-4 3FG).
 
 > Jalen Duren: 14 pts, 1 ast, 11 reb, 3 blk (7-13 FG, 6 OREB).
 
@@ -6735,7 +6735,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453214918696960','Tue Jun 13 03:00:19 +0000 2023','rzambranon',268984741,'Tamos. Denver campeón de NBA',0.0,0.0,'es','2023-06-14 12:01:38.608','http://pbs.twimg.com/profile_images/1577111385120579584/m6El2fXn_normal.jpg','https://twitter.com/twitter/statuses/1668453214918696960',0.0,0.0,1.0,0.0,0),
 	 ('1668453214759288832','Tue Jun 13 03:00:19 +0000 2023','BarcellosPaiva',2803716754,'RT @PoetasFla: Denver sendo campeão da NBA e o Deve perdendo o Coudet',0.0,10.0,'pt','2023-06-14 12:01:38.681','http://pbs.twimg.com/profile_images/1653932875056664579/pUWaNH3b_normal.jpg','https://twitter.com/twitter/statuses/1668453214759288832',0.0,0.0,1.0,0.0,0),
 	 ('1668453214637682689','Tue Jun 13 03:00:19 +0000 2023','four4thefire',914277349721608190,'man, for the first time in a long time, I''m going to miss the NBA over the summer. This has been great',1.0,0.0,'en','2023-06-14 12:01:38.686','http://pbs.twimg.com/profile_images/1371947505290723330/6tVu9KJn_normal.jpg','https://twitter.com/twitter/statuses/1668453214637682689',0.5423,0.065,0.769,0.166,1),
-	 ('1668453214629384193','Tue Jun 13 03:00:19 +0000 2023','BiancaOneal11',1275844951243395070,'GGs 
+	 ('1668453214629384193','Tue Jun 13 03:00:19 +0000 2023','BiancaOneal11',1275844951243395070,'GGs
 
 #NBA',0.0,0.0,'und','2023-06-14 12:01:38.690','http://pbs.twimg.com/profile_images/1283117177932066818/iEyy6W-k_normal.jpg','https://twitter.com/twitter/statuses/1668453214629384193',0.0,0.0,1.0,0.0,0),
 	 ('1668453214545678336','Tue Jun 13 03:00:19 +0000 2023','daveyfelds4',1786849596,'RT @AndrewDBailey: Flopping has to go, NBA. Please, for the love of basketball fans everywhere. Get rid of it.',0.0,23.0,'en','2023-06-14 12:01:38.694','http://pbs.twimg.com/profile_images/1511136680622788615/uwOenEaW_normal.jpg','https://twitter.com/twitter/statuses/1668453214545678336',0.7579,0.0,0.723,0.277,1),
@@ -6791,7 +6791,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453209860341760','Tue Jun 13 03:00:18 +0000 2023','vitingalo13',59796689,'Tiraram os Celtics para isso!
 Parabéns Miami!
 #NBAFinals #NBA',1.0,0.0,'pt','2023-06-14 12:01:39.196','http://pbs.twimg.com/profile_images/1650583401403916294/RKkqaW5u_normal.jpg','https://twitter.com/twitter/statuses/1668453209860341760',0.0,0.0,1.0,0.0,0),
-	 ('1668453209780916225','Tue Jun 13 03:00:18 +0000 2023','WhoaitsAustin',2247532127,'So happy for Jokic! 
+	 ('1668453209780916225','Tue Jun 13 03:00:18 +0000 2023','WhoaitsAustin',2247532127,'So happy for Jokic!
 Best player in the world right now!
 undisputed!
 #NuggetsNation #NBAFinals #nba',2.0,1.0,'en','2023-06-14 12:01:39.200','http://pbs.twimg.com/profile_images/1584238793732734976/nDStFs0a_normal.jpg','https://twitter.com/twitter/statuses/1668453209780916225',0.877,0.0,0.589,0.411,1),
@@ -6818,9 +6818,9 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453208115625984','Tue Jun 13 03:00:17 +0000 2023','illusionfeeling',1134228974194909180,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
 
 Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:39.483','http://pbs.twimg.com/profile_images/1665734548297064448/acejfqAx_normal.jpg','https://twitter.com/twitter/statuses/1668453208115625984',0.0,0.0,1.0,0.0,0),
-	 ('1668453208035819522','Tue Jun 13 03:00:17 +0000 2023','LatamHeat',1349033845920837630,'Miami, otra vez se quedó corto. 
+	 ('1668453208035819522','Tue Jun 13 03:00:17 +0000 2023','LatamHeat',1349033845920837630,'Miami, otra vez se quedó corto.
 
-Acaba de perder 1-4 vs los Denver Nuggets en las finales de la NBA. 
+Acaba de perder 1-4 vs los Denver Nuggets en las finales de la NBA.
 
 De las últi… https://t.co/TjjL8aheBp',18.0,0.0,'es','2023-06-14 12:01:39.487','http://pbs.twimg.com/profile_images/1531717023201234944/06AuQsm8_normal.jpg','https://twitter.com/twitter/statuses/1668453208035819522',0.0,0.0,1.0,0.0,0),
 	 ('1668453208031739904','Tue Jun 13 03:00:17 +0000 2023','Itamar_17_10',1369979407901810690,'Bruce Brown, NBA champion. Jeff Green, NBA champion. DeAndre Jordan, NBA champion. Aaron Gordon, NBA champion. Ish Smith, NBA champion.',43.0,5.0,'en','2023-06-14 12:01:39.492','http://pbs.twimg.com/profile_images/1606308316614983684/ARCbAL2E_normal.jpg','https://twitter.com/twitter/statuses/1668453208031739904',0.9661,0.0,0.435,0.565,1),
@@ -6835,7 +6835,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453206731399169','Tue Jun 13 03:00:17 +0000 2023','RelloST',27698185,'RT @MambaSZN: Jimmy Butler in the NBA Finals  https://t.co/9GDKh0rUaW',0.0,81.0,'en','2023-06-14 12:01:39.604','http://pbs.twimg.com/profile_images/1624480954273214466/GRIDQhP8_normal.jpg','https://twitter.com/twitter/statuses/1668453206731399169',0.0,0.0,1.0,0.0,0),
 	 ('1668453206655901696','Tue Jun 13 03:00:17 +0000 2023','alvc666',1146487320612225020,'nikola jokic es el mejor jugador d la nba actualmente',0.0,0.0,'es','2023-06-14 12:01:39.609','http://pbs.twimg.com/profile_images/1536558159560593408/YYGRaBqf_normal.jpg','https://twitter.com/twitter/statuses/1668453206655901696',0.0,0.0,1.0,0.0,0),
 	 ('1668453206433878016','Tue Jun 13 03:00:17 +0000 2023','MaybeNotDan',235023784,'If other NBA teams allow the Nuggets to retain Bruce Brown the league is stupid. I’m throwing him 15 million if not 20 if I have to',0.0,0.0,'en','2023-06-14 12:01:39.684','http://pbs.twimg.com/profile_images/1349084119691497473/onWgxiPn_normal.jpg','https://twitter.com/twitter/statuses/1668453206433878016',-0.3612,0.116,0.819,0.065,0),
-	 ('1668453206387748864','Tue Jun 13 03:00:17 +0000 2023','ravishing_reena',1005603614,'RT @SavageSports_: I can’t get over the NBA officiating.   
+	 ('1668453206387748864','Tue Jun 13 03:00:17 +0000 2023','ravishing_reena',1005603614,'RT @SavageSports_: I can’t get over the NBA officiating.
 
 Just peak terrible.  Always.',0.0,6.0,'en','2023-06-14 12:01:39.688','http://pbs.twimg.com/profile_images/1002400805876576257/R-PCcC2h_normal.jpg','https://twitter.com/twitter/statuses/1668453206387748864',-0.4767,0.22,0.78,0.0,0),
 	 ('1668453206014193666','Tue Jun 13 03:00:17 +0000 2023','amier77052218',1018876818,'@ShannonSharpe That''s because nobody cares about this game this is one of the worst NBA finals ever',0.0,0.0,'en','2023-06-14 12:01:39.692','http://pbs.twimg.com/profile_images/1627315453625348097/EmTGUrIG_normal.jpg','https://twitter.com/twitter/statuses/1668453206014193666',-0.2732,0.186,0.679,0.136,0),
@@ -6864,11 +6864,11 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453204252557312','Tue Jun 13 03:00:16 +0000 2023','SportsByMalik',229933395,'Congratulations to the Denver Nuggets 1st NBA Championship',0.0,0.0,'en','2023-06-14 12:01:39.986','http://pbs.twimg.com/profile_images/1592765469978759169/n6LNXPBO_normal.jpg','https://twitter.com/twitter/statuses/1668453204252557312',0.7783,0.0,0.469,0.531,1);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453204059717633','Tue Jun 13 03:00:16 +0000 2023','JMJje',945982106,'@RoobetES Necesito eso y nuevo campeón de la nba',0.0,0.0,'es','2023-06-14 12:01:39.999','http://pbs.twimg.com/profile_images/1493964629533413379/PNfj2_qB_normal.jpg','https://twitter.com/twitter/statuses/1668453204059717633',0.0,0.0,1.0,0.0,0),
-	 ('1668453203929694209','Tue Jun 13 03:00:16 +0000 2023','_dandesp',900517794923646980,'🃏🃏🃏 
+	 ('1668453203929694209','Tue Jun 13 03:00:16 +0000 2023','_dandesp',900517794923646980,'🃏🃏🃏
 
 best player on the planet
 
-2x MVP and now NBA champion and finals MVP 
+2x MVP and now NBA champion and finals MVP
 
 going to retire as a top 20 player in… https://t.co/r2voAxZBYa',7.0,0.0,'en','2023-06-14 12:01:40.005','http://pbs.twimg.com/profile_images/1652397609963737090/xSMhPw9z_normal.jpg','https://twitter.com/twitter/statuses/1668453203929694209',0.872,0.0,0.68,0.32,1),
 	 ('1668453203724193793','Tue Jun 13 03:00:16 +0000 2023','gabefrm',303421036,'o city da nba ganhou o titulo infelizmente',0.0,0.0,'pt','2023-06-14 12:01:40.080','http://pbs.twimg.com/profile_images/1626402798756585472/l-4Ip3vE_normal.jpg','https://twitter.com/twitter/statuses/1668453203724193793',0.0,0.0,1.0,0.0,0),
@@ -6878,7 +6878,7 @@ going to retire as a top 20 player in… https://t.co/r2voAxZBYa',7.0,0.0,'en','
 	 ('1668453203485118464','Tue Jun 13 03:00:16 +0000 2023','KleoFC',1007330155520544770,'خلاص يا أمريكان اخر سنة لكم في ال NBA مع الموسم القادم امريكا كلها كرة قدم حقيقية وليست سوكر',0.0,0.0,'ar','2023-06-14 12:01:40.106','http://pbs.twimg.com/profile_images/1648400556149420032/rdZ1DsCs_normal.jpg','https://twitter.com/twitter/statuses/1668453203485118464',0.0,0.0,1.0,0.0,0),
 	 ('1668453203455639553','Tue Jun 13 03:00:16 +0000 2023','KeepGoingKJ',1016370044,'RT @RealSkipBayless: I love and honor the effort on both sides, but this has to be the worst NBA Finals game EVER PLAYED.',0.0,965.0,'en','2023-06-14 12:01:40.129','http://pbs.twimg.com/profile_images/1661748704683130883/WOpg1Sxp_normal.jpg','https://twitter.com/twitter/statuses/1668453203455639553',0.307,0.174,0.553,0.273,1),
 	 ('1668453203376054272','Tue Jun 13 03:00:16 +0000 2023','Afotey_jr',371340301,'It’s over for @MiamiHEAT ! 🤦🏾‍♂️
-#nba 
+#nba
 #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:40.133','http://pbs.twimg.com/profile_images/1640420282228719640/yLjchb_E_normal.jpg','https://twitter.com/twitter/statuses/1668453203376054272',0.0,0.0,1.0,0.0,0),
 	 ('1668453203099123716','Tue Jun 13 03:00:16 +0000 2023','strategywargamr',1623625740,'Congrats to @nuggets on being World Champions! #NBA',0.0,0.0,'en','2023-06-14 12:01:40.195','http://pbs.twimg.com/profile_images/1333446306782703625/Y8L9FHRX_normal.jpg','https://twitter.com/twitter/statuses/1668453203099123716',0.7959,0.0,0.458,0.542,1),
 	 ('1668453202671419393','Tue Jun 13 03:00:16 +0000 2023','DjLilDallas',73549382,'RT @DiamondstoneT: DENVER NUGGETS ARE THE 2023 NBA CHAMPIONS https://t.co/QceKBX16Ny',0.0,17.0,'en','2023-06-14 12:01:40.626','http://pbs.twimg.com/profile_images/1468852306313728003/-GubdWGB_normal.jpg','https://twitter.com/twitter/statuses/1668453202671419393',0.6289,0.0,0.685,0.315,1),
@@ -6911,13 +6911,13 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453198925815809','Tue Jun 13 03:00:15 +0000 2023','Vagfloame',1015180891,'RT @elkumingarg: Felicitaciones DENVER campeones de la NBA.
 
 Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo…',0.0,4.0,'es','2023-06-14 12:01:41.045','http://pbs.twimg.com/profile_images/1664923632798257154/D-DU0SqK_normal.jpg','https://twitter.com/twitter/statuses/1668453198925815809',0.0,0.0,1.0,0.0,0),
-	 ('1668453198644822016','Tue Jun 13 03:00:15 +0000 2023','TyrekowensTyrek',3281173946,'RT @statmuse: The only players in NBA history to average 
+	 ('1668453198644822016','Tue Jun 13 03:00:15 +0000 2023','TyrekowensTyrek',3281173946,'RT @statmuse: The only players in NBA history to average
 
 30+ PPG
 10+ RPG
 5+ APG
 1+ SPG
-1+ BPG 
+1+ BPG
 
 in a Finals series. https://t.co/9QHldfLV…',0.0,196.0,'en','2023-06-14 12:01:41.080','http://pbs.twimg.com/profile_images/1609752135146639371/6W9eSQU0_normal.jpg','https://twitter.com/twitter/statuses/1668453198644822016',0.0,0.0,1.0,0.0,0);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
@@ -6947,7 +6947,7 @@ Po seu time ganhando o PRIMEIRO título na NBA e eles assim "hooray!!!!" 🥳�
 	 ('1668453195838889987','Tue Jun 13 03:00:14 +0000 2023','D_mvrt',879722942061568000,'RT @RealSkipBayless: CONGRATS TO THE DENVER NUGGETS, NBA CHAMPS FOR THE FIRST TIME EVER.',0.0,287.0,'en','2023-06-14 12:01:41.379','http://pbs.twimg.com/profile_images/1443741781674401792/XlL1v1cB_normal.jpg','https://twitter.com/twitter/statuses/1668453195838889987',0.8256,0.0,0.61,0.39,1),
 	 ('1668453195700486147','Tue Jun 13 03:00:14 +0000 2023','hipicosenlinea',62949740,'RT @ParleyEnLinea: Denver está a 6 minutos de hacer HISTORIA en la #nba
 
-#DenverNuggets 81-76 #HEATCulture 
+#DenverNuggets 81-76 #HEATCulture
 
 ¿Podrán aguantar la diferencia?',0.0,1.0,'es','2023-06-14 12:01:41.384','http://pbs.twimg.com/profile_images/796361368714825728/CBJcIhOy_normal.jpg','https://twitter.com/twitter/statuses/1668453195700486147',0.0,0.0,1.0,0.0,0),
 	 ('1668453195650310144','Tue Jun 13 03:00:14 +0000 2023','J_Camacho00',2936719249,'The Denver Nuggets are your 2022-2023 NBA Champions with Nikola Jokic as your Finals MVP',0.0,0.0,'en','2023-06-14 12:01:41.388','http://pbs.twimg.com/profile_images/1627199141205135361/DgoGU1rv_normal.jpg','https://twitter.com/twitter/statuses/1668453195650310144',0.5267,0.0,0.805,0.195,1);
@@ -6982,7 +6982,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:41.598','http://pbs.twimg.co
 	 ('1668453193703931904','Tue Jun 13 03:00:14 +0000 2023','fareziin',1408854580700581890,'parabéns Jokic e seus capangas pelo título da NBA',1.0,0.0,'pt','2023-06-14 12:01:41.693','http://pbs.twimg.com/profile_images/1660072657621057536/POr6Dh8B_normal.jpg','https://twitter.com/twitter/statuses/1668453193703931904',0.0,0.0,1.0,0.0,0),
 	 ('1668453193263505410','Tue Jun 13 03:00:14 +0000 2023','QuakeGW',83424185,'Nuggets stink. NBA Season was ass cheeks.',4.0,0.0,'en','2023-06-14 12:01:41.697','http://pbs.twimg.com/profile_images/1520995357316026368/cB2rDszM_normal.jpg','https://twitter.com/twitter/statuses/1668453193263505410',-0.7351,0.554,0.446,0.0,0);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
-	 ('1668453193251004418','Tue Jun 13 03:00:14 +0000 2023','David_Terrero_',122245760,'Denver Nuggets es el nuevo campeón de la NBA. 
+	 ('1668453193251004418','Tue Jun 13 03:00:14 +0000 2023','David_Terrero_',122245760,'Denver Nuggets es el nuevo campeón de la NBA.
 28+16 para un señor llamado Nikola Jokic.',0.0,0.0,'es','2023-06-14 12:01:41.701','http://pbs.twimg.com/profile_images/1473737441517490183/VBfhWL9r_normal.jpg','https://twitter.com/twitter/statuses/1668453193251004418',0.0,0.0,1.0,0.0,0),
 	 ('1668453193183797248','Tue Jun 13 03:00:14 +0000 2023','CrossSports_',562366227,'That’s game. Congratulations to the @nuggets on winning the 2022-23 NBA World Championship! #NBAFinals https://t.co/8SldYQYoA7',1.0,0.0,'en','2023-06-14 12:01:41.705','http://pbs.twimg.com/profile_images/1563679928171655168/KnSqBIFi_normal.jpg','https://twitter.com/twitter/statuses/1668453193183797248',0.8883,0.0,0.534,0.466,1),
 	 ('1668453193087602688','Tue Jun 13 03:00:14 +0000 2023','1004Ziyan',1197299543232016380,'Jimmy Butler thinks he is Steph Curry.
@@ -7045,9 +7045,9 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453186716221441','Tue Jun 13 03:00:12 +0000 2023','LuccaGBP',2502883849,'Aqui acabou o NUGGETS VAI SER CAMPEÃO DA NBA PELA PRIMEIRA VEZ',0.0,0.0,'pt','2023-06-14 12:01:42.422','http://pbs.twimg.com/profile_images/1656479153745457153/Jtkx0FXE_normal.jpg','https://twitter.com/twitter/statuses/1668453186716221441',0.0,0.0,1.0,0.0,0),
 	 ('1668453186695311367','Tue Jun 13 03:00:12 +0000 2023','T_Add3',1486269122,'RT @OhhMar24: THE DENVER NUGGETS ARE YOUR 2023 NBA CHAMPIONS!!! AHHHH',0.0,8.0,'en','2023-06-14 12:01:42.482','http://pbs.twimg.com/profile_images/1610376003582296065/182cpUu3_normal.jpg','https://twitter.com/twitter/statuses/1668453186695311367',0.7192,0.0,0.666,0.334,1),
 	 ('1668453186615799808','Tue Jun 13 03:00:12 +0000 2023','femme_choconoir',43747694,'One of the best NBA finals series close out games - dramatic until the end',0.0,0.0,'en','2023-06-14 12:01:42.806','http://pbs.twimg.com/profile_images/1668104287879327744/Mu0OrFmq_normal.jpg','https://twitter.com/twitter/statuses/1668453186615799808',0.6369,0.0,0.756,0.244,1),
-	 ('1668453186569658369','Tue Jun 13 03:00:12 +0000 2023','kn33jo',1588743052365299710,'Nikola Jokic 
+	 ('1668453186569658369','Tue Jun 13 03:00:12 +0000 2023','kn33jo',1588743052365299710,'Nikola Jokic
 
-NBA Champion 
+NBA Champion
 NBA Finals MVP',0.0,0.0,'pl','2023-06-14 12:01:42.811','http://pbs.twimg.com/profile_images/1608902100423168001/md9i6RaM_normal.jpg','https://twitter.com/twitter/statuses/1668453186569658369',0.5994,0.0,0.606,0.394,1);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453186200383490','Tue Jun 13 03:00:12 +0000 2023','miIuinthesky',741069542647058430,'y pensar que si no lo hubiesen cedido a campazzo hoy tendríamos a un argentino campeón de la nba https://t.co/eiBaVjHbqJ',5.0,0.0,'es','2023-06-14 12:01:42.885','http://pbs.twimg.com/profile_images/1641459089896009735/iY47ecmQ_normal.jpg','https://twitter.com/twitter/statuses/1668453186200383490',-0.296,0.121,0.879,0.0,0),
@@ -7069,7 +7069,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 Miami looks to extend the #NBAFinals presented by @YouTubeTV at 8:30pm/et on ABC!
 
 More Game 5…',0.0,286.0,'en','2023-06-14 12:01:43.083','http://pbs.twimg.com/profile_images/1602380457056014336/h00Xrtbd_normal.jpg','https://twitter.com/twitter/statuses/1668453184208273409',0.6625,0.0,0.802,0.198,1),
-	 ('1668453184115703808','Tue Jun 13 03:00:12 +0000 2023','nathalieanduja',464147900,'RT @SrirachaDfs: The Nuggets are your 2023 NBA Champions. 
+	 ('1668453184115703808','Tue Jun 13 03:00:12 +0000 2023','nathalieanduja',464147900,'RT @SrirachaDfs: The Nuggets are your 2023 NBA Champions.
 
 What a weird ass season.',0.0,6.0,'en','2023-06-14 12:01:43.090','http://pbs.twimg.com/profile_images/1588718767286231040/ws62xWrt_normal.jpg','https://twitter.com/twitter/statuses/1668453184115703808',-0.2023,0.28,0.538,0.183,0),
 	 ('1668453184069685248','Tue Jun 13 03:00:12 +0000 2023','vitorluba',852293312769916930,'RT @MiamiHeatDepre: Eu só tenho a agradecer por essa temporada, foi a mais surpreendente que eu já vi em todos os esportes.
@@ -7107,7 +7107,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453181792165888','Tue Jun 13 03:00:11 +0000 2023','NYRUBE',232022099,'Jimmy Butler and the Denver Nuggets are the new NBA champions! 🥴💀🗑️',1.0,0.0,'en','2023-06-14 12:01:43.518','http://pbs.twimg.com/profile_images/485983333197680641/rPCpfuC0_normal.jpeg','https://twitter.com/twitter/statuses/1668453181792165888',0.5707,0.0,0.749,0.251,1),
 	 ('1668453181716660225','Tue Jun 13 03:00:11 +0000 2023','NBA_Reddit',1626965413,'That’s game.',32.0,1.0,'en','2023-06-14 12:01:43.581','http://pbs.twimg.com/profile_images/912830725551882240/FYhA45Sf_normal.jpg','https://twitter.com/twitter/statuses/1668453181716660225',0.0,0.0,1.0,0.0,0),
 	 ('1668453181603344387','Tue Jun 13 03:00:11 +0000 2023','cmattdowns',1246615231,'@NBA The nuggets are overrated.',1.0,0.0,'en','2023-06-14 12:01:43.592','http://pbs.twimg.com/profile_images/1532794413147119616/7Mdr0TBD_normal.jpg','https://twitter.com/twitter/statuses/1668453181603344387',0.0,0.0,1.0,0.0,0),
-	 ('1668453181523734529','Tue Jun 13 03:00:11 +0000 2023','yungmonifa_',312140328,'RT @SrirachaDfs: The Nuggets are your 2023 NBA Champions. 
+	 ('1668453181523734529','Tue Jun 13 03:00:11 +0000 2023','yungmonifa_',312140328,'RT @SrirachaDfs: The Nuggets are your 2023 NBA Champions.
 
 What a weird ass season.',0.0,6.0,'en','2023-06-14 12:01:43.604','http://pbs.twimg.com/profile_images/1664817023203803136/Y16MkfLE_normal.jpg','https://twitter.com/twitter/statuses/1668453181523734529',-0.2023,0.28,0.538,0.183,0),
 	 ('1668453181406461957','Tue Jun 13 03:00:11 +0000 2023','Vince1o7',1571886920,'@BleacherReport NBA IS RIGGED AS FUCK',2.0,0.0,'en','2023-06-14 12:01:43.618','http://pbs.twimg.com/profile_images/1663443592860536838/vIExKW8G_normal.jpg','https://twitter.com/twitter/statuses/1668453181406461957',-0.8159,0.651,0.349,0.0,0),
@@ -7123,10 +7123,10 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453180265332737','Tue Jun 13 03:00:11 +0000 2023','denersouza98',1086321327764631550,'Aqui acabou #nba #NBAFinals',0.0,0.0,'pt','2023-06-14 12:01:43.799','http://pbs.twimg.com/profile_images/1608974328716038147/F56OFJen_normal.jpg','https://twitter.com/twitter/statuses/1668453180265332737',0.0,0.0,1.0,0.0,0),
 	 ('1668453179942420482','Tue Jun 13 03:00:11 +0000 2023','billhirni',190824594,'RT @fakndafunk: @CanesHoops WAKE YALL ASS UP! BRUCE BROWN IS AN NBA CHAMPION',0.0,1.0,'en','2023-06-14 12:01:43.809','http://pbs.twimg.com/profile_images/1636156317046800389/-NcAg6K9_normal.jpg','https://twitter.com/twitter/statuses/1668453179942420482',0.1759,0.21,0.546,0.244,1),
 	 ('1668453179627823104','Tue Jun 13 03:00:11 +0000 2023','kwadjoe2',1417423010609483780,'Jimmy is sending the Heats back to Miami faster than he took them to the finals NBA finals  Heat Nuggets rigged refs',0.0,0.0,'en','2023-06-14 12:01:43.833','http://pbs.twimg.com/profile_images/1547412587595317250/Yh3t7DdH_normal.jpg','https://twitter.com/twitter/statuses/1668453179627823104',-0.3612,0.106,0.894,0.0,0),
-	 ('1668453179531427841','Tue Jun 13 03:00:11 +0000 2023','Keilinabc',291950064,'Tenemos campeón 
+	 ('1668453179531427841','Tue Jun 13 03:00:11 +0000 2023','Keilinabc',291950064,'Tenemos campeón
 
 #NBa
-#NBAFinals 
+#NBAFinals
 #NBAPlayoffs',0.0,0.0,'es','2023-06-14 12:01:43.882','http://pbs.twimg.com/profile_images/1226914073176047616/sMT6nZyx_normal.jpg','https://twitter.com/twitter/statuses/1668453179531427841',0.0,0.0,1.0,0.0,0),
 	 ('1668453179355197443','Tue Jun 13 03:00:10 +0000 2023','Santi2328',762799209103945730,'RT @elkumingarg: Felicitaciones DENVER campeones de la NBA.
 
@@ -7134,16 +7134,16 @@ Gran equipo,paciencia y sobre todo confiar en un proceso y en el draft como mo�
 	 ('1668453179275485185','Tue Jun 13 03:00:10 +0000 2023','KevalGobin',601371419,'Congrats to Jokic, Murray &amp; the @nuggets  well deserved NBA champions 2023 🏆',0.0,0.0,'en','2023-06-14 12:01:43.933','http://pbs.twimg.com/profile_images/1317731570434904064/-zUcF71C_normal.jpg','https://twitter.com/twitter/statuses/1668453179275485185',0.836,0.0,0.503,0.497,1),
 	 ('1668453179149656065','Tue Jun 13 03:00:10 +0000 2023','Tony_Kudo',1540185708874326020,'Denver won the stanley cup and nba finals back to back years is wild lmao',1.0,0.0,'en','2023-06-14 12:01:43.955','http://pbs.twimg.com/profile_images/1663213583679868928/zeMF-5KF_normal.jpg','https://twitter.com/twitter/statuses/1668453179149656065',0.8225,0.0,0.631,0.369,1);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
-	 ('1668453179019907072','Tue Jun 13 03:00:10 +0000 2023','jrichardgoodman',758110205674610690,'Denver plus 12 on the glass 
+	 ('1668453179019907072','Tue Jun 13 03:00:10 +0000 2023','jrichardgoodman',758110205674610690,'Denver plus 12 on the glass
 Defense rebounding wins nba chips 👊',59.0,12.0,'en','2023-06-14 12:01:43.982','http://pbs.twimg.com/profile_images/1536406995305046017/1Llpbm5T_normal.jpg','https://twitter.com/twitter/statuses/1668453179019907072',0.6369,0.0,0.634,0.366,1),
 	 ('1668453178994487297','Tue Jun 13 03:00:10 +0000 2023','meunomeehzaza',1554591084189196290,'tao comemorando nba na minha rua',2.0,0.0,'pt','2023-06-14 12:01:43.992','http://pbs.twimg.com/profile_images/1554591560175583233/6iRmHbiZ_normal.jpg','https://twitter.com/twitter/statuses/1668453178994487297',0.0,0.0,1.0,0.0,0),
 	 ('1668453178591903744','Tue Jun 13 03:00:10 +0000 2023','Sjstem_',3001910360,'RT @leocarranza99: La NBA es lo mejor que le ha pasado a este inhóspito planeta.',0.0,60.0,'es','2023-06-14 12:01:44.018','http://pbs.twimg.com/profile_images/1668644571608121348/T2nZXhg-_normal.jpg','https://twitter.com/twitter/statuses/1668453178591903744',0.34,0.0,0.844,0.156,1),
 	 ('1668453178390597634','Tue Jun 13 03:00:10 +0000 2023','JWash_drums',525782208,'That’s it for the NBA 🥱',0.0,0.0,'en','2023-06-14 12:01:44.030','http://pbs.twimg.com/profile_images/1648520120732614660/6aKDwalO_normal.jpg','https://twitter.com/twitter/statuses/1668453178390597634',0.0,0.0,1.0,0.0,0),
 	 ('1668453178365427712','Tue Jun 13 03:00:10 +0000 2023','daweaselbass',4816394819,'RT @LordMacOfCheese: Should I stream after the NBA Finals game? #SupportSmallStreamers',0.0,1.0,'en','2023-06-14 12:01:44.043','http://pbs.twimg.com/profile_images/1034866699022020611/GCo-081Y_normal.jpg','https://twitter.com/twitter/statuses/1668453178365427712',0.0,0.0,1.0,0.0,0),
 	 ('1668453178185248768','Tue Jun 13 03:00:10 +0000 2023','PresidentMikko',1382898576901038080,'OH MY GOD MAN BACK TO BACK NHL AND NBA TITLES',0.0,0.0,'en','2023-06-14 12:01:44.085','http://pbs.twimg.com/profile_images/1614436037727502336/uhImIlsG_normal.jpg','https://twitter.com/twitter/statuses/1668453178185248768',0.2732,0.0,0.826,0.174,1),
-	 ('1668453177732022272','Tue Jun 13 03:00:10 +0000 2023','someswaggt',1400431343222374400,'RT @JustEsBaraheni: Congratulations to Nuggets fans and the city of Denver. 
+	 ('1668453177732022272','Tue Jun 13 03:00:10 +0000 2023','someswaggt',1400431343222374400,'RT @JustEsBaraheni: Congratulations to Nuggets fans and the city of Denver.
 
-Their first championship in NBA history. 
+Their first championship in NBA history.
 
 Nikola Jokic, Jama…',0.0,22.0,'en','2023-06-14 12:01:44.090','http://pbs.twimg.com/profile_images/1662169556935114782/SKNtA1aY_normal.jpg','https://twitter.com/twitter/statuses/1668453177732022272',0.7783,0.0,0.726,0.274,1),
 	 ('1668453177509793792','Tue Jun 13 03:00:10 +0000 2023','Murilindo__',1661915364484165630,'E O CAMPEAO DA NBA É UM ROMANTICOO🥰🥰🃏',0.0,0.0,'pt','2023-06-14 12:01:44.094','http://pbs.twimg.com/profile_images/1662132235082907653/W7wykK69_normal.jpg','https://twitter.com/twitter/statuses/1668453177509793792',0.0,0.0,1.0,0.0,0),
@@ -7159,7 +7159,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453176687599621','Tue Jun 13 03:00:10 +0000 2023','lulicoments',1292313426,'denver nuggets campeão da nba jesus',0.0,0.0,'pt','2023-06-14 12:01:44.206','http://pbs.twimg.com/profile_images/1667929087371780097/OmiC8xT8_normal.jpg','https://twitter.com/twitter/statuses/1668453176687599621',0.0,0.0,1.0,0.0,0),
 	 ('1668453176591417344','Tue Jun 13 03:00:10 +0000 2023','BR_NBA',36724576,'RT @BleacherReport: THIS GAME https://t.co/RSqNkEbX8e',0.0,1413.0,'en','2023-06-14 12:01:44.281','http://pbs.twimg.com/profile_images/1266053203616989186/ozSULDRt_normal.jpg','https://twitter.com/twitter/statuses/1668453176591417344',0.0,0.0,1.0,0.0,0),
 	 ('1668453176176148481','Tue Jun 13 03:00:10 +0000 2023','brizznasty23',16937123,'Damn GGs heat. Denver Nuggets are NBA champs',0.0,0.0,'en','2023-06-14 12:01:44.286','http://pbs.twimg.com/profile_images/1634782849961431041/psgixIAq_normal.jpg','https://twitter.com/twitter/statuses/1668453176176148481',0.0258,0.235,0.522,0.243,1),
-	 ('1668453176108888065','Tue Jun 13 03:00:10 +0000 2023','7ioiiz',1063104060600000510,'دنفر ناغيتس وبقيادة الساحر يوكييييييتش 
+	 ('1668453176108888065','Tue Jun 13 03:00:10 +0000 2023','7ioiiz',1063104060600000510,'دنفر ناغيتس وبقيادة الساحر يوكييييييتش
 بطلاً للNBA 2023 🔥🔥🔥🔝🔝🔝',0.0,0.0,'ar','2023-06-14 12:01:44.291','http://pbs.twimg.com/profile_images/1668047735147077635/qHQ5mm2v_normal.jpg','https://twitter.com/twitter/statuses/1668453176108888065',0.0,0.0,1.0,0.0,0);
 INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,tweet,likes,retweets,"language",scrape_ts,profile_img,url,compound,neg,neu,pos,sentiment) VALUES
 	 ('1668453175450537984','Tue Jun 13 03:00:10 +0000 2023','johnalvarezjr_',963731403287404540,'RT @___Colb___: Jimmy Butler gave us an all time war criminal performance in this NBA Finals.',0.0,36.0,'en','2023-06-14 12:01:44.295','http://pbs.twimg.com/profile_images/1598514252062392320/Rx2wyjWG_normal.jpg','https://twitter.com/twitter/statuses/1668453175450537984',-0.8074,0.343,0.657,0.0,0),
@@ -7192,7 +7192,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 	 ('1668453173609070594','Tue Jun 13 03:00:09 +0000 2023','sirbustercherry',1634951340978847740,'@NBA https://t.co/8GbgZWQHfg',0.0,0.0,'und','2023-06-14 12:01:44.688','http://pbs.twimg.com/profile_images/1645633013462491136/ZdsilEV9_normal.jpg','https://twitter.com/twitter/statuses/1668453173609070594',0.0,0.0,1.0,0.0,0),
 	 ('1668453173466476547','Tue Jun 13 03:00:09 +0000 2023','quebuscas4pf',1388267821,'Que haré ahora sin la NBA en qué gastare los chavos 🤣',0.0,0.0,'es','2023-06-14 12:01:44.692','http://pbs.twimg.com/profile_images/1650525373187207172/OjTeYKkM_normal.jpg','https://twitter.com/twitter/statuses/1668453173466476547',-0.5574,0.265,0.735,0.0,0),
 	 ('1668453173382590464','Tue Jun 13 03:00:09 +0000 2023','ByronIvan_',245906156,'Que partido. 🔥 #nba',0.0,0.0,'es','2023-06-14 12:01:44.696','http://pbs.twimg.com/profile_images/1619537066953527296/GWYncl0D_normal.jpg','https://twitter.com/twitter/statuses/1668453173382590464',0.0,0.0,1.0,0.0,0),
-	 ('1668453173369921541','Tue Jun 13 03:00:09 +0000 2023','Austin_712',757769029,'RT @ScottyStyles33: Chris Paul seeing DeAndre Jordan winning a  NBA title before him.  
+	 ('1668453173369921541','Tue Jun 13 03:00:09 +0000 2023','Austin_712',757769029,'RT @ScottyStyles33: Chris Paul seeing DeAndre Jordan winning a  NBA title before him.
 
 #NBAFinals https://t.co/OjVeQkBlJU',0.0,2.0,'en','2023-06-14 12:01:44.700','http://pbs.twimg.com/profile_images/1562255573722308609/gfh7ielO_normal.jpg','https://twitter.com/twitter/statuses/1668453173369921541',0.5267,0.0,0.793,0.207,1),
 	 ('1668453173105774592','Tue Jun 13 03:00:09 +0000 2023','brunoabichequer',89496658,'Liguei na NBA. Será que dá pro Miami?',2.0,0.0,'pt','2023-06-14 12:01:44.779','http://pbs.twimg.com/profile_images/1652501039038230528/Xf5fnT5v_normal.jpg','https://twitter.com/twitter/statuses/1668453173105774592',0.0,0.0,1.0,0.0,0),
@@ -7221,7 +7221,7 @@ Nunca esperari…',0.0,121.0,'pt','2023-06-14 12:01:45.402','http://pbs.twimg.co
 	 ('1668453169532219394','Tue Jun 13 03:00:08 +0000 2023','_____Rudy',340116695,'Wow 4 former pistons now nba champs',0.0,0.0,'en','2023-06-14 12:01:45.482','http://pbs.twimg.com/profile_images/1516054976061136901/ZNPO_2hQ_normal.jpg','https://twitter.com/twitter/statuses/1668453169532219394',0.765,0.0,0.377,0.623,1),
 	 ('1668453169150451713','Tue Jun 13 03:00:08 +0000 2023','thereal786',493708687,'Shoutout 2Sandz FC on being NBA Champions',0.0,0.0,'en','2023-06-14 12:01:45.487','http://pbs.twimg.com/profile_images/1235568459754463232/emu0UXCC_normal.jpg','https://twitter.com/twitter/statuses/1668453169150451713',0.5267,0.0,0.638,0.362,1),
 	 ('1668453169012039680','Tue Jun 13 03:00:08 +0000 2023','DlNWIDDIESTAN',1158511878240448510,'Bruce Brown free throws to win the NBA Finals never thought I’d see the day 😭',1.0,0.0,'en','2023-06-14 12:01:45.492','http://pbs.twimg.com/profile_images/1585430287542108162/flAUqsku_normal.jpg','https://twitter.com/twitter/statuses/1668453169012039680',0.7964,0.0,0.647,0.353,1),
-	 ('1668453168911466496','Tue Jun 13 03:00:08 +0000 2023','Gabriel22sants',1519701592555102210,'Já era! Denver o campeão da NBA!!!! 
+	 ('1668453168911466496','Tue Jun 13 03:00:08 +0000 2023','Gabriel22sants',1519701592555102210,'Já era! Denver o campeão da NBA!!!!
 Título inédito! 👏👏👏👏👏',1.0,0.0,'pt','2023-06-14 12:01:45.496','http://pbs.twimg.com/profile_images/1666953550365073408/KDAv_ig9_normal.jpg','https://twitter.com/twitter/statuses/1668453168911466496',0.0,0.0,1.0,0.0,0),
 	 ('1668453168789835778','Tue Jun 13 03:00:08 +0000 2023','Juliococo',85427368,'Lista la prueba de ADN.
 No es hijo de su majestad
@@ -7288,7 +7288,7 @@ INSERT INTO twitter_tweepy_legacy (tweet_id,api_created_at,username,user_id,twee
 
 That city deserves it. Cool as hell 🙏🏼',0.0,0.0,'en','2023-06-14 12:01:46.286','http://pbs.twimg.com/profile_images/1609613432336138241/3fxIYXmq_normal.jpg','https://twitter.com/twitter/statuses/1668453163358121985',-0.1027,0.165,0.647,0.187,0),
 	 ('1668453163211292672','Tue Jun 13 03:00:07 +0000 2023','hiroyt100',1030823126295347200,'@blade_nba Non niveau audience c etait excellent',0.0,0.0,'fr','2023-06-14 12:01:46.291','http://pbs.twimg.com/profile_images/1668203017407954948/UN7nPr_1_normal.jpg','https://twitter.com/twitter/statuses/1668453163211292672',0.5719,0.0,0.575,0.425,1),
-	 ('1668453163135913985','Tue Jun 13 03:00:07 +0000 2023','ViwePotelwa',514297710,'THAT’S IT! 
+	 ('1668453163135913985','Tue Jun 13 03:00:07 +0000 2023','ViwePotelwa',514297710,'THAT’S IT!
 
 DENVER NUGGETS ARE THE 2023 NBA CHAMPIONS 😭🔥 #NBAFinals',0.0,0.0,'en','2023-06-14 12:01:46.296','http://pbs.twimg.com/profile_images/1047195049052856322/rT5nxfgR_normal.jpg','https://twitter.com/twitter/statuses/1668453163135913985',0.6625,0.0,0.693,0.307,1),
 	 ('1668453163068792835','Tue Jun 13 03:00:07 +0000 2023','lgzen',48116274,'Fim de NBA, quem ganhou ganhou. Quem não ganhou ano que vem te mais',1.0,0.0,'pt','2023-06-14 12:01:46.300','http://pbs.twimg.com/profile_images/1316534223147356162/ArzDD980_normal.jpg','https://twitter.com/twitter/statuses/1668453163068792835',0.0,0.0,1.0,0.0,0);
@@ -7734,7 +7734,7 @@ VALUES
 
 -- Haversine formula for distance in miles
 CREATE OR REPLACE FUNCTION bronze.haversine_miles(
-    lat1 FLOAT, lon1 FLOAT, 
+    lat1 FLOAT, lon1 FLOAT,
     lat2 FLOAT, lon2 FLOAT
 ) RETURNS FLOAT AS $$
     SELECT 3959 * 2 * ASIN(SQRT(

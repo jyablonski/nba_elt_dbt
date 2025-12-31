@@ -4,9 +4,9 @@ models:
   - name: fact_trade_transactions
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["date", "transaction"]
+          arguments:
+            column_list: ["date", "transaction"]
     columns:
       - name: transaction
         data_tests:
           - not_null
-

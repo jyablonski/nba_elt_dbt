@@ -1,14 +1,16 @@
 version: 2
 
 models:
-    - name: team_contracts_analysis
-      description: Prod Team Contracts Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
+  - name: team_contracts_analysis
+    description: Prod Team Contracts Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
             value: 30
-      columns:
-          - name: team_pct_salary_earned
-            data_tests:
-              - dbt_expectations.expect_column_values_to_be_between:
-                  min_value: 0
-                  max_value: 1
+    columns:
+      - name: team_pct_salary_earned
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1

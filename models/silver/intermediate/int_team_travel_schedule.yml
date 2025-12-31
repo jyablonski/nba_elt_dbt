@@ -5,7 +5,8 @@ models:
     description: Travel distance and schedule metrics for each team by game date
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_date"]
+          arguments:
+            column_list: ["team", "game_date"]
     columns:
       - name: team
         description: Team acronym
@@ -22,40 +23,45 @@ models:
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 5000 # Max possible distance in NBA (e.g., Miami to Portland)
+              arguments:
+                min_value: 0
+                max_value: 5000 # Max possible distance in NBA (e.g., Miami to Portland)
 
       - name: total_miles_traveled
         description: Cumulative miles traveled for the season
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100000 # Reasonable season cap
+              arguments:
+                min_value: 0
+                max_value: 100000 # Reasonable season cap
 
       - name: total_games_played
         description: Cumulative games played
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 1
-              max_value: 105
+              arguments:
+                min_value: 1
+                max_value: 105
 
       - name: avg_miles_per_game
         description: Average miles traveled per game
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 3000
+              arguments:
+                min_value: 0
+                max_value: 3000
 
       - name: travel_miles_last_7_days
         description: Total miles traveled in last 7 calendar days
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 15000 # Theoretical max for 7 days
+              arguments:
+                min_value: 0
+                max_value: 15000 # Theoretical max for 7 days
 
       - name: games_last_7_days
         description: Number of games played in the last 7 calendar days
@@ -63,20 +69,23 @@ models:
           - not_null
           # dallas got fucked in nov 2025 lol
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 1
-              max_value: 5
+              arguments:
+                min_value: 1
+                max_value: 5
 
       - name: travel_miles_last_3_days
         description: Total miles traveled in last 3 calendar days
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 10000 # Theoretical max for 3 days
+              arguments:
+                min_value: 0
+                max_value: 10000 # Theoretical max for 3 days
 
       - name: is_cross_country_trip
         description: Flag for brutal travel schedule (>2000 miles in 3 days)
         data_tests:
           - not_null
           - accepted_values:
-              values: [true, false]
+              arguments:
+                values: [true, false]

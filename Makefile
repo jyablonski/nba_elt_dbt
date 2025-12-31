@@ -1,5 +1,5 @@
 .PHONY: docs
-docs: up 
+docs: up
 	@dbt docs generate
 	@dbt docs serve --host 0.0.0.0
 

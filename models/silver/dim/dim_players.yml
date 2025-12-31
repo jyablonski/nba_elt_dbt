@@ -9,8 +9,9 @@ models:
       contains_pii: true
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
-          min_value: 400
-          max_value: 800
+          arguments:
+            min_value: 400
+            max_value: 800
     columns:
       - name: player
         data_tests:

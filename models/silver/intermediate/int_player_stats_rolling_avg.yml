@@ -5,7 +5,8 @@ models:
     description: Prep table for player rolling avg stats
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["player", "game_date"]
+          arguments:
+            column_list: ["player", "game_date"]
     columns:
       - name: player
         data_tests:

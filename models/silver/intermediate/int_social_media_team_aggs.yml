@@ -4,6 +4,6 @@ models:
   - name: int_social_media_team_aggs
     description: Prep table for reddit social media aggregation stats
     columns:
-        - name: flair
-          data_tests:
-              - unique
+      - name: flair
+        data_tests:
+          - unique

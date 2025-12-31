@@ -3,13 +3,14 @@ version: 2
 models:
   - name: ml_game_features_v2
     description: >
-      The feature store for the Daily Game Outcome Prediction Model. 
-      Each row represents a single game (Home Team perspective). 
+      The feature store for the Daily Game Outcome Prediction Model.
+      Each row represents a single game (Home Team perspective).
       Contains calculated differentials for Rest, Travel, Star Power, and VORP.
 
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: [home_team, game_date]
+          arguments:
+            column_list: [home_team, game_date]
           description: Ensure we never generate duplicate rows for the same game matchup.
 
     columns:
@@ -33,30 +34,34 @@ models:
       - name: home_team_win_pct
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: away_team_win_pct
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: home_pct_vorp_missing
         description: Percentage of total team VORP currently sidelined due to injury (0-100 scale).
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: away_pct_vorp_missing
         description: Percentage of total team VORP currently sidelined due to injury (0-100 scale).
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       # --- Star Power Features ---
       - name: home_star_score
@@ -64,21 +69,23 @@ models:
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 10
+              arguments:
+                min_value: 0
+                max_value: 10
 
       - name: away_star_score
         description: Weighted sum of star players (2 pts for MVP candidate, 1 pt for All-Star).
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 10
+              arguments:
+                min_value: 0
+                max_value: 10
 
       # --- Differential Features (The High Value ML Signals) ---
       - name: travel_miles_differential
         description: >
-          (Home Travel) - (Away Travel). 
+          (Home Travel) - (Away Travel).
           Positive values = Home team is more tired from travel.
           Negative values = Home team has travel advantage.
         data_tests:
@@ -103,12 +110,14 @@ models:
         description: Binary flag (1/0). 1 if the team just traveled >2000 miles.
         data_tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments:
+                values: [0, 1]
+                quote: false
 
       - name: away_is_cross_country_trip
         description: Binary flag (1/0). 1 if the team just traveled >2000 miles.
         data_tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments:
+                values: [0, 1]
+                quote: false

@@ -1,14 +1,16 @@
 version: 2
 
 models:
-    - name: mov
-      description: Prod Team Margin of Victory Table
-      data_tests:
-        - dbt_expectations.expect_compound_columns_to_be_unique:
+  - name: mov
+    description: Prod Team Margin of Victory Table
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
             column_list: ["team", "game_date"]
-      columns:
+    columns:
       - name: mov
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            min_value: -80
-            max_value: 80
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: -80
+                max_value: 80

@@ -3,8 +3,9 @@ version: 2
 models:
   - name: reddit_sentiment_time_series
     data_tests:
-    - dbt_expectations.expect_compound_columns_to_be_unique:
-        column_list: ["team", "scrape_date"]
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "scrape_date"]
     columns:
       - name: team
         data_tests:

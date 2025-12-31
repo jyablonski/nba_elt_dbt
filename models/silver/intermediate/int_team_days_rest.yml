@@ -5,10 +5,12 @@ models:
     description: Prep table for team days rest data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_date"]
+          arguments:
+            column_list: ["team", "game_date"]
     columns:
       - name: days_rest
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 4
+              arguments:
+                min_value: 0
+                max_value: 4

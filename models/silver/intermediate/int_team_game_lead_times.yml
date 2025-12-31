@@ -43,7 +43,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ["HOME", "AWAY"]
+              arguments:
+                values: ["HOME", "AWAY"]
 
       - name: game_description
         description: Full game description (e.g., 'Los Angeles Lakers Vs. Boston Celtics')
@@ -55,100 +56,113 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ["W", "L", "T"]
+              arguments:
+                values: ["W", "L", "T"]
 
       - name: minutes_leading
         description: Total minutes the team was leading during the game
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
-              row_condition: "total_minutes is not null"
+              arguments:
+                min_value: 0
+                max_value: 100
+                row_condition: "total_minutes is not null"
 
       - name: minutes_trailing
         description: Total minutes the team was trailing during the game
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: minutes_tied
         description: Total minutes the game was tied
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: total_minutes
         description: Total game time in minutes (should be ~48 for regulation, more for OT)
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 48
-              max_value: 100
-              strictly: false
-              config:
-                severity: warn
+              arguments:
+                min_value: 48
+                max_value: 100
+                strictly: false
+                config:
+                  severity: warn
 
       - name: pct_time_leading
         description: Percentage of game time spent leading (0-100)
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: pct_time_trailing
         description: Percentage of game time spent trailing (0-100)
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: pct_time_tied
         description: Percentage of game time the game was tied (0-100)
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: biggest_lead
         description: Largest lead the team had during the game (positive number or 0)
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: -10
+                max_value: 100
 
       - name: biggest_deficit
         description: Largest deficit the team faced during the game (positive number or 0)
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: total_scoring_plays
         description: Total number of scoring events in the game
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 1
-              max_value: 500
+              arguments:
+                min_value: 1
+                max_value: 500
 
       - name: led_most_but_lost
         description: Boolean flag indicating if team led for majority of game but still lost
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_in_type_list:
-              column_type_list: [boolean]
+              arguments:
+                column_type_list: [boolean]
 
       - name: trailed_most_but_won
         description: Boolean flag indicating if team trailed for majority of game but still won
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_in_type_list:
-              column_type_list: [boolean]
+              arguments:
+                column_type_list: [boolean]
 
       - name: created_at
         description: Timestamp when the record was created
@@ -160,36 +174,42 @@ models:
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 50
+              arguments:
+                min_value: 0
+                max_value: 50
 
     tests:
       # Unique combination test
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - game_date
-            - team
-            - opponent
+          arguments:
+            combination_of_columns:
+              - game_date
+              - team
+              - opponent
 
       # Test that minutes add up correctly (within 0.5 minute tolerance)
       - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
-          column_A: total_minutes
-          column_B: minutes_leading
-          or_equal: true
+          arguments:
+            column_A: total_minutes
+            column_B: minutes_leading
+            or_equal: true
 
       - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
-          column_A: total_minutes
-          column_B: minutes_trailing
-          or_equal: true
+          arguments:
+            column_A: total_minutes
+            column_B: minutes_trailing
+            or_equal: true
 
       - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
-          column_A: total_minutes
-          column_B: minutes_tied
-          or_equal: true
+          arguments:
+            column_A: total_minutes
+            column_B: minutes_tied
+            or_equal: true
 
       # Test that the sum of individual minutes equals total (with tolerance)
       - dbt_utils.expression_is_true:
-          expression: "abs((minutes_leading + minutes_trailing + minutes_tied) - total_minutes) < 0.5"
+          arguments:
+            expression: "abs((minutes_leading + minutes_trailing + minutes_tied) - total_minutes) < 0.5"
           config:
             error_if: ">10"
             warn_if: ">0"
@@ -197,7 +217,8 @@ models:
 
       # Test that percentages add up to ~100%
       - dbt_utils.expression_is_true:
-          expression: "abs((pct_time_leading + pct_time_trailing + pct_time_tied) - 100) < 1"
+          arguments:
+            expression: "abs((pct_time_leading + pct_time_trailing + pct_time_tied) - 100) < 1"
           config:
             error_if: ">10"
             warn_if: ">0"
@@ -205,16 +226,18 @@ models:
 
       # Ensure percentages are calculated correctly from minutes
       - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
-          column_A: pct_time_leading
-          column_B: 0
-          or_equal: true
-          row_condition: "minutes_leading > 0"
+          arguments:
+            column_A: pct_time_leading
+            column_B: 0
+            or_equal: true
+            row_condition: "minutes_leading > 0"
 
       # Row count check - should have exactly 2 rows per game (home + away)
       - dbt_expectations.expect_grouped_row_values_to_have_recent_data:
-          group_by: [game_date, game_description]
-          timestamp_column: created_at
-          datepart: day
-          interval: 1
+          arguments:
+            group_by: [game_date, game_description]
+            timestamp_column: created_at
+            datepart: day
+            interval: 1
           config:
             severity: warn

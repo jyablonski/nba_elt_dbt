@@ -22,91 +22,103 @@ models:
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 50
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 50
+                inclusive: true
 
       - name: avg_fta
         description: Average free throw attempts per game
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 30
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 30
+                inclusive: true
 
       - name: avg_ppg
         description: Average points per game
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 50
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 50
+                inclusive: true
 
       - name: avg_plus_minus
         description: Average plus/minus per game
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: -50
-              max_value: 50
-              inclusive: true
+              arguments:
+                min_value: -50
+                max_value: 50
+                inclusive: true
 
       - name: avg_mvp_score
         description: Calculated MVP score based on multiple stats
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: -50
-              max_value: 100
-              inclusive: true
+              arguments:
+                min_value: -50
+                max_value: 100
+                inclusive: true
 
       - name: avg_ts_percent
         description: True shooting percentage
         data_tests:
           - dbt_utils.accepted_range:
-              min_value: -2.0
-              max_value: 2.0
-              inclusive: true
+              arguments:
+                min_value: -2.0
+                max_value: 2.0
+                inclusive: true
 
       - name: games_played
         description: Total games played in the season type
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 1
-              max_value: 110 # regular season + playoffs max
-              inclusive: true
+              arguments:
+                min_value: 1
+                max_value: 110 # regular season + playoffs max
+                inclusive: true
 
       - name: ppg_rank
         description: Rank by points per game (Regular Season only)
         data_tests:
           - dbt_utils.accepted_range:
-              min_value: 1
-              inclusive: true
+              arguments:
+                min_value: 1
+                inclusive: true
 
       - name: mvp_rank
         description: Rank by MVP score (Regular Season only)
         data_tests:
           - dbt_utils.accepted_range:
-              min_value: 1
-              inclusive: true
+              arguments:
+                min_value: 1
+                inclusive: true
 
       - name: scoring_category
         description: Category indicating if player is in top 20 scorers
         data_tests:
           - not_null
           - accepted_values:
-              values: ["Top 20 Scorers", "Other"]
+              arguments:
+                values: ["Top 20 Scorers", "Other"]
 
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["player", "season_type"]
+          arguments:
+            column_list: ["player", "season_type"]
 
       # Ensure ranks are only present for Regular Season
       - dbt_utils.expression_is_true:
-          expression: "season_type = 'Regular Season' OR (ppg_rank IS NOT NULL AND mvp_rank IS NOT NULL)"
+          arguments:
+            expression: "season_type = 'Regular Season' OR (ppg_rank IS NOT NULL AND mvp_rank IS NOT NULL)"
           config:
             where: "season_type = 'Regular Season'"
 
@@ -118,25 +130,30 @@ models:
 
       # Ensure no duplicate ranks within Regular Season
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - ppg_rank
+          arguments:
+            combination_of_columns:
+              - ppg_rank
           config:
             where: "season_type = 'Regular Season'"
 
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - mvp_rank
+          arguments:
+            combination_of_columns:
+              - mvp_rank
           config:
             where: "season_type = 'Regular Season'"
 
       # Ensure games_played is reasonable
       - dbt_utils.expression_is_true:
-          expression: "games_played > 0"
+          arguments:
+            expression: "games_played > 0"
 
       # Ensure all players have a team assigned
       - dbt_utils.expression_is_true:
-          expression: "team IS NOT NULL AND LENGTH(TRIM(team)) > 0"
+          arguments:
+            expression: "team IS NOT NULL AND LENGTH(TRIM(team)) > 0"
 
       # Check for reasonable averages relationship
       - dbt_utils.expression_is_true:
-          expression: "avg_ppg >= 0"
+          arguments:
+            expression: "avg_ppg >= 0"

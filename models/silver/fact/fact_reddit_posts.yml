@@ -4,7 +4,8 @@ models:
   - name: fact_reddit_posts
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["reddit_url", "scrape_date"]
+          arguments:
+            column_list: ["reddit_url", "scrape_date"]
     columns:
       - name: reddit_url
         data_tests:

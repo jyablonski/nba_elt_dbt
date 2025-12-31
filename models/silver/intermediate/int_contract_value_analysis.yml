@@ -15,16 +15,17 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-              values:
-                [
-                  $30+ M,
-                  $25-30 M,
-                  $20-25 M,
-                  $15-20 M,
-                  $10-15 M,
-                  $5-10 M,
-                  < $5 M,
-                ]
+              arguments:
+                values:
+                  [
+                    $30+ M,
+                    $25-30 M,
+                    $20-25 M,
+                    $15-20 M,
+                    $10-15 M,
+                    $5-10 M,
+                    < $5 M,
+                  ]
 
       - name: team
         description: Player's current team
@@ -36,8 +37,9 @@ models:
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+              arguments:
+                min_value: 0
+                inclusive: true
 
       - name: salary
         description: Player salary (defaulted to 1M if null)
@@ -49,24 +51,27 @@ models:
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+              arguments:
+                min_value: 0
+                inclusive: true
 
       - name: games_missed
         description: Number of games missed by player
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+              arguments:
+                min_value: 0
+                inclusive: true
 
       - name: penalized_games_missed
         description: Games missed beyond allowance (20% of team games)
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+              arguments:
+                min_value: 0
+                inclusive: true
 
       - name: pvm_rank
         description: Average MVP score for salary rank
@@ -78,18 +83,20 @@ models:
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 1
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 1
+                inclusive: true
 
       - name: percentile_rank
         description: Percentile rank within salary bucket (0-100 scale)
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 100
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 100
+                inclusive: true
 
       - name: avg_mvp_score
         description: Adjusted MVP score after penalty
@@ -101,16 +108,18 @@ models:
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0.75
-              max_value: 1
-              inclusive: true
+              arguments:
+                min_value: 0.75
+                max_value: 1
+                inclusive: true
 
       - name: color_var
         description: Value category classification
         data_tests:
           - not_null
           - accepted_values:
-              values: [Superstars, Great Value, Normal, Bad Value]
+              arguments:
+                values: [Superstars, Great Value, Normal, Bad Value]
 
       - name: mvp_rank
         description: Overall MVP ranking
@@ -118,31 +127,37 @@ models:
           - not_null
           - unique
           - dbt_utils.accepted_range:
-              min_value: 1
-              inclusive: true
+              arguments:
+                min_value: 1
+                inclusive: true
 
       - name: is_mvp_candidate
         description: Whether player is top 5 MVP candidate
         data_tests:
           - not_null
           - accepted_values:
-              values: [Top 5 MVP Candidate, Other]
+              arguments:
+                values: [Top 5 MVP Candidate, Other]
 
     data_tests:
       # Business logic validations
       - dbt_utils.expression_is_true:
-          expression: games_played <= team_games_played
+          arguments:
+            expression: games_played <= team_games_played
           name: games_played_cannot_exceed_team_games
 
       - dbt_utils.expression_is_true:
-          expression: games_missed = team_games_played - games_played
+          arguments:
+            expression: games_missed = team_games_played - games_played
           name: games_missed_calculated_correctly
 
       - dbt_utils.expression_is_true:
-          expression: (mvp_rank <= 5 AND is_mvp_candidate = 'Top 5 MVP Candidate') OR (mvp_rank > 5 AND is_mvp_candidate = 'Other')
+          arguments:
+            expression: (mvp_rank <= 5 AND is_mvp_candidate = 'Top 5 MVP Candidate') OR (mvp_rank > 5 AND is_mvp_candidate = 'Other')
           name: mvp_candidate_flag_correct
 
       # Ensure exactly 5 top MVP candidates
       - dbt_expectations.expect_column_values_to_be_in_set:
-          column_name: is_mvp_candidate
-          value_set: [Top 5 MVP Candidate, Other]
+          arguments:
+            column_name: is_mvp_candidate
+            value_set: [Top 5 MVP Candidate, Other]

@@ -7,25 +7,30 @@ models:
       - name: wins_last_10
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 10
+              arguments:
+                min_value: 0
+                max_value: 10
       - name: losses_last_10
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 10
+              arguments:
+                min_value: 0
+                max_value: 10
       - name: projected_wins
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 82
+              arguments:
+                min_value: 0
+                max_value: 82
       - name: projected_losses
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 82
+              arguments:
+                min_value: 0
+                max_value: 82
       - name: season_rank
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 15
+              arguments:
+                min_value: 0
+                max_value: 15

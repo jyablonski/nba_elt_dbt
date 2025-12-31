@@ -1,20 +1,22 @@
 version: 2
 
 models:
-    - name: int_injury_tracker
-      description: Prep Injury Tracker Table
-      columns:
+  - name: int_injury_tracker
+    description: Prep Injury Tracker Table
+    columns:
       - name: player
         data_tests:
-            - unique
-            - not_null
+          - unique
+          - not_null
       - name: continuous_games_missed
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            min_value: 0
-            max_value: 102
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 102
       - name: continuous_games_played
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            min_value: 0
-            max_value: 110
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 110

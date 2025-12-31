@@ -1,6 +1,6 @@
 -- var which adjusts the rolling average time frame
 -- this will take an n + 1 rolling average
--- add fg, 3p% as 2 more ?  
+-- add fg, 3p% as 2 more ?
 {% set rolling_avg_parameter = 9 %}
 
 with player_boxscores as (

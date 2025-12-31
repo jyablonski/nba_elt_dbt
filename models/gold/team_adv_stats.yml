@@ -1,14 +1,15 @@
 version: 2
 
 models:
-    - name: team_adv_stats
-      description: Prod Team Advanced Stats Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
+  - name: team_adv_stats
+    description: Prod Team Advanced Stats Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
             value: 30
-      columns:
-          - name: Team
-            description: Team Acronym
-            data_tests:
-                - unique
-                - not_null
+    columns:
+      - name: Team
+        description: Team Acronym
+        data_tests:
+          - unique
+          - not_null

@@ -1,14 +1,14 @@
 version: 2
 
 models:
-    - name: team_record_top_players
-      description: Prod Table for Team Records w/ top 2 players
-      # data_tests:
-        # - dbt_expectations.expect_table_row_count_to_equal:
-        #     value: 30
-        #     config:
-        #       severity: warn
-      columns:
+  - name: team_record_top_players
+    description: Prod Table for Team Records w/ top 2 players
+    # data_tests:
+    # - dbt_expectations.expect_table_row_count_to_equal:
+    #     value: 30
+    #     config:
+    #       severity: warn
+    columns:
       - name: team
         data_tests:
           - not_null

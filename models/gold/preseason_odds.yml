@@ -1,8 +1,9 @@
 version: 2
 
 models:
-    - name: preseason_odds
-      description: Prod Preseason Odds Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
+  - name: preseason_odds
+    description: Prod Preseason Odds Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
             value: 30

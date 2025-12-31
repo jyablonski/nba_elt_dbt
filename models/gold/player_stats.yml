@@ -1,19 +1,22 @@
 version: 2
 
 models:
-    - name: player_stats
-      description: Prod Scoring Stats Table
-      data_tests:
-        - dbt_expectations.expect_compound_columns_to_be_unique:
+  - name: player_stats
+    description: Prod Scoring Stats Table
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
             column_list: ["player", "season_type"]
-      columns:
-        - name: avg_ppg
-          data_tests:
-            - dbt_expectations.expect_column_values_to_be_between:
+    columns:
+      - name: avg_ppg
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
                 min_value: 0
                 max_value: 55
-        - name: avg_mvp_score
-          data_tests:
-            - dbt_expectations.expect_column_values_to_be_between:
+      - name: avg_mvp_score
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
                 min_value: -20
                 max_value: 65

@@ -4,7 +4,8 @@ models:
   - name: dim_teams
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
-          value: 30
+          arguments:
+            value: 30
     columns:
       - name: team
         data_tests:
@@ -16,7 +17,8 @@ models:
           - not_null
           - unique
           - dbt_expectations.expect_column_value_lengths_to_equal:
-              value: 3
+              arguments:
+                value: 3
 
       - name: arena
         data_tests:

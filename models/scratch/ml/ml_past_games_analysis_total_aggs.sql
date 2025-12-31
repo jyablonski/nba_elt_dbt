@@ -36,7 +36,7 @@ schedule_wins as (
         prep_schedule_analysis.game_date,
         prep_schedule_analysis.outcome as outcome
     from {{ ref('int_schedule_analysis') }} as prep_schedule_analysis
-        left join {{ ref('dim_teams') }} as dim_teams 
+        left join {{ ref('dim_teams') }} as dim_teams
             on prep_schedule_analysis.team = dim_teams.team_acronym
     where prep_schedule_analysis.location = 'H'
 ),
@@ -59,7 +59,7 @@ game_predictions as (
     select distinct
         *,
         case
-            when ml_prediction = actual_outcome then 1 
+            when ml_prediction = actual_outcome then 1
             else 0
         end as ml_accuracy
     from final

@@ -1,12 +1,13 @@
 version: 2
 
 models:
-    - name: team_ratings
-      description: Prod Team Ratings Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
+  - name: team_ratings
+    description: Prod Team Ratings Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
             value: 30
-      columns:
+    columns:
       - name: team
         data_tests:
           - not_null

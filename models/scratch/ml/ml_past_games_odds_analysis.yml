@@ -1,27 +1,28 @@
 version: 2
 
 models:
-    - name: ml_past_games_odds_analysis
-      description: Historical Table showing past ML Game Predictions w/ odds data
-      columns:
-        - name: home_team
-          data_tests:
-            - not_null
-        - name: home_moneyline
-          data_tests:
-            - not_null
-        - name: away_moneyline
-          data_tests:
-            - not_null
-        - name: ml_accuracy
-          data_tests:
-            - not_null
-          config:
-            severity: warn
-        - name: ml_money_col
-          data_tests:
-            - dbt_expectations.expect_column_values_to_be_between:
+  - name: ml_past_games_odds_analysis
+    description: Historical Table showing past ML Game Predictions w/ odds data
+    columns:
+      - name: home_team
+        data_tests:
+          - not_null
+      - name: home_moneyline
+        data_tests:
+          - not_null
+      - name: away_moneyline
+        data_tests:
+          - not_null
+      - name: ml_accuracy
+        data_tests:
+          - not_null
+        config:
+          severity: warn
+      - name: ml_money_col
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
                 min_value: -10
                 max_value: 1000
-          config:
-            severity: warn
+        config:
+          severity: warn

@@ -1,18 +1,19 @@
 version: 2
 
 models:
-    - name: injury_tracker
-      description: Prod Injury Tracker Table
-      columns:
+  - name: injury_tracker
+    description: Prod Injury Tracker Table
+    columns:
       - name: continuous_games_missed
         data_tests:
-        # 2024 season ty jerome broke ankle and had surgery
-        # played 2 games in october, ended up missing 80+ afterwards into
-        # the postseason
-        - dbt_expectations.expect_column_values_to_be_between:
-            min_value: 0
-            max_value: 102
+          # 2024 season ty jerome broke ankle and had surgery
+          # played 2 games in october, ended up missing 80+ afterwards into
+          # the postseason
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 102
       - name: player
         data_tests:
-            - unique
-            - not_null
+          - unique
+          - not_null

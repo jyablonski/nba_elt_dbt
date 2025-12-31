@@ -3,7 +3,7 @@ version: 2
 models:
   - name: int_team_lead_aggs
     description: >
-      Team-level aggregated statistics analyzing lead behavior, comeback ability, 
+      Team-level aggregated statistics analyzing lead behavior, comeback ability,
       and game control metrics across all games. One row per team per season type.
       Provides insights into team playing style, clutch performance, and efficiency.
 
@@ -29,29 +29,33 @@ models:
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 1
-              max_value: 200
+              arguments:
+                min_value: 1
+                max_value: 200
 
       - name: wins
         description: Total wins
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
+              arguments:
+                min_value: 0
 
       - name: losses
         description: Total losses
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
+              arguments:
+                min_value: 0
 
       - name: win_pct
         description: Overall win percentage (0-1)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: home_games
         description: Number of home games played
@@ -77,106 +81,121 @@ models:
         description: Home win percentage (0-1)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: away_win_pct
         description: Away win percentage (0-1)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: avg_pct_time_leading
         description: Average percentage of game time spent leading
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_pct_time_trailing
         description: Average percentage of game time spent trailing
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_pct_time_tied
         description: Average percentage of game time spent tied
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_minutes_leading
         description: Average minutes per game spent leading
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_minutes_trailing
         description: Average minutes per game spent trailing
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_minutes_tied
         description: Average minutes per game spent tied
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_biggest_lead
         description: Average largest lead per game
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: max_biggest_lead
         description: Largest lead achieved in any game this season
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: avg_biggest_deficit
         description: Average largest deficit per game
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: max_biggest_deficit
         description: Largest deficit faced in any game this season
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100
 
       - name: games_led_most_but_lost
         description: Number of games where team led majority of time but lost
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
+              arguments:
+                min_value: 0
 
       - name: games_trailed_most_but_won
         description: Number of games where team trailed majority of time but won
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
+              arguments:
+                min_value: 0
 
       - name: comeback_win_rate
         description: Percentage of wins that were comeback wins (trailed most of game)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: wins_when_trailing_most
         description: Total wins when trailing for majority of game
@@ -202,8 +221,9 @@ models:
         description: Win rate in games where team dominated (led >75% of time)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: wire_to_wire_games
         description: Games where team led >95% of time (wire-to-wire)
@@ -229,15 +249,17 @@ models:
         description: Average number of lead changes per game
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 30
+              arguments:
+                min_value: 0
+                max_value: 30
 
       - name: max_lead_changes
         description: Maximum number of lead changes in a single game
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 50
+              arguments:
+                min_value: 0
+                max_value: 50
 
       - name: competitive_games
         description: Games with 8+ lead changes OR where biggest lead/deficit both <= 10 points
@@ -253,8 +275,9 @@ models:
         description: Win rate in competitive/close games
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: high_lead_change_games
         description: Games with 10+ lead changes (very back-and-forth)
@@ -270,22 +293,24 @@ models:
         description: Win rate in high lead change games
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
-
+              arguments:
+                min_value: 0
+                max_value: 1
       - name: lead_protection_rate
         description: Win rate when leading majority of game (ability to protect leads)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: comeback_success_rate
         description: Win rate when trailing majority of game (comeback ability)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: wins_last_30_days
         description: Wins in the last 30 days
@@ -301,8 +326,9 @@ models:
         description: Win percentage in the last 30 days (recent form)
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1
+              arguments:
+                min_value: 0
+                max_value: 1
 
       - name: created_at
         description: Timestamp when the record was created
@@ -312,31 +338,36 @@ models:
     data_tests:
       # Wins + losses should equal games played
       - dbt_utils.expression_is_true:
-          expression: "(wins + losses) = games_played"
+          arguments:
+            expression: "(wins + losses) = games_played"
           name: wins_losses_sum_matches_games_played
 
       # Home + away games should equal total games
       - dbt_utils.expression_is_true:
-          expression: "(home_games + away_games) = games_played"
+          arguments:
+            expression: "(home_games + away_games) = games_played"
           name: home_away_sum_matches_games_played
 
       # Home wins + away wins should equal total wins
       - dbt_utils.expression_is_true:
-          expression: "(home_wins + away_wins) = wins"
+          arguments:
+            expression: "(home_wins + away_wins) = wins"
           name: home_away_wins_sum_matches_total_wins
 
       # Lead protection rate should be high (>0.5) for most teams
       - dbt_expectations.expect_column_values_to_be_between:
-          column_name: lead_protection_rate
-          min_value: 0.3
-          max_value: 1
+          arguments:
+            column_name: lead_protection_rate
+            min_value: 0.3
+            max_value: 1
           config:
             severity: warn
 
       # Comeback success rate should be relatively low (<0.5) for most teams
       - dbt_expectations.expect_column_values_to_be_between:
-          column_name: comeback_success_rate
-          min_value: 0
-          max_value: 0.6
+          arguments:
+            column_name: comeback_success_rate
+            min_value: 0
+            max_value: 0.6
           config:
             severity: warn
