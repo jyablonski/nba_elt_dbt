@@ -4,7 +4,8 @@ models:
   - name: int_reddit_team_sentiment_aggs
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_outcome"]
+          arguments:
+            column_list: ["team", "game_outcome"]
     columns:
       - name: avg_score_agg
         data_tests:
@@ -17,4 +18,5 @@ models:
           - not_null
           # only 3 possible values: 'W', 'L', or 'NO GAME'
           - dbt_expectations.expect_column_distinct_count_to_be_less_than:
-              value: 4
+              arguments:
+                value: 4

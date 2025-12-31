@@ -5,10 +5,12 @@ models:
       description: Prod Season Schedule Table
       data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["game_date", "home_team"]
+              arguments:
+                column_list: ["game_date", "home_team"]
       columns:
       - name: avg_team_rank
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 1
-              max_value: 30
+              arguments:
+                min_value: 1
+                max_value: 30

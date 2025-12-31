@@ -4,7 +4,8 @@ models:
   - name: fact_boxscores
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["player", "game_date"]
+          arguments:
+            column_list: ["player", "game_date"]
     columns:
       - name: player
         data_tests:
@@ -12,10 +13,12 @@ models:
       - name: game_mvp_score
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -50
-              max_value: 150
+              arguments:
+                min_value: -50
+                max_value: 150
       - name: pts
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 100
+              arguments:
+                min_value: 0
+                max_value: 100

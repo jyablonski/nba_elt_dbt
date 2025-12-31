@@ -10,8 +10,9 @@ models:
         # played 2 games in october, ended up missing 80+ afterwards into
         # the postseason
         - dbt_expectations.expect_column_values_to_be_between:
-            min_value: 0
-            max_value: 102
+            arguments:
+              min_value: 0
+              max_value: 102
       - name: player
         data_tests:
             - unique

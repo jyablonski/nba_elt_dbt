@@ -5,13 +5,15 @@ models:
     description: Prod Reddit Comments (Social Media)
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["scrape_date", "author", "comment"]
+          arguments:
+            column_list: ["scrape_date", "author", "comment"]
     columns:
       - name: scrape_date
         description: Only grab the latest available date of data
         data_tests:
           - dbt_expectations.expect_column_distinct_count_to_be_less_than:
-              value: 2
+              arguments:
+                value: 2
       - name: url
         data_tests:
           - not_null

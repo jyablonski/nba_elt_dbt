@@ -24,6 +24,7 @@ models:
         description: The player's total Value Over Replacement Player (VORP).
         data_tests:
           - not_null:
+              arguments: {}
               config:
                 severity: warn
 
@@ -38,6 +39,7 @@ models:
           If status is 'Out', this is 0.
         data_tests:
           - not_null:
+              arguments: {}
               config:
                 severity: warn
 
@@ -47,5 +49,6 @@ models:
           If status is 'Out', this equals total_vorp.
         data_tests:
           - not_null:
+              arguments: {}
               config:
                 severity: warn

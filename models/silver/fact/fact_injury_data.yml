@@ -4,7 +4,8 @@ models:
   - name: fact_injury_data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["player", "team", "injury_combined"]
+          arguments:
+            column_list: ["player", "team", "injury_combined"]
     columns:
       - name: player
         data_tests:
@@ -19,4 +20,5 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-              values: [0, 1]
+              arguments:
+                values: [0, 1]

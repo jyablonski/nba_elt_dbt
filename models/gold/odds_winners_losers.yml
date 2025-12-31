@@ -6,4 +6,5 @@ models:
       description: Prod Odds Winners Losers
       data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["team", "date"]
+            arguments:
+              column_list: ["team", "date"]

@@ -5,7 +5,8 @@ models:
       description: Prod Standings Table
       data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
-            value: 30
+            arguments:
+              value: 30
       columns:
       - name: team
         data_tests:
@@ -23,10 +24,12 @@ models:
       - name: wins
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 82
+              arguments:
+                min_value: 0
+                max_value: 82
       - name: losses
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 82
+              arguments:
+                min_value: 0
+                max_value: 82

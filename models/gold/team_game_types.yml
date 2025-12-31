@@ -5,6 +5,8 @@ models:
     description: Prod Game Types Table
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_type", "season_type"]
+          arguments:
+            column_list: ["team", "game_type", "season_type"]
       - dbt_expectations.expect_table_row_count_to_equal:
-          value: 240
+          arguments:
+            value: 240

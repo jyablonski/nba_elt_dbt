@@ -4,4 +4,5 @@ models:
   - name: int_top_players_present
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_date"]
+          arguments:
+            column_list: ["team", "game_date"]

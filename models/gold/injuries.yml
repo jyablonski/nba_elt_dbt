@@ -10,10 +10,13 @@ models:
           - name: team_acronym
             data_tests:
               - dbt_expectations.expect_column_values_to_match_regex:
-                  regex: "[A-Z]{3}"
+                  arguments:
+                    regex: "[A-Z]{3}"
       data_tests:
         - dbt_expectations.expect_compound_columns_to_be_unique:
-            column_list: ["player", "injury", "injury_description"]
+            arguments:
+              column_list: ["player", "injury", "injury_description"]
         - dbt_expectations.expect_table_row_count_to_be_between:
-            min_value: 0
-            max_value: 200
+            arguments:
+              min_value: 0
+              max_value: 200

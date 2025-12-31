@@ -1,16 +1,18 @@
 version: 2
 
 models:
-    - name: ml_past_games_analysis_total_aggs
-      description: Table showing aggregated historical ML Prediction accuracy
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
+  - name: ml_past_games_analysis_total_aggs
+    description: Table showing aggregated historical ML Prediction accuracy
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
             value: 1
-            config:
-              severity: warn
-        - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          config:
+            severity: warn
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          arguments:
             column_A: tot_games
             column_B: tot_correct_predictions
             or_equal: False
-            config:
-              severity: warn
+          config:
+            severity: warn

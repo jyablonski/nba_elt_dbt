@@ -5,7 +5,8 @@ models:
       description: Prod Past Games Schedule Analysis Table
       data_tests:
         - dbt_expectations.expect_table_row_count_to_equal:
-            value: 30
+            arguments:
+              value: 30
             config:
               severity: warn
       columns:

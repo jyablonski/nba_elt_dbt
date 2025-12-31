@@ -5,7 +5,8 @@ models:
     description: Prep table for team days rest data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_date"]
+          arguments:
+            column_list: ["team", "game_date"]
     columns:
       - name: team
         description: Team acronym
@@ -22,12 +23,14 @@ models:
         data_tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 5
+              arguments:
+                min_value: 0
+                max_value: 5
 
       - name: was_over_5_days
         description: Flag indicating if the actual rest was over 5 days (e.g., season start, All-Star break)
         data_tests:
           - not_null
           - accepted_values:
-              values: [true, false]
+              arguments:
+                values: [true, false]

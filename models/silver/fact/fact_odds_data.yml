@@ -4,7 +4,8 @@ models:
   - name: fact_odds_data
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "date"]
+          arguments:
+            column_list: ["team", "date"]
     columns:
       - name: team
         data_tests:
@@ -12,10 +13,12 @@ models:
       - name: moneyline
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -5000
-              max_value: 5000
+              arguments:
+                min_value: -5000
+                max_value: 5000
       - name: spread
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -25
-              max_value: 25
+              arguments:
+                min_value: -25
+                max_value: 25

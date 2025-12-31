@@ -12,4 +12,5 @@ models:
         description: Only grab the latest date, should only ever be 1 unless a player's name changes ????
         data_tests:
           - dbt_expectations.expect_column_distinct_count_to_be_less_than:
-              value: 2
+              arguments:
+                value: 2

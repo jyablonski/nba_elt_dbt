@@ -4,4 +4,5 @@ models:
   - name: int_schedule_analysis
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: ref("int_team_blown_leads")
+          arguments:
+            compare_model: ref("int_team_blown_leads")

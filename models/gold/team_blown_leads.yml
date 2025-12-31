@@ -7,10 +7,12 @@ models:
       # TODO: fix this later after we have data
       # 30 nba teams, 16 in postseason = 46 total possible
       - dbt_expectations.expect_table_row_count_to_be_between:
-          min_value: 30 # (Optional)
-          # max_value: 46
+          arguments:
+            min_value: 30 # (Optional)
+            # max_value: 46
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "season_type"]
+          arguments:
+            column_list: ["team", "season_type"]
     columns:
       - name: team
         description: Team Acronym

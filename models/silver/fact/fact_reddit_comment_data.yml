@@ -12,5 +12,6 @@ models:
       - name: compound
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: -1
-              max_value: 1
+              arguments:
+                min_value: -1
+                max_value: 1

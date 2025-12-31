@@ -9,49 +9,56 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-              values: [Clutch Game, 10 pt Game, 20 pt Game, Blowout Game]
+              arguments:
+                values: [Clutch Game, 10 pt Game, 20 pt Game, Blowout Game]
 
       - name: season_type
         description: Type of season (Regular Season or Playoffs)
         data_tests:
           - not_null
           - accepted_values:
-              values: [Regular Season, Playoffs]
+              arguments:
+                values: [Regular Season, Playoffs]
 
       - name: n
         description: Number of games in this category
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+              arguments:
+                min_value: 0
+                inclusive: true
 
       - name: explanation
         description: Point range explanation for game type
         data_tests:
           - not_null
           - accepted_values:
-              values:
-                - 5 points or less
-                - between 6 - 10 points
-                - between 11 and 20 points
-                - more than 20 points
+              arguments:
+                values:
+                  - 5 points or less
+                  - between 6 - 10 points
+                  - between 11 and 20 points
+                  - more than 20 points
 
       - name: pct_of_total
         description: Percentage of total games in this category
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 100
-              inclusive: true
+              arguments:
+                min_value: 0
+                max_value: 100
+                inclusive: true
 
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: [game_type, season_type]
+          arguments:
+            column_list: [game_type, season_type]
 
       - dbt_expectations.expect_table_row_count_to_equal:
-          value: 8
+          arguments:
+            value: 8
 
       - dbt_utils.expression_is_true:
           arguments:

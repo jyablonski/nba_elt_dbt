@@ -5,4 +5,5 @@ models:
     description: '{{ doc("int_recent_games_teams")}}'
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
-          column_list: ["team", "game_date"]
+          arguments:
+            column_list: ["team", "game_date"]
