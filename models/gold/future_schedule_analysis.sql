@@ -1,7 +1,7 @@
 -- remove as of 2022-04-11 because regular season is over and this isnt needed for postseason.
 {{ config(enabled = false) }}
 with my_cte as (
-    select 
+    select
         *
     from {{ ref('int_past_schedule_analysis')}}
     where game_status = 'future'
@@ -66,7 +66,7 @@ team_opp_remaining_win_pct as (
 
 ),
 
--- this is fucked bc postgres cant use a coalesce column in a previous select command to create a new column. 
+-- this is fucked bc postgres cant use a coalesce column in a previous select command to create a new column.
 -- so either split into 2 ctes, or spam coalesce statements
 final as (
     select distinct

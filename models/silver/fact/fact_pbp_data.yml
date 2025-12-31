@@ -5,7 +5,15 @@ models:
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:
-            column_list: ["game_date", "home_team", "time_remaining_final", "quarter", "play", "score"]
+            column_list:
+              [
+                "game_date",
+                "home_team",
+                "time_remaining_final",
+                "quarter",
+                "play",
+                "score",
+              ]
     columns:
       - name: play
         data_tests:

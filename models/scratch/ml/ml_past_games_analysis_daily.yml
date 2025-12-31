@@ -1,26 +1,26 @@
 version: 2
 
 models:
-    - name: ml_past_games_analysis_daily
-      description: Table showing a daily table of ML Prediction accuracy
-      columns:
-        - name: game_date
-          data_tests:
-            - unique
-            - not_null
-        - name: tot_correct_predictions
-          data_tests:
-            - not_null
-        - name: tot_incorrect_predictions
-          data_tests:
-            - not_null
-        - name: tot_games
-          data_tests:
-            - not_null
-        - name: ml_prediction_pct_ma
-          data_tests:
-            - not_null
-            - dbt_expectations.expect_column_values_to_be_between:
-                arguments:
-                  min_value: 0
-                  max_value: 1.0
+  - name: ml_past_games_analysis_daily
+    description: Table showing a daily table of ML Prediction accuracy
+    columns:
+      - name: game_date
+        data_tests:
+          - unique
+          - not_null
+      - name: tot_correct_predictions
+        data_tests:
+          - not_null
+      - name: tot_incorrect_predictions
+        data_tests:
+          - not_null
+      - name: tot_games
+        data_tests:
+          - not_null
+      - name: ml_prediction_pct_ma
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1.0

@@ -1,8 +1,8 @@
-{{ 
+{{
     config(
         materialized='incremental',
         unique_key='id'
-    ) 
+    )
 }}
 
 with team_scores as (

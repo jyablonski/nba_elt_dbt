@@ -1,11 +1,11 @@
 version: 2
 
 models:
-    - name: ml_odds_analysis_breakdown
-      description: Table of aggregated odds analysis for home / road and $ per bet placed
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
-            arguments:
-              value: 4
-            config:
-              severity: warn
+  - name: ml_odds_analysis_breakdown
+    description: Table of aggregated odds analysis for home / road and $ per bet placed
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
+            value: 4
+          config:
+            severity: warn

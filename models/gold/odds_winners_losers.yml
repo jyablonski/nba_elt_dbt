@@ -1,10 +1,9 @@
-
 version: 2
 
 models:
-    - name: odds_winners_losers
-      description: Prod Odds Winners Losers
-      data_tests:
-        - dbt_expectations.expect_compound_columns_to_be_unique:
-            arguments:
-              column_list: ["team", "date"]
+  - name: odds_winners_losers
+    description: Prod Odds Winners Losers
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "date"]

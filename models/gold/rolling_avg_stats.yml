@@ -1,9 +1,9 @@
 version: 2
 
 models:
-    - name: rolling_avg_stats
-      columns:
-          - name: player
-            data_tests:
-              - unique
-              - not_null
+  - name: rolling_avg_stats
+    columns:
+      - name: player
+        data_tests:
+          - unique
+          - not_null

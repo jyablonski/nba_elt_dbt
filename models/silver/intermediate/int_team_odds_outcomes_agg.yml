@@ -3,40 +3,40 @@ version: 2
 models:
   - name: int_team_odds_outcomes_agg
     data_tests:
-    - dbt_expectations.expect_compound_columns_to_be_unique:
-        arguments:
-          column_list: ["team", "season_type"]
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "season_type"]
     columns:
       - name: team
         data_tests:
           - not_null
       - name: games_played
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            arguments:
-              min_value: 0
-              max_value: 82
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 82
       - name: games_underdog_covered
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            arguments:
-              min_value: 0
-              max_value: 82
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 82
       - name: pct_covered_spread
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            arguments:
-              min_value: 0
-              max_value: 1
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1
       - name: pct_favorite_covered
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            arguments:
-              min_value: 0
-              max_value: 1
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1
       - name: pct_underdog_covered
         data_tests:
-        - dbt_expectations.expect_column_values_to_be_between:
-            arguments:
-              min_value: 0
-              max_value: 1
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1

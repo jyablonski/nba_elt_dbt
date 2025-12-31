@@ -3,8 +3,8 @@ version: 2
 models:
   - name: int_team_available_players_vorp
     description: >
-      A daily snapshot of the current active roster for every team, enriched with 
-      advanced stats (VORP) and injury status. Used to calculate available vs. missing 
+      A daily snapshot of the current active roster for every team, enriched with
+      advanced stats (VORP) and injury status. Used to calculate available vs. missing
       production for ML forecasting.
 
       Note: as of 2025-11-28 VORP is missing for some players due to no games played etc
@@ -35,7 +35,7 @@ models:
 
       - name: available_vorp
         description: >
-          The VORP contribution currently available to the team. 
+          The VORP contribution currently available to the team.
           If status is 'Out', this is 0.
         data_tests:
           - not_null:
@@ -45,7 +45,7 @@ models:
 
       - name: missing_vorp
         description: >
-          The VORP contribution lost due to injury. 
+          The VORP contribution lost due to injury.
           If status is 'Out', this equals total_vorp.
         data_tests:
           - not_null:

@@ -3,7 +3,7 @@
         materialized='table',
         post_hook=[
             "insert into silver.ml_game_features_v2_audit
-             select 
+             select
                  *,
                  current_timestamp as audit_inserted_at
              from {{ this }}"

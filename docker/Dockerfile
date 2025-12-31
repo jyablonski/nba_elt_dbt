@@ -2,7 +2,7 @@ FROM python:3.13-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PATH="/.venv/bin:$PATH" \
-    UV_COMPILE_BYTECODE=1 \ 
+    UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
     UV_PYTHON=3.13 \
     PYTHONUNBUFFERED=1 \

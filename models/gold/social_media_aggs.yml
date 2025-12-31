@@ -1,36 +1,36 @@
 version: 2
 
 models:
-    - name: social_media_aggs
-      description: Prod Social Media BANS Table
-      data_tests:
-        - dbt_expectations.expect_table_row_count_to_equal:
-            arguments:
-              value: 1
-      columns:
-        - name: date
-          data_tests:
-            - unique
-            - not_null
-        - name: reddit_tot_comments
-          data_tests:
-            - not_null:
-                arguments:
-                  severity: warn
-        - name: twitter_tot_comments
-          data_tests:
-            - not_null
-        - name: reddit_pct_difference
-          description: this is a % value that has already been multiplied by 100
-          data_tests:
-            - dbt_expectations.expect_column_values_to_be_between:
-                arguments:
-                  min_value: -400
-                  max_value: 400
-        - name: twitter_pct_difference
-          description: this is a % value that has already been multiplied by 100
-          data_tests:
-            - dbt_expectations.expect_column_values_to_be_between:
-                arguments:
-                  min_value: -400
-                  max_value: 400
+  - name: social_media_aggs
+    description: Prod Social Media BANS Table
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
+            value: 1
+    columns:
+      - name: date
+        data_tests:
+          - unique
+          - not_null
+      - name: reddit_tot_comments
+        data_tests:
+          - not_null:
+              arguments:
+                severity: warn
+      - name: twitter_tot_comments
+        data_tests:
+          - not_null
+      - name: reddit_pct_difference
+        description: this is a % value that has already been multiplied by 100
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: -400
+                max_value: 400
+      - name: twitter_pct_difference
+        description: this is a % value that has already been multiplied by 100
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: -400
+                max_value: 400

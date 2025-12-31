@@ -1,8 +1,8 @@
-{{ 
+{{
     config(
         materialized='incremental',
         unique_key='id'
-    ) 
+    )
 }}
 
 with schedule_data as (

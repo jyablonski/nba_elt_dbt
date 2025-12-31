@@ -18,7 +18,7 @@ models:
               arguments:
                 min_value: 1
                 max_value: 10000
-      
+
       - name: frequency_rank
         description: "Ranking of word by frequency (1 = most frequent)"
         tests:
@@ -35,9 +35,9 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_between:
               arguments:
-                min_value: 0  # possible that all comments with this word had no flair
+                min_value: 0 # possible that all comments with this word had no flair
                 max_value: 31 # 31 including 'NO_TEAM_FLAIR'
-      
+
       - name: avg_sentiment_when_used
         description: "Average sentiment score when this word is used"
         tests:
@@ -46,15 +46,15 @@ models:
               arguments:
                 min_value: -1.0
                 max_value: 1.0
-      
+
       - name: most_common_sentiment
         description: "Most frequent sentiment category for this word"
         tests:
           - not_null
           - accepted_values:
               arguments:
-                values: ['Positive', 'Negative', 'Neutral']
-      
+                values: ["Positive", "Negative", "Neutral"]
+
       - name: analysis_date
         description: "Date of the analyzed comments"
         tests:

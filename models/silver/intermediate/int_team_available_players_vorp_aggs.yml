@@ -21,7 +21,7 @@ models:
 
       - name: team_active_vorp
         description: >
-          Net Sum of VORP for all players currently available. 
+          Net Sum of VORP for all players currently available.
           Can be negative (indicates a below-replacement-level roster).
         data_tests:
           - not_null

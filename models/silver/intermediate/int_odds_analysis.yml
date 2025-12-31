@@ -7,4 +7,4 @@ models:
         data_tests:
           - dbt_expectations.expect_column_values_to_be_in_set:
               arguments:
-                value_set: ['Underdog','Favored']
+                value_set: ["Underdog", "Favored"]

@@ -1,13 +1,13 @@
 version: 2
 
 models:
-    - name: ml_past_games
-      description: Historical Table showing past Games w/ outcomes before ML Predictions
-      data_tests:
-        - dbt_expectations.expect_compound_columns_to_be_unique:
-            arguments:
-              column_list: ["home_team", "away_team", "game_date"]
-      columns:
-        - name: outcome
-          data_tests:
-            - not_null
+  - name: ml_past_games
+    description: Historical Table showing past Games w/ outcomes before ML Predictions
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["home_team", "away_team", "game_date"]
+    columns:
+      - name: outcome
+        data_tests:
+          - not_null

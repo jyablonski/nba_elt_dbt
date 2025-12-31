@@ -37,7 +37,7 @@ schedule_wins as (
         prep_schedule_analysis.game_date as game_date,
         prep_schedule_analysis.outcome as outcome
     from {{ ref('int_schedule_analysis') }} as prep_schedule_analysis
-        left join {{ ref('dim_teams') }} as dim_teams 
+        left join {{ ref('dim_teams') }} as dim_teams
             on dim_teams.team_acronym = prep_schedule_analysis.team
     where prep_schedule_analysis.location = 'H'
 ),

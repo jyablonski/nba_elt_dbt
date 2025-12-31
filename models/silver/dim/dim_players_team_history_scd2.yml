@@ -13,7 +13,7 @@ models:
         - second_tag
       contract:
         # enforced: true # if you set this, have to define all columns
-          enforced: false
+        enforced: false
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           arguments:

@@ -3,8 +3,8 @@ version: 2
 models:
   - name: ml_game_features_v2
     description: >
-      The feature store for the Daily Game Outcome Prediction Model. 
-      Each row represents a single game (Home Team perspective). 
+      The feature store for the Daily Game Outcome Prediction Model.
+      Each row represents a single game (Home Team perspective).
       Contains calculated differentials for Rest, Travel, Star Power, and VORP.
 
     data_tests:
@@ -85,7 +85,7 @@ models:
       # --- Differential Features (The High Value ML Signals) ---
       - name: travel_miles_differential
         description: >
-          (Home Travel) - (Away Travel). 
+          (Home Travel) - (Away Travel).
           Positive values = Home team is more tired from travel.
           Negative values = Home team has travel advantage.
         data_tests:

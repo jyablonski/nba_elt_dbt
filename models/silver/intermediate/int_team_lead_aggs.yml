@@ -3,7 +3,7 @@ version: 2
 models:
   - name: int_team_lead_aggs
     description: >
-      Team-level aggregated statistics analyzing lead behavior, comeback ability, 
+      Team-level aggregated statistics analyzing lead behavior, comeback ability,
       and game control metrics across all games. One row per team per season type.
       Provides insights into team playing style, clutch performance, and efficiency.
 

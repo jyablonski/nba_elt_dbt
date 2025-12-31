@@ -1,6 +1,6 @@
 {% set three_pt_parameter = 5 %}
 
--- simpsons paradox - steph curry has less 3pt % in these games which makes him look "worse" but he has way more of these games than the other players. 
+-- simpsons paradox - steph curry has less 3pt % in these games which makes him look "worse" but he has way more of these games than the other players.
 with my_cte as (
     select *
     from {{ ref('fact_boxscores') }}
