@@ -43,6 +43,7 @@ WORKDIR /app
 COPY models/ models/
 COPY macros/ macros/
 COPY snapshots/ snapshots/
+COPY tests/ tests/
 COPY profiles/ profiles/
 COPY dbt_project.yml dbt_project.yml
 COPY packages.yml packages.yml
