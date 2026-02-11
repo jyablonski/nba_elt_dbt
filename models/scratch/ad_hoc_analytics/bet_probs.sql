@@ -1,3 +1,5 @@
+{{ config(enabled = false) }}
+
 with my_cte as (
     select
         game_date,
