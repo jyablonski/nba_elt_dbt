@@ -1,3 +1,5 @@
+{{ config(enabled = false) }}
+
 {% set moneyline_parameter_higher = 2000 %}
 {% set moneyline_amount = -130 %}
 
