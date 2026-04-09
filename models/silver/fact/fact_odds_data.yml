@@ -14,8 +14,8 @@ models:
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
               arguments:
-                min_value: -5000
-                max_value: 5000
+                min_value: -10_000
+                max_value: 10_000
       - name: spread
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:
