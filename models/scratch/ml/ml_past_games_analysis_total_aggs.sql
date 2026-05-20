@@ -34,7 +34,7 @@ schedule_wins as (
     select
         dim_teams.team as home_team,
         prep_schedule_analysis.game_date,
-        prep_schedule_analysis.outcome as outcome
+        prep_schedule_analysis.outcome
     from {{ ref('int_schedule_analysis') }} as prep_schedule_analysis
         left join {{ ref('dim_teams') }} as dim_teams
             on prep_schedule_analysis.team = dim_teams.team_acronym
@@ -74,8 +74,7 @@ final_aggs as (
 ),
 
 final_aggs_sum as (
-    select
-        count(*) as tot_games
+    select count(*) as tot_games
     from game_predictions
 ),
 

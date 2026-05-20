@@ -12,35 +12,40 @@
 -- also bet on any team that have +170 odds or better w/ >= 50% predicted win %
 
 with bets as (
-{% for moneyline_amount in moneyline_amounts %}
-    (
-    select
-        game_date,
-        home_team,
-        home_moneyline,
-        home_team_predicted_win_pct,
-        away_team,
-        away_moneyline,
-        away_team_predicted_win_pct,
-        ml_prediction,
-        actual_outcome,
-        ml_money_col,
-        case when ml_money_col > 0 then ml_money_col - 10
-            else ml_money_col end as ml_money_col2,
-        '{{ moneyline_amount }}' as moneyline_parameter_lower
-    from {{ ref('ml_past_games_odds_analysis') }}
-    where (
-        (home_moneyline between '{{ moneyline_amount }}' and '{{ moneyline_parameter_higher }}'
-            and home_team_predicted_win_pct >= 0.55)
-        or (away_moneyline between '{{ moneyline_amount }}' and '{{ moneyline_parameter_higher }}'
-            and away_team_predicted_win_pct >= 0.55)
+    {% for moneyline_amount in moneyline_amounts %}
+        (
+            select
+                game_date,
+                home_team,
+                home_moneyline,
+                home_team_predicted_win_pct,
+                away_team,
+                away_moneyline,
+                away_team_predicted_win_pct,
+                ml_prediction,
+                actual_outcome,
+                ml_money_col,
+                case
+                    when ml_money_col > 0 then ml_money_col - 10
+                    else ml_money_col
+                end as ml_money_col2,
+                '{{ moneyline_amount }}' as moneyline_parameter_lower
+            from {{ ref('ml_past_games_odds_analysis') }}
+            where (
+                (
+                    home_moneyline between '{{ moneyline_amount }}' and '{{ moneyline_parameter_higher }}'
+                    and home_team_predicted_win_pct >= 0.55
+                )
+                or (
+                    away_moneyline between '{{ moneyline_amount }}' and '{{ moneyline_parameter_higher }}'
+                    and away_team_predicted_win_pct >= 0.55
+                )
+            )
         )
-    )
-    {% if not loop.last %}
-    union all
-    {% endif %}
+        {% if not loop.last %}
+            union all
+        {% endif %}
     {% endfor %}
-
 ),
 
 bet_aggs as (
@@ -65,7 +70,7 @@ bet_aggs_lag as (
         lag(profit) over (order by moneyline_parameter_lower::numeric desc) as prev_profit,
         profit - lag(profit) over (order by moneyline_parameter_lower::numeric desc) as profit_change,
         round(profit / lag(profit) over (order by moneyline_parameter_lower::numeric desc), 3)::numeric as profit_pct_change,
-        {{ dbt.current_timestamp() }} as current_date
+        {{ dbt.current_timestamp() }} as run_timestamp
     from bet_aggs
 
 )

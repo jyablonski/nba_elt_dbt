@@ -19,6 +19,7 @@ comments as (
         row_number() over (partition by author, comment order by score desc) as row_num
     from {{ ref('fact_reddit_comment_data') }}
         inner join max_date using (scrape_date)
+    order by score desc
     limit 2000
 )
 

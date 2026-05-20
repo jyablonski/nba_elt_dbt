@@ -1,9 +1,8 @@
 -- remove as of 2022-04-11 because regular season is over and this isnt needed for postseason.
 {{ config(enabled = false) }}
 with my_cte as (
-    select
-        *
-    from {{ ref('int_past_schedule_analysis')}}
+    select *
+    from {{ ref('int_past_schedule_analysis') }}
     where game_status = 'future'
 ),
 
@@ -82,11 +81,11 @@ final as (
         round((coalesce(a.above_500_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_above_500,
         round((coalesce(b.below_500_games_left_count, 0)::numeric / (coalesce(h.home_games_left_count, 0)::numeric + coalesce(r.road_games_left_count, 0)::numeric)), 3)::numeric as pct_games_left_below_500
     from my_cte as m
-    left join team_home_counts as h using (team)
-    left join team_road_counts as r using (team)
-    left join team_above_500_counts as a using (team)
-    left join team_below_500_counts as b using (team)
-    left join team_opp_remaining_win_pct as o using (team)
+        left join team_home_counts as h using (team)
+        left join team_road_counts as r using (team)
+        left join team_above_500_counts as a using (team)
+        left join team_below_500_counts as b using (team)
+        left join team_opp_remaining_win_pct as o using (team)
 
 )
 

@@ -38,7 +38,6 @@ team_logo_away as (
 ),
 
 
-
 aws_schedule_table as (
 
     select

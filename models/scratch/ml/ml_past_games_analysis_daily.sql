@@ -34,30 +34,38 @@ with my_cte as (
 schedule_wins as (
     select
         dim_teams.team as home_team,
-        prep_schedule_analysis.game_date as game_date,
-        prep_schedule_analysis.outcome as outcome
+        prep_schedule_analysis.game_date,
+        prep_schedule_analysis.outcome
     from {{ ref('int_schedule_analysis') }} as prep_schedule_analysis
         left join {{ ref('dim_teams') }} as dim_teams
-            on dim_teams.team_acronym = prep_schedule_analysis.team
+            on prep_schedule_analysis.team = dim_teams.team_acronym
     where prep_schedule_analysis.location = 'H'
 ),
 
 final as (
     select
-        *,
-        case when
-            home_team_predicted_win_pct >= 0.5 then 'Home Win'
-            else 'Road Win' end as ml_prediction,
-        case when outcome = 'W' then 'Home Win' else 'Road Win' end as actual_outcome
+        my_cte.*,
+        case
+            when my_cte.home_team_predicted_win_pct >= 0.5 then 'Home Win'
+            else 'Road Win'
+        end as ml_prediction,
+        case
+            when schedule_wins.outcome = 'W' then 'Home Win'
+            else 'Road Win'
+        end as actual_outcome
     from my_cte
-    left join schedule_wins using (home_team, game_date)
+        left join schedule_wins using (home_team, game_date)
 ),
 
 -- the data points actually broken down
 -- ml is correct when ml_accuracy = 1
 game_predictions as (
-    select distinct *,
-        case when ml_prediction = actual_outcome then 1 else 0 end as ml_accuracy
+    select distinct
+        final.*,
+        case
+            when final.ml_prediction = final.actual_outcome then 1
+            else 0
+        end as ml_accuracy
     from final
 ),
 
@@ -100,19 +108,29 @@ final_aggs_tot as (
         coalesce(final_aggs_correct.tot_correct_predictions, 0) as tot_correct_predictions,
         coalesce(final_aggs_incorrect.tot_incorrect_predictions, 0) as tot_incorrect_predictions,
         final_aggs_sum.tot_games,
-        round((coalesce(final_aggs_correct.tot_correct_predictions, 0)::numeric) / (final_aggs_sum.tot_games::numeric), 3)::numeric as ml_prediction_pct
+        round(
+            (coalesce(final_aggs_correct.tot_correct_predictions, 0)::numeric)
+            / (final_aggs_sum.tot_games::numeric),
+            3
+        )::numeric as ml_prediction_pct
     from final_aggs_sum
-    left join final_aggs_correct using (game_date)
-    left join final_aggs_incorrect using (game_date)
+        left join final_aggs_correct using (game_date)
+        left join final_aggs_incorrect using (game_date)
     order by final_aggs_sum.game_date desc
 ),
 
 rolling_avg as (
     select
-        *,
-        round(avg(ml_prediction_pct) over (order by game_date ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as ml_prediction_pct_ma
+        final_aggs_tot.*,
+        round(
+            avg(final_aggs_tot.ml_prediction_pct) over (
+                order by final_aggs_tot.game_date
+                rows between {{ rolling_avg_parameter }} preceding and current row
+            ),
+            3
+        )::numeric as ml_prediction_pct_ma
     from final_aggs_tot
-    order by game_date desc
+    order by final_aggs_tot.game_date desc
 )
 
 select *

@@ -21,7 +21,7 @@ FROM base AS python-deps
 
 # Cache mount: Persist pip's download cache across builds for faster rebuilds
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install uv==0.9.3
+    pip install uv==0.11.15
 
 # Cache mount: Persist uv's download cache across builds
 # Bind mounts: Temporarily mount files during RUN without copying them into the layer

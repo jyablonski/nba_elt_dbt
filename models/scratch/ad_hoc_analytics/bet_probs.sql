@@ -16,7 +16,7 @@ with my_cte as (
         abs(round(home_implied_probability::numeric - home_team_predicted_win_pct::numeric, 3))
         +
         abs(round(away_implied_probability::numeric - away_team_predicted_win_pct::numeric, 3))
-        as combined_probability_diff
+            as combined_probability_diff
     from {{ ref('ml_past_games_odds_analysis') }}
 )
 

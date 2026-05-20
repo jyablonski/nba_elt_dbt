@@ -3,6 +3,7 @@ name = "nba-elt-dbt"
 version = "3.2.19"
 description = "dbt Transformations for NBA ELT Project"
 authors = [{ name = "jyablonski9", email = "jyablonski9@gmail.com" }]
+# dbt doesn't support python 3.14 as of 2025-05-19, fucking lol
 requires-python = ">=3.13,<3.14"
 readme = "README.md"
 dependencies = [
@@ -13,8 +14,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "sqlfluff==3.1.0",
-    "sqlfluff-templater-dbt==3.1.0",
+    "sqlfluff==4.2.1",
+    "sqlfluff-templater-dbt==4.2.1",
     "sqruff>=0.25.16,<0.26",
 ]
 local = ["ipykernel>=6.30.0", "ruff>=0.12.5"]
@@ -27,16 +28,15 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.sqlfluff.core]
-templater = "dbt"
+templater = "jinja"
 dialect = "postgres"
-exclude_rules = "L016,L021,L026,L027,L029,L032,L034,L054,L057,L067"
+exclude_rules = "AL03,L016,L021,L026,L027,L029,L032,L034,L054,L057,L067"
 large_file_skip_byte_limit = 100000
 ignore_paths = [
     "path_c/",
     "target/",
     "dbt_modules/",
     "dbt_packages/",
-    "macros/",
     "logs/",
     "docker/postgres_bootstrap.sql",
 ]
@@ -45,10 +45,7 @@ ignore_paths = [
 indented_joins = true
 indented_using_on = true
 indented_on_contents = false
-allow_implicit_indents = true
-
-[tool.sqlfluff.templater.dbt]
-project_dir = "./"
+implicit_indents = "allow"
 
 [tool.sqlfluff.rules.capitalisation.keywords]
 capitalisation_policy = "lower"
@@ -64,6 +61,7 @@ capitalisation_policy = "lower"
 
 [tool.sqlfluff.rules.capitalisation.functions]
 capitalisation_policy = "lower"
+extended_capitalisation_policy = "lower"
 
 [tool.sqlfluff.rules.jinja.padding]
 single_space = true

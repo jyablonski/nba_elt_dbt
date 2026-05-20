@@ -1,0 +1,133 @@
+name: SQL Quality Checks
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "models/**"
+      - "macros/**"
+      - "snapshots/**"
+      - "tests/**"
+      - "dbt_project.yml"
+      - "packages.yml"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".pre-commit-config.yaml"
+      - ".github/workflows/quality-sql.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "models/**"
+      - "macros/**"
+      - "snapshots/**"
+      - "tests/**"
+      - "dbt_project.yml"
+      - "packages.yml"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".pre-commit-config.yaml"
+      - ".github/workflows/quality-sql.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_VERSION: "0.11.15"
+  PYTHON_VERSION: "3.13"
+  SQLFLUFF_PATHS: models macros snapshots tests
+  SQLFLUFF_ARGS: >-
+    --config=pyproject.toml
+    --templater=jinja
+    --ignore=templating
+    --disable-progress-bar
+
+jobs:
+  sqlfluff:
+    name: SQLFluff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ env.UV_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install dependencies
+        run: uv sync --locked --all-groups
+
+      - name: Determine SQLFluff lint mode
+        id: lint_mode
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+            head_sha="${{ github.event.pull_request.head.sha }}"
+          else
+            base_sha="${{ github.event.before }}"
+            head_sha="${{ github.sha }}"
+
+            if [[ "$base_sha" =~ ^0+$ ]]; then
+              base_sha="$(git rev-list --max-parents=0 "$head_sha")"
+            fi
+          fi
+
+          config_paths=(
+            pyproject.toml
+            uv.lock
+            .pre-commit-config.yaml
+            .github/workflows/quality-sql.yaml
+            dbt_project.yml
+            packages.yml
+          )
+
+          for path in "${config_paths[@]}"; do
+            if git diff --name-only --diff-filter=ACMRT "$base_sha" "$head_sha" -- "$path" | grep -q .; then
+              echo "mode=full" >> "$GITHUB_OUTPUT"
+              echo "Tooling config changed ($path); running full SQLFluff lint."
+              exit 0
+            fi
+          done
+
+          git diff --name-only --diff-filter=ACMRT "$base_sha" "$head_sha" \
+            -- "models/**/*.sql" "macros/**/*.sql" "snapshots/**/*.sql" "tests/**/*.sql" \
+            > changed-sql-files.txt
+
+          if [[ -s changed-sql-files.txt ]]; then
+            echo "mode=changed" >> "$GITHUB_OUTPUT"
+            echo "Changed SQL files:"
+            cat changed-sql-files.txt
+          else
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+            echo "No SQL or tooling config changes to lint."
+          fi
+
+      - name: SQLFluff lint (full)
+        if: steps.lint_mode.outputs.mode == 'full'
+        run: >
+          uv run sqlfluff lint ${{ env.SQLFLUFF_PATHS }}
+          ${{ env.SQLFLUFF_ARGS }}
+          --format=github-annotation-native
+          --annotation-level=failure
+
+      - name: SQLFluff lint (changed)
+        if: steps.lint_mode.outputs.mode == 'changed'
+        shell: bash
+        run: |
+          mapfile -t sql_files < changed-sql-files.txt
+
+          uv run sqlfluff lint "${sql_files[@]}" \
+            ${{ env.SQLFLUFF_ARGS }} \
+            --format=github-annotation-native \
+            --annotation-level=failure

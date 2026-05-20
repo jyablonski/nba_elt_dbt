@@ -11,7 +11,7 @@ with schedule_wins as (
     select
         a.team as home_team,
         s.game_date,
-        s.outcome as outcome
+        s.outcome
     from {{ ref('int_schedule_analysis') }} as s
         left join {{ ref('dim_teams') }} as a on s.team = a.team_acronym
     where location = 'H'
@@ -127,7 +127,7 @@ final_aggs as (
         count(*) as games_bet,
         {% for bet_amount in bet_amounts %}
             sum(bet_{{ bet_amount }}) as tot_profit_{{ bet_amount }}
-        {% if not loop.last %},{% endif %}
+            {% if not loop.last %},{% endif %}
         {% endfor %}
     from game_outcomes
     group by

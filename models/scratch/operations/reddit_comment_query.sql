@@ -8,7 +8,7 @@
 with my_cte as (
     select *
     from {{ ref('int_reddit_comments') }}
-    where comment LIKE ANY(ARRAY {{ search_keyword }} )
+    where comment like any(array{{ search_keyword }})
 ),
 
 aggs as (
@@ -20,8 +20,7 @@ aggs as (
 ),
 
 final as (
-    select
-        *
+    select *
     from aggs
     order by scrape_date desc
 )

@@ -1,5 +1,5 @@
 default:
-  target: dev
+  target: prod
   outputs:
     dev:
       type: postgres
@@ -10,8 +10,6 @@ default:
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASS') }}"
       threads: 8
-  target: prod
-  outputs:
     prod:
       type: postgres
       host: "{{ env_var('DBT_HOST') }}"
