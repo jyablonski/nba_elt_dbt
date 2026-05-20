@@ -8,7 +8,7 @@ on:
 
 env:
   UV_VERSION: "0.11.15"
-  PYTHON_VERSION: "3.14"
+  PYTHON_VERSION: "3.13"
   IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
   AWS_REGION: "us-east-1"
   DBT_HOST: ${{ secrets.DBT_HOST }}

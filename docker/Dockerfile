@@ -1,10 +1,10 @@
-FROM python:3.14-slim AS base
+FROM python:3.13-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PATH="/.venv/bin:$PATH" \
     UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
-    UV_PYTHON=3.14 \
+    UV_PYTHON=3.13 \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 # uv installs .pyc files in site-packages, and python doesn't recompile them at runtime

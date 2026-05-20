@@ -3,7 +3,8 @@ name = "nba-elt-dbt"
 version = "3.2.19"
 description = "dbt Transformations for NBA ELT Project"
 authors = [{ name = "jyablonski9", email = "jyablonski9@gmail.com" }]
-requires-python = ">=3.14,<3.15"
+# dbt doesn't support python 3.14 as of 2025-05-19, fucking lol
+requires-python = ">=3.13,<3.14"
 readme = "README.md"
 dependencies = [
     "dbt-core>=1.9.1,<2",
