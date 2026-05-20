@@ -25,8 +25,11 @@ jobs:
           enable-cache: true
           cache-dependency-glob: uv.lock
 
+      - name: Install dependencies
+        run: uv sync --frozen --no-dev
+
       - name: Build dbt deps
-        run: uv run dbt deps
+        run: uv run dbt deps --profiles-dir profiles/
 
       - name: Start Postgres
         run: make up
@@ -39,7 +42,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python .github/scripts/dbt_macro_analyzer.py
+        run: uv run python .github/scripts/dbt_macro_analyzer.py
 
       - name: Stop Postgres
         run: make down

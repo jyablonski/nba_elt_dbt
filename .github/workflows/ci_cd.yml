@@ -32,31 +32,8 @@ jobs:
       - name: Checkout the Repo
         uses: actions/checkout@v5
 
-      - name: Configure Aws Credentials
-        uses: aws-actions/configure-aws-credentials@v5
-        with:
-          role-to-assume: ${{ env.IAM_ROLE }}
-          role-session-name: nba-elt-dbt-ci
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Get Manifest File
-        run: |
-          aws s3 cp s3://${{ env.S3_BUCKET }}/ci/manifest.json target/manifest.json
-
-      # NOTE: this builds the entire project and doesnt actually use the manifest json
-      # bc it builds fast as fuck anyways boi
       - name: Build dbt Models
-        run: |
-          make test
-
-      - name: Upload Manifest to S3
-        run: |
-          if [ -e "target/manifest.json" ]; then
-              aws s3 cp target/manifest.json s3://${{ env.S3_BUCKET }}/ci/manifest.json
-          else
-              echo "File does not exist, no dbt Models were changed. Exiting Out"
-              exit 0
-          fi
+        run: make test
 
   dbt_prod_deploy:
     name: dbt Prod Deploy
@@ -115,16 +92,16 @@ jobs:
           aws s3 cp "s3://${{ env.S3_BUCKET }}/prod/manifest.json" prod-artifacts/manifest.json
 
       - name: dbt deps
-        run: dbt deps --profiles-dir profiles/ --target prod
+        run: uv run dbt deps --profiles-dir profiles/ --target prod
 
       - name: dbt parse (manifest-only deploy)
         if: steps.deploy_mode.outputs.skip_slim_ci == 'true'
-        run: dbt parse --profiles-dir profiles/ --target prod
+        run: uv run dbt parse --profiles-dir profiles/ --target prod
 
       - name: dbt build (slim CI)
         if: steps.deploy_mode.outputs.skip_slim_ci != 'true'
         run: |
-          dbt build \
+          uv run dbt build \
             --profiles-dir profiles/ \
             --target prod \
             --select state:modified+ \
@@ -147,26 +124,19 @@ jobs:
               "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/run_results.json"
           fi
 
-      - name: Generate dbt docs
-        run: dbt docs generate --profiles-dir profiles/ --target prod
-
-      - name: Upload dbt target artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dbt-target-${{ github.sha }}
-          path: target/
-          retention-days: 14
-
   publish_docs:
     name: Publish dbt Docs
-    needs: [dbt_prod_deploy]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.dbt_prod_deploy.result == 'success'
+    needs: [ci_pipeline]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && success()
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -174,11 +144,22 @@ jobs:
           role-session-name: nba-elt-dbt-cd-docs
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Download dbt target artifact
-        uses: actions/download-artifact@v4
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
         with:
-          name: dbt-target-${{ github.sha }}
-          path: target/
+          version: ${{ env.UV_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install dependencies
+        run: uv sync --frozen --no-dev
+
+      - name: dbt deps
+        run: uv run dbt deps --profiles-dir profiles/ --target prod
+
+      - name: Generate dbt docs
+        run: uv run dbt docs generate --profiles-dir profiles/ --target prod
 
       - name: Deploy dbt docs to S3
         env:

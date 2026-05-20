@@ -7664,6 +7664,20 @@ VALUES
 	('SAC', 9),
 	('DAL', 10);
 
+CREATE TABLE gold.ingestion_freshness_history (
+	feature_flag_id integer NULL,
+	flag text NULL,
+	bronze_source_table text NULL,
+	write_method text NULL,
+	check_date date NULL,
+	checked_at timestamptz NULL,
+	records_today bigint NULL,
+	latest_activity_at timestamptz NULL,
+	freshness_status text NULL,
+	is_fresh boolean NULL,
+	history_inserted_at timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE silver.ml_game_features_audit (
 	home_team text NULL,
 	away_team text NULL,
