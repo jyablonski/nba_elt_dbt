@@ -7,6 +7,8 @@ on:
       - master
 
 env:
+  UV_VERSION: "0.11.15"
+  PYTHON_VERSION: "3.14"
   IAM_ROLE: ${{ secrets.IAM_ROLE_ECR }}
   AWS_REGION: "us-east-1"
   DBT_HOST: ${{ secrets.DBT_HOST }}
@@ -56,11 +58,147 @@ jobs:
               exit 0
           fi
 
-  cd_pipeline:
-    name: CD Pipeline
+  dbt_prod_deploy:
+    name: dbt Prod Deploy
     needs: [ci_pipeline]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && success()
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: nba-elt-dbt-cd-dbt
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Detect SKIP_SLIM_CI on merged PR
+        id: deploy_mode
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          PR_NUMBER=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/pulls" --jq '.[0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "skip_slim_ci=false" >> "$GITHUB_OUTPUT"
+            echo "No associated PR for this push; running slim CI."
+            exit 0
+          fi
+          if gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name' | grep -qx 'SKIP_SLIM_CI'; then
+            echo "skip_slim_ci=true" >> "$GITHUB_OUTPUT"
+            echo "PR #${PR_NUMBER} has SKIP_SLIM_CI; manifest-only deploy."
+          else
+            echo "skip_slim_ci=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ env.UV_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install dependencies
+        run: uv sync --frozen --no-dev
+
+      - name: Fetch previous prod manifest for state comparison
+        run: |
+          mkdir -p prod-artifacts
+          aws s3 cp "s3://${{ env.S3_BUCKET }}/prod/manifest.json" prod-artifacts/manifest.json
+
+      - name: dbt deps
+        run: dbt deps --profiles-dir profiles/ --target prod
+
+      - name: dbt parse (manifest-only deploy)
+        if: steps.deploy_mode.outputs.skip_slim_ci == 'true'
+        run: dbt parse --profiles-dir profiles/ --target prod
+
+      - name: dbt build (slim CI)
+        if: steps.deploy_mode.outputs.skip_slim_ci != 'true'
+        run: |
+          dbt build \
+            --profiles-dir profiles/ \
+            --target prod \
+            --select state:modified+ \
+            --state prod-artifacts \
+            --fail-fast
+
+      - name: Publish prod manifest to S3
+        run: |
+          if [ ! -f target/manifest.json ]; then
+            echo "target/manifest.json missing; cannot publish prod manifest."
+            exit 1
+          fi
+          aws s3 cp target/manifest.json \
+            "s3://${{ env.S3_BUCKET }}/prod/manifest.json" \
+            --cache-control "no-cache"
+          aws s3 cp target/manifest.json \
+            "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/manifest.json"
+          if [ -f target/run_results.json ]; then
+            aws s3 cp target/run_results.json \
+              "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/run_results.json"
+          fi
+
+      - name: Generate dbt docs
+        run: dbt docs generate --profiles-dir profiles/ --target prod
+
+      - name: Upload dbt target artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-target-${{ github.sha }}
+          path: target/
+          retention-days: 14
+
+  publish_docs:
+    name: Publish dbt Docs
+    needs: [dbt_prod_deploy]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.dbt_prod_deploy.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: nba-elt-dbt-cd-docs
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Download dbt target artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dbt-target-${{ github.sha }}
+          path: target/
+
+      - name: Deploy dbt docs to S3
+        env:
+          aws_bucket: ${{ secrets.DBT_DOCS_BUCKET }}
+        run: |
+          aws s3 cp target/ "s3://${aws_bucket}/" --recursive \
+            --exclude "*" \
+            --include "catalog.json" \
+            --include "run_results.json" \
+            --include "index.html" \
+            --include "manifest.json"
+
+  publish_image:
+    name: Build and Push Docker Image
+    needs: [ci_pipeline]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && success()
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Check out code
@@ -76,17 +214,12 @@ jobs:
           dockerfile: docker/Dockerfile
           context: .
 
-      - name: Generate & Deploy dbt Docs
-        env:
-          aws_bucket: ${{ secrets.DBT_DOCS_BUCKET }}
-        run: |
-          make cd-docs-generate
-          aws s3 cp dbt_output/ s3://$aws_bucket/ --recursive --exclude "*" --include "catalog.json" --include "run_results.json" --include "index.html" --include "manifest.json"
-
   notify:
     name: Deploy Notification
-    needs: [cd_pipeline]
-    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [dbt_prod_deploy, publish_docs, publish_image]
+    if: >-
+      always() && !cancelled()
+      && github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Slack Alert

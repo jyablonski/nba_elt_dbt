@@ -25,10 +25,38 @@ player_rolling_avg as (
     select
         player,
         game_date,
-        round(avg(pts) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_pts,
-        round(avg(game_ts_percent) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 3)::numeric as rolling_avg_ts_percent,
-        round(avg(game_mvp_score) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_mvp_score,
-        round(avg(plus_minus) over (partition by player ROWS BETWEEN '{{rolling_avg_parameter}}' PRECEDING AND CURRENT ROW), 1)::numeric as rolling_avg_plus_minus
+        round(
+            avg(pts) over (
+                partition by player
+                order by game_date
+                rows between {{ rolling_avg_parameter }} preceding and current row
+            ),
+            1
+        )::numeric as rolling_avg_pts,
+        round(
+            avg(game_ts_percent) over (
+                partition by player
+                order by game_date
+                rows between {{ rolling_avg_parameter }} preceding and current row
+            ),
+            3
+        )::numeric as rolling_avg_ts_percent,
+        round(
+            avg(game_mvp_score) over (
+                partition by player
+                order by game_date
+                rows between {{ rolling_avg_parameter }} preceding and current row
+            ),
+            1
+        )::numeric as rolling_avg_mvp_score,
+        round(
+            avg(plus_minus) over (
+                partition by player
+                order by game_date
+                rows between {{ rolling_avg_parameter }} preceding and current row
+            ),
+            1
+        )::numeric as rolling_avg_plus_minus
     from player_boxscores
 ),
 

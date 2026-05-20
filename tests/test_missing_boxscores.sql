@@ -1,5 +1,5 @@
 /* this test looks at all scraped boxscores and compares them to the full schedule table
-if there are any games played before today's date that have no records in the boxscores table,
+if there are any games played before today's Pacific date that have no records in the boxscores table,
 then this test will return an error */
 
 with boxscores_data as (
@@ -21,5 +21,5 @@ with boxscores_data as (
 select *
 from {{ ref('int_schedule_table') }}
 where
-    game_date < current_date
+    game_date < ({{ dbt.current_timestamp() }} at time zone '{{ var("dbt_date:time_zone") }}')::date
     and game_pk not in (select game_pk from boxscores_data)

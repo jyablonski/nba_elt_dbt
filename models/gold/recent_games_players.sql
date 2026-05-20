@@ -16,6 +16,7 @@ with recent_games as (
         end as plus_minus
 
     from {{ ref('int_recent_games_players') }}
+    order by pts desc
     limit 15
 )
 

@@ -6,7 +6,8 @@ on:
       - "macros/**"
 
 env:
-  UV_VERSION: 0.8.2
+  UV_VERSION: "0.11.15"
+  PYTHON_VERSION: "3.14"
 
 jobs:
   macro-impact:
@@ -16,12 +17,13 @@ jobs:
         with:
           fetch-depth: 0 # needed for full git history
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
         with:
           version: ${{ env.UV_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
           enable-cache: true
-          prune-cache: false
+          cache-dependency-glob: uv.lock
 
       - name: Build dbt deps
         run: uv run dbt deps

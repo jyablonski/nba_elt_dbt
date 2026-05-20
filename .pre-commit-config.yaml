@@ -1,16 +1,25 @@
 repos:
   - repo: https://github.com/sqlfluff/sqlfluff
-    rev: 3.5.0
+    rev: 4.2.1
     hooks:
-      # this will automatically fix whatever checks it can
       - id: sqlfluff-fix
         additional_dependencies:
-          - sqlfluff-templater-dbt==3.5.0
-          - dbt-postgres==1.9.1
-        language: python
+          - sqlfluff-templater-dbt==4.2.1
         args:
           - --config=pyproject.toml
-        files: ^models/.*\.sql$
+          - --templater=jinja
+          - --ignore=templating
+          - --disable-progress-bar
+        files: ^(models|macros|snapshots|tests)/.*\.sql$
+      - id: sqlfluff-lint
+        additional_dependencies:
+          - sqlfluff-templater-dbt==4.2.1
+        args:
+          - --config=pyproject.toml
+          - --templater=jinja
+          - --ignore=templating
+          - --disable-progress-bar
+        files: ^(models|macros|snapshots|tests)/.*\.sql$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:

@@ -1,10 +1,10 @@
-FROM python:3.13-slim AS base
+FROM python:3.14-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PATH="/.venv/bin:$PATH" \
     UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
-    UV_PYTHON=3.13 \
+    UV_PYTHON=3.14 \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 # uv installs .pyc files in site-packages, and python doesn't recompile them at runtime
@@ -21,7 +21,7 @@ FROM base AS python-deps
 
 # Cache mount: Persist pip's download cache across builds for faster rebuilds
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install uv==0.9.3
+    pip install uv==0.11.15
 
 # Cache mount: Persist uv's download cache across builds
 # Bind mounts: Temporarily mount files during RUN without copying them into the layer
