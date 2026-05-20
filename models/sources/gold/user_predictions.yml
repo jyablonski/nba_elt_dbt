@@ -7,11 +7,4 @@ sources:
     description: |
       Table used in the REST API Frontend to store Win Predictions selected by Users
     tables:
-      - name: feature_flags
-        description: |
-          Ingestion feature toggles maintained by nba_elt_ingestion.
-          `flag` matches scraper decorator names; `is_enabled` is 0 or 1.
-      - name: ingestion_freshness_history
-        description: |
-          Append-only audit log written by the `ingestion_freshness` post_hook.
       - name: user_predictions

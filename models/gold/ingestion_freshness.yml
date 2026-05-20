@@ -40,10 +40,11 @@ models:
         data_tests:
           - not_null
 
-  - name: ingestion_freshness_history
+  - name: ingestion_freshness_history_view
     description: |
-      Audit log populated by post_hook on `ingestion_freshness`. At most one row per
-      `flag` + `check_date` with `records_today > 0`; stale/null rows may be replaced on retry.
+      View over `gold.ingestion_freshness_history` (bootstrap table + post_hook writes).
+      At most one row per `flag` + `check_date` with `records_today > 0`; stale/null rows
+      may be replaced on retry.
     columns:
       - name: history_inserted_at
         description: Timestamp when this snapshot was appended to history.
