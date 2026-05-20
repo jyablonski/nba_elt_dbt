@@ -3,13 +3,9 @@ docs: up
 	@dbt docs generate
 	@dbt docs serve --host 0.0.0.0
 
-.PHONY: docker-build
-docker-build:
-	@docker-compose -f docker/docker-compose.yml build
-
-.PHONY: docker-build-local
-docker-build-local:
-	docker build -f docker/Dockerfile -t nba_elt_dbt_local .
+.PHONY: build
+build:
+	@docker-compose -f docker/docker-compose-test.yml build
 
 .PHONY: up
 up:

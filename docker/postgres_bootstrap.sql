@@ -7664,6 +7664,20 @@ VALUES
 	('SAC', 9),
 	('DAL', 10);
 
+CREATE TABLE gold.ingestion_freshness_history (
+	feature_flag_id integer NULL,
+	flag text NULL,
+	bronze_source_table text NULL,
+	write_method text NULL,
+	check_date date NULL,
+	checked_at timestamptz NULL,
+	records_today bigint NULL,
+	latest_activity_at timestamptz NULL,
+	freshness_status text NULL,
+	is_fresh boolean NULL,
+	history_inserted_at timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE silver.ml_game_features_audit (
 	home_team text NULL,
 	away_team text NULL,
@@ -8344,3 +8358,32 @@ CREATE TABLE IF NOT EXISTS silver.ml_game_features_v2_audit (
 	outcome text NULL,
 	audit_inserted_at timestamp NULL
 );
+
+DROP TABLE IF EXISTS gold.feature_flags;
+CREATE TABLE IF NOT EXISTS gold.feature_flags
+(
+	id serial primary key,
+	flag text,
+	is_enabled integer,
+	created_at timestamp without time zone default now(),
+	modified_at timestamp without time zone default now(),
+    CONSTRAINT flag_unique UNIQUE (flag)
+);
+INSERT INTO gold.feature_flags(flag, is_enabled)
+VALUES ('season', 1),
+       ('playoffs', 1),
+       ('pbp', 1),
+       ('twitter', 1),
+       ('reddit_posts', 1),
+       ('reddit_comments', 1),
+       ('boxscores', 1),
+       ('injuries', 1),
+       ('transactions', 1),
+       ('stats', 1),
+       ('adv_stats', 1),
+       ('opp_stats', 1),
+       ('odds', 1),
+       ('schedule', 1),
+       ('shooting_stats', 1),
+       ('fake', 0),
+       ('player_adv_stats', 1);

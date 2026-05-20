@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: gold
+    database: jacob_db
+    schema: gold
+    tables:
+      - name: feature_flags
+        description: |
+          Ingestion feature toggles maintained by nba_elt_ingestion.
+          `flag` matches scraper decorator names; `is_enabled` is 0 or 1.
