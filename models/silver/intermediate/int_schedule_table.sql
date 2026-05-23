@@ -20,7 +20,7 @@ home_team_attributes as (
 home_team_rank as (
     select
         team_full as home_team,
-        row_number() over () as home_team_rank
+        season_rank as home_team_rank
     from {{ ref('int_standings_table') }}
 
 ),
@@ -51,7 +51,7 @@ away_team_odds as (
 away_team_rank as (
     select
         team_full as away_team,
-        row_number() over () as away_team_rank
+        season_rank as away_team_rank
     from {{ ref('int_standings_table') }}
 
 ),
