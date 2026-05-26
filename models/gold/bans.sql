@@ -21,6 +21,7 @@ protocols_data as (
 )
 
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     upcoming_games,
     upcoming_game_date,
     location,

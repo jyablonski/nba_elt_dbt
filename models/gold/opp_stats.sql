@@ -16,6 +16,7 @@ with my_cte as (
 )
 
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     team,
     scrape_date,
     fg_percent_opp,

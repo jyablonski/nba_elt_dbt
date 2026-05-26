@@ -5,6 +5,7 @@
 -- the calculations for the great value case whens are inspired from the betting strategy +
 -- moneyline bin analysis views
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     schedule.home_team,
     schedule.away_team,
     avg_team_rank,

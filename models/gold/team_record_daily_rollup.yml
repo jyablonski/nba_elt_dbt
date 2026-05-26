@@ -12,3 +12,5 @@ models:
       - name: running_total_games_played
         data_tests:
           - not_null
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.

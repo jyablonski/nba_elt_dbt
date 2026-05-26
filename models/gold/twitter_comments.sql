@@ -48,5 +48,7 @@ final as (
     from twitter_cte
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from final

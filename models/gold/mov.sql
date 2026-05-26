@@ -20,6 +20,8 @@ record as (
     from {{ ref('int_past_schedule_analysis') }}
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from mov_table
     left join record using (team)

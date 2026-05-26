@@ -54,5 +54,7 @@ prod_adv_stats_table as (
             on team_attributes.team = aws_adv_stats_table.team
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from prod_adv_stats_table

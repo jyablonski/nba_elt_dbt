@@ -1,0 +1,105 @@
+version: 2
+
+models:
+  - name: pipeline_health
+    description: |
+      Daily ops mart with one row per dashboard gold table. Combines mapped
+      bronze source activity, gold row counts, and gold table refresh timestamps.
+    columns:
+      - name: gold_table
+        description: Dashboard gold table being checked.
+        data_tests:
+          - not_null
+          - unique
+      - name: check_date
+        description: Pacific calendar date used for the freshness check.
+        data_tests:
+          - not_null
+      - name: checked_at
+        description: Timestamp when the health model was evaluated.
+        data_tests:
+          - not_null
+      - name: mapped_source_count
+        description: Number of mapped bronze sources for this gold table.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+      - name: fresh_source_count
+        description: Number of mapped bronze sources with activity on check_date.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+      - name: source_records_today
+        description: Total records created or modified today across mapped bronze sources.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+      - name: latest_source_activity_at
+        description: Latest created_at or modified_at timestamp across mapped bronze sources.
+      - name: source_flags
+        description: Comma-delimited ingestion flags mapped to this gold table.
+      - name: bronze_source_tables
+        description: Comma-delimited bronze source tables mapped to this gold table.
+      - name: is_source_fresh
+        description: Whether at least one mapped bronze source had activity on check_date.
+        data_tests:
+          - not_null
+      - name: gold_row_count
+        description: Current row count for the gold table.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+      - name: gold_refreshed_at
+        description: Max __created_at timestamp from the gold table.
+      - name: is_gold_refreshed
+        description: Whether the gold table was refreshed on check_date.
+        data_tests:
+          - not_null
+      - name: is_pipeline_healthy
+        description: Whether source data was fresh and the gold table refreshed on check_date.
+        data_tests:
+          - not_null
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal:
+          arguments:
+            value: 28
+
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          arguments:
+            column_A: mapped_source_count
+            column_B: fresh_source_count
+            or_equal: true
+          name: pipeline_health_fresh_sources_cannot_exceed_mapped_sources
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "checked_at::date = check_date"
+          name: pipeline_health_checked_at_matches_check_date
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "is_source_fresh = (source_records_today > 0)"
+          name: pipeline_health_source_fresh_matches_source_records
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "is_gold_refreshed = (gold_refreshed_at::date = check_date)"
+          name: pipeline_health_gold_refreshed_matches_created_at
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "is_pipeline_healthy = (is_source_fresh and is_gold_refreshed)"
+          name: pipeline_health_requires_source_and_gold_refresh
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "latest_source_activity_at is null or latest_source_activity_at::date <= check_date"
+          name: pipeline_health_source_activity_not_after_check_date

@@ -1,4 +1,5 @@
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     fact_injury_data.player,
     fact_injury_data.team,
     dim_teams.team_acronym,

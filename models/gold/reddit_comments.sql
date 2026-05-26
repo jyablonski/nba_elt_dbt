@@ -24,7 +24,9 @@ comments as (
 )
 
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from comments
 where row_num = 1
 order by score desc

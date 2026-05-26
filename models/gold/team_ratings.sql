@@ -32,6 +32,7 @@ final as (
 )
 
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     team,
     team_acronym,
     wins,

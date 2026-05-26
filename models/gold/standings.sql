@@ -53,7 +53,9 @@ final as (
 )
 
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from final
 
 /* top 20 pt scorers contract avlue analysis team contract value analysis .  add standings (5-11) to mov

@@ -14,5 +14,7 @@ with odds_outcomes as (
     from {{ ref('int_team_odds_outcomes_agg') }}
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from odds_outcomes

@@ -14,5 +14,7 @@ with injury_data as (
 
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from injury_data

@@ -31,3 +31,5 @@ models:
           - dbt_expectations.expect_column_values_to_be_in_set:
               arguments:
                 value_set: [0, 1, 2, 3]
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.

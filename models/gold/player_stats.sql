@@ -25,7 +25,9 @@ with my_cte as (
     order by avg_mvp_score desc
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from my_cte
 
 -- where player = 'Justin Robinson'

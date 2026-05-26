@@ -12,5 +12,7 @@ with my_cte as (
     from {{ ref('int_team_record_daily_rollup') }}
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from my_cte

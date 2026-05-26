@@ -53,5 +53,7 @@ team_pts_scored as (
     where outcome = 'W'
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from team_pts_scored

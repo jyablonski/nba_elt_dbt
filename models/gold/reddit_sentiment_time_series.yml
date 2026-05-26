@@ -16,3 +16,5 @@ models:
       - name: game_outcome
         data_tests:
           - not_null
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.
