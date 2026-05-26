@@ -15,3 +15,6 @@ models:
                 "play",
                 "score",
               ]
+    columns:
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.

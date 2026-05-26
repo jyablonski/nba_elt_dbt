@@ -7,5 +7,5 @@ sources:
     tables:
       - name: ingestion_freshness_history
         description: |
-          Append-only audit table (bootstrap + `ingestion_freshness` post_hook).
+          Legacy append-only audit table from the prior `ingestion_freshness` post_hook.
           Queried via dbt model `ingestion_freshness_history_view`, not materialized over.

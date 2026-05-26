@@ -4,5 +4,7 @@ with sentiment_time_series as (
     where scrape_date >= '2025-10-01'
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from sentiment_time_series

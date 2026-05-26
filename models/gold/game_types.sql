@@ -62,6 +62,7 @@ mov_counts as (
 )
 
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     all_combinations.game_type,
     all_combinations.season_type,
     coalesce(mov_counts.n, 0) as n,

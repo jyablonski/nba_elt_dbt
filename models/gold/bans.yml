@@ -97,6 +97,8 @@ models:
                 min_value: 0
                 inclusive: true
 
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.
     data_tests:
       - dbt_utils.expression_is_true:
           arguments:

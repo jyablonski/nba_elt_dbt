@@ -66,5 +66,7 @@ final2 as (
     order by season_type asc, net_comebacks desc
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from final2

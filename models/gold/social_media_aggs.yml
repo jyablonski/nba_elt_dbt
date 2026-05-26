@@ -34,3 +34,5 @@ models:
               arguments:
                 min_value: -400
                 max_value: 400
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.

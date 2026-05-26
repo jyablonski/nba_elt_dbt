@@ -1,11 +1,8 @@
 version: 2
 
 models:
-  - name: rolling_avg_stats
+  - name: schedule_tonights_games
+    description: Schedule Tonights Games dashboard table.
     columns:
-      - name: player
-        data_tests:
-          - unique
-          - not_null
       - name: __created_at
         description: Timestamp when this gold model was produced by dbt.

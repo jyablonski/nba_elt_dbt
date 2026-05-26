@@ -44,5 +44,7 @@ final as (
     order by game_description asc, time_remaining_final desc
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from final

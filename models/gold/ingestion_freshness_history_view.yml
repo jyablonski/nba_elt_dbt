@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: ingestion_freshness_history_view
+    description: |
+      Legacy view over `gold.ingestion_freshness_history` (bootstrap table plus
+      historical writes from the prior ingestion_freshness model).
+    columns:
+      - name: history_inserted_at
+        description: Timestamp when this snapshot was appended to history.

@@ -51,6 +51,8 @@ models:
                 max_value: 100
                 inclusive: true
 
+      - name: __created_at
+        description: Timestamp when this gold model was produced by dbt.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

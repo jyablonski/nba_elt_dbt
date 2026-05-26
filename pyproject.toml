@@ -39,7 +39,7 @@ ignore_paths = [
     "dbt_packages/",
     "logs/",
     "docker/postgres_bootstrap.sql",
-    "models/gold/ingestion_freshness.sql",
+    "models/gold/pipeline_health.sql",
 ]
 
 [tool.sqlfluff.indentation]

@@ -20,5 +20,7 @@ with recent_games as (
     limit 15
 )
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from recent_games

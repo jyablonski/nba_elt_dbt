@@ -18,6 +18,7 @@ player_rolling_avg_aggs as (
 
 
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     player,
     game_date,
     rolling_avg_pts,

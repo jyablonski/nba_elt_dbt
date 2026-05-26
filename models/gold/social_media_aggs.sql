@@ -34,6 +34,8 @@ final as (
 )
 
 
-select *
+select
+    *,
+    {{ dbt.current_timestamp() }} as __created_at
 from final
     inner join max_date using (date)

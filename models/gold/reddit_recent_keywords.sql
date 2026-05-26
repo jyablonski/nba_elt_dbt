@@ -1,4 +1,5 @@
 select
+    {{ dbt.current_timestamp() }} as __created_at,
     word,
     word_frequency,
     frequency_rank,
