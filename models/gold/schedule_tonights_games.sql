@@ -17,6 +17,9 @@ select
     away_moneyline,
     home_team_predicted_win_pct,
     away_team_predicted_win_pct,
+    series_round,
+    series_status,
+    series_game_number,
     -- booleans used in the dashboard cells to highlight teams w/ good bet value
     {{ is_great_bet_value('home_moneyline', 'home_team_predicted_win_pct') }} as home_is_great_value,
     {{ is_great_bet_value('away_moneyline', 'away_team_predicted_win_pct') }} as away_is_great_value

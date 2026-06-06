@@ -4,5 +4,22 @@ models:
   - name: schedule_tonights_games
     description: Schedule Tonights Games dashboard table.
     columns:
+      - name: series_round
+        description: Playoff round label for tonight's game, null outside the playoffs.
+      - name: series_status
+        description: Playoff series state entering tonight's game, null outside the playoffs.
+      - name: series_game_number
+        description: Game number within the playoff series, null outside the playoffs.
       - name: __created_at
         description: Timestamp when this gold model was produced by dbt.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: >
+              (series_round is null and series_status is null and series_game_number is null)
+              or (
+                series_round in ('First Round', 'Conf. Semifinals', 'Conf. Finals', 'NBA Finals')
+                and series_status is not null
+                and series_game_number between 1 and 7
+              )
+          name: schedule_tonights_games_series_fields_are_consistent

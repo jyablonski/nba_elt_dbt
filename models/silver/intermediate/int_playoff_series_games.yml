@@ -1,0 +1,212 @@
+version: 2
+
+models:
+  - name: int_playoff_series_games
+    description: One row per scheduled or completed playoff game with before-game and after-game series state.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: [series_id, series_game_number]
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: [game_date, team_a, team_b]
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "team_a < team_b"
+          name: int_playoff_series_games_team_order_is_stable
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "winning_team is null or winning_team in (team_a, team_b)"
+          name: int_playoff_series_games_winner_is_in_matchup
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "is_played = (winning_team is not null)"
+          name: int_playoff_series_games_is_played_matches_winner
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "team_a_wins_after_game - team_a_wins_before_game in (0, 1)"
+          name: int_playoff_series_games_team_a_win_delta_is_valid
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "team_b_wins_after_game - team_b_wins_before_game in (0, 1)"
+          name: int_playoff_series_games_team_b_win_delta_is_valid
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "(team_a_wins_after_game + team_b_wins_after_game) = (team_a_wins_before_game + team_b_wins_before_game + case when is_played then 1 else 0 end)"
+          name: int_playoff_series_games_after_wins_advance_by_result
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "(series_game_number != 1) or (team_a_wins_before_game = 0 and team_b_wins_before_game = 0 and series_status_before_game = 'Game 1')"
+          name: int_playoff_series_games_game_1_starts_at_zero_zero
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "(not is_played) or ((team_a_wins_after_game + team_b_wins_after_game) = series_game_number)"
+          name: int_playoff_series_games_played_game_number_matches_after_wins
+    columns:
+      - name: series_id
+        description: Stable playoff series identifier built from season, round, and matchup teams.
+        data_tests:
+          - not_null
+      - name: season
+        description: Playoff year.
+        data_tests:
+          - not_null
+      - name: round_number
+        description: Numeric playoff round, where 1 is first round and 4 is NBA Finals.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 4
+      - name: round_name
+        description: Display name for the playoff round.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set:
+                  [
+                    "First Round",
+                    "Conf. Semifinals",
+                    "Conf. Finals",
+                    "NBA Finals",
+                  ]
+      - name: team_a
+        description: Alphabetically first team abbreviation in the matchup.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: team_b
+        description: Alphabetically second team abbreviation in the matchup.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: home_team_acronym
+        description: Home team abbreviation for this scheduled playoff game.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: away_team_acronym
+        description: Away team abbreviation for this scheduled playoff game.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: game_date
+        description: Game date from schedule or completed boxscores.
+        data_tests:
+          - not_null
+      - name: game_ts
+        description: Scheduled game timestamp, defaulted to midnight for completed games missing from the schedule.
+        data_tests:
+          - not_null
+      - name: winning_team
+        description: Winning team abbreviation when the game has been played.
+      - name: is_played
+        description: True when a winner exists for this playoff game.
+        data_tests:
+          - not_null
+      - name: series_game_number
+        description: Game number within the playoff series.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 7
+      - name: team_a_wins_before_game
+        description: team_a series wins entering this game.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: team_b_wins_before_game
+        description: team_b series wins entering this game.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: team_a_wins_after_game
+        description: team_a series wins after this game.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: team_b_wins_after_game
+        description: team_b series wins after this game.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: series_leader_before_game
+        description: Team abbreviation leading the series entering this game, null when tied.
+      - name: leader_wins_before_game
+        description: Leading win count entering this game, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: trailer_wins_before_game
+        description: Trailing win count entering this game, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: is_series_over_before_game
+        description: True when the series was already over entering this scheduled game.
+        data_tests:
+          - not_null
+      - name: series_leader_after_game
+        description: Team abbreviation leading the series after this game, null when tied.
+      - name: leader_wins_after_game
+        description: Leading win count after this game, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: trailer_wins_after_game
+        description: Trailing win count after this game, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: is_series_over_after_game
+        description: True when the series is over after this game.
+        data_tests:
+          - not_null
+      - name: series_status_before_game
+        description: Series display text entering this game.
+        data_tests:
+          - not_null
+      - name: series_status_after_game
+        description: Series display text after this game, when the game has been played.
+        data_tests:
+          - not_null

@@ -4,5 +4,19 @@ models:
   - name: schedule_season_remaining
     description: Schedule Season Remaining dashboard table.
     columns:
+      - name: series_round
+        description: Playoff round label for the future game, null outside the playoffs.
+      - name: series_game_number
+        description: Game number within the playoff series, null outside the playoffs.
       - name: __created_at
         description: Timestamp when this gold model was produced by dbt.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: >
+              (series_round is null and series_game_number is null)
+              or (
+                series_round in ('First Round', 'Conf. Semifinals', 'Conf. Finals', 'NBA Finals')
+                and series_game_number between 1 and 7
+              )
+          name: schedule_season_remaining_series_fields_are_consistent
