@@ -1,0 +1,144 @@
+version: 2
+
+models:
+  - name: int_playoff_series
+    description: One row per playoff series with current aggregate series state.
+    columns:
+      - name: series_id
+        description: Stable playoff series identifier built from season, round, and matchup teams.
+        data_tests:
+          - unique
+          - not_null
+      - name: season
+        description: Playoff year.
+        data_tests:
+          - not_null
+      - name: round_number
+        description: Numeric playoff round, where 1 is first round and 4 is NBA Finals.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 4
+      - name: round_name
+        description: Display name for the playoff round.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set:
+                  [
+                    "First Round",
+                    "Conf. Semifinals",
+                    "Conf. Finals",
+                    "NBA Finals",
+                  ]
+      - name: team_a
+        description: Alphabetically first team abbreviation in the matchup.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: team_b
+        description: Alphabetically second team abbreviation in the matchup.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_teams')
+                field: team_acronym
+      - name: team_a_wins
+        description: Current series wins for team_a.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: team_b_wins
+        description: Current series wins for team_b.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: games_played
+        description: Number of completed games in the series.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 7
+      - name: scheduled_games_count
+        description: Number of scheduled games available for the series.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 7
+      - name: series_leader
+        description: Team abbreviation for the current series leader, null when tied.
+      - name: leader_wins
+        description: Current wins for the leading team, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: trailer_wins
+        description: Current wins for the trailing team, or either side's wins when tied.
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 4
+      - name: series_status
+        description: Preformatted current display text, such as NYK leads 2-0.
+        data_tests:
+          - not_null
+      - name: is_series_over
+        description: True once a team reaches four wins.
+        data_tests:
+          - not_null
+
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "team_a < team_b"
+          name: int_playoff_series_team_order_is_stable
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "games_played = team_a_wins + team_b_wins"
+          name: int_playoff_series_games_played_matches_wins
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "leader_wins = greatest(team_a_wins, team_b_wins)"
+          name: int_playoff_series_leader_wins_matches_raw_wins
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "trailer_wins = least(team_a_wins, team_b_wins)"
+          name: int_playoff_series_trailer_wins_matches_raw_wins
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "leader_wins >= trailer_wins"
+          name: int_playoff_series_leader_wins_not_below_trailer_wins
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "(series_leader is null and team_a_wins = team_b_wins) or (series_leader in (team_a, team_b) and team_a_wins != team_b_wins)"
+          name: int_playoff_series_leader_matches_win_state
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "is_series_over = (leader_wins >= 4)"
+          name: int_playoff_series_over_flag_matches_wins
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "(games_played > 0) or (series_status = 'Game 1')"
+          name: int_playoff_series_unplayed_series_status_is_game_1

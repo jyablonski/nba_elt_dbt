@@ -29,7 +29,7 @@ team_pts_scored as (
     select
         team,
         opponent,
-        game_date,
+        int_recent_games_teams.game_date,
         outcome,
         pts_scored,
         pts_scored_opp,
@@ -43,6 +43,9 @@ team_pts_scored as (
         team_logo,
         opp_logo,
         home_team,
+        series_games.round_name as series_round,
+        series_games.series_status_after_game as series_status,
+        series_games.series_game_number,
         case
             when team = home_team then 'Vs.'
             else '@'
@@ -50,6 +53,10 @@ team_pts_scored as (
     from {{ ref('int_recent_games_teams') }}
         inner join {{ ref('most_recent_game') }} on int_recent_games_teams.game_date = most_recent_game.max_game_date
         left join leads using (team, opponent)
+        left join {{ ref('int_playoff_series_games') }} as series_games
+            on int_recent_games_teams.game_date = series_games.game_date
+            and least(int_recent_games_teams.team, int_recent_games_teams.opponent) = series_games.team_a
+            and greatest(int_recent_games_teams.team, int_recent_games_teams.opponent) = series_games.team_b
     where outcome = 'W'
 )
 
