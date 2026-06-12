@@ -8,6 +8,10 @@ models:
           arguments:
             value: 2
     columns:
+      - name: location
+        data_tests:
+          - unique
+          - not_null
       - name: win_pct
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:

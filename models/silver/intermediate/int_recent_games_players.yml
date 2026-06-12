@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_recent_games_players
+    description: Recent player-game performance features for downstream player and team reporting.
     columns:
       - name: player
         data_tests:

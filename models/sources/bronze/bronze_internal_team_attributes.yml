@@ -6,6 +6,7 @@ sources:
     description: Landing Zone for NBA Source Data
     tables:
       - name: internal_team_attributes
+        description: Manually maintained team attributes and normalized team metadata.
         columns:
           - name: team
             data_tests:

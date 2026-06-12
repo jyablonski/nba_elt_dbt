@@ -1,0 +1,126 @@
+version: 2
+
+# Exposures documenting how the gold-layer marts are consumed by the
+# nba_elt_dashboard Plotly Dash app (https://nbadashboard.jyablonski.dev).
+# Source repo: https://github.com/jyablonski/nba_elt_dashboard
+# One exposure per dashboard page, mapped from the get_table() call sites.
+#
+# NOTE: the following gold tables are fetched by the dashboard cache but never
+# rendered by any page/route, so they are intentionally NOT exposed here and are
+# candidates for pruning from the dashboard's source_tables:
+#   injury_tracker, opp_stats, rolling_avg_stats, team_record_daily_rollup, twitter_comments
+
+exposures:
+  - name: dashboard_overview
+    label: Dashboard - League Overview
+    type: dashboard
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      League Overview page (src/pages/overview.py) — standings, team ratings,
+      contract value, and top-player views.
+    tags: [dashboard]
+    depends_on:
+      - ref('standings')
+      - ref('team_ratings')
+      - ref('player_stats')
+      - ref('contract_value_analysis')
+      - ref('team_contracts_analysis')
+      - ref('bans')
+      - ref('injuries')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com
+
+  - name: dashboard_recent_games
+    label: Dashboard - Recent Games
+    type: dashboard
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      Recent Games page (src/pages/recent_games.py, plus the `/` server route in
+      src/server.py) — game cards, play-by-play highlights / biggest-run, and
+      player box scores.
+    tags: [dashboard]
+    depends_on:
+      - ref('pbp')
+      - ref('recent_games_teams')
+      - ref('recent_games_players')
+      - ref('schedule_tonights_games')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com
+
+  - name: dashboard_schedule
+    label: Dashboard - Schedule / Win Prediction
+    type: dashboard
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      Schedule / Win Prediction page (src/pages/schedule.py) — tonight's games,
+      remaining schedule strength, odds, and comeback analysis.
+    tags: [dashboard]
+    depends_on:
+      - ref('schedule_tonights_games')
+      - ref('schedule_season_remaining')
+      - ref('past_schedule_analysis')
+      - ref('preseason_odds')
+      - ref('team_odds_outcomes')
+      - ref('team_blown_leads')
+      - ref('game_types')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com
+
+  - name: dashboard_team_analysis
+    label: Dashboard - Team Analysis
+    type: dashboard
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      Team Analysis page (src/pages/team_analysis.py) — per-team margin-of-victory,
+      advanced stats, roster, injuries, and transactions.
+    tags: [dashboard]
+    depends_on:
+      - ref('mov')
+      - ref('team_adv_stats')
+      - ref('player_stats')
+      - ref('injuries')
+      - ref('transactions')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com
+
+  - name: dashboard_social_media_analysis
+    label: Dashboard - Social Media
+    type: dashboard
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      Social Media page (src/pages/social_media_analysis.py) — Reddit comment
+      volume, keywords, sentiment time series, and flair aggregates.
+    tags: [dashboard]
+    depends_on:
+      - ref('reddit_comments')
+      - ref('reddit_recent_keywords')
+      - ref('reddit_sentiment_time_series')
+      - ref('social_media_aggs')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com
+
+  - name: dashboard_app_shell
+    label: Dashboard - App Shell
+    type: application
+    maturity: high
+    url: https://nbadashboard.jyablonski.dev
+    description: |
+      App-wide navigation shell (src/shell.py). `feature_flags` gates which
+      dashboard pages/nav items are shown. Consumed on every page, so it is
+      modeled as a standalone application exposure rather than inlined into each
+      page exposure.
+    depends_on:
+      - source('gold', 'feature_flags')
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com

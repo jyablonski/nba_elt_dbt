@@ -1,0 +1,30 @@
+version: 2
+
+# Exposure documenting the daily win-prediction ML pipeline as a consumer of the
+# silver-layer feature models.
+#
+# Lineage note: the ML service reads these feature models, generates win
+# predictions OUTSIDE of dbt, then writes them back to gold. That write-back is
+# modeled as the `ml.ml_game_predictions` source (see
+# models/sources/gold/ml_game_predictions.yml), which feeds the gold
+# `nba_predictions` view. That downstream half lives inside the dbt DAG, so only
+# the read side (features -> service) needs an exposure.
+
+exposures:
+  - name: ml_win_prediction_pipeline
+    label: ML - Daily Win Prediction Pipeline
+    type: ml
+    maturity: high
+    description: |
+      Daily game outcome (win-probability) model. Runs outside of dbt: pulls the
+      silver feature store, generates per-game win predictions, and writes them
+      back to gold.ml_game_predictions (modeled as the `ml` source, surfaced via
+      the gold `nba_predictions` view). This exposure captures the read side —
+      the silver feature models the pipeline depends on.
+    depends_on:
+      - ref('ml_game_features_v2')
+      - ref('ml_game_features')
+    tags: [ml]
+    owner:
+      name: Jacob Yablonski
+      email: jyablonski9@gmail.com

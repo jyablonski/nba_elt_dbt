@@ -2,6 +2,11 @@ version: 2
 
 models:
   - name: int_odds_analysis
+    description: Intermediate team-game odds table used to compare betting lines with game outcomes.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "game_date"]
     columns:
       - name: g_type
         data_tests:

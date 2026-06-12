@@ -13,6 +13,9 @@ models:
       - name: __created_at
         description: Timestamp when this gold model was produced by dbt.
     data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["game_date", "home_team"]
       - dbt_utils.expression_is_true:
           arguments:
             expression: >

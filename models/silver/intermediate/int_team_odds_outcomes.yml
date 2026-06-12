@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_odds_outcomes
+    description: Team-game odds outcome detail used to evaluate betting results.
     columns:
       - name: id
         data_tests:

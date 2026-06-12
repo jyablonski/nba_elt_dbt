@@ -4,6 +4,7 @@ sources:
   - name: gold
     database: jacob_db
     schema: gold
+    description: Gold-layer application and operations tables maintained outside dbt.
     tables:
       - name: feature_flags
         description: |

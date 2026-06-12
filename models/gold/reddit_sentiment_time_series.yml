@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: reddit_sentiment_time_series
+    description: Daily team Reddit sentiment time series joined to game outcome context.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

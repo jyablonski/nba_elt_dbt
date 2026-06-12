@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_player_shot_type_pct_agg
+    description: Player-level point contribution percentages by two-pointers, three-pointers, and free throws.
+    columns:
+      - name: player
+        data_tests:
+          - not_null

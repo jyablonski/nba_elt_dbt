@@ -8,6 +8,10 @@ models:
           arguments:
             value: 30
     columns:
+      - name: team
+        data_tests:
+          - unique
+          - not_null
       - name: team_pct_salary_earned
         data_tests:
           - dbt_expectations.expect_column_values_to_be_between:

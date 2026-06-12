@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_injury_count_aggs
+    description: Team injury-count aggregates used by downstream availability and prediction features.
     columns:
       - name: team
         data_tests:

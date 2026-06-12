@@ -6,6 +6,7 @@ sources:
     description: Landing Zone for NBA Source Data
     tables:
       - name: internal_team_top_players
+        description: Manually curated list of top players used by team availability and prediction features.
         columns:
           - name: player
             data_tests:

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_games_played
+    description: Team game counts by date and season context for schedule-derived features.
     columns:
       - name: team
         data_tests:

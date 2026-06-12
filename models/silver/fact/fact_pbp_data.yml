@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_pbp_data
+    description: Play-by-play facts for NBA games, including game context and score-state fields.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

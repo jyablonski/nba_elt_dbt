@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_players_twenty_pt_games
+    description: Player-game counts of twenty-point scoring performances by team.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

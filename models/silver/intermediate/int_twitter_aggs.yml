@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_twitter_aggs
+    description: Aggregated Twitter sentiment and engagement metrics.
     columns:
       - name: date
         data_tests:

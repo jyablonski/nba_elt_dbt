@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: most_recent_game
+    description: Single-row helper model containing the most recent boxscore game date.
+    columns:
+      - name: max_game_date
+        data_tests:
+          - unique
+          - not_null
+
+  - name: nba_predictions
+    description: Current-day NBA game predictions written by the ML pipeline and shaped for app consumption.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["game_date", "home_team"]
+    columns:
+      - name: game_date
+        data_tests:
+          - not_null
+      - name: home_team
+        data_tests:
+          - not_null
+
+  - name: user_past_predictions
+    description: User-submitted predictions joined to actual game outcomes and calculated betting profit.
+    columns:
+      - name: id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: user_prediction_profit_by_team
+    description: User prediction accuracy and profit metrics aggregated by selected winning team.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["username", "selected_winner"]
+    columns:
+      - name: username
+        data_tests:
+          - not_null
+      - name: selected_winner
+        data_tests:
+          - not_null

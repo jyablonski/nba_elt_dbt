@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_players_over_twenty_agg
+    description: Team aggregate of players with twenty-point games.
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           arguments:

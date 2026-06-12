@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_reddit_comment_data
+    description: Reddit comment facts with flair normalization and sentiment scores.
     columns:
       - name: comment
         data_tests:

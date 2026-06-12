@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: dim_teams
+    description: Team dimension with normalized team identifiers, display names, conference/division attributes, and arena metadata.
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           arguments:

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: rolling_avg_stats
+    description: Player rolling average statistics for downstream reporting.
     columns:
       - name: player
         data_tests:

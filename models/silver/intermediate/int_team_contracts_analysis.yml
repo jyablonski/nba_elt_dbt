@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_contracts_analysis
+    description: Intermediate team-level contract value and salary rollups.
     columns:
       - name: team
         data_tests:

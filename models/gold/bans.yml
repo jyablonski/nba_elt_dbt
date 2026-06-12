@@ -22,6 +22,7 @@ models:
         description: "Game location"
         data_tests:
           - not_null
+          - unique
           - accepted_values:
               arguments:
                 values: ["Home", "Away"]

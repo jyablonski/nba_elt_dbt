@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_odds_outcomes_agg
+    description: Aggregated team odds outcomes by team and season type.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

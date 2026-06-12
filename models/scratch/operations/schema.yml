@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: daily_ingestion
+    description: Scratch operations report with row counts for key tables on the latest Reddit scrape date.
+    columns:
+      - name: table_name
+        data_tests:
+          - unique
+          - not_null

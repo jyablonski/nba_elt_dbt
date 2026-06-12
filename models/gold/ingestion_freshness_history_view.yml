@@ -5,6 +5,10 @@ models:
     description: |
       Legacy view over `gold.ingestion_freshness_history` (bootstrap table plus
       historical writes from the prior ingestion_freshness model).
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["flag", "check_date"]
     columns:
       - name: history_inserted_at
         description: Timestamp when this snapshot was appended to history.

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_opp_stats_data
+    description: Team opponent shooting and defensive statistics from the latest source snapshot.
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           arguments:

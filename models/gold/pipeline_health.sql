@@ -11,9 +11,15 @@ activity with the gold table's persisted __created_at timestamp.
 */
 
 with check_context as (
+    -- checked_at is the current time in the project timezone (a plain timestamp,
+    -- not a timestamptz) so that checked_at::date always equals check_date
+    -- regardless of the database session timezone.
     select
-        ({{ dbt.current_timestamp() }} at time zone '{{ var("dbt_date:time_zone") }}')::date as check_date,
-        {{ dbt.current_timestamp() }} as checked_at
+        checked_at::date as check_date,
+        checked_at
+    from (
+        select ({{ dbt.current_timestamp() }} at time zone '{{ var("dbt_date:time_zone") }}') as checked_at
+    ) as t
 ),
 
 enabled_flags as (

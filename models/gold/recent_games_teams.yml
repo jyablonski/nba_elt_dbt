@@ -4,6 +4,9 @@ models:
   - name: recent_games_teams
     description: Prod Recent Games for Teams Table
     data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "game_date"]
       - dbt_expectations.expect_table_row_count_to_be_between:
           arguments:
             min_value: 0

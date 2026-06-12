@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: team_game_types_legacy
+    description: Legacy team game-type distribution metrics retained for backwards compatibility.
     columns:
       - name: team
         data_tests:

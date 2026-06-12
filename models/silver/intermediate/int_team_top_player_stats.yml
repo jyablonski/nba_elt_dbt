@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_team_top_player_stats
+    description: Team-level rollup of top player performance indicators.
     columns:
       - name: team
         data_tests:
