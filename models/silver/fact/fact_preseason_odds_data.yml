@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_preseason_odds_data
+    description: Team-level preseason win total and odds expectations.
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           arguments:

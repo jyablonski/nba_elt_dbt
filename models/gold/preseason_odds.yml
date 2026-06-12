@@ -8,5 +8,9 @@ models:
           arguments:
             value: 30
     columns:
+      - name: team
+        data_tests:
+          - unique
+          - not_null
       - name: __created_at
         description: Timestamp when this gold model was produced by dbt.

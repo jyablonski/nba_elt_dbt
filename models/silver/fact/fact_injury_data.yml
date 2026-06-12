@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_injury_data
+    description: Player injury facts from the latest available Basketball Reference injury feed.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

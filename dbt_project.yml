@@ -9,6 +9,59 @@ vars:
   "dbt_date:time_zone": "America/Los_Angeles"
   "prediction_start_date": "2025-10-01"
 
+  # dbt_project_evaluator: align package heuristics with this project's
+  # bronze/silver/gold layout instead of the default staging/marts layout.
+  model_types: ["intermediate", "marts", "ml", "gold", "scratch", "other"]
+  intermediate_folder_name: "intermediate"
+  marts_folder_name: ["dim", "fact"]
+  ml_folder_name: "ml"
+  gold_folder_name: "gold"
+  scratch_folder_name: ["scratch", "ad_hoc_analytics", "operations"]
+  other_folder_name: "other"
+
+  intermediate_prefixes: ["int_"]
+  marts_prefixes: ["dim_", "fact_"]
+  ml_prefixes: ["ml_"]
+  gold_prefixes:
+    [
+      "bans_",
+      "contract_",
+      "future_",
+      "game_",
+      "ingestion_",
+      "injuries_",
+      "injury_",
+      "most_",
+      "mov_",
+      "nba_",
+      "odds_",
+      "opp_",
+      "past_",
+      "pbp_",
+      "pipeline_",
+      "player_",
+      "preseason_",
+      "recent_",
+      "reddit_",
+      "rolling_",
+      "schedule_",
+      "shooting_",
+      "social_",
+      "standings_",
+      "team_",
+      "transactions_",
+      "twitter_",
+      "user_",
+    ]
+  scratch_prefixes: ["bet_", "blown_", "daily_", "three_"]
+  other_prefixes: ["rpt_"]
+  primary_key_test_macros:
+    [
+      ["dbt.test_unique", "dbt.test_not_null"],
+      ["dbt_utils.test_unique_combination_of_columns"],
+      ["dbt_expectations.test_expect_compound_columns_to_be_unique"],
+    ]
+
 # This setting configures which "profile" dbt uses for this project.
 profile: "default"
 
@@ -60,6 +113,20 @@ models:
         - "SCRATCH"
         - "AD_HOC"
 
+  dbt_project_evaluator:
+    +schema: quality
+    marts:
+      dag:
+        fct_model_fanout:
+          +enabled: false
+        fct_staging_dependent_on_marts_or_intermediate:
+          +enabled: false
+
 seeds:
   nba_elt_project:
     +schema: bronze
+
+# dont let project evaluator fuck your shit up
+data_tests:
+  dbt_project_evaluator:
+    +severity: warn

@@ -36,6 +36,11 @@ jobs:
       - name: Build dbt Models
         run: make test
 
+      # Note: this is set in `dbt_project.yml` to just warn; it'll always pass.
+      # incrementally act & improve on the warnings over time
+      - name: Run dbt Project Evaluator
+        run: make run-dbt-project-evaluator
+
   dbt_prod_deploy:
     name: dbt Prod Deploy
     needs: [ci_pipeline]

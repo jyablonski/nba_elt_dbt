@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_top_players_present
+    description: Team-game indicator for whether top players were available.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

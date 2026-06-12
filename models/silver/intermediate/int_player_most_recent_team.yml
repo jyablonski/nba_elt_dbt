@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_player_most_recent_team
+    description: Latest known team assignment for each player, derived from player/team history.
     columns:
       - name: player
         data_tests:

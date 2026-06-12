@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_player_stats_data
+    description: Player season statistics from the latest Basketball Reference player stats snapshot.
     columns:
       - name: player
         data_tests:

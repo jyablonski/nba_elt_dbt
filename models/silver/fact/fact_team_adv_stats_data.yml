@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_team_adv_stats_data
+    description: Team advanced statistics from the latest source snapshot.
     data_tests:
       - dbt_expectations.expect_table_row_count_to_be_between:
           arguments:
@@ -11,6 +12,7 @@ models:
       - name: team
         data_tests:
           - not_null
+          - unique
       - name: nrtg
         # data_tests:
         #   - not_null

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_past_schedule_analysis
+    description: Intermediate schedule-analysis table for completed games and historical team schedule features.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

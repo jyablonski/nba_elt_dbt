@@ -1,6 +1,7 @@
 CREATE SCHEMA bronze;
 CREATE SCHEMA silver;
 CREATE SCHEMA gold;
+CREATE SCHEMA quality;
 SET search_path TO bronze;
 
 CREATE ROLE dbt_role_dev LOGIN;

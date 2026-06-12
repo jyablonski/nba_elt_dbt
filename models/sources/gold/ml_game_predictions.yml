@@ -9,6 +9,7 @@ sources:
       from the silver.ml_tonights_games table and written to the gold layer
     tables:
       - name: ml_game_predictions
+        description: Current NBA game win-probability predictions produced by the ML pipeline.
         columns:
           - name: game_date
             data_tests:

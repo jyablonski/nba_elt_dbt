@@ -1,12 +1,16 @@
-# not collecting data anymore so not necessary
-# version: 2
+version: 2
 
-# models:
-#   - name: twitter_tweets
-#     data_tests:
-#       - dbt_expectations.expect_compound_columns_to_be_unique:
-#           column_list: ["username", "tweet", "scrape_ts"]
-#     columns:
-#       - name: tweet
-#         data_tests:
-#           - not_null
+models:
+  - name: fact_twitter_tweets
+    description: Tweet facts from legacy and current Twitter ingestion feeds, normalized into one incremental table.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["tweet", "scrape_ts"]
+    columns:
+      - name: tweet
+        data_tests:
+          - not_null
+      - name: scrape_ts
+        data_tests:
+          - not_null

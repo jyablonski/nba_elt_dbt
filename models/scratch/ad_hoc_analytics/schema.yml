@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: blown_leads_dynamic
+    description: Scratch blown-leads analysis with an adjustable lead-size threshold.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "season_type"]
+
+  - name: three_pt_shooters
+    description: Scratch analysis of players with frequent high-volume three-point shooting games.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["player", "season_type"]

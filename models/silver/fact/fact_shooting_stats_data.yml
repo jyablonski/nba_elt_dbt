@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_shooting_stats_data
+    description: Player shooting profile facts from the latest source snapshot.
     columns:
       - name: player
         data_tests:

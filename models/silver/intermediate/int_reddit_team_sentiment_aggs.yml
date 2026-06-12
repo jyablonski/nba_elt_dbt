@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: int_reddit_team_sentiment_aggs
+    description: Aggregated Reddit sentiment metrics by team and scrape date.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

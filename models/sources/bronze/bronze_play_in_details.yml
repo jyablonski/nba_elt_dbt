@@ -6,3 +6,4 @@ sources:
     description: Landing Zone for NBA Source Data
     tables:
       - name: play_in_details
+        description: Play-in tournament game details used to classify schedule and postseason context.

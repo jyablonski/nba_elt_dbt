@@ -2,7 +2,11 @@ version: 2
 
 models:
   - name: int_schedule_analysis
+    description: Team schedule features for completed games, including rest and opponent context.
     data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["team", "game_date"]
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
           arguments:
             compare_model: ref("int_team_blown_leads")

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_trade_transactions
+    description: League transaction facts parsed from Basketball Reference transaction data.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

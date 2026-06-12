@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: team_odds_outcomes
+    description: Team-level betting outcome aggregates by season type.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

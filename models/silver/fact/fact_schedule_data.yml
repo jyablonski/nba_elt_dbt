@@ -2,10 +2,12 @@ version: 2
 
 models:
   - name: fact_schedule_data
+    description: Cleaned NBA schedule facts with home and away team attributes.
     columns:
       - name: id
         data_tests:
           - unique
+          - not_null
       - name: away_team
         data_tests:
           - not_null

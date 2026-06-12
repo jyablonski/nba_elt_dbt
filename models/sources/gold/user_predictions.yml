@@ -8,3 +8,4 @@ sources:
       Table used in the REST API Frontend to store Win Predictions selected by Users
     tables:
       - name: user_predictions
+        description: User-submitted game predictions, selected winners, and bet amounts from the app.

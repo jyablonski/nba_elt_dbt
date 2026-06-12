@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: fact_odds_data
+    description: Team-game betting odds facts with moneyline and spread fields normalized for downstream analysis.
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

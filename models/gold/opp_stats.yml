@@ -10,6 +10,10 @@ models:
           config:
             severity: warn
     columns:
+      - name: team
+        data_tests:
+          - unique
+          - not_null
       - name: fg_percent_opp
         # data_tests:
         #     - not_null
