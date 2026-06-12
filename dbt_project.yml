@@ -114,6 +114,10 @@ models:
         - "AD_HOC"
 
   dbt_project_evaluator:
+    # Disabled by default so a normal `dbt build` skips the evaluator.
+    # Enable it explicitly with `--vars '{project_evaluator_enabled: true}'`
+    # (see the `run-dbt-project-evaluator` Makefile target).
+    +enabled: "{{ var('project_evaluator_enabled', false) }}"
     +schema: quality
     marts:
       dag:

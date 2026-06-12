@@ -26,7 +26,7 @@ run_dbt:
 
 .PHONY: run-dbt-project-evaluator
 run-dbt-project-evaluator:
-	@docker compose -f docker/docker-compose-test.yml run --rm dbt_runner dbt build --select package:dbt_project_evaluator --profiles-dir profiles/ --profile dbt_ci
+	@docker compose -f docker/docker-compose-test.yml run --rm dbt_runner dbt build --select package:dbt_project_evaluator --vars '{project_evaluator_enabled: true}' --profiles-dir profiles/ --profile dbt_ci
 
 .PHONY: run-unit-tests
 run-unit-tests:
