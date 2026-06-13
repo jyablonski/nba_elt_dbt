@@ -79,7 +79,7 @@ exposures:
     url: https://nbadashboard.jyablonski.dev
     description: |
       Team Analysis page (src/pages/team_analysis.py) — per-team margin-of-victory,
-      advanced stats, roster, injuries, and transactions.
+      advanced stats, roster pay-vs-value, injuries, and transactions.
     tags: [dashboard]
     depends_on:
       - ref('mov')
@@ -87,6 +87,8 @@ exposures:
       - ref('player_stats')
       - ref('injuries')
       - ref('transactions')
+      - ref('team_payroll_summary')
+      - ref('player_salary_value')
     owner:
       name: Jacob Yablonski
       email: jyablonski9@gmail.com

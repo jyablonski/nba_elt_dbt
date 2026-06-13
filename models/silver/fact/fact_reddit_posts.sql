@@ -1,4 +1,9 @@
-{{ config(materialized='incremental') }}
+{{
+    config(
+        materialized='incremental',
+        unique_key=['reddit_url', 'scrape_date']
+    )
+}}
 
 with posts as (
     select
@@ -21,7 +26,31 @@ with posts as (
         where modified_at > (select coalesce(max(modified_at), '1900-01-01'::timestamp) from {{ this }})
 
     {% endif %}
+),
+
+deduped_posts as (
+    select
+        posts.*,
+        row_number() over (
+            partition by posts.reddit_url, posts.scrape_date
+            order by
+                posts.created_at desc nulls last,
+                posts.modified_at desc nulls last
+        ) as row_num
+    from posts
 )
 
-select *
-from posts
+select
+    title,
+    score,
+    id,
+    url,
+    reddit_url,
+    num_comments,
+    body,
+    scrape_date,
+    scrape_time,
+    created_at,
+    modified_at
+from deduped_posts
+where row_num = 1

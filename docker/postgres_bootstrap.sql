@@ -7703,6 +7703,33 @@ CREATE TABLE silver.ml_game_features_audit (
 	audit_inserted_at timestamp
 );
 
+CREATE TABLE IF NOT EXISTS bronze.league_cap_thresholds (
+	season text NOT NULL,
+	salary_cap int8 NOT NULL,
+	luxury_tax_threshold int8 NOT NULL,
+	first_apron int8 NOT NULL,
+	second_apron int8 NOT NULL,
+	is_current_season boolean NOT NULL DEFAULT false,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	modified_at timestamp DEFAULT CURRENT_TIMESTAMP NULL
+);
+
+INSERT INTO bronze.league_cap_thresholds (
+	season,
+	salary_cap,
+	luxury_tax_threshold,
+	first_apron,
+	second_apron,
+	is_current_season
+) VALUES (
+	'2025-26',
+	154647000,
+	187895000,
+	195945000,
+	207824000,
+	true
+);
+
 CREATE TABLE IF NOT EXISTS bronze.internal_league_arena_locations (
     team VARCHAR PRIMARY KEY,
     arena VARCHAR,

@@ -9,6 +9,10 @@ vars:
   "dbt_date:time_zone": "America/Los_Angeles"
   "prediction_start_date": "2025-10-01"
 
+  # Cap-economics constant for pay-vs-production roster analysis.
+  dollar_per_win_share: 3400000
+  default_player_salary: 1017781
+
   # dbt_project_evaluator: align package heuristics with this project's
   # bronze/silver/gold layout instead of the default staging/marts layout.
   model_types: ["intermediate", "marts", "ml", "gold", "scratch", "other"]

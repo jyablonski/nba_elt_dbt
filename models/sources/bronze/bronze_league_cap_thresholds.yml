@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: jacob_db
+    description: Landing Zone for NBA Source Data
+    tables:
+      - name: league_cap_thresholds
+        description: |
+          NBA salary-cap and apron thresholds by season. Used for team payroll
+          context on roster construction charts.
+        columns:
+          - name: season
+            description: NBA season label (e.g. 2025-26).
+            data_tests:
+              - not_null
+          - name: salary_cap
+            description: League salary cap in USD.
+            data_tests:
+              - not_null
+          - name: luxury_tax_threshold
+            description: Luxury tax apron in USD.
+            data_tests:
+              - not_null
+          - name: first_apron
+            description: First apron threshold in USD.
+            data_tests:
+              - not_null
+          - name: second_apron
+            description: Second apron threshold in USD.
+            data_tests:
+              - not_null
+          - name: is_current_season
+            description: |
+              Exactly one row should be true. Flip this flag in the offseason or
+              preseason to point payroll models at the active cap year.
+            data_tests:
+              - not_null
+          - name: created_at
+            description: Row insert timestamp.
+          - name: modified_at
+            description: Row last-modified timestamp.
+        data_tests:
+          - dbt_expectations.expect_table_row_count_to_equal:
+              name: league_cap_thresholds_one_current_season
+              arguments:
+                value: 1
+              config:
+                where: is_current_season = true

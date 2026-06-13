@@ -6,8 +6,19 @@ sources:
     description: Landing Zone for NBA Source Data
     tables:
       - name: bbref_player_contracts
-        description: Raw contracts table
+        description: |
+          Basketball Reference player contract snapshots. One row per player with
+          current-season salary and contract team acronym.
         columns:
           - name: player
+            description: Player name (Basketball Reference format).
             data_tests:
               - not_null
+          - name: team
+            description: Three-letter team acronym for the player's contract.
+          - name: season_salary
+            description: Guaranteed salary for the current season in USD.
+          - name: created_at
+            description: Row insert timestamp.
+          - name: modified_at
+            description: Row last-modified timestamp.
