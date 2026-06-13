@@ -11,7 +11,7 @@ base_player_stats as (
         int_player_stats.team,
         int_player_stats.games_played,
         int_player_stats.avg_mvp_score,
-        coalesce(dim_players.salary, 1000000) as salary
+        coalesce(dim_players.salary, {{ var('default_player_salary') }}) as salary
     from {{ ref('int_player_stats') }}
         left join {{ ref('dim_players') }}
             on int_player_stats.player = dim_players.player

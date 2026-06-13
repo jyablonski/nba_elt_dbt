@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: int_reddit_most_common_keywords
-    description: "Analysis of most frequently used words from the latest day of NBA Reddit comments, excluding common stop words"
+    description: "Analysis of most frequently used words from the latest scrape of NBA Reddit comments, excluding common stop words"
     columns:
       - name: word
         description: "Individual word extracted from Reddit comments"
@@ -56,6 +56,6 @@ models:
                 values: ["Positive", "Negative", "Neutral"]
 
       - name: analysis_date
-        description: "Date of the analyzed comments"
+        description: "Scrape date of the analyzed comments"
         tests:
           - not_null

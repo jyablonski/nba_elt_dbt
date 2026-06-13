@@ -2,8 +2,12 @@ version: 2
 
 models:
   - name: fact_reddit_comment_data
-    description: Reddit comment facts with flair normalization and sentiment scores.
+    description: Reddit comment facts with flair normalization and sentiment scores. Use scrape_date as the analytics grain; created_at is for incremental loading only.
     columns:
+      - name: scrape_date
+        description: Date of the scrape batch that collected this comment.
+      - name: created_at
+        description: Warehouse insert timestamp used for incremental loads.
       - name: comment
         data_tests:
           - not_null

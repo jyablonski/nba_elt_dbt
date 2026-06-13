@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: int_roster_pay_vs_production
+    description: |
+      Per-player pay vs. production for active rosters. Includes win-share dollar
+      estimates alongside the existing MVP-based player value metrics from
+      int_contract_value_analysis (pvm_* columns) for side-by-side comparison.
+    data_tests:
+      - dbt_expectations.expect_compound_columns_to_be_unique:
+          arguments:
+            column_list: ["player", "team"]
+    columns:
+      - name: player
+        data_tests:
+          - not_null
+      - name: team
+        data_tests:
+          - not_null
+      - name: salary
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: true
+      - name: win_shares
+        data_tests:
+          - not_null
+      - name: market_value
+        data_tests:
+          - not_null
+      - name: surplus
+        data_tests:
+          - not_null
+      - name: value_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [surplus, deficit, even]
+      - name: pvm_avg_mvp_score
+        description: Injury-adjusted MVP score from contract value analysis.
+        data_tests:
+          - not_null
+      - name: pvm_percentile_rank
+        description: Percentile rank within salary bucket (0-100).
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 100
+      - name: pvm_color_var
+        description: Contract value tier (Superstars, Great Value, Normal, Bad Value).
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Superstars, Great Value, Normal, Bad Value]
+      - name: salary_rank_within_team
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                inclusive: true

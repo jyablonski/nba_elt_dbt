@@ -6,6 +6,8 @@ models:
       Aggregated team-level game statistics showing time distribution across game states.
       Contains one row per team per game with metrics on how much time each team spent
       leading, trailing, or tied during the game.
+    config:
+      enabled: false
 
     columns:
       - name: game_date

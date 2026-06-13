@@ -20,3 +20,6 @@ models:
       - name: salary
         data_tests:
           - not_null
+      - name: win_shares
+        data_tests:
+          - not_null

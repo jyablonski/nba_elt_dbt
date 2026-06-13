@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: int_player_salary_value
+    description: |
+      Player salary vs. MVP production for roster value charts. Uses league-wide
+      z-scores on avg_mvp_score and salary to flag relative surplus/deficit.
+    columns:
+      - name: season
+        data_tests:
+          - not_null
+      - name: player_name
+        data_tests:
+          - not_null
+          - unique
+      - name: team
+        data_tests:
+          - not_null
+      - name: salary_usd
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: true
+      - name: avg_mvp_score
+        data_tests:
+          - not_null
+      - name: mvp_z_score
+        data_tests:
+          - not_null
+      - name: salary_z_score
+        data_tests:
+          - not_null
+      - name: value_z_score
+        data_tests:
+          - not_null
+      - name: value_tier
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [surplus, fair, deficit]
+      - name: salary_rank
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                inclusive: true
+      - name: is_overpaid
+        data_tests:
+          - not_null

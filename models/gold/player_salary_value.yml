@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: player_salary_value
+    description: |
+      Dashboard mart for roster pay-vs-production charts. Uses league-wide MVP
+      and salary z-scores to identify relative surplus and deficit contracts.
+    columns:
+      - name: season
+        data_tests:
+          - not_null
+      - name: player_name
+        data_tests:
+          - not_null
+          - unique
+      - name: team
+        data_tests:
+          - not_null
+      - name: salary_usd
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 70000000
+      - name: avg_mvp_score
+        data_tests:
+          - not_null
+      - name: value_z_score
+        data_tests:
+          - not_null
+      - name: value_tier
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [surplus, fair, deficit]
+      - name: pct_of_team_production
+        data_tests:
+          - not_null
+      - name: pct_of_luxury_tax
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: is_overpaid
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: Timestamp when this gold model was produced by dbt.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          name: player_salary_value_value_z_score_calculation
+          arguments:
+            expression: "abs(value_z_score - (mvp_z_score - salary_z_score)) <= 0.001"
+
+      - dbt_utils.expression_is_true:
+          name: player_salary_value_is_overpaid_matches_value_z_score
+          arguments:
+            expression: "is_overpaid = (value_z_score < 0)"
+
+      - dbt_utils.expression_is_true:
+          name: player_salary_value_value_tier_matches_value_z_score
+          arguments:
+            expression: "(value_tier = 'surplus' and value_z_score >= 1) or (value_tier = 'deficit' and value_z_score <= -1) or (value_tier = 'fair' and value_z_score > -1 and value_z_score < 1)"
+
+      - dbt_utils.expression_is_true:
+          name: player_salary_value_luxury_tax_pct_calculation
+          arguments:
+            expression: "abs(pct_of_luxury_tax - round(salary_usd / nullif(luxury_tax_threshold, 0), 4)) <= 0.0001"

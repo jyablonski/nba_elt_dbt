@@ -61,6 +61,8 @@ gold_table_source_map as (
             ('bans', 'reddit_posts'),
             ('contract_value_analysis', 'player_adv_stats'),
             ('contract_value_analysis', 'boxscores'),
+            ('player_salary_value', 'player_adv_stats'),
+            ('player_salary_value', 'boxscores'),
             ('game_types', 'boxscores'),
             ('injuries', 'injuries'),
             ('injury_tracker', 'player_adv_stats'),
@@ -105,8 +107,9 @@ gold_table_source_map as (
             ('team_contracts_analysis', 'odds'),
             ('team_odds_outcomes', 'boxscores'),
             ('team_odds_outcomes', 'odds'),
+            ('team_payroll_summary', 'player_adv_stats'),
+            ('team_payroll_summary', 'boxscores'),
             ('team_ratings', 'adv_stats'),
-            ('team_record_daily_rollup', 'boxscores'),
             ('transactions', 'transactions'),
             ('schedule_tonights_games', 'schedule'),
             ('schedule_tonights_games', 'boxscores'),
@@ -121,6 +124,7 @@ dashboard_gold_tables as (
         values
             ('bans'),
             ('contract_value_analysis'),
+            ('player_salary_value'),
             ('game_types'),
             ('injuries'),
             ('injury_tracker'),
@@ -143,8 +147,8 @@ dashboard_gold_tables as (
             ('team_blown_leads'),
             ('team_contracts_analysis'),
             ('team_odds_outcomes'),
+            ('team_payroll_summary'),
             ('team_ratings'),
-            ('team_record_daily_rollup'),
             ('transactions'),
             ('schedule_tonights_games')
     ) as tables (gold_table)
@@ -217,6 +221,8 @@ gold_table_stats as (
     union all
     select 'contract_value_analysis', count(*), max(__created_at) from {{ ref('contract_value_analysis') }}
     union all
+    select 'player_salary_value', count(*), max(updated_at) from {{ ref('player_salary_value') }}
+    union all
     select 'game_types', count(*), max(__created_at) from {{ ref('game_types') }}
     union all
     select 'injuries', count(*), max(__created_at) from {{ ref('injuries') }}
@@ -261,9 +267,9 @@ gold_table_stats as (
     union all
     select 'team_odds_outcomes', count(*), max(__created_at) from {{ ref('team_odds_outcomes') }}
     union all
-    select 'team_ratings', count(*), max(__created_at) from {{ ref('team_ratings') }}
+    select 'team_payroll_summary', count(*), max(__created_at) from {{ ref('team_payroll_summary') }}
     union all
-    select 'team_record_daily_rollup', count(*), max(__created_at) from {{ ref('team_record_daily_rollup') }}
+    select 'team_ratings', count(*), max(__created_at) from {{ ref('team_ratings') }}
     union all
     select 'transactions', count(*), max(__created_at) from {{ ref('transactions') }}
     union all
