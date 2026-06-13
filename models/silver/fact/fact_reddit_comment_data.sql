@@ -1,4 +1,11 @@
-{{ config(materialized='incremental') }}
+{{
+    config(
+        materialized='incremental',
+        indexes=[
+            {'columns': ['scrape_date']},
+        ],
+    )
+}}
 
 with comments as (
     select
@@ -26,7 +33,6 @@ with comments as (
         end as sentiment_category,
         regexp_replace(flair1, '\d+$', '') as flair_final, --removes trailing digits (Warriors5, Suns2, Bulls1)
         {{ convert_team_names_flairs("regexp_replace(flair1, '\\d+$', '')") }} as team_flair,
-        date(created_at) as created_at_date,
         created_at,
         modified_at
     from {{ source('bronze', 'reddit_comments') }}

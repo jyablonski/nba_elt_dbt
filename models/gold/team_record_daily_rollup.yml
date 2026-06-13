@@ -3,6 +3,8 @@ version: 2
 models:
   - name: team_record_daily_rollup
     description: Daily running team record table for wins, losses, and games played.
+    config:
+      enabled: false
     data_tests:
       - dbt_expectations.expect_compound_columns_to_be_unique:
           arguments:

@@ -6,6 +6,8 @@ models:
       Team-level aggregated statistics analyzing lead behavior, comeback ability,
       and game control metrics across all games. One row per team per season type.
       Provides insights into team playing style, clutch performance, and efficiency.
+    config:
+      enabled: false
     columns:
       - name: team
         description: Team abbreviation (e.g., 'LAL', 'BOS')

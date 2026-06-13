@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
-with latest_day as (
-    select max(created_at_date) as max_date
+with latest_scrape as (
+    select max(scrape_date) as max_scrape_date
     from {{ ref('fact_reddit_comment_data') }}
 ),
 
@@ -11,9 +11,9 @@ latest_comments as (
         compound,
         sentiment_category,
         team_flair,
-        created_at_date
+        scrape_date
     from {{ ref('fact_reddit_comment_data') }}
-    where created_at_date = (select max_date from latest_day)
+    where scrape_date = (select max_scrape_date from latest_scrape)
 ),
 
 -- Split comments into individual words
@@ -22,7 +22,7 @@ word_split as (
         team_flair,
         sentiment_category,
         compound,
-        created_at_date,
+        scrape_date,
         -- Split on whitespace and punctuation, convert to lowercase, and trim whitespace
         lower(trim(regexp_split_to_table(
             regexp_replace(comment, '[^\w\s]', ' ', 'g'),
@@ -39,7 +39,7 @@ filtered_words as (
         team_flair,
         sentiment_category,
         compound,
-        created_at_date
+        scrape_date
     from word_split
     where
         length(trim(word)) >= 3  -- Use trimmed length
@@ -100,7 +100,7 @@ word_stats as (
         ) as top_nba_team_flair,
         avg(compound) as avg_sentiment_when_used,
         mode() within group (order by sentiment_category) as most_common_sentiment,
-        max(created_at_date) as analysis_date
+        max(scrape_date) as analysis_date
     from filtered_words
     group by word
 ),

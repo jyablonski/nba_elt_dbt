@@ -110,7 +110,6 @@ gold_table_source_map as (
             ('team_payroll_summary', 'player_adv_stats'),
             ('team_payroll_summary', 'boxscores'),
             ('team_ratings', 'adv_stats'),
-            ('team_record_daily_rollup', 'boxscores'),
             ('transactions', 'transactions'),
             ('schedule_tonights_games', 'schedule'),
             ('schedule_tonights_games', 'boxscores'),
@@ -150,7 +149,6 @@ dashboard_gold_tables as (
             ('team_odds_outcomes'),
             ('team_payroll_summary'),
             ('team_ratings'),
-            ('team_record_daily_rollup'),
             ('transactions'),
             ('schedule_tonights_games')
     ) as tables (gold_table)
@@ -272,8 +270,6 @@ gold_table_stats as (
     select 'team_payroll_summary', count(*), max(__created_at) from {{ ref('team_payroll_summary') }}
     union all
     select 'team_ratings', count(*), max(__created_at) from {{ ref('team_ratings') }}
-    union all
-    select 'team_record_daily_rollup', count(*), max(__created_at) from {{ ref('team_record_daily_rollup') }}
     union all
     select 'transactions', count(*), max(__created_at) from {{ ref('transactions') }}
     union all

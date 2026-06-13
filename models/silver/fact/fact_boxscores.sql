@@ -1,4 +1,11 @@
-{{ config(materialized='incremental') }}
+{{
+    config(
+        materialized='incremental',
+        indexes=[
+            {'columns': ['team', 'game_date']},
+        ],
+    )
+}}
 
 with boxscores_enriched as (
     select

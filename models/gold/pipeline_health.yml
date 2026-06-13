@@ -70,7 +70,7 @@ models:
     data_tests:
       - dbt_expectations.expect_table_row_count_to_equal:
           arguments:
-            value: 30
+            value: 29
 
       - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
           arguments:

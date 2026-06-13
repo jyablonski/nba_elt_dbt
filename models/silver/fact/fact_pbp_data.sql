@@ -1,4 +1,11 @@
-{{ config(materialized='incremental') }}
+{{
+    config(
+        materialized='incremental',
+        indexes=[
+            {'columns': ['game_date']},
+        ],
+    )
+}}
 
 
 -- fucking annoying bc i cant reference new select column aliases to create new cols in postgres
