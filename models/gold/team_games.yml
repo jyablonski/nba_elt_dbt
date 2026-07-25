@@ -1,0 +1,86 @@
+version: 2
+
+semantic_models:
+  - name: team_games
+    description: Team-game results for MetricFlow.
+    model: ref('recent_games_teams')
+    defaults:
+      agg_time_dimension: game_date
+    entities:
+      - name: team_game
+        type: primary
+        expr: team_game_id
+    dimensions:
+      - name: game_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: team
+        type: categorical
+      - name: opponent
+        type: categorical
+      - name: home_team
+        type: categorical
+      - name: venue
+        type: categorical
+        expr: case when home_team = team then 'home' else 'away' end
+      - name: series_round
+        type: categorical
+        expr: coalesce(series_round, 'Regular Season')
+    measures:
+      - name: games_played
+        agg: sum
+        expr: 1
+      - name: wins
+        agg: sum
+        expr: case when outcome = 'W' then 1 else 0 end
+      - name: points_scored
+        agg: sum
+        expr: pts_scored
+        create_metric: true
+      - name: points_allowed
+        agg: sum
+        expr: pts_scored_opp
+        create_metric: true
+      - name: total_mov
+        agg: sum
+        expr: mov
+        create_metric: true
+
+metrics:
+  - name: games_played
+    label: Games Played
+    type: simple
+    type_params:
+      measure: games_played
+  - name: wins
+    label: Wins
+    type: simple
+    type_params:
+      measure: wins
+  - name: win_pct
+    label: Win Percentage
+    type: ratio
+    type_params:
+      numerator: wins
+      denominator: games_played
+  - name: avg_points_scored
+    label: Average Points Scored
+    type: ratio
+    type_params:
+      numerator: points_scored
+      denominator: games_played
+  - name: avg_margin
+    label: Average Margin
+    type: ratio
+    type_params:
+      numerator: total_mov
+      denominator: games_played
+  - name: net_points
+    label: Net Points
+    type: derived
+    type_params:
+      expr: points_scored - points_allowed
+      metrics:
+        - name: points_scored
+        - name: points_allowed

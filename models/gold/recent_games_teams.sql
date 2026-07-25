@@ -62,5 +62,6 @@ team_pts_scored as (
 
 select
     *,
-    {{ dbt.current_timestamp() }} as __created_at
+    {{ dbt.current_timestamp() }} as __created_at,
+    {{ dbt_utils.generate_surrogate_key(['team', 'opponent', 'game_date']) }} as team_game_id
 from team_pts_scored
