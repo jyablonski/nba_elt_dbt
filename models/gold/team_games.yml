@@ -21,6 +21,9 @@ semantic_models:
         type: categorical
       - name: home_team
         type: categorical
+      - name: venue
+        type: categorical
+        expr: case when home_team = team then 'home' else 'away' end
       - name: series_round
         type: categorical
         expr: coalesce(series_round, 'Regular Season')
