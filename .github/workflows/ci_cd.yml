@@ -114,10 +114,14 @@ jobs:
             --state prod-artifacts \
             --fail-fast
 
-      - name: Publish prod manifest to S3
+      - name: Publish prod manifests to S3
         run: |
           if [ ! -f target/manifest.json ]; then
             echo "target/manifest.json missing; cannot publish prod manifest."
+            exit 1
+          fi
+          if [ ! -f target/semantic_manifest.json ]; then
+            echo "target/semantic_manifest.json missing; cannot publish prod semantic manifest."
             exit 1
           fi
           aws s3 cp target/manifest.json \
@@ -125,6 +129,11 @@ jobs:
             --cache-control "no-cache"
           aws s3 cp target/manifest.json \
             "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/manifest.json"
+          aws s3 cp target/semantic_manifest.json \
+            "s3://${{ env.S3_BUCKET }}/prod/semantic_manifest.json" \
+            --cache-control "no-cache"
+          aws s3 cp target/semantic_manifest.json \
+            "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/semantic_manifest.json"
           if [ -f target/run_results.json ]; then
             aws s3 cp target/run_results.json \
               "s3://${{ env.S3_BUCKET }}/prod/history/${GITHUB_SHA}/run_results.json"
